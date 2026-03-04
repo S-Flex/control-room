@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mic Test</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; padding: 40px; }
+    h1 { margin-bottom: 20px; }
+    .section { background: #16213e; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+    .section h2 { font-size: 16px; color: #0f8d91; margin-bottom: 12px; }
+    .log { font-family: monospace; font-size: 13px; line-height: 1.8; max-height: 300px; overflow-y: auto; }
+    .log div { padding: 2px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .log .ok { color: #34d399; }
+    .log .err { color: #f87171; }
+    .log .warn { color: #fbbf24; }
+    .log .info { color: #94969c; }
+    .meter-wrap { display: flex; align-items: center; gap: 12px; margin-top: 10px; }
+    .meter { flex: 1; height: 20px; background: #0a0a1a; border-radius: 10px; overflow: hidden; }
+    .meter-fill { height: 100%; background: #0f8d91; border-radius: 10px; transition: width 0.05s; width: 0%; }
+    .meter-val { font-family: monospace; font-size: 14px; width: 50px; }
+    .transcript-box { background: #0a0a1a; border-radius: 8px; padding: 12px 16px; font-size: 18px; min-height: 50px; margin-top: 10px; }
+    .transcript-box.interim { color: #94969c; font-style: italic; }
+    .transcript-box.final { color: #34d399; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Microphone & Speech Recognition Test</h1>
+
+  <div class="section">
+    <h2>1. Audio Input (getUserMedia)</h2>
+    <div class="log" id="audioLog"></div>
+    <div class="meter-wrap" id="meterWrap" style="display:none">
+      <span>Level:</span>
+      <div class="meter"><div class="meter-fill" id="meterFill"></div></div>
+      <span class="meter-val" id="meterVal">0</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>2. Speech Recognition (Web Speech API)</h2>
+    <div class="log" id="speechLog"></div>
+    <div class="transcript-box" id="transcript">Waiting...</div>
+  </div>
+
+  <script>
+    function log(el, msg, cls) {
+      const d = document.createElement('div');
+      d.className = cls || '';
+      d.textContent = new Date().toLocaleTimeString() + ' — ' + msg;
+      document.getElementById(el).appendChild(d);
+      d.scrollIntoView();
+    }
+
+    // === 1. Test raw microphone access ===
+    async function testAudio() {
+      log('audioLog', 'Checking navigator.mediaDevices...', 'info');
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        log('audioLog', 'getUserMedia NOT available. Mic access not possible.', 'err');
+        return;
+      }
+      log('audioLog', 'getUserMedia available.', 'ok');
+
+      try {
+        log('audioLog', 'Requesting microphone permission...', 'info');
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        log('audioLog', 'Microphone access GRANTED.', 'ok');
+
+        const tracks = stream.getAudioTracks();
+        tracks.forEach(t => {
+          log('audioLog', `Track: "${t.label}" (${t.kind}, ${t.readyState})`, 'ok');
+        });
+
+        // Set up audio level meter
+        const ctx = new AudioContext();
+        const src = ctx.createMediaStreamSource(stream);
+        const analyser = ctx.createAnalyser();
+        analyser.fftSize = 256;
+        src.connect(analyser);
+
+        const data = new Uint8Array(analyser.frequencyBinCount);
+        const meterFill = document.getElementById('meterFill');
+        const meterVal = document.getElementById('meterVal');
+        document.getElementById('meterWrap').style.display = 'flex';
+
+        let maxSeen = 0;
+        function updateMeter() {
+          analyser.getByteFrequencyData(data);
+          const avg = data.reduce((a, b) => a + b, 0) / data.length;
+          const pct = Math.min(100, (avg / 128) * 100);
+          meterFill.style.width = pct + '%';
+          meterVal.textContent = Math.round(pct);
+          if (pct > maxSeen) maxSeen = pct;
+          meterFill.style.background = pct > 5 ? '#34d399' : '#0f8d91';
+          requestAnimationFrame(updateMeter);
+        }
+        updateMeter();
+
+        setTimeout(() => {
+          if (maxSeen < 2) {
+            log('audioLog', 'No audio detected after 3s. Mic may be muted or wrong device selected.', 'warn');
+          } else {
+            log('audioLog', `Audio detected! Peak level: ${Math.round(maxSeen)}%`, 'ok');
+          }
+        }, 3000);
+
+      } catch (e) {
+        log('audioLog', 'Microphone access DENIED: ' + e.message, 'err');
+        log('audioLog', 'Fix: chrome://settings/content/microphone → allow localhost', 'warn');
+      }
+    }
+
+    // === 2. Test Speech Recognition ===
+    function testSpeech() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        log('speechLog', 'SpeechRecognition API NOT available in this browser.', 'err');
+        log('speechLog', 'Use Chrome or Edge.', 'warn');
+        return;
+      }
+      log('speechLog', 'SpeechRecognition API available.', 'ok');
+
+      const r = new SR();
+      r.continuous = true;
+      r.interimResults = true;
+      r.lang = 'nl-NL';
+      r.maxAlternatives = 3;
+
+      r.onstart = () => {
+        log('speechLog', 'Recognition STARTED. Speak now...', 'ok');
+      };
+
+      r.onaudiostart = () => {
+        log('speechLog', 'Audio capture started.', 'ok');
+      };
+
+      r.onsoundstart = () => {
+        log('speechLog', 'Sound detected!', 'ok');
+      };
+
+      r.onspeechstart = () => {
+        log('speechLog', 'Speech detected!', 'ok');
+      };
+
+      r.onresult = (event) => {
+        const box = document.getElementById('transcript');
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const t = event.results[i][0].transcript;
+          if (event.results[i].isFinal) {
+            log('speechLog', `FINAL: "${t}" (confidence: ${(event.results[i][0].confidence * 100).toFixed(1)}%)`, 'ok');
+            box.textContent = t;
+            box.className = 'transcript-box final';
+
+            // Show all alternatives
+            for (let a = 1; a < event.results[i].length; a++) {
+              log('speechLog', `  alt ${a}: "${event.results[i][a].transcript}"`, 'info');
+            }
+          } else {
+            box.textContent = t + '...';
+            box.className = 'transcript-box interim';
+          }
+        }
+      };
+
+      r.onerror = (e) => {
+        log('speechLog', 'ERROR: ' + e.error + (e.message ? ' — ' + e.message : ''), 'err');
+        if (e.error === 'not-allowed') {
+          log('speechLog', 'Mic permission denied for speech recognition.', 'err');
+          log('speechLog', 'Fix: Allow mic in browser, or launch Chrome with --use-fake-ui-for-media-stream', 'warn');
+        }
+        if (e.error === 'network') {
+          log('speechLog', 'Network error — Speech API needs internet (sends audio to Google).', 'warn');
+        }
+        if (e.error === 'no-speech') {
+          log('speechLog', 'No speech detected — will auto-restart.', 'info');
+        }
+      };
+
+      r.onend = () => {
+        log('speechLog', 'Recognition ended. Restarting in 500ms...', 'info');
+        setTimeout(() => {
+          try { r.start(); } catch(e) { log('speechLog', 'Restart failed: ' + e.message, 'err'); }
+        }, 500);
+      };
+
+      try {
+        r.start();
+        log('speechLog', 'Called recognition.start()...', 'info');
+      } catch(e) {
+        log('speechLog', 'start() threw: ' + e.message, 'err');
+      }
+    }
+
+    testAudio();
+    testSpeech();
+  </script>
+</body>
+</html>

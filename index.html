@@ -87,6 +87,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      position: relative;
     }
 
     .sheet-view img {
@@ -113,7 +114,7 @@
     }
 
     /* WIDE: side panels */
-    @media (min-aspect-ratio: 5/4) {
+    @media (min-aspect-ratio: 7/5) {
       .main-area {
         flex-direction: row;
       }
@@ -281,23 +282,20 @@
     .header-clock { font-size: 16px; font-weight: 600; color: var(--brand); font-variant-numeric: tabular-nums; }
     .header-date { font-size: 9px; color: var(--text-muted); }
 
-    .dashboard-footer {
-      flex-shrink: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2px 4px;
-      min-height: 0;
-      overflow: hidden;
-    }
-    .footer-text { font-size: 9px; color: var(--text-muted); white-space: nowrap; }
 
     /* Narrow: outer (top/bottom of screen). Wide: inner (between widgets) */
     .outer-only { }
     .inner-only { display: none !important; }
-    @media (min-aspect-ratio: 5/4) {
+    @media (min-aspect-ratio: 7/5) {
       .outer-only { display: none !important; }
       .inner-only { display: flex !important; }
+      .dashboard-header.inner-only {
+        padding: 8px 10px;
+      }
+      .dashboard-header.inner-only .header-title { font-size: 18px; }
+      .dashboard-header.inner-only .header-subtitle { font-size: 12px; }
+      .dashboard-header.inner-only .header-clock { font-size: 26px; }
+      .dashboard-header.inner-only .header-date { font-size: 12px; }
     }
 
     /* ===== SHEET COLUMN ===== */
@@ -347,13 +345,271 @@
     .status-value { font-size: 12px; font-weight: 700; color: var(--text-primary); }
     .status-sep { width: 1px; height: 14px; background: var(--border); }
 
+    /* ===== EQUIPMENT FLOATING CARDS ===== */
+    .equip-card {
+      position: absolute;
+      background: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      padding: 10px 14px;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      z-index: 10;
+      width: 280px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px 14px;
+    }
+    .equip-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .equip-card.border-green { border-color: #079455; }
+    .equip-card.border-red { border-color: #d92d20; }
+    .equip-card.border-yellow { border-color: #eab308; }
+    .equip-card.border-purple { border-color: #7c3aed; }
+
+    .equip-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+    .equip-header-left {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .equip-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .equip-card-name {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+    .equip-status-badge {
+      font-size: 9px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .equip-status-badge.st-printing { background: #ecfdf3; color: #079455; }
+    .equip-status-badge.st-cutting { background: #ecfdf3; color: #079455; }
+    .equip-status-badge.st-error { background: #fef3f2; color: #d92d20; }
+    .equip-status-badge.st-idle { background: #fefce8; color: #a16207; }
+    .equip-status-badge.st-initializing { background: #f3e8ff; color: #7c3aed; }
+    .dark .equip-status-badge.st-printing { background: #053321; color: #34d399; }
+    .dark .equip-status-badge.st-cutting { background: #053321; color: #34d399; }
+    .dark .equip-status-badge.st-error { background: #55160c; color: #fca5a5; }
+    .dark .equip-status-badge.st-idle { background: #422006; color: #fbbf24; }
+    .dark .equip-status-badge.st-initializing { background: #2e1065; color: #c4b5fd; }
+
+    .equip-col { display: flex; flex-direction: column; gap: 4px; }
+    .equip-col-label {
+      font-size: 8px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      margin-bottom: 1px;
+    }
+
+    .equip-oee-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .equip-oee-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--bar-bg);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .equip-oee-fill {
+      height: 100%;
+      border-radius: 3px;
+      transition: width 0.5s ease;
+    }
+    .equip-oee-val {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .equip-oee-label {
+      font-size: 8px;
+      color: var(--text-muted);
+      margin-top: -1px;
+    }
+
+    .equip-pie {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .equip-pie-chart {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .equip-pie-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .equip-pie-item {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      font-size: 8px;
+      color: var(--text-tertiary);
+    }
+    .equip-pie-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .equip-stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .equip-stat-label {
+      font-size: 9px;
+      color: var(--text-tertiary);
+    }
+    .equip-stat-val {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .equip-stat-val.val-red { color: #d92d20; }
+    .dark .equip-stat-val.val-red { color: #fca5a5; }
+
+    /* ===== VOICE CONTROL ===== */
+    .voice-badge {
+      position: fixed;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 141, 145, 0.9);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      z-index: 999;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.3s, background 0.3s;
+    }
+    .voice-badge.active { opacity: 1; }
+    .voice-badge.heard { background: rgba(7, 148, 85, 0.9); }
+    .voice-badge.error { background: rgba(217, 45, 32, 0.8); }
+    .voice-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #fff;
+    }
+    .voice-badge.active .voice-pulse {
+      animation: vpulse 1.2s ease-in-out infinite;
+    }
+    @keyframes vpulse { 0%, 100% { opacity: 0.4; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+
+    /* ===== WIDGET ZOOM (voice-activated) ===== */
+    .sheet-view .widget-zoom {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      display: flex;
+      flex-direction: column;
+      padding: 28px 40px;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .sheet-view .widget-zoom.visible { opacity: 1; }
+    .sheet-view .widget-zoom .card-header {
+      margin-bottom: 16px;
+      gap: 12px;
+    }
+    .sheet-view .widget-zoom .card-title { font-size: 28px; line-height: 36px; }
+    .sheet-view .widget-zoom .card-subtitle { font-size: 16px; }
+    .sheet-view .widget-zoom .card-icon { width: 44px; height: 44px; border-radius: 10px; }
+    .sheet-view .widget-zoom .card-icon svg { width: 22px; height: 22px; }
+    .sheet-view .widget-zoom .card-body {
+      flex: 1;
+      min-height: 0;
+      font-size: 18px;
+    }
+    /* Stat rows */
+    .sheet-view .widget-zoom .stat-row { padding: 10px 0; }
+    .sheet-view .widget-zoom .stat-row .stat-label { font-size: 22px; }
+    .sheet-view .widget-zoom .stat-row .stat-value { font-size: 22px; }
+    /* Bar list */
+    .sheet-view .widget-zoom .bar-list { gap: 12px; }
+    .sheet-view .widget-zoom .bar-item { gap: 12px; }
+    .sheet-view .widget-zoom .bar-item .name { font-size: 20px; width: 200px; }
+    .sheet-view .widget-zoom .bar-track { height: 18px; border-radius: 9px; }
+    .sheet-view .widget-zoom .bar-fill { border-radius: 9px; }
+    .sheet-view .widget-zoom .bar-item .count { font-size: 20px; width: 60px; }
+    /* Donut */
+    .sheet-view .widget-zoom .donut-wrap { gap: 24px; }
+    .sheet-view .widget-zoom .donut { width: 200px; height: 200px; }
+    .sheet-view .widget-zoom .donut-legend { gap: 10px; }
+    .sheet-view .widget-zoom .donut-legend-item { font-size: 20px; gap: 10px; }
+    .sheet-view .widget-zoom .donut-legend-dot { width: 12px; height: 12px; }
+    .sheet-view .widget-zoom .donut-legend-pct { min-width: 44px; }
+    /* Vertical bars */
+    .sheet-view .widget-zoom .vbar-chart { gap: 6px; padding: 8px 0; }
+    .sheet-view .widget-zoom .vbar { max-width: 48px; border-radius: 4px 4px 0 0; }
+    .sheet-view .widget-zoom .vbar-label { font-size: 16px; margin-top: 4px; }
+    /* Progress circle */
+    .sheet-view .widget-zoom .progress-circle { max-width: 300px; }
+    .sheet-view .widget-zoom .progress-circle .bg { stroke-width: 10; }
+    .sheet-view .widget-zoom .progress-circle .fg { stroke-width: 10; }
+    .sheet-view .widget-zoom .progress-label .value { font-size: 48px; }
+    .sheet-view .widget-zoom .progress-label .label { font-size: 18px; }
+    /* Gauge */
+    .sheet-view .widget-zoom .gauge { max-width: 400px; }
+    .sheet-view .widget-zoom .gauge .gauge-bg { stroke-width: 14; }
+    .sheet-view .widget-zoom .gauge .gauge-fg { stroke-width: 14; }
+    .sheet-view .widget-zoom .gauge-label .value { font-size: 48px; }
+    .sheet-view .widget-zoom .gauge-label .label { font-size: 18px; }
+    /* Sparkline */
+    .sheet-view .widget-zoom .sparkline-wrap svg { min-height: 100px; }
+    .sheet-view .widget-zoom .sparkline-line { stroke-width: 3; }
+
     /* ===== TICKERS ===== */
     .ticker-bar { display: flex; flex-direction: column; gap: 3px; flex-shrink: 0; }
 
     .ticker {
       border-radius: var(--radius-md); overflow: hidden;
       display: flex; align-items: center; white-space: nowrap;
-      padding: 4px 0; transition: background 0.3s, border-color 0.3s;
+      padding: 6px 0; transition: background 0.3s, border-color 0.3s;
     }
     .ticker-highlight { background: var(--highlight-bg); border: 1px solid #a6f4c5; }
     .ticker-alert { background: var(--alert-bg); border: 1px solid #fecdca; }
@@ -362,7 +618,7 @@
 
     .ticker-track { flex: 1; overflow: hidden; display: flex; align-items: center; }
     .ticker-content { display: flex; gap: 40px; animation: scroll-left 30s linear infinite; padding-left: 20px; }
-    .ticker-content span { font-size: 13px; font-weight: 500; flex-shrink: 0; }
+    .ticker-content span { font-size: 16px; font-weight: 500; flex-shrink: 0; }
     .ticker-highlight .ticker-content span { color: var(--highlight-green); }
     .ticker-alert .ticker-content span { color: var(--alert-red); }
     .ticker-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; align-self: center; }
@@ -375,7 +631,7 @@
     }
   </style>
 </head>
-<body>
+<body class="dark">
   <div class="control-room">
     <div class="dashboard-header outer-only">
       <div>
@@ -485,12 +741,9 @@
             <span class="status-value" id="staffSick">2</span>
           </div>
         </div>
-        <div class="ticker-bar">
-          <div class="ticker ticker-highlight"><div class="ticker-track"><div class="ticker-content" id="highlightTicker"></div></div></div>
-          <div class="ticker ticker-alert"><div class="ticker-track"><div class="ticker-content" id="alertTicker"></div></div></div>
-        </div>
-        <div class="dashboard-footer inner-only">
-          <span class="footer-text">Inflow Nesting v1.0 &mdash; Auto-refresh 30s</span>
+        <div class="ticker-bar inner-only">
+          <div class="ticker ticker-highlight"><div class="ticker-track"><div class="ticker-content tickerHighlight"></div></div></div>
+          <div class="ticker ticker-alert"><div class="ticker-track"><div class="ticker-content tickerAlert"></div></div></div>
         </div>
       </div>
 
@@ -554,13 +807,18 @@
         </div>
       </div>
     </div>
-    <div class="dashboard-footer outer-only">
-      <span class="footer-text">Inflow Nesting v1.0 &mdash; Auto-refresh 30s</span>
+    <div class="ticker-bar outer-only">
+      <div class="ticker ticker-highlight"><div class="ticker-track"><div class="ticker-content tickerHighlight"></div></div></div>
+      <div class="ticker ticker-alert"><div class="ticker-track"><div class="ticker-content tickerAlert"></div></div></div>
     </div>
   </div>
 
   <script>
-    document.addEventListener('dblclick', () => document.body.classList.toggle('dark'));
+    document.addEventListener('dblclick', (e) => {
+      // Don't toggle dark mode on double-click if it's part of a triple-click on the sheet
+      if (e.target.closest('.sheet-view')) return;
+      document.body.classList.toggle('dark');
+    });
 
     function makeGauge(containerId, pct, labelText) {
       const el = document.getElementById(containerId);
@@ -722,12 +980,13 @@
       // Tickers
       const contentMap = {};
       ticker.content.forEach(c => { contentMap[c.code] = c.block.title; });
-      function buildTicker(entries, id) {
+      function buildTicker(entries, cls) {
         const items = entries.map(e => contentMap[e.code] || e.code);
-        document.getElementById(id).innerHTML = [...items,...items].map((m,i) => (i > 0 ? '<span class="ticker-dot"></span>' : '') + `<span>${m}</span>`).join('');
+        const html = [...items,...items].map((m,i) => (i > 0 ? '<span class="ticker-dot"></span>' : '') + `<span>${m}</span>`).join('');
+        document.querySelectorAll('.' + cls).forEach(el => el.innerHTML = html);
       }
-      buildTicker(ticker.highlight, 'highlightTicker');
-      buildTicker(ticker.alert, 'alertTicker');
+      buildTicker(ticker.highlight, 'tickerHighlight');
+      buildTicker(ticker.alert, 'tickerAlert');
     }
 
     loadData();
@@ -742,6 +1001,537 @@
     }
     updateClock();
     setInterval(updateClock, 1000);
+
+    // Equipment floating cards
+    async function initEquipmentCards() {
+      const res = await fetch('data/equipment.json');
+      const data = await res.json();
+      const equipment = data.equipment;
+      const displayDuration = (data.displayDuration || 10) * 1000;
+      const imgW = data.imageWidth || 1531;
+      const imgH = data.imageHeight || 857;
+      const view = document.querySelector('.sheet-view');
+
+      const colorMap = { green: '#079455', red: '#d92d20', purple: '#7c3aed', yellow: '#eab308' };
+      const borderMap = { green: 'border-green', red: 'border-red', purple: 'border-purple', yellow: 'border-yellow' };
+      const statusClass = (s) => 'st-' + (s || 'idle').replace(/\s+/g, '-');
+
+      function oeeColor(v) {
+        if (v >= 75) return '#079455';
+        if (v >= 50) return '#eab308';
+        return '#d92d20';
+      }
+
+      function makePie(producing, stopped, inactive) {
+        const total = producing + stopped + inactive || 1;
+        const p1 = (producing / total) * 360;
+        const p2 = (stopped / total) * 360;
+        return `conic-gradient(#079455 0deg ${p1}deg, #d92d20 ${p1}deg ${p1 + p2}deg, #94969c ${p1 + p2}deg 360deg)`;
+      }
+
+      // Create card elements
+      equipment.forEach(eq => {
+        const card = document.createElement('div');
+        card.className = 'equip-card ' + (borderMap[eq.color] || '');
+        card.dataset.x = eq.x;
+        card.dataset.y = eq.y;
+        const oee = eq.oee || 0;
+        const st = eq.status || eq.type;
+
+        card.innerHTML = `
+          <div class="equip-header">
+            <div class="equip-header-left">
+              <span class="equip-dot" style="background:${colorMap[eq.color] || '#888'}"></span>
+              <span class="equip-card-name">${eq.name}</span>
+            </div>
+            <span class="equip-status-badge ${statusClass(st)}">${st}</span>
+          </div>
+          <div class="equip-col">
+            <div class="equip-col-label">OEE</div>
+            <div class="equip-oee-row">
+              <div style="text-align:center">
+                <div class="equip-oee-val" style="color:${oeeColor(oee)}">${oee}%</div>
+                <div class="equip-oee-label">overall</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:3px">
+                <div class="equip-oee-bar"><div class="equip-oee-fill" style="width:${oee}%;background:${oeeColor(oee)}"></div></div>
+              </div>
+            </div>
+            <div class="equip-pie">
+              <div class="equip-pie-chart" style="background:${makePie(eq.producing||0, eq.stopped||0, eq.inactive||0)}"></div>
+              <div class="equip-pie-legend">
+                <div class="equip-pie-item"><span class="equip-pie-dot" style="background:#079455"></span>${eq.producing||0}% prod</div>
+                <div class="equip-pie-item"><span class="equip-pie-dot" style="background:#d92d20"></span>${eq.stopped||0}% stop</div>
+                <div class="equip-pie-item"><span class="equip-pie-dot" style="background:#94969c"></span>${eq.inactive||0}% idle</div>
+              </div>
+            </div>
+          </div>
+          <div class="equip-col">
+            <div class="equip-col-label">Production</div>
+            <div class="equip-stat-row"><span class="equip-stat-label">Errors</span><span class="equip-stat-val ${(eq.errors||0) > 15 ? 'val-red' : ''}">${eq.errors||0}</span></div>
+            <div class="equip-stat-row"><span class="equip-stat-label">Downtime</span><span class="equip-stat-val">${eq.downtime||'—'}</span></div>
+            <div class="equip-stat-row"><span class="equip-stat-label">Jobs today</span><span class="equip-stat-val">${eq.jobsToday||0}</span></div>
+            <div class="equip-stat-row"><span class="equip-stat-label">Material</span><span class="equip-stat-val">${eq.material||'—'}</span></div>
+          </div>`;
+        view.appendChild(card);
+      });
+
+      const cards = view.querySelectorAll('.equip-card');
+      let current = -1;
+
+      function positionCards() {
+        const img = view.querySelector('img');
+        if (!img) return;
+        const natW = img.naturalWidth;
+        const natH = img.naturalHeight;
+        if (!natW || !natH) return;
+        const elW = img.clientWidth;
+        const elH = img.clientHeight;
+        // object-fit: cover scales image to fill, then crops overflow
+        const scale = Math.max(elW / natW, elH / natH);
+        const renderedW = natW * scale;
+        const renderedH = natH * scale;
+        // image is centered, so compute the offset of the top-left corner
+        const imgOffX = (elW - renderedW) / 2;
+        const imgOffY = (elH - renderedH) / 2;
+        const viewRect = view.getBoundingClientRect();
+        const imgRect = img.getBoundingClientRect();
+        const baseX = imgRect.left - viewRect.left;
+        const baseY = imgRect.top - viewRect.top;
+        cards.forEach(card => {
+          const x = parseFloat(card.dataset.x) / imgW;
+          const y = parseFloat(card.dataset.y) / imgH;
+          card.style.left = (baseX + imgOffX + x * renderedW) + 'px';
+          card.style.top = (baseY + imgOffY + y * renderedH) + 'px';
+        });
+      }
+
+      function showNext() {
+        if (current >= 0) cards[current].classList.remove('visible');
+        current = (current + 1) % cards.length;
+        positionCards();
+        cards[current].classList.add('visible');
+      }
+
+      function showCard(idx) {
+        if (current >= 0) cards[current].classList.remove('visible');
+        current = idx;
+        positionCards();
+        cards[current].classList.add('visible');
+      }
+
+      // Expose for edit mode and voice control
+      window._equipPositionCards = positionCards;
+      window._equipShowNext = showNext;
+      window._equipShowCard = showCard;
+      window._equipNames = equipment.map(eq => eq.name);
+      window._equipVoice = equipment.map(eq => eq.voice || []);
+      window._equipCurrent = current;
+      window._equipDuration = displayDuration;
+      Object.defineProperty(window, '_equipCurrent', { get: () => current, set: v => current = v });
+
+      showNext();
+      window._equipInterval = setInterval(showNext, displayDuration);
+      window.addEventListener('resize', positionCards);
+    }
+
+    // ===== WIDGET ZOOM (voice-activated) =====
+    (function initWidgetZoom() {
+      const allCards = document.querySelectorAll('.panel-left .card, .panel-right .card');
+      const sheetView = document.querySelector('.sheet-view');
+      const sheetImg = sheetView.querySelector('img');
+      const widgetMap = []; // { name, aliases, cardEl }
+
+      allCards.forEach(card => {
+        const titleEl = card.querySelector('.card-title');
+        if (!titleEl) return;
+        const name = titleEl.textContent.trim();
+        const lower = name.toLowerCase();
+        // Build voice aliases
+        const aliases = [lower];
+        // Add individual words as aliases too
+        lower.split(/\s+/).forEach(w => { if (w.length >= 3) aliases.push(w); });
+        widgetMap.push({ name, aliases, cardEl: card });
+      });
+
+      // Expose for voice control
+      window._widgetNames = widgetMap.map(w => w.name);
+      window._widgetAliases = widgetMap.map(w => w.aliases);
+      window._widgetCards = widgetMap.map(w => w.cardEl);
+
+      let activeZoom = null;
+
+      window._showWidgetZoom = function(idx) {
+        // Remove any existing zoom
+        window._hideWidgetZoom();
+        const card = widgetMap[idx].cardEl;
+        // Clone the card content
+        const clone = card.cloneNode(true);
+        clone.className = 'widget-zoom';
+        sheetView.appendChild(clone);
+        // Hide sheet image and equip cards
+        sheetImg.style.opacity = '0';
+        sheetView.querySelectorAll('.equip-card').forEach(c => c.style.display = 'none');
+        // Stop equipment cycling
+        if (window._equipInterval) { clearInterval(window._equipInterval); window._equipInterval = null; }
+        requestAnimationFrame(() => clone.classList.add('visible'));
+        activeZoom = clone;
+      };
+
+      window._hideWidgetZoom = function() {
+        if (!activeZoom) return;
+        activeZoom.remove();
+        activeZoom = null;
+        sheetImg.style.opacity = '1';
+        sheetView.querySelectorAll('.equip-card').forEach(c => c.style.display = '');
+      };
+
+      window._isWidgetZoomed = function() { return !!activeZoom; };
+    })();
+
+    initEquipmentCards().then(() => {
+    // Edit mode: press E to toggle, arrow keys to cycle, click to reposition
+    (function() {
+      const view = document.querySelector('.sheet-view');
+      const img = view.querySelector('img');
+      const cards = view.querySelectorAll('.equip-card');
+      let editMode = false;
+      let editIndex = 0;
+      let badge = null;
+
+      function updateBadge() {
+        if (!badge) return;
+        const card = cards[editIndex];
+        const name = card.querySelector('.equip-card-name').textContent.trim();
+        const x = card.dataset.x, y = card.dataset.y;
+        badge.textContent = `EDIT MODE — [${editIndex + 1}/${cards.length}] ${name}  (x: ${x}, y: ${y})  |  ←→ navigate  |  click to move  |  E to exit`;
+      }
+
+      function showEditCard() {
+        cards.forEach(c => c.classList.remove('visible'));
+        cards[editIndex].classList.add('visible');
+        // reposition current card
+        window._equipPositionCards();
+        updateBadge();
+      }
+
+      function enterEditMode() {
+        editMode = true;
+        if (window._equipInterval) { clearInterval(window._equipInterval); window._equipInterval = null; }
+        img.style.cursor = 'crosshair';
+        view.style.userSelect = 'none';
+        badge = document.createElement('div');
+        badge.style.cssText = 'position:fixed;top:10px;left:50%;transform:translateX(-50%);background:#e57c23;color:#fff;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;z-index:999;pointer-events:none;white-space:nowrap;';
+        document.body.appendChild(badge);
+        editIndex = 0;
+        showEditCard();
+      }
+
+      function exitEditMode() {
+        editMode = false;
+        img.style.cursor = '';
+        view.style.userSelect = '';
+        if (badge) { badge.remove(); badge = null; }
+        // Restart normal cycling
+        cards.forEach(c => c.classList.remove('visible'));
+        window._equipCurrent = -1;
+        window._equipShowNext();
+        window._equipInterval = setInterval(window._equipShowNext, window._equipDuration);
+      }
+
+      function getImageCoords(e) {
+        const natW = img.naturalWidth, natH = img.naturalHeight;
+        if (!natW || !natH) return null;
+        const elW = img.clientWidth, elH = img.clientHeight;
+        const scale = Math.max(elW / natW, elH / natH);
+        const renderedW = natW * scale, renderedH = natH * scale;
+        const imgRect = img.getBoundingClientRect();
+        const imgOffX = (elW - renderedW) / 2;
+        const imgOffY = (elH - renderedH) / 2;
+        const clickX = e.clientX - imgRect.left - imgOffX;
+        const clickY = e.clientY - imgRect.top - imgOffY;
+        const px = Math.round((clickX / renderedW) * natW);
+        const py = Math.round((clickY / renderedH) * natH);
+        return { x: px, y: py };
+      }
+
+      // Click on image to reposition current card
+      view.addEventListener('click', (e) => {
+        if (!editMode) return;
+        const coords = getImageCoords(e);
+        if (!coords) return;
+        const card = cards[editIndex];
+        card.dataset.x = coords.x;
+        card.dataset.y = coords.y;
+        window._equipPositionCards();
+        updateBadge();
+        saveEquipment(editIndex, coords.x, coords.y);
+      });
+
+      // Press E to toggle edit mode, arrow keys to navigate
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'e' || e.key === 'E') {
+          if (!editMode) enterEditMode(); else exitEditMode();
+          e.preventDefault();
+          return;
+        }
+        if (!editMode) return;
+        if (e.key === 'ArrowRight') {
+          editIndex = (editIndex + 1) % cards.length;
+          showEditCard();
+          e.preventDefault();
+        } else if (e.key === 'ArrowLeft') {
+          editIndex = (editIndex - 1 + cards.length) % cards.length;
+          showEditCard();
+          e.preventDefault();
+        }
+      });
+
+      async function saveEquipment(index, newX, newY) {
+        const res = await fetch('data/equipment.json');
+        const data = await res.json();
+        data.equipment[index].x = newX;
+        data.equipment[index].y = newY;
+        // Try saving via dev server — if not possible, copy to clipboard
+        try {
+          const saveRes = await fetch('data/equipment.json', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data, null, 2) });
+          if (!saveRes.ok) throw new Error('PUT not supported');
+          console.log(`Saved ${data.equipment[index].name} → x: ${newX}, y: ${newY}`);
+        } catch {
+          const json = JSON.stringify(data, null, 2);
+          navigator.clipboard.writeText(json).catch(() => {});
+          console.log(`PUT not supported — full equipment.json copied to clipboard. ${data.equipment[index].name} → x: ${newX}, y: ${newY}`);
+        }
+      }
+    })();
+    });
+
+    // ===== VOICE CONTROL =====
+    (function initVoice() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) { console.log('Speech recognition not supported'); return; }
+
+      const badge = document.createElement('div');
+      badge.className = 'voice-badge';
+      badge.innerHTML = '<div class="voice-pulse"></div><span class="voice-text">Starting mic...</span>';
+      document.body.appendChild(badge);
+      const badgeText = badge.querySelector('.voice-text');
+
+      let isListening = false;
+      let restartTimer = null;
+      let recognition = null;
+
+      function normalize(s) {
+        return s.toLowerCase()
+          .replace(/[üú]/g, 'u').replace(/[ä]/g, 'a').replace(/[ö]/g, 'o')
+          .replace(/[-–—.,]/g, ' ')
+          .replace(/[^a-z0-9\s]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+      }
+
+      // Levenshtein distance for fuzzy matching
+      function levenshtein(a, b) {
+        const m = a.length, n = b.length;
+        const d = Array.from({length: m + 1}, (_, i) => [i]);
+        for (let j = 1; j <= n; j++) d[0][j] = j;
+        for (let i = 1; i <= m; i++)
+          for (let j = 1; j <= n; j++)
+            d[i][j] = Math.min(d[i-1][j] + 1, d[i][j-1] + 1, d[i-1][j-1] + (a[i-1] !== b[j-1] ? 1 : 0));
+        return d[m][n];
+      }
+
+      function matchAliases(sp, names, aliasArrays) {
+        let bestIdx = -1, bestScore = 0;
+        for (let i = 0; i < names.length; i++) {
+          const aliases = (aliasArrays && aliasArrays[i]) || [];
+          for (const alias of aliases) {
+            const na = normalize(alias);
+            if (sp.includes(na) || na.includes(sp)) {
+              const score = 10 + na.length;
+              if (score > bestScore) { bestScore = score; bestIdx = i; }
+            }
+            const dist = levenshtein(sp, na);
+            const maxDist = Math.max(1, Math.floor(na.length * 0.35));
+            if (dist <= maxDist) {
+              const score = 8 + (na.length - dist);
+              if (score > bestScore) { bestScore = score; bestIdx = i; }
+            }
+          }
+          const nm = normalize(names[i]);
+          const words = nm.split(' ');
+          let matched = 0;
+          words.forEach(w => { if (w.length >= 2 && sp.includes(w)) matched++; });
+          const score = (matched / words.length) * 5;
+          if (score > bestScore && matched >= 1) { bestScore = score; bestIdx = i; }
+        }
+        return { idx: bestIdx, score: bestScore };
+      }
+
+      function bestMatch(spoken) {
+        const sp = normalize(spoken);
+        if (sp.length < 2) return { type: null, idx: -1 };
+
+        // Match equipment
+        const equip = matchAliases(sp, window._equipNames || [], window._equipVoice || []);
+        // Match widgets
+        const widget = matchAliases(sp, window._widgetNames || [], window._widgetAliases || []);
+
+        if (equip.score >= widget.score && equip.idx >= 0) {
+          console.log('Voice match:', sp, '→ equip:', window._equipNames[equip.idx], '(score:', equip.score.toFixed(1) + ')');
+          return { type: 'equip', idx: equip.idx };
+        }
+        if (widget.idx >= 0) {
+          console.log('Voice match:', sp, '→ widget:', window._widgetNames[widget.idx], '(score:', widget.score.toFixed(1) + ')');
+          return { type: 'widget', idx: widget.idx };
+        }
+        console.log('Voice match:', sp, '→ no match');
+        return { type: null, idx: -1 };
+      }
+
+      function flashBadge(cls, text, duration) {
+        badge.className = 'voice-badge active ' + cls;
+        badgeText.textContent = text;
+        if (duration) {
+          setTimeout(() => {
+            if (isListening) { badge.className = 'voice-badge active'; badgeText.textContent = 'Listening...'; }
+          }, duration);
+        }
+      }
+
+      function createAndStart() {
+        recognition = new SpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+        recognition.maxAlternatives = 3;
+
+        recognition.onstart = () => {
+          isListening = true;
+          badge.className = 'voice-badge active';
+          badgeText.textContent = 'Listening...';
+          console.log('Voice: recognition STARTED');
+        };
+
+        recognition.onaudiostart = () => { console.log('Voice: audio capture started'); };
+        recognition.onsoundstart = () => { console.log('Voice: sound detected'); };
+        recognition.onspeechstart = () => {
+          console.log('Voice: speech detected');
+          badgeText.textContent = 'Hearing speech...';
+        };
+        recognition.onspeechend = () => { console.log('Voice: speech ended'); };
+        recognition.onnomatch = () => { console.log('Voice: no match'); };
+
+        recognition.onresult = (event) => {
+          for (let i = event.resultIndex; i < event.results.length; i++) {
+            if (!event.results[i].isFinal) {
+              badgeText.textContent = event.results[i][0].transcript + '...';
+              continue;
+            }
+            const result = event.results[i];
+            const transcript = result[0].transcript.trim();
+            console.log('Voice heard:', transcript, '(confidence:', result[0].confidence.toFixed(2) + ')');
+
+            const lower = transcript.toLowerCase();
+
+            // "back" command — restore widget to original place, resume sheet view
+            if (lower.includes('back') || lower.includes('terug')) {
+              if (window._isWidgetZoomed && window._isWidgetZoomed()) {
+                flashBadge('heard', 'Back', 1500);
+                window._hideWidgetZoom();
+                // Resume equipment cycling
+                if (!window._equipInterval) {
+                  window._equipShowNext();
+                  window._equipInterval = setInterval(window._equipShowNext, window._equipDuration);
+                }
+                return;
+              }
+            }
+
+            // "loop" / "lus" / "door" command — resume cycling
+            if (lower.includes('loop') || lower.includes('lus') || lower.includes('door') || lower.includes('resume') || lower.includes('continue')) {
+              flashBadge('heard', 'Looping...', 1500);
+              if (window._isWidgetZoomed && window._isWidgetZoomed()) window._hideWidgetZoom();
+              if (!window._equipInterval) {
+                window._equipShowNext();
+                window._equipInterval = setInterval(window._equipShowNext, window._equipDuration);
+              }
+              return;
+            }
+
+            // Try matching across all alternatives (equipment + widgets)
+            let match = { type: null, idx: -1 };
+            for (let a = 0; a < result.length; a++) {
+              match = bestMatch(result[a].transcript.trim());
+              if (match.idx >= 0) break;
+            }
+
+            if (match.type === 'equip') {
+              flashBadge('heard', window._equipNames[match.idx], 2500);
+              if (window._isWidgetZoomed && window._isWidgetZoomed()) window._hideWidgetZoom();
+              if (window._equipInterval) { clearInterval(window._equipInterval); window._equipInterval = null; }
+              window._equipShowCard(match.idx);
+            } else if (match.type === 'widget') {
+              flashBadge('heard', window._widgetNames[match.idx], 2500);
+              window._showWidgetZoom(match.idx);
+            } else {
+              flashBadge('', '"' + transcript + '" ?', 2000);
+            }
+          }
+        };
+
+        recognition.onend = () => {
+          // Always restart — recognition stops after pauses
+          clearTimeout(restartTimer);
+          restartTimer = setTimeout(() => {
+            try { createAndStart(); } catch(e) { console.log('Voice restart failed:', e); }
+          }, 500);
+        };
+
+        recognition.onerror = (e) => {
+          console.log('Voice error:', e.error);
+          if (e.error === 'no-speech') {
+            badgeText.textContent = 'No speech...';
+            return;
+          }
+          if (e.error === 'aborted') {
+            badgeText.textContent = 'Aborted — restarting...';
+            return;
+          }
+          if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+            flashBadge('error', 'Mic blocked — check permissions');
+            isListening = false;
+          } else if (e.error === 'network') {
+            flashBadge('error', 'Network error (needs internet)');
+          } else {
+            flashBadge('error', 'Error: ' + e.error);
+          }
+        };
+
+        try {
+          recognition.start();
+        } catch(e) {
+          console.log('Could not start voice:', e);
+          flashBadge('error', 'Mic unavailable');
+        }
+      }
+
+      // Auto-start voice recognition with retry
+      let startAttempts = 0;
+      function tryStart() {
+        startAttempts++;
+        badgeText.textContent = 'Starting mic... (' + startAttempts + ')';
+        badge.classList.add('active');
+        try {
+          createAndStart();
+        } catch(e) {
+          badgeText.textContent = 'Mic error: ' + e.message;
+          badge.className = 'voice-badge active error';
+          if (startAttempts < 5) setTimeout(tryStart, 2000);
+        }
+      }
+      tryStart();
+    })();
   </script>
 </body>
 </html>
