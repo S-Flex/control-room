@@ -1,0 +1,3883 @@
+{
+  "content": [
+    {
+      "code": "cloth-flag-banner-and-floor",
+      "title": "Cloth, flag, banner and floor"
+    },
+    {
+      "code": "wallpaper-wall-coverings-and-textiles",
+      "title": "Wallpaper, wall coverings and textiles"
+    },
+    {
+      "code": "sheet",
+      "title": "Sheet"
+    },
+    {
+      "code": "foil-and-stickers",
+      "title": "Foil and stickers"
+    },
+    {
+      "code": "paper",
+      "title": "Paper"
+    },
+    {
+      "code": "backlit-cloth",
+      "title": "Backlit Cloth"
+    },
+    {
+      "code": "stitched-fr",
+      "title": "Stitched FR"
+    },
+    {
+      "code": "dibond-budget-3mm",
+      "title": "Dibond Budget 3mm"
+    },
+    {
+      "code": "forex-3mm-ss",
+      "title": "Forex 3mm - SS"
+    },
+    {
+      "code": "banner-510",
+      "title": "Banner 510"
+    },
+    {
+      "code": "dekostof",
+      "title": "Dekostof"
+    },
+    {
+      "code": "airtex-pvc",
+      "title": "Airtex PVC"
+    },
+    {
+      "code": "mesh-cloth",
+      "title": "Mesh Cloth"
+    },
+    {
+      "code": "orajet-3651-ra-white-gloss",
+      "title": "Orajet - 3651 RA - White - Gloss"
+    },
+    {
+      "code": "forex-5mm-ss",
+      "title": "Forex 5mm - SS"
+    },
+    {
+      "code": "polypropylene-3-5mm-ss",
+      "title": "Polypropylene 3.5mm - SS"
+    },
+    {
+      "code": "label-white-pp-film-perm-thick-paper-backing",
+      "title": "Label: White PP Film - Perm - Thick Paper Backing"
+    },
+    {
+      "code": "label-white-pp-film-permanent-thin-backing",
+      "title": "Label: White PP Film - Permanent - Thin Backing"
+    },
+    {
+      "code": "longlife",
+      "title": "Longlife"
+    },
+    {
+      "code": "orajet-3162-white-gloss",
+      "title": "Orajet - 3162 - White - Gloss"
+    },
+    {
+      "code": "quapro-permanent",
+      "title": "QuaPro Permanent"
+    },
+    {
+      "code": "quapro-promotional",
+      "title": "QuaPro Promotional"
+    },
+    {
+      "code": "samba-backlit",
+      "title": "Samba Backlit"
+    },
+    {
+      "code": "hv-satin-mc-135",
+      "title": "HV Satin MC 135"
+    },
+    {
+      "code": "hv-satin-mc-170",
+      "title": "HV Satin MC 170"
+    },
+    {
+      "code": "hv-satin-mc-250",
+      "title": "HV Satin MC 250"
+    },
+    {
+      "code": "hv-satin-mc-300",
+      "title": "HV Satin MC 300"
+    },
+    {
+      "code": "hv-satin-mc-400",
+      "title": "HV Satin MC 400"
+    },
+    {
+      "code": "hv-semi-matte-mc-135",
+      "title": "HV Semi-Matte MC 135"
+    },
+    {
+      "code": "hv-semi-matte-mc-170",
+      "title": "HV Semi-Matte MC 170"
+    },
+    {
+      "code": "hv-semi-matte-mc-250",
+      "title": "HV Semi-Matte MC 250"
+    },
+    {
+      "code": "hv-semi-matte-mc-300",
+      "title": "HV Semi-Matte MC 300"
+    },
+    {
+      "code": "hv-semi-matte-mc-400",
+      "title": "HV Semi-Matte MC 400"
+    },
+    {
+      "code": "hvo-white-170",
+      "title": "HVO White 170"
+    },
+    {
+      "code": "hvo-white-90",
+      "title": "HVO White 90"
+    },
+    {
+      "code": "natural-cardboard-350",
+      "title": "Natural Cardboard 350"
+    },
+    {
+      "code": "natuurkarton-300",
+      "title": "Natuurkarton 300"
+    },
+    {
+      "code": "poster-paper-150",
+      "title": "Poster Paper 150"
+    },
+    {
+      "code": "sulphate-board-260",
+      "title": "Sulphate Board 260"
+    },
+    {
+      "code": "sulphate-board-300",
+      "title": "Sulphate Board 300"
+    },
+    {
+      "code": "synaps-om-300",
+      "title": "Synaps OM 300"
+    },
+    {
+      "code": "acrylic-clear-5mm",
+      "title": "Acrylic Clear 5mm"
+    },
+    {
+      "code": "dibond-dilite-3mm",
+      "title": "Dibond Dilite 3mm"
+    },
+    {
+      "code": "blackback",
+      "title": "Blackback"
+    },
+    {
+      "code": "blackback-soft",
+      "title": "Blackback Soft"
+    },
+    {
+      "code": "forex-3mm-ds",
+      "title": "Forex 3mm - DS"
+    },
+    {
+      "code": "foil-dot-white-out",
+      "title": "Foil Dot - White Out"
+    },
+    {
+      "code": "ij40-10c-white-gloss",
+      "title": "IJ40-10c - White - Gloss"
+    },
+    {
+      "code": "banner-610-ds",
+      "title": "Banner 610 - DS"
+    },
+    {
+      "code": "banner-610-ss",
+      "title": "Banner 610 - SS"
+    },
+    {
+      "code": "dibond-butler-finish-3mm",
+      "title": "Dibond Butler Finish 3mm"
+    },
+    {
+      "code": "forex-10mm-ss",
+      "title": "Forex 10mm - SS"
+    },
+    {
+      "code": "forex-1mm",
+      "title": "Forex 1mm"
+    },
+    {
+      "code": "magnet-foil-0-85mm",
+      "title": "Magnet Foil 0.85mm"
+    },
+    {
+      "code": "blueback-paper",
+      "title": "Blueback Paper"
+    },
+    {
+      "code": "canvas",
+      "title": "Canvas"
+    },
+    {
+      "code": "dibond-digital-3mm-ss",
+      "title": "Dibond Digital 3mm - SS"
+    },
+    {
+      "code": "display-cardboard-2mm-ss",
+      "title": "Display Cardboard 2mm - SS"
+    },
+    {
+      "code": "re-board-10mm-ss",
+      "title": "Re-board 10mm - SS"
+    },
+    {
+      "code": "re-board-16mm-ss",
+      "title": "Re-board 16mm - SS"
+    },
+    {
+      "code": "flag-direct",
+      "title": "Flag Direct"
+    },
+    {
+      "code": "ij20-10r-white",
+      "title": "IJ20 - 10R - White"
+    },
+    {
+      "code": "erfurt-variovlies",
+      "title": "Erfurt Variovlies"
+    },
+    {
+      "code": "propes",
+      "title": "Propes"
+    },
+    {
+      "code": "roughmark",
+      "title": "Roughmark"
+    },
+    {
+      "code": "magnet-foil-0-5mm",
+      "title": "Magnet Foil 0.5mm"
+    },
+    {
+      "code": "poster-paper-250",
+      "title": "Poster Paper 250"
+    },
+    {
+      "code": "provlies-matte",
+      "title": "Provlies Matte"
+    },
+    {
+      "code": "basic-wall",
+      "title": "Basic Wall"
+    },
+    {
+      "code": "blueback-wallcovering",
+      "title": "Blueback Wallcovering"
+    },
+    {
+      "code": "avery-mpi-1104-white",
+      "title": "Avery MPI 1104 - White"
+    },
+    {
+      "code": "avery-mpi-1105-white",
+      "title": "Avery MPI 1105 - White"
+    },
+    {
+      "code": "budget-banner",
+      "title": "Budget Banner"
+    },
+    {
+      "code": "decotex",
+      "title": "Decotex"
+    },
+    {
+      "code": "acrylic-clear-3mm",
+      "title": "Acrylic Clear 3mm"
+    },
+    {
+      "code": "akylite-single-sided",
+      "title": "Akylite - Single Sided"
+    },
+    {
+      "code": "dibond-budget-4mm",
+      "title": "Dibond Budget 4mm"
+    },
+    {
+      "code": "dibond-budget-6mm",
+      "title": "Dibond Budget 6mm"
+    },
+    {
+      "code": "dibond-digital-3mm-ds",
+      "title": "Dibond Digital 3mm - DS"
+    },
+    {
+      "code": "floor-vinyl",
+      "title": "Floor Vinyl"
+    },
+    {
+      "code": "foil-ij280-white",
+      "title": "Foil IJ280-White"
+    },
+    {
+      "code": "dibond-dilite-3mm-ds",
+      "title": "Dibond Dilite 3mm - DS"
+    },
+    {
+      "code": "dibond-xl-3mm",
+      "title": "Dibond XL 3mm"
+    },
+    {
+      "code": "display-cardboard-2mm-ds",
+      "title": "Display Cardboard 2mm - DS"
+    },
+    {
+      "code": "forex-10mm-ds",
+      "title": "Forex 10mm - DS"
+    },
+    {
+      "code": "forex-5mm-ds",
+      "title": "Forex 5mm - DS"
+    },
+    {
+      "code": "polypropylene-3-5mm-ds",
+      "title": "Polypropylene 3.5mm - DS"
+    },
+    {
+      "code": "polypropylene-8mm-ss",
+      "title": "Polypropylene 8mm - SS"
+    },
+    {
+      "code": "polystyrene-1mm-ss",
+      "title": "Polystyrene 1mm - SS"
+    },
+    {
+      "code": "polystyrene-2mm-ss",
+      "title": "Polystyrene 2mm - SS"
+    },
+    {
+      "code": "poplar-plywood-9mm",
+      "title": "Poplar Plywood 9mm"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing",
+      "title": "Label: Gloss Paper - Permanent - Thin Backing"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing",
+      "title": "Label: Matte Paper - Permanent - Thin Backing"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing",
+      "title": "Label: White PP Film - Promo - Thick Backing"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing",
+      "title": "Label: White PP Film - Promo - Thin Backing"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing",
+      "title": "Label: White PP Film-Strong Adhesive-Thick Backing"
+    },
+    {
+      "code": "one-way-vision",
+      "title": "One Way Vision"
+    },
+    {
+      "code": "one-way-vision-permanent",
+      "title": "One way vision - Permanent"
+    },
+    {
+      "code": "re-board-10mm-ds",
+      "title": "Re-board 10mm - DS"
+    },
+    {
+      "code": "re-board-16mm-ds",
+      "title": "Re-board 16mm - DS"
+    },
+    {
+      "code": "vikunyl",
+      "title": "Vikunyl"
+    },
+    {
+      "code": "quapro-permanent-pvc-free",
+      "title": "Quapro Permanent PVC free"
+    },
+    {
+      "code": "flag-ciclo",
+      "title": "Flag CiClo"
+    },
+    {
+      "code": "lumitex",
+      "title": "Lumitex"
+    },
+    {
+      "code": "synaps-polyester-paper",
+      "title": "Synaps Polyester Paper"
+    },
+    {
+      "code": "walltex-pro",
+      "title": "Walltex Pro"
+    },
+    {
+      "code": "kely",
+      "title": "Kely"
+    },
+    {
+      "code": "black-and-white-banner",
+      "title": "Black and White Banner"
+    },
+    {
+      "code": "clearview",
+      "title": "Clearview"
+    },
+    {
+      "code": "diamond-backlit-sg",
+      "title": "Diamond Backlit SG"
+    },
+    {
+      "code": "foil-ij20-114r-gloss",
+      "title": "Foil IJ20-114R - Gloss"
+    },
+    {
+      "code": "multitexpro",
+      "title": "MultiTexPro"
+    },
+    {
+      "code": "foil-ij40-114-gloss",
+      "title": "Foil IJ40 - 114 - Gloss"
+    },
+    {
+      "code": "foil-orajet-3651-transparent-gloss",
+      "title": "Foil Orajet 3651 - Transparent - Gloss"
+    },
+    {
+      "code": "foil-static-adhesive-transp",
+      "title": "Foil Static Adhesive Transp."
+    },
+    {
+      "code": "foil-static-adhesive-white",
+      "title": "Foil Static Adhesive White"
+    },
+    {
+      "code": "gekkotex",
+      "title": "Gekkotex"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing",
+      "title": "Label: Silver PP Film - Permanent - Thin Backing"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing",
+      "title": "Label: Transparent PP Film - Perm - Thick Backing"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing",
+      "title": "Label: Transparent PP Film - Perm - Thin Backing"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing",
+      "title": "Label: White PP Film -Strong Adhesive-Thin Backing"
+    },
+    {
+      "code": "lintec",
+      "title": "Lintec"
+    },
+    {
+      "code": "lochfilet",
+      "title": "Lochfilet"
+    },
+    {
+      "code": "pro-cotton-percale",
+      "title": "Pro Cotton Percale"
+    },
+    {
+      "code": "motomark-235",
+      "title": "Motomark 235"
+    },
+    {
+      "code": "outdoor-floor-foil-aluminum",
+      "title": "Outdoor Floor Foil - Aluminum"
+    },
+    {
+      "code": "provinyl-fine",
+      "title": "Provinyl Fine"
+    },
+    {
+      "code": "provinyl-textile",
+      "title": "Provinyl Textile"
+    },
+    {
+      "code": "acrylic-clear-10mm",
+      "title": "Acrylic Clear 10mm"
+    },
+    {
+      "code": "acrylic-opal-3mm",
+      "title": "Acrylic Opal 3mm"
+    },
+    {
+      "code": "acrylic-opal-5mm",
+      "title": "Acrylic Opal 5mm"
+    },
+    {
+      "code": "easy-print-10mm-ss",
+      "title": "Easy Print 10mm - SS"
+    },
+    {
+      "code": "propes-fr",
+      "title": "Propes FR"
+    },
+    {
+      "code": "evacast-0-8mm-white",
+      "title": "Evacast 0.8mm White"
+    },
+    {
+      "code": "forex-re-3mm-ds",
+      "title": "Forex-re 3mm - DS"
+    },
+    {
+      "code": "forex-re-3mm-ss",
+      "title": "Forex-re 3mm - SS"
+    },
+    {
+      "code": "forex-re-5mm-ss",
+      "title": "Forex-re 5mm - SS"
+    },
+    {
+      "code": "sandblast-foil",
+      "title": "Sandblast Foil"
+    },
+    {
+      "code": "polystyrene-2mm-ds",
+      "title": "Polystyrene 2mm - DS"
+    },
+    {
+      "code": "signagain-2mm",
+      "title": "SignAgain 2mm"
+    },
+    {
+      "code": "sound-mesh",
+      "title": "Sound Mesh"
+    },
+    {
+      "code": "spinaker",
+      "title": "Spinaker"
+    },
+    {
+      "code": "structex",
+      "title": "Structex"
+    },
+    {
+      "code": "velour",
+      "title": "Velour"
+    },
+    {
+      "code": "signagain-4mm",
+      "title": "SignAgain 4mm"
+    }
+  ],
+  "queues": [
+    {
+      "code": "backlit-cloth",
+      "material": "backlit-cloth",
+      "rushtime": "144h",
+      "interval": 5,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "stitched-fr",
+      "material": "stitched-fr",
+      "rushtime": "168h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-3mm",
+      "material": "dibond-budget-3mm",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-3mm;coating-mat",
+      "material": "dibond-budget-3mm",
+      "coating": "coating-mat",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-3mm;coating-gloss",
+      "material": "dibond-budget-3mm",
+      "coating": "coating-gloss",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-3mm-ss",
+      "material": "forex-3mm-ss",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "banner-510",
+      "material": "banner-510",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dekostof",
+      "material": "dekostof",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "airtex-pvc",
+      "material": "airtex-pvc",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "mesh-cloth",
+      "material": "mesh-cloth",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "orajet-3651-ra-white-gloss;gloss",
+      "material": "orajet-3651-ra-white-gloss",
+      "laminate": "gloss",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "orajet-3651-ra-white-gloss;mat",
+      "material": "orajet-3651-ra-white-gloss",
+      "laminate": "mat",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "orajet-3651-ra-white-gloss;without-laminate",
+      "material": "orajet-3651-ra-white-gloss",
+      "laminate": "without-laminate",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-5mm-ss",
+      "material": "forex-5mm-ss",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "polypropylene-3-5mm-ss",
+      "material": "polypropylene-3-5mm-ss",
+      "rushtime": "18h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-perm-thick-paper-backing;gloss",
+      "material": "label-white-pp-film-perm-thick-paper-backing",
+      "laminate": "gloss",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-perm-thick-paper-backing;mat",
+      "material": "label-white-pp-film-perm-thick-paper-backing",
+      "laminate": "mat",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-perm-thick-paper-backing;without-laminate",
+      "material": "label-white-pp-film-perm-thick-paper-backing",
+      "laminate": "without-laminate",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-permanent-thin-backing;gloss",
+      "material": "label-white-pp-film-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-permanent-thin-backing;mat",
+      "material": "label-white-pp-film-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-permanent-thin-backing;without-laminate",
+      "material": "label-white-pp-film-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "longlife",
+      "material": "longlife",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "orajet-3162-white-gloss;gloss",
+      "material": "orajet-3162-white-gloss",
+      "laminate": "gloss",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "orajet-3162-white-gloss;mat",
+      "material": "orajet-3162-white-gloss",
+      "laminate": "mat",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "orajet-3162-white-gloss;without-laminate",
+      "material": "orajet-3162-white-gloss",
+      "laminate": "without-laminate",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-permanent;gloss",
+      "material": "quapro-permanent",
+      "laminate": "gloss",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-permanent;mat",
+      "material": "quapro-permanent",
+      "laminate": "mat",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-permanent;without-laminate",
+      "material": "quapro-permanent",
+      "laminate": "without-laminate",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-promotional;gloss",
+      "material": "quapro-promotional",
+      "laminate": "gloss",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-promotional;mat",
+      "material": "quapro-promotional",
+      "laminate": "mat",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-promotional;without-laminate",
+      "material": "quapro-promotional",
+      "laminate": "without-laminate",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "samba-backlit",
+      "material": "samba-backlit",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-satin-mc-135",
+      "material": "hv-satin-mc-135",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-satin-mc-170",
+      "material": "hv-satin-mc-170",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-satin-mc-250",
+      "material": "hv-satin-mc-250",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-satin-mc-300",
+      "material": "hv-satin-mc-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-satin-mc-400",
+      "material": "hv-satin-mc-400",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-semi-matte-mc-135",
+      "material": "hv-semi-matte-mc-135",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-semi-matte-mc-170",
+      "material": "hv-semi-matte-mc-170",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-semi-matte-mc-250",
+      "material": "hv-semi-matte-mc-250",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-semi-matte-mc-300",
+      "material": "hv-semi-matte-mc-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hv-semi-matte-mc-400",
+      "material": "hv-semi-matte-mc-400",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hvo-white-170",
+      "material": "hvo-white-170",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "hvo-white-90",
+      "material": "hvo-white-90",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "natural-cardboard-350",
+      "material": "natural-cardboard-350",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "natuurkarton-300",
+      "material": "natuurkarton-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "poster-paper-150",
+      "material": "poster-paper-150",
+      "rushtime": "24h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "sulphate-board-260",
+      "material": "sulphate-board-260",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "sulphate-board-300",
+      "material": "sulphate-board-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "synaps-om-300",
+      "material": "synaps-om-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "acrylic-clear-5mm",
+      "material": "acrylic-clear-5mm",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-dilite-3mm",
+      "material": "dibond-dilite-3mm",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-dilite-3mm;coating-mat",
+      "material": "dibond-dilite-3mm",
+      "coating": "coating-mat",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-dilite-3mm;coating-gloss",
+      "material": "dibond-dilite-3mm",
+      "coating": "coating-gloss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "blackback",
+      "material": "blackback",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "blackback-soft",
+      "material": "blackback-soft",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-3mm-ds",
+      "material": "forex-3mm-ds",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-dot-white-out;gloss",
+      "material": "foil-dot-white-out",
+      "laminate": "gloss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-dot-white-out;mat",
+      "material": "foil-dot-white-out",
+      "laminate": "mat",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-dot-white-out;without-laminate",
+      "material": "foil-dot-white-out",
+      "laminate": "without-laminate",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "ij40-10c-white-gloss;gloss",
+      "material": "ij40-10c-white-gloss",
+      "laminate": "gloss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "ij40-10c-white-gloss;mat",
+      "material": "ij40-10c-white-gloss",
+      "laminate": "mat",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "ij40-10c-white-gloss;without-laminate",
+      "material": "ij40-10c-white-gloss",
+      "laminate": "without-laminate",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "banner-610-ds",
+      "material": "banner-610-ds",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "banner-610-ss",
+      "material": "banner-610-ss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-butler-finish-3mm",
+      "material": "dibond-butler-finish-3mm",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-butler-finish-3mm;coating-mat",
+      "material": "dibond-butler-finish-3mm",
+      "coating": "coating-mat",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-butler-finish-3mm;coating-gloss",
+      "material": "dibond-butler-finish-3mm",
+      "coating": "coating-gloss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-10mm-ss",
+      "material": "forex-10mm-ss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-1mm",
+      "material": "forex-1mm",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "magnet-foil-0-85mm;gloss",
+      "material": "magnet-foil-0-85mm",
+      "laminate": "gloss",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "magnet-foil-0-85mm;mat",
+      "material": "magnet-foil-0-85mm",
+      "laminate": "mat",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "magnet-foil-0-85mm;without-laminate",
+      "material": "magnet-foil-0-85mm",
+      "laminate": "without-laminate",
+      "rushtime": "30h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "blueback-paper",
+      "material": "blueback-paper",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "canvas",
+      "material": "canvas",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-digital-3mm-ss",
+      "material": "dibond-digital-3mm-ss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-digital-3mm-ss;coating-mat",
+      "material": "dibond-digital-3mm-ss",
+      "coating": "coating-mat",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-digital-3mm-ss;coating-gloss",
+      "material": "dibond-digital-3mm-ss",
+      "coating": "coating-gloss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "display-cardboard-2mm-ss",
+      "material": "display-cardboard-2mm-ss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "re-board-10mm-ss",
+      "material": "re-board-10mm-ss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "re-board-16mm-ss",
+      "material": "re-board-16mm-ss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "flag-direct",
+      "material": "flag-direct",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "ij20-10r-white;gloss",
+      "material": "ij20-10r-white",
+      "laminate": "gloss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "ij20-10r-white;mat",
+      "material": "ij20-10r-white",
+      "laminate": "mat",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "ij20-10r-white;without-laminate",
+      "material": "ij20-10r-white",
+      "laminate": "without-laminate",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "erfurt-variovlies",
+      "material": "erfurt-variovlies",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "propes",
+      "material": "propes",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "roughmark;gloss",
+      "material": "roughmark",
+      "laminate": "gloss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "roughmark;mat",
+      "material": "roughmark",
+      "laminate": "mat",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "roughmark;without-laminate",
+      "material": "roughmark",
+      "laminate": "without-laminate",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "magnet-foil-0-5mm;gloss",
+      "material": "magnet-foil-0-5mm",
+      "laminate": "gloss",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "magnet-foil-0-5mm;mat",
+      "material": "magnet-foil-0-5mm",
+      "laminate": "mat",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "magnet-foil-0-5mm;without-laminate",
+      "material": "magnet-foil-0-5mm",
+      "laminate": "without-laminate",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "poster-paper-250",
+      "material": "poster-paper-250",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "provlies-matte",
+      "material": "provlies-matte",
+      "rushtime": "48h",
+      "interval": 1,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "basic-wall",
+      "material": "basic-wall",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "blueback-wallcovering",
+      "material": "blueback-wallcovering",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "avery-mpi-1104-white;gloss",
+      "material": "avery-mpi-1104-white",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "avery-mpi-1104-white;mat",
+      "material": "avery-mpi-1104-white",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "avery-mpi-1104-white;without-laminate",
+      "material": "avery-mpi-1104-white",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "avery-mpi-1105-white;gloss",
+      "material": "avery-mpi-1105-white",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "avery-mpi-1105-white;mat",
+      "material": "avery-mpi-1105-white",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "avery-mpi-1105-white;without-laminate",
+      "material": "avery-mpi-1105-white",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "budget-banner",
+      "material": "budget-banner",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "decotex",
+      "material": "decotex",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "acrylic-clear-3mm",
+      "material": "acrylic-clear-3mm",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "akylite-single-sided",
+      "material": "akylite-single-sided",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-4mm",
+      "material": "dibond-budget-4mm",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-4mm;coating-mat",
+      "material": "dibond-budget-4mm",
+      "coating": "coating-mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-4mm;coating-gloss",
+      "material": "dibond-budget-4mm",
+      "coating": "coating-gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-6mm",
+      "material": "dibond-budget-6mm",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-6mm;coating-mat",
+      "material": "dibond-budget-6mm",
+      "coating": "coating-mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-budget-6mm;coating-gloss",
+      "material": "dibond-budget-6mm",
+      "coating": "coating-gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-digital-3mm-ds",
+      "material": "dibond-digital-3mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-digital-3mm-ds;coating-mat",
+      "material": "dibond-digital-3mm-ds",
+      "coating": "coating-mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-digital-3mm-ds;coating-gloss",
+      "material": "dibond-digital-3mm-ds",
+      "coating": "coating-gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "floor-vinyl",
+      "material": "floor-vinyl",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij280-white;gloss",
+      "material": "foil-ij280-white",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij280-white;mat",
+      "material": "foil-ij280-white",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij280-white;without-laminate",
+      "material": "foil-ij280-white",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-dilite-3mm-ds",
+      "material": "dibond-dilite-3mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-dilite-3mm-ds;coating-mat",
+      "material": "dibond-dilite-3mm-ds",
+      "coating": "coating-mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-dilite-3mm-ds;coating-gloss",
+      "material": "dibond-dilite-3mm-ds",
+      "coating": "coating-gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-xl-3mm",
+      "material": "dibond-xl-3mm",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-xl-3mm;coating-mat",
+      "material": "dibond-xl-3mm",
+      "coating": "coating-mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "dibond-xl-3mm;coating-gloss",
+      "material": "dibond-xl-3mm",
+      "coating": "coating-gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "display-cardboard-2mm-ds",
+      "material": "display-cardboard-2mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-10mm-ds",
+      "material": "forex-10mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-5mm-ds",
+      "material": "forex-5mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "polypropylene-3-5mm-ds",
+      "material": "polypropylene-3-5mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "polypropylene-8mm-ss",
+      "material": "polypropylene-8mm-ss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "polystyrene-1mm-ss",
+      "material": "polystyrene-1mm-ss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "polystyrene-2mm-ss",
+      "material": "polystyrene-2mm-ss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "poplar-plywood-9mm",
+      "material": "poplar-plywood-9mm",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing;gloss",
+      "material": "label-gloss-paper-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing;mat",
+      "material": "label-gloss-paper-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing;without-laminate",
+      "material": "label-gloss-paper-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing;gloss",
+      "material": "label-matte-paper-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing;mat",
+      "material": "label-matte-paper-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing;without-laminate",
+      "material": "label-matte-paper-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing;gloss",
+      "material": "label-white-pp-film-promo-thick-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing;mat",
+      "material": "label-white-pp-film-promo-thick-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing;without-laminate",
+      "material": "label-white-pp-film-promo-thick-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing;gloss",
+      "material": "label-white-pp-film-promo-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing;mat",
+      "material": "label-white-pp-film-promo-thin-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing;without-laminate",
+      "material": "label-white-pp-film-promo-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing;gloss",
+      "material": "label-white-pp-film-strong-adhesive-thick-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing;mat",
+      "material": "label-white-pp-film-strong-adhesive-thick-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing;without-laminate",
+      "material": "label-white-pp-film-strong-adhesive-thick-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "one-way-vision;gloss",
+      "material": "one-way-vision",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "one-way-vision;mat",
+      "material": "one-way-vision",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "one-way-vision;without-laminate",
+      "material": "one-way-vision",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "one-way-vision-permanent;gloss",
+      "material": "one-way-vision-permanent",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "one-way-vision-permanent;mat",
+      "material": "one-way-vision-permanent",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "one-way-vision-permanent;without-laminate",
+      "material": "one-way-vision-permanent",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "re-board-10mm-ds",
+      "material": "re-board-10mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "re-board-16mm-ds",
+      "material": "re-board-16mm-ds",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "vikunyl",
+      "material": "vikunyl",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-permanent-pvc-free;gloss",
+      "material": "quapro-permanent-pvc-free",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-permanent-pvc-free;mat",
+      "material": "quapro-permanent-pvc-free",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "quapro-permanent-pvc-free;without-laminate",
+      "material": "quapro-permanent-pvc-free",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "flag-ciclo",
+      "material": "flag-ciclo",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "lumitex",
+      "material": "lumitex",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "synaps-polyester-paper",
+      "material": "synaps-polyester-paper",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "paper"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "walltex-pro",
+      "material": "walltex-pro",
+      "rushtime": "72h",
+      "interval": 2,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "kely",
+      "material": "kely",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "black-and-white-banner",
+      "material": "black-and-white-banner",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "clearview;gloss",
+      "material": "clearview",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "clearview;mat",
+      "material": "clearview",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "clearview;without-laminate",
+      "material": "clearview",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "diamond-backlit-sg;gloss",
+      "material": "diamond-backlit-sg",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "diamond-backlit-sg;mat",
+      "material": "diamond-backlit-sg",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "diamond-backlit-sg;without-laminate",
+      "material": "diamond-backlit-sg",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij20-114r-gloss;gloss",
+      "material": "foil-ij20-114r-gloss",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij20-114r-gloss;mat",
+      "material": "foil-ij20-114r-gloss",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij20-114r-gloss;without-laminate",
+      "material": "foil-ij20-114r-gloss",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "multitexpro",
+      "material": "multitexpro",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij40-114-gloss;gloss",
+      "material": "foil-ij40-114-gloss",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij40-114-gloss;mat",
+      "material": "foil-ij40-114-gloss",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-ij40-114-gloss;without-laminate",
+      "material": "foil-ij40-114-gloss",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-orajet-3651-transparent-gloss;gloss",
+      "material": "foil-orajet-3651-transparent-gloss",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-orajet-3651-transparent-gloss;mat",
+      "material": "foil-orajet-3651-transparent-gloss",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-orajet-3651-transparent-gloss;without-laminate",
+      "material": "foil-orajet-3651-transparent-gloss",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-static-adhesive-transp;gloss",
+      "material": "foil-static-adhesive-transp",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-static-adhesive-transp;mat",
+      "material": "foil-static-adhesive-transp",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-static-adhesive-transp;without-laminate",
+      "material": "foil-static-adhesive-transp",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-static-adhesive-white;gloss",
+      "material": "foil-static-adhesive-white",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-static-adhesive-white;mat",
+      "material": "foil-static-adhesive-white",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "foil-static-adhesive-white;without-laminate",
+      "material": "foil-static-adhesive-white",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "gekkotex;gloss",
+      "material": "gekkotex",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "gekkotex;mat",
+      "material": "gekkotex",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "gekkotex;without-laminate",
+      "material": "gekkotex",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing;gloss",
+      "material": "label-silver-pp-film-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing;mat",
+      "material": "label-silver-pp-film-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing;without-laminate",
+      "material": "label-silver-pp-film-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing;gloss",
+      "material": "label-transparent-pp-film-perm-thick-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing;mat",
+      "material": "label-transparent-pp-film-perm-thick-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing;without-laminate",
+      "material": "label-transparent-pp-film-perm-thick-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing;gloss",
+      "material": "label-transparent-pp-film-perm-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing;mat",
+      "material": "label-transparent-pp-film-perm-thin-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing;without-laminate",
+      "material": "label-transparent-pp-film-perm-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing;gloss",
+      "material": "label-white-pp-film-strong-adhesive-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing;mat",
+      "material": "label-white-pp-film-strong-adhesive-thin-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing;without-laminate",
+      "material": "label-white-pp-film-strong-adhesive-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "lintec;gloss",
+      "material": "lintec",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "lintec;mat",
+      "material": "lintec",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "lintec;without-laminate",
+      "material": "lintec",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "lochfilet",
+      "material": "lochfilet",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "pro-cotton-percale",
+      "material": "pro-cotton-percale",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "motomark-235;gloss",
+      "material": "motomark-235",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "motomark-235;mat",
+      "material": "motomark-235",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "motomark-235;without-laminate",
+      "material": "motomark-235",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "outdoor-floor-foil-aluminum;gloss",
+      "material": "outdoor-floor-foil-aluminum",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "outdoor-floor-foil-aluminum;mat",
+      "material": "outdoor-floor-foil-aluminum",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "outdoor-floor-foil-aluminum;without-laminate",
+      "material": "outdoor-floor-foil-aluminum",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "provinyl-fine",
+      "material": "provinyl-fine",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "provinyl-textile",
+      "material": "provinyl-textile",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "acrylic-clear-10mm",
+      "material": "acrylic-clear-10mm",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "acrylic-opal-3mm",
+      "material": "acrylic-opal-3mm",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "acrylic-opal-5mm",
+      "material": "acrylic-opal-5mm",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "easy-print-10mm-ss",
+      "material": "easy-print-10mm-ss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "propes-fr",
+      "material": "propes-fr",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "evacast-0-8mm-white",
+      "material": "evacast-0-8mm-white",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-re-3mm-ds",
+      "material": "forex-re-3mm-ds",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-re-3mm-ss",
+      "material": "forex-re-3mm-ss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "forex-re-5mm-ss",
+      "material": "forex-re-5mm-ss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "sandblast-foil;gloss",
+      "material": "sandblast-foil",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "sandblast-foil;mat",
+      "material": "sandblast-foil",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "sandblast-foil;without-laminate",
+      "material": "sandblast-foil",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "polystyrene-2mm-ds",
+      "material": "polystyrene-2mm-ds",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "signagain-2mm",
+      "material": "signagain-2mm",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "sound-mesh",
+      "material": "sound-mesh",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "spinaker",
+      "material": "spinaker",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "structex",
+      "material": "structex",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "velour",
+      "material": "velour",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "signagain-4mm",
+      "material": "signagain-4mm",
+      "rushtime": "96h",
+      "interval": 3,
+      "fastMover": false,
+      "category": {
+        "code": "sheet"
+      },
+      "location": "dk"
+    },
+    {
+      "code": "stitched-fr",
+      "material": "stitched-fr",
+      "rushtime": "168h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-satin-mc-135",
+      "material": "hv-satin-mc-135",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-satin-mc-170",
+      "material": "hv-satin-mc-170",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-satin-mc-250",
+      "material": "hv-satin-mc-250",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-satin-mc-300",
+      "material": "hv-satin-mc-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-satin-mc-400",
+      "material": "hv-satin-mc-400",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-semi-matte-mc-135",
+      "material": "hv-semi-matte-mc-135",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-semi-matte-mc-170",
+      "material": "hv-semi-matte-mc-170",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-semi-matte-mc-250",
+      "material": "hv-semi-matte-mc-250",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-semi-matte-mc-300",
+      "material": "hv-semi-matte-mc-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hv-semi-matte-mc-400",
+      "material": "hv-semi-matte-mc-400",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hvo-white-170",
+      "material": "hvo-white-170",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "hvo-white-90",
+      "material": "hvo-white-90",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "natural-cardboard-350",
+      "material": "natural-cardboard-350",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "natuurkarton-300",
+      "material": "natuurkarton-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "sulphate-board-260",
+      "material": "sulphate-board-260",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "sulphate-board-300",
+      "material": "sulphate-board-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "synaps-om-300",
+      "material": "synaps-om-300",
+      "rushtime": "24h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "paper"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing;gloss",
+      "material": "label-gloss-paper-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing;mat",
+      "material": "label-gloss-paper-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing;without-laminate",
+      "material": "label-gloss-paper-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing;gloss",
+      "material": "label-matte-paper-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing;mat",
+      "material": "label-matte-paper-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing;without-laminate",
+      "material": "label-matte-paper-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing;gloss",
+      "material": "label-white-pp-film-promo-thick-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing;mat",
+      "material": "label-white-pp-film-promo-thick-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing;without-laminate",
+      "material": "label-white-pp-film-promo-thick-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing;gloss",
+      "material": "label-white-pp-film-promo-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing;mat",
+      "material": "label-white-pp-film-promo-thin-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing;without-laminate",
+      "material": "label-white-pp-film-promo-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing;gloss",
+      "material": "label-white-pp-film-strong-adhesive-thick-backing",
+      "laminate": "gloss",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing;mat",
+      "material": "label-white-pp-film-strong-adhesive-thick-backing",
+      "laminate": "mat",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing;without-laminate",
+      "material": "label-white-pp-film-strong-adhesive-thick-backing",
+      "laminate": "without-laminate",
+      "rushtime": "72h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "kely",
+      "material": "kely",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing;gloss",
+      "material": "label-silver-pp-film-permanent-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing;mat",
+      "material": "label-silver-pp-film-permanent-thin-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing;without-laminate",
+      "material": "label-silver-pp-film-permanent-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing;gloss",
+      "material": "label-transparent-pp-film-perm-thick-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing;mat",
+      "material": "label-transparent-pp-film-perm-thick-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing;without-laminate",
+      "material": "label-transparent-pp-film-perm-thick-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing;gloss",
+      "material": "label-transparent-pp-film-perm-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing;mat",
+      "material": "label-transparent-pp-film-perm-thin-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing;without-laminate",
+      "material": "label-transparent-pp-film-perm-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing;gloss",
+      "material": "label-white-pp-film-strong-adhesive-thin-backing",
+      "laminate": "gloss",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing;mat",
+      "material": "label-white-pp-film-strong-adhesive-thin-backing",
+      "laminate": "mat",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing;without-laminate",
+      "material": "label-white-pp-film-strong-adhesive-thin-backing",
+      "laminate": "without-laminate",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "pro-cotton-percale",
+      "material": "pro-cotton-percale",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "spinaker",
+      "material": "spinaker",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "location": "bh"
+    },
+    {
+      "code": "velour",
+      "material": "velour",
+      "rushtime": "96h",
+      "interval": null,
+      "fastMover": true,
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "location": "bh"
+    }
+  ]
+}

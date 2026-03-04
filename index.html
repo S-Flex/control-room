@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control Room</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-card: #ffffff;
+      --border: #d5d7da;
+      --text-primary: #181d27;
+      --text-secondary: #414651;
+      --text-tertiary: #535862;
+      --text-muted: #717680;
+      --brand: #0f8d91;
+      --brand-light: #17c6cd;
+      --brand-pale: #e0f7f8;
+      --bar-bg: #e9eaeb;
+      --alert-red: #d92d20;
+      --alert-bg: #fef3f2;
+      --highlight-green: #079455;
+      --highlight-bg: #ecfdf3;
+      --radius-md: 8px;
+      --radius-xl: 12px;
+      --shadow-xs: 0px 1px 2px 0px rgba(10,13,18,0.05);
+    }
+
+    .dark {
+      --bg: #0c111d;
+      --bg-card: #161b26;
+      --border: #4a4f5a;
+      --text-primary: #f5f5f6;
+      --text-secondary: #cecfd2;
+      --text-tertiary: #94969c;
+      --text-muted: #85888e;
+      --brand-pale: #1a3a3b;
+      --bar-bg: #333741;
+      --alert-bg: #55160c;
+      --highlight-bg: #053321;
+      --shadow-xs: 0px 1px 2px 0px rgba(0,0,0,0.3);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      height: 100vh;
+      overflow: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ===== LAYOUT ===== */
+
+    /*
+      Narrow: cards-top | sheet | cards-bottom | tickers
+      Wide:   [left-cards | sheet | right-cards] | tickers
+      Everything always visible, no scroll, cards grow/shrink to fill.
+    */
+
+    .control-room {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 12px;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .main-area {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      overflow: hidden;
+    }
+
+    .sheet-view {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .sheet-view img {
+      width: 100%;
+      height: 100%;
+      object-fit: fill;
+      display: block;
+      border-radius: var(--radius-xl);
+    }
+
+    /* Panels: horizontal rows in narrow, vertical columns in wide */
+    .panel-left, .panel-right {
+      display: flex;
+      gap: 8px;
+      min-height: 0;
+      min-width: 0;
+    }
+
+    .panel-left .card, .panel-right .card {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* WIDE: side panels */
+    @media (min-aspect-ratio: 2/1) {
+      .main-area {
+        flex-direction: row;
+      }
+      .panel-left, .panel-right {
+        flex-direction: column;
+        width: 17%;
+        flex-shrink: 0;
+      }
+      .sheet-column {
+        flex: 1;
+        min-width: 0;
+      }
+      .panel-left .card, .panel-right .card {
+        flex: 1;
+      }
+    }
+
+    /* ===== CARDS ===== */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xs);
+      padding: 8px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.3s, border-color 0.3s;
+    }
+
+    .card-header {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      margin-bottom: 4px;
+      flex-shrink: 0;
+    }
+
+    .card-icon {
+      width: 24px;
+      height: 24px;
+      background: var(--brand);
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .card-icon.red { background: var(--alert-red); }
+    .card-icon svg { width: 12px; height: 12px; fill: none; stroke: white; stroke-width: 2; }
+
+    .card-title { font-size: 11px; font-weight: 600; line-height: 16px; color: var(--text-primary); }
+    .card-subtitle { font-size: 9px; font-weight: 400; color: var(--text-tertiary); line-height: 12px; }
+
+    .card-body {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* ===== PROGRESS CIRCLE ===== */
+    .progress-circle-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .progress-circle {
+      position: relative;
+      width: 100%;
+      max-width: 80px;
+      aspect-ratio: 1;
+    }
+
+    .progress-circle svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .progress-circle .bg { stroke: var(--bar-bg); fill: none; stroke-width: 7; }
+    .progress-circle .fg { stroke: var(--brand-light); fill: none; stroke-width: 7; stroke-linecap: round; }
+
+    .progress-label {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .progress-label .value { font-size: 15px; font-weight: 700; color: var(--text-primary); }
+    .progress-label .label { font-size: 8px; color: var(--text-muted); }
+
+    /* ===== GAUGE ===== */
+    .gauge-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-height: 0;
+    }
+    .gauge { position: relative; width: 100%; max-width: 130px; }
+    .gauge svg { width: 100%; }
+    .gauge .gauge-bg { stroke: var(--bar-bg); fill: none; stroke-width: 10; stroke-linecap: round; }
+    .gauge .gauge-fg { stroke: var(--brand-light); fill: none; stroke-width: 10; stroke-linecap: round; }
+    .gauge-label {
+      position: absolute; bottom: 2px; left: 0; right: 0; text-align: center;
+    }
+    .gauge-label .value { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .gauge-label .label { font-size: 8px; color: var(--text-muted); display: block; }
+
+    /* ===== DONUT ===== */
+    .donut-wrap { display: flex; align-items: center; gap: 6px; flex: 1; min-height: 0; }
+    .donut { width: 56px; height: 56px; flex-shrink: 0; }
+    .donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .donut-legend { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
+    .donut-legend-item { display: flex; align-items: center; gap: 3px; font-size: 9px; color: var(--text-secondary); }
+    .donut-legend-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
+    .donut-legend-pct { font-weight: 600; min-width: 24px; }
+
+    /* ===== BAR LIST ===== */
+    .bar-list { display: flex; flex-direction: column; gap: 4px; flex: 1; justify-content: center; }
+    .bar-item { display: flex; align-items: center; gap: 4px; }
+    .bar-item .name {
+      font-size: 9px; font-weight: 500; color: var(--text-secondary);
+      width: 55px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-shrink: 0;
+    }
+    .bar-track { flex: 1; height: 6px; background: var(--bar-bg); border-radius: 9999px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--brand-light); border-radius: 9999px; }
+    .bar-item .count { font-size: 9px; font-weight: 600; color: var(--text-secondary); width: 28px; text-align: right; }
+
+    /* ===== VERTICAL BAR CHART ===== */
+    .vbar-chart { display: flex; align-items: flex-end; gap: 2px; flex: 1; min-height: 0; padding: 2px 0; }
+    .vbar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+    .vbar { width: 100%; max-width: 18px; border-radius: 2px 2px 0 0; background: var(--brand-light); min-height: 2px; }
+    .vbar-label { font-size: 7px; color: var(--text-muted); margin-top: 1px; white-space: nowrap; }
+
+    /* ===== STAT ROW ===== */
+    .stat-row { display: flex; justify-content: space-between; padding: 2px 0; border-bottom: 1px solid var(--bar-bg); }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-row .stat-label { font-size: 9px; color: var(--text-tertiary); }
+    .stat-row .stat-value { font-size: 9px; font-weight: 600; color: var(--text-primary); }
+
+    /* ===== SPARKLINE ===== */
+    .sparkline-wrap { flex: 1; min-height: 0; }
+    .sparkline-wrap svg { width: 100%; height: 100%; min-height: 30px; }
+    .sparkline-line { fill: none; stroke: var(--brand-light); stroke-width: 2; }
+    .sparkline-area { fill: var(--brand-pale); }
+
+    /* ===== HEADER / FOOTER ===== */
+    .dashboard-header {
+      flex-shrink: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 4px;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .header-title { font-size: 14px; font-weight: 700; color: var(--text-primary); white-space: nowrap; }
+    .header-subtitle { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+    .header-right { display: flex; align-items: center; gap: 12px; }
+    .header-clock { font-size: 20px; font-weight: 600; color: var(--brand); font-variant-numeric: tabular-nums; }
+    .header-date { font-size: 11px; color: var(--text-muted); }
+
+    .dashboard-footer {
+      flex-shrink: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px 4px;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .footer-text { font-size: 9px; color: var(--text-muted); white-space: nowrap; }
+
+    /* ===== SHEET COLUMN ===== */
+    .sheet-column {
+      flex: 1;
+      min-height: 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* ===== STATUS BAR ===== */
+    .sheet-status {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 4px 8px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-xs);
+      transition: background 0.3s, border-color 0.3s;
+    }
+    .status-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .status-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .status-icon svg { width: 10px; height: 10px; fill: none; stroke: white; stroke-width: 2; }
+    .status-icon.teal { background: var(--brand); }
+    .status-icon.orange { background: #e57c23; }
+    .status-icon.blue { background: #3b82f6; }
+    .status-icon.sick { background: var(--alert-red); }
+    .status-label { font-size: 10px; color: var(--text-muted); }
+    .status-value { font-size: 12px; font-weight: 700; color: var(--text-primary); }
+    .status-sep { width: 1px; height: 14px; background: var(--border); }
+
+    /* ===== TICKERS ===== */
+    .ticker-bar { display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+
+    .ticker {
+      border-radius: var(--radius-md); overflow: hidden;
+      display: flex; align-items: center; white-space: nowrap;
+      padding: 4px 0; transition: background 0.3s, border-color 0.3s;
+    }
+    .ticker-highlight { background: var(--highlight-bg); border: 1px solid #a6f4c5; }
+    .ticker-alert { background: var(--alert-bg); border: 1px solid #fecdca; }
+    .dark .ticker-highlight { border-color: #064e3b; }
+    .dark .ticker-alert { border-color: #7f1d1d; }
+
+    .ticker-track { flex: 1; overflow: hidden; display: flex; align-items: center; }
+    .ticker-content { display: flex; gap: 40px; animation: scroll-left 30s linear infinite; padding-left: 20px; }
+    .ticker-content span { font-size: 14px; font-weight: 500; flex-shrink: 0; }
+    .ticker-highlight .ticker-content span { color: var(--highlight-green); }
+    .ticker-alert .ticker-content span { color: var(--alert-red); }
+    .ticker-dot { width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; align-self: center; }
+    .ticker-highlight .ticker-dot { background: var(--highlight-green); }
+    .ticker-alert .ticker-dot { background: var(--alert-red); }
+
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="control-room">
+    <!-- HEADER -->
+    <div class="dashboard-header">
+      <div>
+        <div class="header-title">Inflow Nesting Control Room</div>
+        <div class="header-subtitle">Production floor overview</div>
+      </div>
+      <div class="header-right">
+        <div class="header-date" id="headerDate"></div>
+        <div class="header-clock" id="headerClock"></div>
+      </div>
+    </div>
+
+    <div class="main-area">
+
+      <!-- LEFT / TOP PANEL -->
+      <div class="panel-left">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Queue Activity</div><div class="card-subtitle">Active queues</div></div>
+          </div>
+          <div class="card-body">
+            <div class="progress-circle-wrap">
+              <div class="progress-circle" id="queueCircle">
+                <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="53"/></svg>
+                <div class="progress-label"><span class="value">285</span><span class="label">queues</span></div>
+              </div>
+            </div>
+            <div class="stat-row"><span class="stat-label">DK</span><span class="stat-value" id="qDk">-</span></div>
+            <div class="stat-row"><span class="stat-label">BH</span><span class="stat-value" id="qBh">-</span></div>
+            <div class="stat-row"><span class="stat-label">Fast</span><span class="stat-value" id="qFast">-</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M16 8v8m-8-4v4m4-12v12" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Top Materials</div></div>
+          </div>
+          <div class="card-body"><div class="bar-list" id="topMaterials"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Rush Times</div></div>
+          </div>
+          <div class="card-body"><div class="donut-wrap" id="rushDonut"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 3H3v18h18V3zM9 21V9m6 12V3" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Width Spread</div></div>
+          </div>
+          <div class="card-body"><div class="vbar-chart" id="widthBars"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div><div class="card-title">DK Volume</div></div>
+          </div>
+          <div class="card-body"><div class="gauge-wrap" id="locationGauge"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Trueshape</div></div>
+          </div>
+          <div class="card-body"><div class="gauge-wrap" id="trueshapeGauge"></div></div>
+        </div>
+      </div>
+
+      <!-- SHEET + STATUS -->
+      <div class="sheet-column">
+        <div class="sheet-view">
+          <img src="public/sheet.png" alt="Sheet layout">
+        </div>
+        <div class="sheet-status">
+          <div class="status-item">
+            <div class="status-icon teal"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-linecap="round"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <span class="status-label">Printer operators</span>
+            <span class="status-value" id="staffPrinters">4</span>
+          </div>
+          <div class="status-sep"></div>
+          <div class="status-item">
+            <div class="status-icon orange"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-linecap="round"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <span class="status-label">Cutter operators</span>
+            <span class="status-value" id="staffCutters">3</span>
+          </div>
+          <div class="status-sep"></div>
+          <div class="status-item">
+            <div class="status-icon blue"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-linecap="round"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <span class="status-label">Binners</span>
+            <span class="status-value" id="staffBinners">5</span>
+          </div>
+          <div class="status-sep"></div>
+          <div class="status-item">
+            <div class="status-icon sick"><svg viewBox="0 0 24 24"><path d="M12 8v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke-linecap="round"/></svg></div>
+            <span class="status-label">Sick</span>
+            <span class="status-value" id="staffSick">2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT / BOTTOM PANEL -->
+      <div class="panel-right">
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Nesting Progress</div></div>
+          </div>
+          <div class="card-body">
+            <div class="progress-circle-wrap">
+              <div class="progress-circle">
+                <svg viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="42"/><circle class="fg" id="nestCircleFg" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="79"/></svg>
+                <div class="progress-label"><span class="value" id="nestPct">-</span><span class="label">nested</span></div>
+              </div>
+            </div>
+            <div class="stat-row"><span class="stat-label">Total</span><span class="stat-value" id="totalInflow">-</span></div>
+            <div class="stat-row"><span class="stat-label">Nest</span><span class="stat-value" id="stateNest">-</span></div>
+            <div class="stat-row"><span class="stat-label">DTP</span><span class="stat-value" id="stateDtp">-</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon red"><svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Cutoff Status</div></div>
+          </div>
+          <div class="card-body"><div class="bar-list" id="cutoffStatus"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Categories</div></div>
+          </div>
+          <div class="card-body"><div class="bar-list" id="categories"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 16l4-8 4 4 4-8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Inflow Trend</div></div>
+          </div>
+          <div class="card-body">
+            <div class="sparkline-wrap" id="inflowSparkline"></div>
+            <div class="stat-row"><span class="stat-label">Peak</span><span class="stat-value" id="peakHour">-</span></div>
+            <div class="stat-row"><span class="stat-label">Avg/h</span><span class="stat-value" id="avgHour">-</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div>
+            <div><div class="card-title">Height Spread</div></div>
+          </div>
+          <div class="card-body"><div class="vbar-chart" id="heightBars"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div class="card-icon"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            <div><div class="card-title">Fast Movers</div></div>
+          </div>
+          <div class="card-body"><div class="bar-list" id="fastMovers"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker-bar">
+      <div class="ticker ticker-highlight"><div class="ticker-track"><div class="ticker-content" id="highlightTicker"></div></div></div>
+      <div class="ticker ticker-alert"><div class="ticker-track"><div class="ticker-content" id="alertTicker"></div></div></div>
+    </div>
+
+  </div>
+
+  <script>
+    document.addEventListener('dblclick', () => document.body.classList.toggle('dark'));
+
+    function makeGauge(containerId, pct, labelText) {
+      const el = document.getElementById(containerId);
+      const circumHalf = Math.PI * 45;
+      const offset = circumHalf * (1 - pct / 100);
+      el.innerHTML = `<div class="gauge">
+        <svg viewBox="0 0 100 65">
+          <path class="gauge-bg" d="M 5 55 A 45 45 0 0 1 95 55"/>
+          <path class="gauge-fg" d="M 5 55 A 45 45 0 0 1 95 55" stroke-dasharray="${circumHalf}" stroke-dashoffset="${offset}"/>
+        </svg>
+        <div class="gauge-label"><span class="value">${Math.round(pct)}%</span><span class="label">${labelText}</span></div>
+      </div>`;
+    }
+
+    function makeDonut(containerId, segments, colors) {
+      const el = document.getElementById(containerId);
+      const total = segments.reduce((s, d) => s + d.value, 0);
+      const r = 20, circ = 2 * Math.PI * r;
+      let offset = 0;
+      const circles = segments.map((seg, i) => {
+        const dash = (seg.value / total) * circ;
+        const o = offset; offset += dash;
+        return `<circle cx="28" cy="28" r="${r}" fill="none" stroke="${colors[i]}" stroke-width="10" stroke-dasharray="${dash} ${circ - dash}" stroke-dashoffset="${-o}"/>`;
+      });
+      const legend = segments.map((seg, i) =>
+        `<div class="donut-legend-item"><span class="donut-legend-dot" style="background:${colors[i]}"></span><span class="donut-legend-pct">${((seg.value/total)*100).toFixed(0)}%</span><span>${seg.name}</span></div>`
+      ).join('');
+      el.innerHTML = `<div class="donut"><svg viewBox="0 0 56 56"><circle cx="28" cy="28" r="${r}" fill="none" stroke="var(--bar-bg)" stroke-width="10"/>${circles.join('')}</svg></div><div class="donut-legend">${legend}</div>`;
+    }
+
+    function makeVBars(containerId, data) {
+      const el = document.getElementById(containerId);
+      const max = Math.max(...data.map(d => d.value));
+      el.innerHTML = data.map(d =>
+        `<div class="vbar-col"><div class="vbar" style="height:${Math.max(4,(d.value/max)*100)}%"></div><span class="vbar-label">${d.label}</span></div>`
+      ).join('');
+    }
+
+    function makeSparkline(containerId, values) {
+      const el = document.getElementById(containerId);
+      const w = 200, h = 50, pad = 2;
+      const max = Math.max(...values);
+      const step = (w - pad * 2) / (values.length - 1);
+      const pts = values.map((v, i) => `${pad + i * step},${h - pad - (v / max) * (h - pad * 2)}`);
+      const line = pts.join(' ');
+      el.innerHTML = `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none"><polygon class="sparkline-area" points="${pad},${h-pad} ${line} ${pad+(values.length-1)*step},${h-pad}"/><polyline class="sparkline-line" points="${line}"/></svg>`;
+    }
+
+    async function loadData() {
+      const [inflowRes, queuesRes, tickerRes] = await Promise.all([
+        fetch('data/inflow.json'), fetch('data/queues.json'), fetch('data/ticker.json')
+      ]);
+      const inflow = await inflowRes.json();
+      const queues = await queuesRes.json();
+      const ticker = await tickerRes.json();
+
+      const queueMap = {};
+      queues.queues.forEach(q => { queueMap[q.code] = q; });
+
+      // Queue stats
+      const dk = queues.queues.filter(q => q.location === 'dk').length;
+      const bh = queues.queues.filter(q => q.location === 'bh').length;
+      const fast = queues.queues.filter(q => q.fastMover).length;
+      document.getElementById('qDk').textContent = dk;
+      document.getElementById('qBh').textContent = bh;
+      document.getElementById('qFast').textContent = fast;
+      const circ = 2 * Math.PI * 42;
+      document.querySelector('#queueCircle .fg').setAttribute('stroke-dashoffset', circ * (1 - (dk + bh) / 300));
+
+      // Nesting progress
+      const nestCount = inflow.filter(i => i.state === 'nest').length;
+      const dtpCount = inflow.filter(i => i.state === 'dtp').length;
+      const nestPct = ((nestCount / inflow.length) * 100).toFixed(0);
+      document.getElementById('nestPct').textContent = nestPct + '%';
+      document.getElementById('nestCircleFg').setAttribute('stroke-dashoffset', circ * (1 - nestCount / inflow.length));
+      document.getElementById('totalInflow').textContent = inflow.length.toLocaleString();
+      document.getElementById('stateNest').textContent = nestCount.toLocaleString();
+      document.getElementById('stateDtp').textContent = dtpCount.toLocaleString();
+
+      // Top materials
+      const matCounts = {};
+      inflow.forEach(i => { matCounts[i.code] = (matCounts[i.code] || 0) + 1; });
+      const topMats = Object.entries(matCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      const maxMat = topMats[0][1];
+      document.getElementById('topMaterials').innerHTML = topMats.map(([name, count]) => {
+        const short = name.split(';')[0];
+        return `<div class="bar-item"><span class="name" title="${name}">${short}</span><div class="bar-track"><div class="bar-fill" style="width:${(count/maxMat*100).toFixed(1)}%"></div></div><span class="count">${count}</span></div>`;
+      }).join('');
+
+      // Rush time donut
+      const rushCounts = {};
+      inflow.forEach(i => { rushCounts[i.rushTime] = (rushCounts[i.rushTime] || 0) + 1; });
+      makeDonut('rushDonut', [
+        { name: '\u226424h', value: (rushCounts['18h']||0) + (rushCounts['24h']||0) },
+        { name: '30-48h', value: (rushCounts['30h']||0) + (rushCounts['48h']||0) },
+        { name: '72-96h', value: (rushCounts['72h']||0) + (rushCounts['96h']||0) },
+        { name: '\u226572h', value: (rushCounts['120h']||0) + (rushCounts['144h']||0) + (rushCounts['168h']||0) }
+      ], ['#0f8d91', '#17c6cd', '#7dd3d7', '#d0f0f1']);
+
+      // Width distribution
+      makeVBars('widthBars', [
+        { label: '<100', value: inflow.filter(i => i.width < 100).length },
+        { label: '100', value: inflow.filter(i => i.width >= 100 && i.width < 150).length },
+        { label: '150', value: inflow.filter(i => i.width >= 150 && i.width < 200).length },
+        { label: '200', value: inflow.filter(i => i.width >= 200 && i.width < 250).length },
+        { label: '250', value: inflow.filter(i => i.width >= 250 && i.width < 305).length },
+        { label: '305+', value: inflow.filter(i => i.width >= 305).length }
+      ]);
+
+      // Height distribution
+      makeVBars('heightBars', [
+        { label: '<50', value: inflow.filter(i => i.height < 50).length },
+        { label: '50', value: inflow.filter(i => i.height >= 50 && i.height < 100).length },
+        { label: '100', value: inflow.filter(i => i.height >= 100 && i.height < 150).length },
+        { label: '150', value: inflow.filter(i => i.height >= 150 && i.height < 203).length },
+        { label: '203+', value: inflow.filter(i => i.height >= 203).length }
+      ]);
+
+      // Gauges
+      const dkCodes = new Set(queues.queues.filter(q => q.location === 'dk').map(q => q.code));
+      makeGauge('locationGauge', (inflow.filter(i => dkCodes.has(i.code)).length / inflow.length) * 100, 'DK share');
+      makeGauge('trueshapeGauge', (inflow.filter(i => i.trueshape).length / inflow.length) * 100, 'trueshape');
+
+      // Cutoff status
+      const dtpItems = inflow.filter(i => i.state === 'dtp');
+      const cutoffCounts = { '11:30': 0, '16:30': 0, '21:30': 0 };
+      dtpItems.forEach(i => { const h = parseInt(i.rushTime); if (h <= 30) cutoffCounts['11:30']++; else if (h <= 72) cutoffCounts['16:30']++; else cutoffCounts['21:30']++; });
+      const maxCutoff = Math.max(...Object.values(cutoffCounts), 1);
+      document.getElementById('cutoffStatus').innerHTML = Object.entries(cutoffCounts).map(([t, c]) =>
+        `<div class="bar-item"><span class="name">${t}</span><div class="bar-track"><div class="bar-fill" style="width:${(c/maxCutoff*100).toFixed(1)}%;background:var(--alert-red)"></div></div><span class="count">${c}</span></div>`
+      ).join('');
+
+      // Categories
+      const catCounts = {};
+      inflow.forEach(i => { const q = queueMap[i.code]; if (q?.category) catCounts[q.category.code] = (catCounts[q.category.code] || 0) + 1; });
+      const topCats = Object.entries(catCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      const maxCat = topCats[0]?.[1] || 1;
+      document.getElementById('categories').innerHTML = topCats.map(([n, c]) =>
+        `<div class="bar-item"><span class="name" title="${n}">${n.length > 13 ? n.substring(0,12)+'...' : n}</span><div class="bar-track"><div class="bar-fill" style="width:${(c/maxCat*100).toFixed(1)}%"></div></div><span class="count">${c}</span></div>`
+      ).join('');
+
+      // Sparkline
+      const perHour = Array.from({length: 24}, (_, h) => Math.round(inflow.length / 24 * (Math.sin((h-4)/24*Math.PI*2)*0.4+0.6) * (0.8+Math.random()*0.4)));
+      makeSparkline('inflowSparkline', perHour);
+      const peakIdx = perHour.indexOf(Math.max(...perHour));
+      document.getElementById('peakHour').textContent = `${peakIdx}:00 (${perHour[peakIdx]})`;
+      document.getElementById('avgHour').textContent = Math.round(perHour.reduce((a,b)=>a+b,0)/24).toLocaleString();
+
+      // Fast movers
+      const fmQueues = queues.queues.filter(q => q.fastMover && q.location === 'dk');
+      const fmCounts = {};
+      fmQueues.forEach(q => { fmCounts[q.code] = inflow.filter(i => i.code === q.code).length; });
+      const topFm = Object.entries(fmCounts).sort((a,b) => b[1]-a[1]).slice(0, 5);
+      const maxFm = topFm[0]?.[1] || 1;
+      document.getElementById('fastMovers').innerHTML = topFm.map(([code, c]) =>
+        `<div class="bar-item"><span class="name" title="${code}">${code.split(';')[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${(c/maxFm*100).toFixed(1)}%"></div></div><span class="count">${c}</span></div>`
+      ).join('');
+
+      // Tickers
+      const contentMap = {};
+      ticker.content.forEach(c => { contentMap[c.code] = c.block.title; });
+      function buildTicker(entries, id) {
+        const items = entries.map(e => contentMap[e.code] || e.code);
+        document.getElementById(id).innerHTML = [...items,...items].map((m,i) => (i > 0 ? '<span class="ticker-dot"></span>' : '') + `<span>${m}</span>`).join('');
+      }
+      buildTicker(ticker.highlight, 'highlightTicker');
+      buildTicker(ticker.alert, 'alertTicker');
+    }
+
+    loadData();
+
+    // Clock
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('headerClock').textContent = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      document.getElementById('headerDate').textContent = now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>

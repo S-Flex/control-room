@@ -1,0 +1,220 @@
+{
+  "equipment": [
+    {
+      "id": "printer-1",
+      "name": "Printer 1",
+      "type": "printer",
+      "color": "green",
+      "x": 0.150,
+      "y": 0.210
+    },
+    {
+      "id": "printer-2",
+      "name": "Printer 2",
+      "type": "printer",
+      "color": "green",
+      "x": 0.222,
+      "y": 0.198
+    },
+    {
+      "id": "printer-3",
+      "name": "Printer 3",
+      "type": "printer",
+      "color": "green",
+      "x": 0.157,
+      "y": 0.315
+    },
+    {
+      "id": "printer-4",
+      "name": "Printer 4",
+      "type": "printer",
+      "color": "green",
+      "x": 0.222,
+      "y": 0.303
+    },
+    {
+      "id": "coater-1",
+      "name": "Coater",
+      "type": "coater",
+      "color": "purple",
+      "x": 0.295,
+      "y": 0.200
+    },
+    {
+      "id": "printer-5",
+      "name": "Printer 5",
+      "type": "printer",
+      "color": "green",
+      "x": 0.175,
+      "y": 0.545
+    },
+    {
+      "id": "printer-6",
+      "name": "Printer 6",
+      "type": "printer",
+      "color": "green",
+      "x": 0.240,
+      "y": 0.540
+    },
+    {
+      "id": "printer-7",
+      "name": "Printer 7",
+      "type": "printer",
+      "color": "green",
+      "x": 0.300,
+      "y": 0.520
+    },
+    {
+      "id": "printer-red",
+      "name": "Printer 8 (down)",
+      "type": "printer",
+      "color": "red",
+      "x": 0.370,
+      "y": 0.480
+    },
+    {
+      "id": "printer-9",
+      "name": "Printer 9",
+      "type": "printer",
+      "color": "green",
+      "x": 0.445,
+      "y": 0.475
+    },
+    {
+      "id": "printer-10",
+      "name": "Printer 10",
+      "type": "printer",
+      "color": "green",
+      "x": 0.445,
+      "y": 0.545
+    },
+    {
+      "id": "cutter-1",
+      "name": "Flatbed Cutter 1",
+      "type": "cutter",
+      "color": "green",
+      "x": 0.530,
+      "y": 0.505
+    },
+    {
+      "id": "cutter-2",
+      "name": "Flatbed Cutter 2",
+      "type": "cutter",
+      "color": "green",
+      "x": 0.530,
+      "y": 0.580
+    },
+    {
+      "id": "cutter-3",
+      "name": "Flatbed Cutter 3",
+      "type": "cutter",
+      "color": "green",
+      "x": 0.610,
+      "y": 0.505
+    },
+    {
+      "id": "cutter-4",
+      "name": "Flatbed Cutter 4",
+      "type": "cutter",
+      "color": "green",
+      "x": 0.610,
+      "y": 0.580
+    },
+    {
+      "id": "cutter-5",
+      "name": "Flatbed Cutter 5",
+      "type": "cutter",
+      "color": "green",
+      "x": 0.690,
+      "y": 0.540
+    },
+    {
+      "id": "laser-1",
+      "name": "Laser Cutter",
+      "type": "laser",
+      "color": "green",
+      "x": 0.755,
+      "y": 0.245
+    },
+    {
+      "id": "finishing-1",
+      "name": "Finishing Unit",
+      "type": "finishing",
+      "color": "green",
+      "x": 0.620,
+      "y": 0.360
+    },
+    {
+      "id": "finishing-2",
+      "name": "Finishing Line",
+      "type": "finishing",
+      "color": "green",
+      "x": 0.780,
+      "y": 0.420
+    },
+    {
+      "id": "conveyor-1",
+      "name": "Output Conveyor 1",
+      "type": "conveyor",
+      "color": "yellow",
+      "x": 0.035,
+      "y": 0.495
+    },
+    {
+      "id": "conveyor-2",
+      "name": "Output Conveyor 2",
+      "type": "conveyor",
+      "color": "yellow",
+      "x": 0.035,
+      "y": 0.545
+    },
+    {
+      "id": "laminator-1",
+      "name": "Laminator 1",
+      "type": "laminator",
+      "color": "green",
+      "x": 0.235,
+      "y": 0.735
+    },
+    {
+      "id": "laminator-2",
+      "name": "Laminator 2",
+      "type": "laminator",
+      "color": "green",
+      "x": 0.290,
+      "y": 0.750
+    },
+    {
+      "id": "post-1",
+      "name": "Safety Post 1",
+      "type": "post",
+      "color": "yellow",
+      "x": 0.558,
+      "y": 0.340
+    },
+    {
+      "id": "post-2",
+      "name": "Safety Post 2",
+      "type": "post",
+      "color": "yellow",
+      "x": 0.562,
+      "y": 0.405
+    },
+    {
+      "id": "post-3",
+      "name": "Safety Post 3",
+      "type": "post",
+      "color": "yellow",
+      "x": 0.880,
+      "y": 0.310
+    },
+    {
+      "id": "post-4",
+      "name": "Safety Post 4",
+      "type": "post",
+      "color": "yellow",
+      "x": 0.885,
+      "y": 0.440
+    }
+  ]
+}

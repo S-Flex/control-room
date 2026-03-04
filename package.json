@@ -1,0 +1,10 @@
+{
+  "name": "inflow-nesting",
+  "private": true,
+  "scripts": {
+    "dev": "npx live-server --port=8092 --no-browser"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
