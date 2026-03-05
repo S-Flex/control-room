@@ -1,0 +1,163 @@
+{
+  "content": [
+    {
+      "code": "tco.depreciation",
+      "block": {
+        "title": "Afschrijving",
+        "text": "Lineaire afschrijving op basis van aanschafwaarde, restwaarde en levensduur",
+        "ml": {
+          "nl": { "title": "Afschrijving", "text": "Lineaire afschrijving op basis van aanschafwaarde, restwaarde en levensduur" },
+          "en": { "title": "Depreciation", "text": "Linear depreciation based on purchase price, residual value and lifetime" }
+        }
+      }
+    },
+    {
+      "code": "tco.maintenance-contract",
+      "block": {
+        "title": "Onderhoudscontract",
+        "text": "Jaarlijkse kosten voor servicecontract met leverancier",
+        "ml": {
+          "nl": { "title": "Onderhoudscontract", "text": "Jaarlijkse kosten voor servicecontract met leverancier" },
+          "en": { "title": "Maintenance contract", "text": "Annual costs for service contract with supplier" }
+        }
+      }
+    },
+    {
+      "code": "tco.consumables-deviation",
+      "block": {
+        "title": "Verbruiksafwijking",
+        "text": "Positieve of negatieve afwijking van het gecalculeerde verbruik. Verhoogt of verlaagt de TCO ten opzichte van de baseline.",
+        "ml": {
+          "nl": { "title": "Verbruiksafwijking", "text": "Positieve of negatieve afwijking van het gecalculeerde verbruik. Verhoogt of verlaagt de TCO ten opzichte van de baseline." },
+          "en": { "title": "Consumables deviation", "text": "Positive or negative deviation from calculated consumable usage. Increases or decreases TCO relative to baseline." }
+        }
+      }
+    },
+    {
+      "code": "tco.energy",
+      "block": {
+        "title": "Energie",
+        "text": "Elektriciteitskosten op basis van vermogen, bezetting en uurtarief",
+        "ml": {
+          "nl": { "title": "Energie", "text": "Elektriciteitskosten op basis van vermogen, bezetting en uurtarief" },
+          "en": { "title": "Energy", "text": "Electricity costs based on power, utilization and hourly rate" }
+        }
+      }
+    },
+    {
+      "code": "tco.floor-space",
+      "block": {
+        "title": "Vloeroppervlak",
+        "text": "Kosten voor de bezette vloerruimte per jaar",
+        "ml": {
+          "nl": { "title": "Vloeroppervlak", "text": "Kosten voor de bezette vloerruimte per jaar" },
+          "en": { "title": "Floor space", "text": "Cost of occupied floor area per year" }
+        }
+      }
+    },
+    {
+      "code": "tco.derived.tco-per-year",
+      "block": {
+        "title": "TCO per jaar",
+        "ml": {
+          "nl": { "title": "TCO per jaar" },
+          "en": { "title": "TCO per year" }
+        }
+      }
+    },
+    {
+      "code": "tco.derived.tco-per-m2",
+      "block": {
+        "title": "TCO per m²",
+        "ml": {
+          "nl": { "title": "TCO per m²" },
+          "en": { "title": "TCO per m²" }
+        }
+      }
+    },
+    {
+      "code": "tco.derived.tco-per-hour",
+      "block": {
+        "title": "TCO per uur",
+        "ml": {
+          "nl": { "title": "TCO per uur" },
+          "en": { "title": "TCO per hour" }
+        }
+      }
+    }
+  ],
+  "machineTcoModel": {
+    "version": "1.0",
+    "period": "per-year",
+    "currency": "EUR",
+    "components": [
+      {
+        "code": "tco.depreciation",
+        "inputs": {
+          "purchasePriceEur": null,
+          "residualValueEur": null,
+          "lifetimeYears": null
+        },
+        "formula": "(purchasePrice - residualValue) / lifetimeYears",
+        "unit": "eur-per-year"
+      },
+      {
+        "code": "tco.maintenance-contract",
+        "inputs": {
+          "annualCostEur": null,
+          "provider": null
+        },
+        "unit": "eur-per-year"
+      },
+      {
+        "code": "tco.consumables-deviation",
+        "comment": "Baseline consumables are priced into the job cost. Only the deviation from that baseline affects TCO.",
+        "inputs": {
+          "baselineConsumablesEurPerM2": null,
+          "actualConsumablesEurPerM2": null,
+          "annualM2Output": null
+        },
+        "formula": "(actualConsumablesEurPerM2 - baselineConsumablesEurPerM2) × annualM2Output",
+        "canBeNegative": true,
+        "unit": "eur-per-year"
+      },
+      {
+        "code": "tco.energy",
+        "inputs": {
+          "powerKw": null,
+          "utilizationPct": null,
+          "operatingHoursPerYear": null,
+          "energyRateEurPerKwh": null
+        },
+        "formula": "powerKw × utilizationPct × operatingHoursPerYear × energyRateEurPerKwh",
+        "unit": "eur-per-year"
+      },
+      {
+        "code": "tco.floor-space",
+        "inputs": {
+          "footprintM2": null,
+          "costPerM2PerYear": null
+        },
+        "formula": "footprintM2 × costPerM2PerYear",
+        "unit": "eur-per-year"
+      }
+    ],
+    "derived": [
+      {
+        "code": "tco.derived.tco-per-year",
+        "formula": "sum of all components",
+        "unit": "eur-per-year"
+      },
+      {
+        "code": "tco.derived.tco-per-m2",
+        "formula": "tcoPerYear / annualM2Output",
+        "unit": "eur-per-m2"
+      },
+      {
+        "code": "tco.derived.tco-per-hour",
+        "formula": "tcoPerYear / operatingHoursPerYear",
+        "unit": "eur-per-hour"
+      }
+    ]
+  }
+}

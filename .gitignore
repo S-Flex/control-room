@@ -1,0 +1,6 @@
+node_modules/
+.history/
+.claude/
+bash.exe.stackdump
+test-db.ts
+test-db.html

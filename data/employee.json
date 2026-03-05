@@ -1,0 +1,103 @@
+{
+  "content": [
+    {
+      "code": "employee.printer-operator",
+      "block": {
+        "title": "Printer operator",
+        "text": "Bediening van Durst en Epson printsystemen",
+        "ml": {
+          "nl": { "title": "Printer operator", "text": "Bediening van Durst en Epson printsystemen" },
+          "en": { "title": "Printer operator", "text": "Operation of Durst and Epson print systems" }
+        }
+      }
+    },
+    {
+      "code": "employee.cutter-operator",
+      "block": {
+        "title": "Cutter operator",
+        "text": "Bediening van Zünd snijsystemen",
+        "ml": {
+          "nl": { "title": "Cutter operator", "text": "Bediening van Zünd snijsystemen" },
+          "en": { "title": "Cutter operator", "text": "Operation of Zünd cutting systems" }
+        }
+      }
+    },
+    {
+      "code": "employee.finishing-operator",
+      "block": {
+        "title": "Afwerkmedewerker",
+        "text": "Werkzaam in de afwerkzone",
+        "ml": {
+          "nl": { "title": "Afwerkmedewerker", "text": "Werkzaam in de afwerkzone" },
+          "en": { "title": "Finishing operator", "text": "Working in the finishing zone" }
+        }
+      }
+    },
+    {
+      "code": "employee.metric.cost-per-hour",
+      "block": {
+        "title": "Personeelskosten / uur",
+        "ml": {
+          "nl": { "title": "Personeelskosten / uur" },
+          "en": { "title": "Labour cost / hour" }
+        }
+      }
+    },
+    {
+      "code": "employee.metric.cost-per-m2",
+      "block": {
+        "title": "Personeelskosten / m²",
+        "ml": {
+          "nl": { "title": "Personeelskosten / m²" },
+          "en": { "title": "Labour cost / m²" }
+        }
+      }
+    },
+    {
+      "code": "employee.metric.idle-labor-cost",
+      "block": {
+        "title": "Kosten bij stilstand",
+        "text": "Personeelskosten terwijl machine idle, starved of blocked is",
+        "ml": {
+          "nl": { "title": "Kosten bij stilstand", "text": "Personeelskosten terwijl machine idle, starved of blocked is" },
+          "en": { "title": "Idle labour cost", "text": "Labour costs while machine is idle, starved or blocked" }
+        }
+      }
+    }
+  ],
+  "employeeCost": {
+    "params": {
+      "overheadMultiplier": 1.35,
+      "dayShiftHours": 8,
+      "eveningShiftHours": 8,
+      "isEveningShift": 1
+    },
+    "shifts": [
+      { "name": "day", "hours": null },
+      { "name": "evening", "hours": null }
+    ],
+    "roles": [
+      {
+        "code": "employee.printer-operator",
+        "params": {
+          "averageGrossHourlyRateEur": null
+        },
+        "formula": ["result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"]
+      },
+      {
+        "code": "employee.cutter-operator",
+        "params": {
+          "averageGrossHourlyRateEur": null
+        },
+        "formula": ["result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"]
+      },
+      {
+        "code": "employee.finishing-operator",
+        "params": {
+          "averageGrossHourlyRateEur": null
+        },
+        "formula": ["result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"]
+      }
+    ]
+  }
+}

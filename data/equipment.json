@@ -6,7 +6,13 @@
     {
       "id": "printer-1",
       "name": "Dürst P5-350-HS",
-      "voice": ["350", "printer 1", "p5 350", "durst 350", "grote durst"],
+      "voice": [
+        "350",
+        "printer 1",
+        "p5 350",
+        "durst 350",
+        "grote durst"
+      ],
       "type": "printer",
       "color": "green",
       "status": "printing",
@@ -24,7 +30,11 @@
     {
       "id": "printer-2",
       "name": "Dürst P5-350-HS Automat",
-      "voice": ["automat", "printer 2", "automaat"],
+      "voice": [
+        "automat",
+        "printer 2",
+        "automaat"
+      ],
       "type": "printer",
       "color": "green",
       "status": "printing",
@@ -42,7 +52,12 @@
     {
       "id": "coater-1",
       "name": "Coater",
-      "voice": ["coater", "koter", "koater", "coaten"],
+      "voice": [
+        "coater",
+        "koter",
+        "koater",
+        "coaten"
+      ],
       "type": "coater",
       "color": "purple",
       "status": "initializing",
@@ -60,7 +75,14 @@
     {
       "id": "printer-3",
       "name": "Dürst P5-210 1",
-      "voice": ["210 1", "printer 3", "p5 210 1", "durst 210 1", "kleine durst 1", "210 een"],
+      "voice": [
+        "210 1",
+        "printer 3",
+        "p5 210 1",
+        "durst 210 1",
+        "kleine durst 1",
+        "210 een"
+      ],
       "type": "printer",
       "color": "green",
       "status": "printing",
@@ -78,12 +100,19 @@
     {
       "id": "printer-4",
       "name": "Dürst P5-210 2",
-      "voice": ["210 2", "printer 4", "p5 210 2", "durst 210 2", "kleine durst 2", "210 twee"],
+      "voice": [
+        "210 2",
+        "printer 4",
+        "p5 210 2",
+        "durst 210 2",
+        "kleine durst 2",
+        "210 twee"
+      ],
       "type": "printer",
       "color": "green",
       "status": "printing",
-      "x": 570,
-      "y": 464,
+      "x": 578,
+      "y": 490,
       "oee": 68,
       "producing": 26,
       "stopped": 22,
@@ -96,7 +125,13 @@
     {
       "id": "printer-5",
       "name": "Dürst P5-210-HS",
-      "voice": ["210 hs", "printer 5", "p5 210 hs", "durst 210 hs", "snelle 210"],
+      "voice": [
+        "210 hs",
+        "printer 5",
+        "p5 210 hs",
+        "durst 210 hs",
+        "snelle 210"
+      ],
       "type": "printer",
       "color": "red",
       "status": "error",
@@ -114,7 +149,13 @@
     {
       "id": "swissq-1",
       "name": "SwissQ kudu 1",
-      "voice": ["kudu 1", "swiss 1", "koedoe 1", "kudu een", "koedu 1"],
+      "voice": [
+        "kudu 1",
+        "swiss 1",
+        "koedoe 1",
+        "kudu een",
+        "koedu 1"
+      ],
       "type": "printer",
       "color": "green",
       "status": "printing",
@@ -132,7 +173,13 @@
     {
       "id": "swissq-2",
       "name": "SwissQ kudu 2",
-      "voice": ["kudu 2", "swiss 2", "koedoe 2", "kudu twee", "koedu 2"],
+      "voice": [
+        "kudu 2",
+        "swiss 2",
+        "koedoe 2",
+        "kudu twee",
+        "koedu 2"
+      ],
       "type": "printer",
       "color": "green",
       "status": "printing",
@@ -150,7 +197,14 @@
     {
       "id": "qline-1",
       "name": "Q-line",
-      "voice": ["q line", "klijn", "qlijn", "queue line", "culijn", "koe lijn"],
+      "voice": [
+        "q line",
+        "klijn",
+        "qlijn",
+        "queue line",
+        "culijn",
+        "koe lijn"
+      ],
       "type": "cutter",
       "color": "green",
       "status": "cutting",
@@ -168,7 +222,12 @@
     {
       "id": "laser-1",
       "name": "SEI laser",
-      "voice": ["laser", "sei", "sei laser", "de laser"],
+      "voice": [
+        "laser",
+        "sei",
+        "sei laser",
+        "de laser"
+      ],
       "type": "laser",
       "color": "green",
       "status": "cutting",
@@ -186,7 +245,12 @@
     {
       "id": "cutter-2",
       "name": "Zund 1",
-      "voice": ["zund 1", "zond 1", "sunt 1", "zund een"],
+      "voice": [
+        "zund 1",
+        "zond 1",
+        "sunt 1",
+        "zund een"
+      ],
       "type": "cutter",
       "color": "green",
       "status": "cutting",
@@ -204,7 +268,12 @@
     {
       "id": "cutter-3",
       "name": "Zund 2",
-      "voice": ["zund 2", "zond 2", "sunt 2", "zund twee"],
+      "voice": [
+        "zund 2",
+        "zond 2",
+        "sunt 2",
+        "zund twee"
+      ],
       "type": "cutter",
       "color": "green",
       "status": "cutting",
@@ -222,7 +291,12 @@
     {
       "id": "cutter-4",
       "name": "Zund 3",
-      "voice": ["zund 3", "zond 3", "sunt 3", "zund drie"],
+      "voice": [
+        "zund 3",
+        "zond 3",
+        "sunt 3",
+        "zund drie"
+      ],
       "type": "cutter",
       "color": "green",
       "status": "cutting",
@@ -240,7 +314,12 @@
     {
       "id": "cutter-5",
       "name": "Zund 4",
-      "voice": ["zund 4", "zond 4", "sunt 4", "zund vier"],
+      "voice": [
+        "zund 4",
+        "zond 4",
+        "sunt 4",
+        "zund vier"
+      ],
       "type": "cutter",
       "color": "yellow",
       "status": "idle",
