@@ -16,19 +16,19 @@ type LineConfig = {
   camera?: CameraState;
 };
 
-type ModelsData = { lines: LineConfig[] };
+type ModelsData = { lines: LineConfig[]; };
 
 type ResourceStateEntry = {
   code: string;
   color: string;
   block: {
     title: string;
-    i18n?: Record<string, { title: string }>;
+    i18n?: Record<string, { title: string; }>;
   };
 };
 type ResourceStatesData = {
   content: ResourceStateEntry[];
-  states: { code: string }[];
+  states: { code: string; }[];
 };
 
 function buildStateMap(data: ResourceStatesData): Map<string, ResourceStateEntry> {
@@ -44,11 +44,11 @@ const inkColorMap: Record<string, string> = {
   black: '#333333',
 };
 
-function getExpiringInks(res: Resource, days = 5): { color: string; amount: number; expires: string }[] {
+function getExpiringInks(res: Resource, days = 5): { color: string; amount: number; expires: string; }[] {
   if (!res.inks) return [];
   const now = new Date();
   const cutoff = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
-  const result: { color: string; amount: number; expires: string }[] = [];
+  const result: { color: string; amount: number; expires: string; }[] = [];
   for (const [color, ink] of Object.entries(res.inks)) {
     const expDate = new Date(ink.expires);
     if (expDate <= cutoff) {
@@ -156,6 +156,7 @@ function PlanningResourceSidebarPanel({ resources, stateMap }: {
 
   // menuItem comes as "/oee" from useAuxOutlet, strip leading slash
   const item = menuItem.replace(/^\//, '');
+  console.log(item);
 
   return (
     <div className="planning-sidebar">
@@ -165,7 +166,7 @@ function PlanningResourceSidebarPanel({ resources, stateMap }: {
         </div>
         <button className="planning-sidebar-close" onClick={() => navigate('(sidebar:)')}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         </button>
       </div>
@@ -309,26 +310,26 @@ export function PlanningPage() {
     return (
       <div className="planning-menu-inner">
         <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('machine'); }}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1.5"/><path d="M10 3V4M10 16V17M3 10H4M16 10H17M5.05 5.05L5.76 5.76M14.24 14.24L14.95 14.95M14.95 5.05L14.24 5.76M5.76 14.24L5.05 14.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="3" stroke="currentColor" strokeWidth="1.5" /><path d="M10 3V4M10 16V17M3 10H4M16 10H17M5.05 5.05L5.76 5.76M14.24 14.24L14.95 14.95M14.95 5.05L14.24 5.76M5.76 14.24L5.05 14.95" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
           <span className="planning-menu-label">{res.name}</span>
         </button>
         {isEquipment && (
           <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('oee'); }}>
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 13V17C18 17.5523 17.5523 18 17 18H3C2.44772 18 2 17.5523 2 17V3C2 2.44772 2.44772 2 3 2H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M14 2H18V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/><path d="M10 10L18 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M18 13V17C18 17.5523 17.5523 18 17 18H3C2.44772 18 2 17.5523 2 17V3C2 2.44772 2.44772 2 3 2H7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M14 2H18V6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /><path d="M10 10L18 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             <span className="planning-menu-label">OEE</span>
           </button>
         )}
         {expiringInks.length > 0 && (
           <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('inks'); }}>
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="#d92d20" strokeWidth="1.5" strokeLinecap="round">
-              <path d="M8.57 2.79L1.32 15a1.67 1.67 0 001.42 2.5h14.52a1.67 1.67 0 001.42-2.5L11.43 2.79a1.67 1.67 0 00-2.86 0z"/>
-              <line x1="10" y1="7.5" x2="10" y2="11"/><line x1="10" y1="14" x2="10.01" y2="14"/>
+              <path d="M8.57 2.79L1.32 15a1.67 1.67 0 001.42 2.5h14.52a1.67 1.67 0 001.42-2.5L11.43 2.79a1.67 1.67 0 00-2.86 0z" />
+              <line x1="10" y1="7.5" x2="10" y2="11" /><line x1="10" y1="14" x2="10.01" y2="14" />
             </svg>
             <span className="planning-menu-label">Inks expiring</span>
           </button>
         )}
         <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('productie'); }}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4H18M2 4V16C2 16.5523 2.44772 17 3 17H17C17.5523 17 18 16.5523 18 16V4M2 4L4 2H16L18 4M7 8H13M7 11H13M7 14H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 4H18M2 4V16C2 16.5523 2.44772 17 3 17H17C17.5523 17 18 16.5523 18 16V4M2 4L4 2H16L18 4M7 8H13M7 11H13M7 14H10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
           <span className="planning-menu-label">Productie overzicht</span>
         </button>
       </div>
@@ -354,6 +355,7 @@ export function PlanningPage() {
   return (
     <AuxRouteProvider>
       <div className="planning-page">
+        <div className="planning-main">
         <header className="planning-header">
           <div className="planning-header-left">
             <input
@@ -390,9 +392,9 @@ export function PlanningPage() {
               onClick={() => { setDark(d => { document.body.classList.toggle('dark', !d); return !d; }); }}
             >
               {dark ? (
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="4" stroke="currentColor" strokeWidth="1.5"/><path d="M10 2V4M10 16V18M2 10H4M16 10H18M4.93 4.93L6.34 6.34M13.66 13.66L15.07 15.07M15.07 4.93L13.66 6.34M6.34 13.66L4.93 15.07" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="4" stroke="currentColor" strokeWidth="1.5" /><path d="M10 2V4M10 16V18M2 10H4M16 10H18M4.93 4.93L6.34 6.34M13.66 13.66L15.07 15.07M15.07 4.93L13.66 6.34M6.34 13.66L4.93 15.07" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
               ) : (
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17.39 11.39A7.5 7.5 0 118.61 2.61 5.5 5.5 0 0017.39 11.39z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17.39 11.39A7.5 7.5 0 118.61 2.61 5.5 5.5 0 0017.39 11.39z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               )}
             </button>
           </div>
@@ -413,8 +415,6 @@ export function PlanningPage() {
               popoverRef={dismissPopoverRef}
             />
           </div>
-
-          <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} />
         </div>
 
         <div className="planning-bottom">
@@ -436,6 +436,9 @@ export function PlanningPage() {
             </div>
           </div>
         </div>
+        </div>{/* .planning-main */}
+
+        <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} />
       </div>
     </AuxRouteProvider>
   );
