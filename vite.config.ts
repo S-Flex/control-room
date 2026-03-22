@@ -66,6 +66,7 @@ export default defineConfig({
     alias: {
       'xfw-three': path.resolve(__dirname, 'packages/xfw-three'),
       'xfw-url': path.resolve(__dirname, 'packages/xfw-url'),
+      'xfw-data': path.resolve(__dirname, 'packages/xfw-data')
     },
   },
   server: {

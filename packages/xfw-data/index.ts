@@ -9,8 +9,6 @@ export type {
     DataTable,
     DataGroup,
     DataConfig,
-    FieldGroup,
-    Field,
 } from "./types";
 
 // API Client

@@ -28,7 +28,7 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
 
     // Check for mandatory params availability
     const mandatoryParams = useMemo(
-        () => dataTable?.params?.filter(p => !p.isIdentOnly && !p.isOptional) ?? [],
+        () => dataTable?.params?.filter(p => !p.is_ident_only && !p.is_optional) ?? [],
         [dataTable]
     );
     const allMandatoryParamsAvailable = useMemo(() => {
@@ -38,7 +38,7 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
     }, [mandatoryParams, params]);
 
     const primaryIdKey = useMemo(
-        () => dataTable?.primaryKeys?.[0]?.key ?? "id",
+        () => dataTable?.primary_keys?.[0] ?? "id",
         [dataTable]
     );
 

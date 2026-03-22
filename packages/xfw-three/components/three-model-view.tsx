@@ -215,15 +215,16 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
         });
 
         if (!found) return;
+        const foundObj = found as import('three').Object3D;
 
         // Get the center of the object's bounding box in world space
-        const box = new Box3().setFromObject(found);
+        const box = new Box3().setFromObject(foundObj);
         const center = new Vector3();
         box.getCenter(center);
 
         setPopover({
             world: center,
-            data: { ...found.userData, name: found.name } as ObjectData,
+            data: { ...foundObj.userData, name: foundObj.name } as ObjectData,
         });
 
         invalidate();

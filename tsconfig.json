@@ -13,8 +13,12 @@
     "noEmit": true,
     "paths": {
       "xfw-three": ["./packages/xfw-three"],
-      "xfw-three/*": ["./packages/xfw-three/*"]
+      "xfw-three/*": ["./packages/xfw-three/*"],
+      "xfw-url": ["./packages/xfw-url"],
+      "xfw-url/*": ["./packages/xfw-url/*"],
+      "xfw-data": ["./packages/xfw-data"],
+      "xfw-data/*": ["./packages/xfw-data/*"]
     }
   },
-  "include": ["src", "packages/xfw-three"]
+  "include": ["src", "packages/xfw-three", "packages/xfw-url", "packages/xfw-data"]
 }

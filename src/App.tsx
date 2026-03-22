@@ -53,7 +53,7 @@ export function App() {
   const [displayDuration, setDisplayDuration] = useState(5000);
   const [dashData, setDashData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [activeMatchKey, setActiveMatchKey] = useState<number | string | null>(null);
+  const [activeMatchKey, setActiveMatchKey] = useState<string | null>(null);
   const [cyclePaused, setCyclePaused] = useState(false);
   const cycleTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const lineResRef = useRef<Resource[]>([]);
