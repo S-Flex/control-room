@@ -6,6 +6,7 @@ export type {
     PopoverState,
     PopoverPosition,
     BoundsBox,
+    CameraState,
     ThreeModelViewProps,
 } from "./types";
 

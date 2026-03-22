@@ -5,7 +5,7 @@
       "block": {
         "title": "Printer operator",
         "text": "Bediening van Durst en Epson printsystemen",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Printer operator", "text": "Bediening van Durst en Epson printsystemen" },
           "en": { "title": "Printer operator", "text": "Operation of Durst and Epson print systems" }
         }
@@ -16,7 +16,7 @@
       "block": {
         "title": "Cutter operator",
         "text": "Bediening van Zünd snijsystemen",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Cutter operator", "text": "Bediening van Zünd snijsystemen" },
           "en": { "title": "Cutter operator", "text": "Operation of Zünd cutting systems" }
         }
@@ -27,7 +27,7 @@
       "block": {
         "title": "Afwerkmedewerker",
         "text": "Werkzaam in de afwerkzone",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Afwerkmedewerker", "text": "Werkzaam in de afwerkzone" },
           "en": { "title": "Finishing operator", "text": "Working in the finishing zone" }
         }
@@ -37,7 +37,7 @@
       "code": "employee.metric.cost-per-hour",
       "block": {
         "title": "Personeelskosten / uur",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Personeelskosten / uur" },
           "en": { "title": "Labour cost / hour" }
         }
@@ -47,7 +47,7 @@
       "code": "employee.metric.cost-per-m2",
       "block": {
         "title": "Personeelskosten / m²",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Personeelskosten / m²" },
           "en": { "title": "Labour cost / m²" }
         }
@@ -58,7 +58,7 @@
       "block": {
         "title": "Kosten bij stilstand",
         "text": "Personeelskosten terwijl machine idle, starved of blocked is",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Kosten bij stilstand", "text": "Personeelskosten terwijl machine idle, starved of blocked is" },
           "en": { "title": "Idle labour cost", "text": "Labour costs while machine is idle, starved or blocked" }
         }

@@ -5,7 +5,7 @@
       "block": {
         "title": "Afschrijving",
         "text": "Lineaire afschrijving op basis van aanschafwaarde, restwaarde en levensduur",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Afschrijving", "text": "Lineaire afschrijving op basis van aanschafwaarde, restwaarde en levensduur" },
           "en": { "title": "Depreciation", "text": "Linear depreciation based on purchase price, residual value and lifetime" }
         }
@@ -16,7 +16,7 @@
       "block": {
         "title": "Onderhoudscontract",
         "text": "Jaarlijkse kosten voor servicecontract met leverancier",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Onderhoudscontract", "text": "Jaarlijkse kosten voor servicecontract met leverancier" },
           "en": { "title": "Maintenance contract", "text": "Annual costs for service contract with supplier" }
         }
@@ -27,7 +27,7 @@
       "block": {
         "title": "Verbruiksafwijking",
         "text": "Positieve of negatieve afwijking van het gecalculeerde verbruik. Verhoogt of verlaagt de TCO ten opzichte van de baseline.",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Verbruiksafwijking", "text": "Positieve of negatieve afwijking van het gecalculeerde verbruik. Verhoogt of verlaagt de TCO ten opzichte van de baseline." },
           "en": { "title": "Consumables deviation", "text": "Positive or negative deviation from calculated consumable usage. Increases or decreases TCO relative to baseline." }
         }
@@ -38,7 +38,7 @@
       "block": {
         "title": "Energie",
         "text": "Elektriciteitskosten op basis van vermogen, bezetting en uurtarief",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Energie", "text": "Elektriciteitskosten op basis van vermogen, bezetting en uurtarief" },
           "en": { "title": "Energy", "text": "Electricity costs based on power, utilization and hourly rate" }
         }
@@ -49,7 +49,7 @@
       "block": {
         "title": "Vloeroppervlak",
         "text": "Kosten voor de bezette vloerruimte per jaar",
-        "ml": {
+        "i18n": {
           "nl": { "title": "Vloeroppervlak", "text": "Kosten voor de bezette vloerruimte per jaar" },
           "en": { "title": "Floor space", "text": "Cost of occupied floor area per year" }
         }
@@ -59,7 +59,7 @@
       "code": "tco.derived.tco-per-year",
       "block": {
         "title": "TCO per jaar",
-        "ml": {
+        "i18n": {
           "nl": { "title": "TCO per jaar" },
           "en": { "title": "TCO per year" }
         }
@@ -69,7 +69,7 @@
       "code": "tco.derived.tco-per-m2",
       "block": {
         "title": "TCO per m²",
-        "ml": {
+        "i18n": {
           "nl": { "title": "TCO per m²" },
           "en": { "title": "TCO per m²" }
         }
@@ -79,7 +79,7 @@
       "code": "tco.derived.tco-per-hour",
       "block": {
         "title": "TCO per uur",
-        "ml": {
+        "i18n": {
           "nl": { "title": "TCO per uur" },
           "en": { "title": "TCO per hour" }
         }

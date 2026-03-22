@@ -1,338 +1,515 @@
-{
-  "displayDuration": 5,
-  "imageWidth": 1531,
-  "imageHeight": 857,
-  "equipment": [
-    {
-      "id": "printer-1",
-      "name": "Dürst P5-350-HS",
-      "voice": [
-        "350",
-        "printer 1",
-        "p5 350",
-        "durst 350",
-        "grote durst"
+[
+  {
+    "data": {
+      "brand": "Durst",
+      "brandType": "P5 TEX iSUB",
+      "version": "P5 TEX iSUB",
+      "color": "Durst kleurstelling",
+      "fileUid": "1691658259616",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "start"
+        },
+        {
+          "id": "impact",
+          "type": "formula",
+          "formula": "result=(mediaWidth*height/10000/(printSpeedSqm/60))*60"
+        },
+        {
+          "id": "end",
+          "type": "end",
+          "formula": "result"
+        }
       ],
-      "type": "printer",
-      "color": "green",
-      "status": "printing",
-      "x": 305,
-      "y": 290,
-      "oee": 82,
-      "producing": 31,
-      "stopped": 24,
-      "inactive": 10,
-      "errors": 12,
-      "downtime": "18 min",
-      "jobsToday": 47,
-      "material": "PP Film"
-    },
-    {
-      "id": "printer-2",
-      "name": "Dürst P5-350-HS Automat",
-      "voice": [
-        "automat",
-        "printer 2",
-        "automaat"
+      "connections": [
+        {
+          "from": "start",
+          "to": "impact"
+        },
+        {
+          "from": "impact",
+          "to": "end"
+        }
       ],
-      "type": "printer",
-      "color": "green",
-      "status": "printing",
-      "x": 383,
-      "y": 337,
-      "oee": 77,
-      "producing": 28,
-      "stopped": 18,
-      "inactive": 14,
-      "errors": 8,
-      "downtime": "24 min",
-      "jobsToday": 39,
-      "material": "Vinyl"
-    },
-    {
-      "id": "coater-1",
-      "name": "Coater",
-      "voice": [
-        "coater",
-        "koter",
-        "koater",
-        "coaten"
+      "modi": [
+        {
+          "mode": "Direct PASS 2 Level 0",
+          "description": "Direct Printing Mode - Pass 2 Level 0 - 400x600dpi GS",
+          "printPasses": 2,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 170,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 2 Level 1",
+          "description": "Direct Printing Mode - Pass 2 Level 1 (recommended for Inline Fixation) - 400x600dpi GS",
+          "printPasses": 2,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 127,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 3 Level 0",
+          "description": "Direct Printing Mode - Pass 3 Level 0 - 400x600dpi GS",
+          "printPasses": 3,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 133,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 3 Level 1",
+          "description": "Direct Printing Mode - Pass 3 Level 1 (recommended) - 400x600dpi GS",
+          "printPasses": 3,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 103,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 4 Level 0",
+          "description": "Direct Printing Mode - Pass 4 Level 0 - 400x600dpi GS",
+          "printPasses": 4,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 112,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 4 Level 1",
+          "description": "Direct Printing Mode - Pass 4 Level 1 - 400x600dpi GS",
+          "printPasses": 4,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 91,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 5 Level 0",
+          "description": "Direct Printing Mode - Pass 5 Level 0 - 400x600dpi GS",
+          "printPasses": 5,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 93,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Direct PASS 5 Level 1",
+          "description": "Direct Printing Mode - Pass 5 Level 1 - 400x600dpi GS",
+          "printPasses": 5,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 80,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 1 Level 0",
+          "description": "Transfer Printing Mode - Pass 1 Level 0 - 800x600dpi B",
+          "printPasses": 1,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 422,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 1 Level 1",
+          "description": "Transfer Printing Mode - Pass 1 Level 1 - 800x600dpi B",
+          "printPasses": 1,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 386,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 1 Level 2",
+          "description": "Transfer Printing Mode - Pass 1 Level 2 (recommended) - 800x600dpi B",
+          "printPasses": 1,
+          "passoverlapLevel": 2,
+          "params": {
+            "printSpeedSqm": 260,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 2 Level 0",
+          "description": "Transfer Printing Mode - Pass 2 Level 0 - 800x600dpi B",
+          "printPasses": 2,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 260,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 2 Level 1",
+          "description": "Transfer Printing Mode - Pass 2 Level 1 (recommended) - 800x600dpi B",
+          "printPasses": 2,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 189,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 3 Level 0",
+          "description": "Transfer Printing Mode - Pass 3 Level 0 - 800x600dpi B",
+          "printPasses": 3,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 189,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 3 Level 1",
+          "description": "Transfer Printing Mode - Pass 3 Level 1 (recommended) - 800x600dpi B",
+          "printPasses": 3,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 140,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 4 Level 0",
+          "description": "Transfer Printing Mode - Pass 4 Level 0 - 800x600dpi B",
+          "printPasses": 4,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 146,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 4 Level 1",
+          "description": "Transfer Printing Mode - Pass 4 Level 1 (recommended) - 800x600dpi B",
+          "printPasses": 4,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 113,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 5 Level 0",
+          "description": "Transfer Printing Mode - Pass 5 Level 0 - 800x600dpi B",
+          "printPasses": 5,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 117,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 5 Level 1",
+          "description": "Transfer Printing Mode - Pass 5 Level 1 (recommended) - 800x600dpi B",
+          "printPasses": 5,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 95,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 6 Level 0",
+          "description": "Transfer Printing Mode - Pass 6 Level 0 - 800x600dpi B",
+          "printPasses": 6,
+          "passoverlapLevel": 0,
+          "params": {
+            "printSpeedSqm": 97,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Transfer PASS 6 Level 1",
+          "description": "Transfer Printing Mode - Pass 6 Level 1 (recommended) - 800x600dpi B",
+          "printPasses": 6,
+          "passoverlapLevel": 1,
+          "params": {
+            "printSpeedSqm": 83,
+            "mediaLoading": 0.15,
+            "mediaWidth": 350
+          },
+          "printMode": "NOBACKLIT"
+        }
       ],
-      "type": "coater",
-      "color": "purple",
-      "status": "initializing",
-      "x": 520,
-      "y": 288,
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—"
-    },
-    {
-      "id": "printer-3",
-      "name": "Dürst P5-210 1",
-      "voice": [
-        "210 1",
-        "printer 3",
-        "p5 210 1",
-        "durst 210 1",
-        "kleine durst 1",
-        "210 een"
-      ],
-      "type": "printer",
-      "color": "green",
-      "status": "printing",
-      "x": 355,
-      "y": 530,
-      "oee": 91,
-      "producing": 38,
-      "stopped": 8,
-      "inactive": 5,
-      "errors": 3,
-      "downtime": "6 min",
-      "jobsToday": 62,
-      "material": "Acrylic"
-    },
-    {
-      "id": "printer-4",
-      "name": "Dürst P5-210 2",
-      "voice": [
-        "210 2",
-        "printer 4",
-        "p5 210 2",
-        "durst 210 2",
-        "kleine durst 2",
-        "210 twee"
-      ],
-      "type": "printer",
-      "color": "green",
-      "status": "printing",
-      "x": 578,
-      "y": 490,
-      "oee": 68,
-      "producing": 26,
-      "stopped": 22,
-      "inactive": 12,
-      "errors": 18,
-      "downtime": "32 min",
-      "jobsToday": 34,
-      "material": "Roughmark"
-    },
-    {
-      "id": "printer-5",
-      "name": "Dürst P5-210-HS",
-      "voice": [
-        "210 hs",
-        "printer 5",
-        "p5 210 hs",
-        "durst 210 hs",
-        "snelle 210"
-      ],
-      "type": "printer",
-      "color": "red",
-      "status": "error",
-      "x": 701,
-      "y": 426,
-      "oee": 22,
-      "producing": 8,
-      "stopped": 42,
-      "inactive": 20,
-      "errors": 36,
-      "downtime": "96 min",
-      "jobsToday": 11,
-      "material": "PP Film"
-    },
-    {
-      "id": "swissq-1",
-      "name": "SwissQ kudu 1",
-      "voice": [
-        "kudu 1",
-        "swiss 1",
-        "koedoe 1",
-        "kudu een",
-        "koedu 1"
-      ],
-      "type": "printer",
-      "color": "green",
-      "status": "printing",
-      "x": 879,
-      "y": 401,
-      "oee": 85,
-      "producing": 34,
-      "stopped": 12,
-      "inactive": 8,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 53,
-      "material": "Textile"
-    },
-    {
-      "id": "swissq-2",
-      "name": "SwissQ kudu 2",
-      "voice": [
-        "kudu 2",
-        "swiss 2",
-        "koedoe 2",
-        "kudu twee",
-        "koedu 2"
-      ],
-      "type": "printer",
-      "color": "green",
-      "status": "printing",
-      "x": 984,
-      "y": 367,
-      "oee": 73,
-      "producing": 30,
-      "stopped": 20,
-      "inactive": 10,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 41,
-      "material": "Vinyl"
-    },
-    {
-      "id": "qline-1",
-      "name": "Q-line",
-      "voice": [
-        "q line",
-        "klijn",
-        "qlijn",
-        "queue line",
-        "culijn",
-        "koe lijn"
-      ],
-      "type": "cutter",
-      "color": "green",
-      "status": "cutting",
-      "x": 1125,
-      "y": 334,
-      "oee": 88,
-      "producing": 36,
-      "stopped": 10,
-      "inactive": 6,
-      "errors": 4,
-      "downtime": "8 min",
-      "jobsToday": 58,
-      "material": "Mixed"
-    },
-    {
-      "id": "laser-1",
-      "name": "SEI laser",
-      "voice": [
-        "laser",
-        "sei",
-        "sei laser",
-        "de laser"
-      ],
-      "type": "laser",
-      "color": "green",
-      "status": "cutting",
-      "x": 1191,
-      "y": 434,
-      "oee": 79,
-      "producing": 32,
-      "stopped": 16,
-      "inactive": 8,
-      "errors": 7,
-      "downtime": "14 min",
-      "jobsToday": 45,
-      "material": "Acrylic"
-    },
-    {
-      "id": "cutter-2",
-      "name": "Zund 1",
-      "voice": [
-        "zund 1",
-        "zond 1",
-        "sunt 1",
-        "zund een"
-      ],
-      "type": "cutter",
-      "color": "green",
-      "status": "cutting",
-      "x": 944,
-      "y": 459,
-      "oee": 74,
-      "producing": 28,
-      "stopped": 18,
-      "inactive": 12,
-      "errors": 10,
-      "downtime": "20 min",
-      "jobsToday": 38,
-      "material": "Board"
-    },
-    {
-      "id": "cutter-3",
-      "name": "Zund 2",
-      "voice": [
-        "zund 2",
-        "zond 2",
-        "sunt 2",
-        "zund twee"
-      ],
-      "type": "cutter",
-      "color": "green",
-      "status": "cutting",
-      "x": 827,
-      "y": 507,
-      "oee": 81,
-      "producing": 33,
-      "stopped": 14,
-      "inactive": 9,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 44,
-      "material": "PVC"
-    },
-    {
-      "id": "cutter-4",
-      "name": "Zund 3",
-      "voice": [
-        "zund 3",
-        "zond 3",
-        "sunt 3",
-        "zund drie"
-      ],
-      "type": "cutter",
-      "color": "green",
-      "status": "cutting",
-      "x": 723,
-      "y": 551,
-      "oee": 70,
-      "producing": 25,
-      "stopped": 22,
-      "inactive": 15,
-      "errors": 14,
-      "downtime": "28 min",
-      "jobsToday": 32,
-      "material": "Foam"
-    },
-    {
-      "id": "cutter-5",
-      "name": "Zund 4",
-      "voice": [
-        "zund 4",
-        "zond 4",
-        "sunt 4",
-        "zund vier"
-      ],
-      "type": "cutter",
-      "color": "yellow",
-      "status": "idle",
-      "x": 481,
-      "y": 638,
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—"
+      "speedReductions": {
+        "note": "No specific speed reduction percentages are provided in the document for special print types"
+      }
     }
-  ]
-}
+  },
+  {
+    "data": {
+      "brand": "SwissQ",
+      "brandType": "Kudu",
+      "version": "Kudu",
+      "color": "SwissQ kleurstelling",
+      "fileUid": "",
+      "nodes": [
+        {
+          "id": "start",
+          "type": "start"
+        },
+        {
+          "id": "impact",
+          "type": "formula",
+          "formula": "result=(width*height/10000/(printSpeedSqm/60))*60"
+        },
+        {
+          "id": "end",
+          "type": "end",
+          "formula": "result"
+        }
+      ],
+      "connections": [
+        {
+          "from": "start",
+          "to": "impact"
+        },
+        {
+          "from": "impact",
+          "to": "end"
+        }
+      ],
+      "modi": [
+        {
+          "mode": "PASS 1 Level 0",
+          "description": "Pass 1 Level 0 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 845,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 2 Level 0",
+          "description": "Pass 2 Level 0 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 670,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 2 Level 1",
+          "description": "Pass 2 Level 1 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 554,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 2 Level 2",
+          "description": "Pass 2 Level 2 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 455,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 2 Level 3",
+          "description": "Pass 2 Level 3 (recommended) - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 377,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 3 Level 0",
+          "description": "Pass 3 Level 0 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 455,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 3 Level 1",
+          "description": "Pass 3 Level 1 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 296,
+            "mediaWidth": 210,
+            "mediaLoading": 0.15
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 3 Level 2",
+          "description": "Pass 3 Level 2 (recommended)(glossy-Mode) - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 236,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 4 Level 0",
+          "description": "Pass 4 Level 0 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 355,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 4 Level 1",
+          "description": "Pass 4 Level 1 (recommended) - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 189,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "PASS 5 Level 0",
+          "description": "Pass 5 Level 0 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 284,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Backlit PASS 3 Level 1",
+          "description": "Backlit Pass 3 Level 1 - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 296,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Backlit PASS 3 Level 2",
+          "description": "Backlit Pass 3 Level 2 (recommended) - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 252,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Backlit PASS 4 Level 1",
+          "description": "Backlit Pass 4 Level 1 (recommended) - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 189,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        },
+        {
+          "mode": "Backlit PASS 5 Level 1",
+          "description": "Backlit Pass 5 Level 1 (recommended) - 700x1200dpi",
+          "params": {
+            "printSpeedSqm": 151,
+            "mediaLoading": 0.15,
+            "mediaWidth": 210
+          },
+          "printMode": "NOBACKLIT"
+        }
+      ],
+      "speedReductions": {
+        "singleLayerUnderprint": {
+          "reductionPercentage": 50,
+          "description": "White / Primer underprint only"
+        },
+        "singleLayerOverprint": {
+          "reductionPercentage": 50,
+          "description": "White / Varnish overprint only"
+        },
+        "underprintPlusColor": {
+          "reductionPercentage": 50,
+          "description": "Underprint + Color combination"
+        },
+        "colorPlusOverprint": {
+          "reductionPercentage": 50,
+          "description": "Color + Overprint combination"
+        },
+        "threeLayerFull": {
+          "reductionPercentage": 66,
+          "description": "Full three-layer printing: Underprint + Color + Overprint"
+        },
+        "underprintPlusOverprint": {
+          "reductionPercentage": 66,
+          "description": "Underprint + Overprint (no color layer)"
+        },
+        "threeLayerDayNight": {
+          "reductionPercentage": 85,
+          "description": "3 Layer = C-W-C = Day & Night printing"
+        },
+        "fiveLayerInOut": {
+          "reductionPercentage": 90,
+          "description": "5 Layer = C-W-B-W-C = In & Out printing"
+        }
+      }
+    }
+  }
+]

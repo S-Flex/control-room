@@ -1,0 +1,20 @@
+export type Resource = {
+  line: string;
+  layout_name: string;
+  name: string;
+  type: string;
+  color?: string;
+  state: string;
+  status?: string;
+  oee?: number;
+  producing?: number;
+  stopped?: number;
+  inactive?: number;
+  errors?: number;
+  downtime?: string;
+  jobsToday?: number;
+  material?: string;
+  ink_expiration?: boolean;
+  inks?: Record<string, { amount: number; expires: string }>;
+  materials?: { name: string; quantity: number }[];
+};

@@ -2,10 +2,12 @@ import { useMemo } from "react";
 import { useLocation } from "react-router-dom";
 
 export function useAuxRoutes() {
-    const { pathname } = useLocation();
+    const { pathname: rawPathname } = useLocation();
 
     // Memoize parsing to avoid recalculating on every render
     return useMemo(() => {
+        // Decode URI-encoded characters (React Router may encode parens/colons)
+        const pathname = decodeURIComponent(rawPathname);
         // Split main vs. aux: e.g. "/xfw/en/dashboard(sidebar:help//window:alert)"
         const match = pathname.match(/^([^()]+)(?:\((.+)\))?$/);
 
@@ -21,5 +23,5 @@ export function useAuxRoutes() {
         }
 
         return { main, aux };
-    }, [pathname]);
+    }, [rawPathname]);
 }

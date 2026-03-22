@@ -17,17 +17,22 @@ export const NavigationContext = createContext<StableNavigateFunction | null>(nu
 
 export const NavigationProvider = ({ children }: { children: ReactNode; }) => {
     const rrNavigate = rrUseNavigate();
+    const rrNavigateRef = useRef(rrNavigate);
+    rrNavigateRef.current = rrNavigate;
     const navigateRef = useRef<StableNavigateFunction>(null);
 
-    // Create the stable navigate function once
+    // Create the stable navigate function once, but always use latest rrNavigate via ref
     if (!navigateRef.current) {
         navigateRef.current = (params: NavigateParams, opts: NavigateOptions = { replace: false, preventScrollReset: true }) => {
-            // 1. Shape current full path
-            const fullPath = window.location.pathname + window.location.search;
+            // 1. Shape current full path (decode to handle encoded aux routes)
+            const fullPath = decodeURIComponent(window.location.pathname) + window.location.search;
 
             // 2. If string, treat as partialPath
-            if (typeof params === "string")
-                return rrNavigate(recombineFullPathFromPartialPath(fullPath, params), opts);
+            if (typeof params === "string") {
+                const newPath = recombineFullPathFromPartialPath(fullPath, params);
+                if (newPath === fullPath) return;
+                return rrNavigateRef.current(newPath, opts);
+            }
 
             // eslint-disable-next-line prefer-const
             let { partialPath, path, outlets, queryParams } = params;
@@ -55,7 +60,7 @@ export const NavigationProvider = ({ children }: { children: ReactNode; }) => {
             }
 
             // 6. Navigate
-            return rrNavigate(newPath, opts);
+            return rrNavigateRef.current(newPath, opts);
         };
     }
 
