@@ -59,7 +59,7 @@ function layoutKey(nodeName: string): string {
     return parts.length > 1 ? parts.slice(1).join('_') : nodeName;
 }
 
-function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, data, colorKey, onMiss, justSetPopoverRef, lastClickedDataRef, activeResourceId, initialCamera, onSaveCamera, getCameraStateRef }: {
+function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, data, colorKey, onMiss, justSetPopoverRef, lastClickedDataRef, activeResourceId, initialCamera, onSaveCamera, getCameraStateRef, renderLabel }: {
     url: string;
     setPopover: React.Dispatch<React.SetStateAction<PopoverState | null>>;
     containerRef: React.RefObject<HTMLDivElement | null>;
@@ -74,6 +74,7 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
     initialCamera?: CameraState;
     onSaveCamera?: (state: CameraState) => void;
     getCameraStateRef: React.MutableRefObject<(() => CameraState | null) | null>;
+    renderLabel?: (data: ObjectData) => React.ReactNode;
 }) {
     const { scene } = useGLTF(url, true);
     const { camera, size, invalidate } = useThree();
@@ -157,7 +158,7 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
         };
     };
 
-    // Apply colors to meshes with matching resourceId or layout_name (node name)
+    // Apply colors and selection highlight to meshes with matching layout_name (node name)
     useEffect(() => {
         if (!scene || !data || !colorKey) return;
 
@@ -167,12 +168,14 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
             const match = data.find(item => item.layout_name === key);
             if (!match || !match[colorKey]) return;
 
+            const isSelected = !!match.selected;
+
             obj.traverse(child => {
                 const mesh = child as Mesh;
                 if (!mesh.isMesh || !mesh.material) return;
 
                 type FlaggedMaterial = typeof mesh.material & { _isClonedForColoring?: boolean; };
-                type ColorMat = Material & { color?: Color; needsUpdate: boolean; _originalColorHex?: number; };
+                type ColorMat = Material & { color?: Color; emissive?: Color; needsUpdate: boolean; _originalColorHex?: number; };
 
                 if (!(mesh.material as FlaggedMaterial)._isClonedForColoring) {
                     mesh.material = Array.isArray(mesh.material)
@@ -193,11 +196,22 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
                     const target = original.clone();
                     target.set(match[colorKey] as string);
                     mat.color.copy(original).lerp(target, 0.5);
+
+                    // Selection highlight: subtle emissive glow
+                    if (mat.emissive && typeof mat.emissive.set === 'function') {
+                        if (isSelected) {
+                            mat.emissive.set(0x18304d);
+                        } else {
+                            mat.emissive.set(0x000000);
+                        }
+                    }
+
                     mat.needsUpdate = true;
                 });
             });
         });
-    }, [scene, data, colorKey]);
+        invalidate();
+    }, [scene, data, colorKey, invalidate]);
 
     // Programmatic popover: show popover at the object matching activeResourceId
     // activeResourceId can be a number (matches userData.resourceId) or string (matches node name)
@@ -315,11 +329,40 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
         return result;
     }, [scene, data]);
 
+    // Compute positions for persistent labels
+    const labelItems = useMemo(() => {
+        if (!scene || !data || !renderLabel) return [];
+        const result: { position: [number, number, number]; key: string; data: ObjectData }[] = [];
+        scene.traverse(obj => {
+            if (!obj.name) return;
+            const key = layoutKey(obj.name);
+            const item = data.find(d => d.layout_name === key);
+            if (!item) return;
+            const box = new Box3().setFromObject(obj);
+            const sizeVec = new Vector3();
+            box.getSize(sizeVec);
+            if (sizeVec.x === 0 && sizeVec.y === 0 && sizeVec.z === 0) return;
+            const center = new Vector3();
+            box.getCenter(center);
+            result.push({ position: [center.x, box.max.y + 1.0, box.max.z], key, data: item });
+        });
+        return result;
+    }, [scene, data, renderLabel]);
+
     return (
         <group onPointerDown={handlePointerDown}>
             <ambientLight intensity={0.7} />
             <directionalLight position={[5, 5, 5]} intensity={0.7} />
             <primitive object={scene} />
+            {renderLabel && labelItems.map(l => {
+                const content = renderLabel(l.data);
+                if (!content) return null;
+                return (
+                    <Html key={`label-${l.key}`} position={l.position} center zIndexRange={[10, 10]}>
+                        <div style={{ pointerEvents: 'none' }}>{content}</div>
+                    </Html>
+                );
+            })}
             {markers.map(m => (
                 <Html key={m.key} position={m.position} center zIndexRange={[1, 1]}>
                     <div style={{ cursor: 'pointer', pointerEvents: 'none' }}>
@@ -344,7 +387,7 @@ function GLBModelScene({ url, setPopover, containerRef, popover, setPopoverPos, 
     );
 }
 
-export default function ThreeModelView({ url, data, colorKey, renderPopover, activeResourceId, initialCamera, onSaveCamera, onObjectClick, popoverRef: externalPopoverRef, ...props }: ThreeModelViewProps) {
+export default function ThreeModelView({ url, data, colorKey, renderPopover, activeResourceId, initialCamera, onSaveCamera, onObjectClick, popoverRef: externalPopoverRef, renderLabel, ...props }: ThreeModelViewProps) {
     const containerRef = useRef<HTMLDivElement>(null);
     const popoverRef = useRef<HTMLDivElement>(null);
     const [popover, setPopover] = useState<PopoverState | null>(null);
@@ -470,6 +513,7 @@ export default function ThreeModelView({ url, data, colorKey, renderPopover, act
                     initialCamera={initialCamera}
                     onSaveCamera={onSaveCamera}
                     getCameraStateRef={getCameraStateRef}
+                    renderLabel={renderLabel}
                 />
             </Canvas>
             {popover && popoverPos && Number.isFinite(popoverPos.left) && Number.isFinite(popoverPos.top) && renderPopover && (

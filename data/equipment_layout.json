@@ -1,0 +1,1455 @@
+{
+  "code": "equipment",
+  "content": [
+    {
+      "code": "site.bh",
+      "block": {
+        "title": "Bad Hersfeld",
+        "i18n": {
+          "nl": {
+            "title": "Bad Hersfeld"
+          },
+          "en": {
+            "title": "Bad Hersfeld"
+          },
+          "de": {
+            "title": "Bad Hersfeld"
+          }
+        }
+      }
+    },
+    {
+      "code": "site.dk",
+      "block": {
+        "title": "Dokkum",
+        "i18n": {
+          "nl": {
+            "title": "Dokkum"
+          },
+          "en": {
+            "title": "Dokkum"
+          },
+          "de": {
+            "title": "Dokkum"
+          }
+        }
+      }
+    },
+    {
+      "code": "line.fo",
+      "block": {
+        "title": "Folie",
+        "i18n": {
+          "nl": {
+            "title": "Folie"
+          },
+          "en": {
+            "title": "Foil"
+          },
+          "de": {
+            "title": "Folie"
+          }
+        }
+      }
+    },
+    {
+      "code": "line.su",
+      "block": {
+        "title": "Sublimatie",
+        "i18n": {
+          "nl": {
+            "title": "Sublimatie"
+          },
+          "en": {
+            "title": "Sublimation"
+          },
+          "de": {
+            "title": "Sublimation"
+          }
+        }
+      }
+    },
+    {
+      "code": "line.pl",
+      "block": {
+        "title": "Plaat",
+        "i18n": {
+          "nl": {
+            "title": "Plaat"
+          },
+          "en": {
+            "title": "Sheet / rigid"
+          },
+          "de": {
+            "title": "Platte"
+          }
+        }
+      }
+    },
+    {
+      "code": "line.uv",
+      "block": {
+        "title": "UV",
+        "i18n": {
+          "nl": {
+            "title": "UV"
+          },
+          "en": {
+            "title": "UV"
+          },
+          "de": {
+            "title": "UV"
+          }
+        }
+      }
+    },
+    {
+      "code": "line.la",
+      "block": {
+        "title": "Labels",
+        "i18n": {
+          "nl": {
+            "title": "Labels"
+          },
+          "en": {
+            "title": "Labels"
+          },
+          "de": {
+            "title": "Etiketten"
+          }
+        }
+      }
+    },
+    {
+      "code": "line.pa",
+      "block": {
+        "title": "Papier",
+        "i18n": {
+          "nl": {
+            "title": "Papier"
+          },
+          "en": {
+            "title": "Paper"
+          },
+          "de": {
+            "title": "Papier"
+          }
+        }
+      }
+    },
+    {
+      "code": "equipment_type.printer",
+      "block": {
+        "title": "Printer",
+        "i18n": {
+          "nl": {
+            "title": "Printer"
+          },
+          "en": {
+            "title": "Printer"
+          },
+          "de": {
+            "title": "Drucker"
+          }
+        }
+      }
+    },
+    {
+      "code": "equipment_type.cutter",
+      "block": {
+        "title": "Snijmachine",
+        "i18n": {
+          "nl": {
+            "title": "Snijmachine"
+          },
+          "en": {
+            "title": "Cutter"
+          },
+          "de": {
+            "title": "Schneidemaschine"
+          }
+        }
+      }
+    },
+    {
+      "code": "equipment_type.finishing",
+      "block": {
+        "title": "Afwerking",
+        "i18n": {
+          "nl": {
+            "title": "Afwerking"
+          },
+          "en": {
+            "title": "Finishing"
+          },
+          "de": {
+            "title": "Veredelung"
+          }
+        }
+      }
+    }
+  ],
+  "printers": [
+    {
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-1_PF03",
+      "printer_name": "BH_FO_SC9100-1",
+      "layout_name": null,
+      "pv2_id": 267,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_1",
+      "pv2_name": "Epson S9100 - 1 - BH",
+      "serial_nr": "XD3S000328",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-2_PF03",
+      "printer_name": "BH_FO_SC9100-2",
+      "layout_name": null,
+      "pv2_id": 268,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_2",
+      "pv2_name": "Epson S9100 - 2 - BH",
+      "serial_nr": "XD3S000229",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-3_PF03",
+      "printer_name": "BH_FO_SC9100-3",
+      "layout_name": null,
+      "pv2_id": 269,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_3",
+      "pv2_name": "Epson S9100 - 3 - BH",
+      "serial_nr": "XD3S000236",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-4_PF03",
+      "printer_name": "BH_FO_SC9100-4",
+      "layout_name": null,
+      "pv2_id": 270,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_4",
+      "pv2_name": "Epson S9100 - 4 - BH",
+      "serial_nr": "XD3S000060",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "SU",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_SU_P5-1_iSub_PF01",
+      "printer_name": "BH_SU_P5-1_iSub",
+      "layout_name": null,
+      "pv2_id": 244,
+      "pv2_code": "DE_BH_SU_DURST_P5_1_iSub",
+      "pv2_name": "Dürst P5 iSUB 1 BH",
+      "serial_nr": "465302",
+      "machine_nr": "AE28-112",
+      "ink": "DyeSub",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_PL_P5-5_210_PF02",
+      "printer_name": "BH_PL_P5-5_210",
+      "layout_name": null,
+      "pv2_id": 178,
+      "pv2_code": "00002_durst_p5_210_5",
+      "pv2_name": "Durst P5 210 - 2 - BH",
+      "serial_nr": "206029",
+      "machine_nr": "AK25-007",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_PL_P5-4_210_PF02",
+      "printer_name": "BH_PL_P5-1_210",
+      "layout_name": null,
+      "pv2_id": 39,
+      "pv2_code": "00285_durst_p5_210_1",
+      "pv2_name": "Durst P5 210 - 1 - BH",
+      "serial_nr": "202430",
+      "machine_nr": "AK25-001",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm • W"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_PL_P5-2_350HS_PF01",
+      "printer_name": "BH_PL_P5-2_350HS",
+      "layout_name": null,
+      "pv2_id": 118,
+      "pv2_code": "durst_p5_350HS_D4_01",
+      "pv2_name": "Dürst P5-350 HS - 2 BH",
+      "serial_nr": "379338",
+      "machine_nr": "LM72-009",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm • W"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_P5-1_350HS_PF1",
+      "printer_name": "BH_UV_P5-1_350HS",
+      "layout_name": null,
+      "pv2_id": 240,
+      "pv2_code": "01560_durst_p5_hs_1_bh",
+      "pv2_name": "Dürst P5 350 HS-1 BH",
+      "serial_nr": "469973",
+      "machine_nr": "LM72-115",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_312-1_Plus_PF01",
+      "printer_name": "BH_UV_312-1_Plus",
+      "layout_name": null,
+      "pv2_id": 241,
+      "pv2_code": "01561_durst_312_1_bh",
+      "pv2_name": "Dürst 312-1 BH",
+      "serial_nr": "57186",
+      "machine_nr": "B26014VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_312-2_Plus_PF02",
+      "printer_name": "BH_UV_312-2_Plus",
+      "layout_name": null,
+      "pv2_id": 121,
+      "pv2_code": "00009_durst_312_7",
+      "pv2_name": "Dürst 312-2 BH",
+      "serial_nr": "62548",
+      "machine_nr": "B26025VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_P5-1_350D4_PF2",
+      "printer_name": "BH_UV_P5-1_350D4",
+      "layout_name": null,
+      "pv2_id": 171,
+      "pv2_code": "durst_p5_350HS_D4_02",
+      "pv2_name": "Dürst P5-350 HS D4 - 1 BH",
+      "serial_nr": "376790",
+      "machine_nr": "LM72-006",
+      "ink": "Aturion",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_P5-1_350HS_PF36b",
+      "printer_name": "DK_FO_P5-1_350HS",
+      "layout_name": "foil-printer-1",
+      "pv2_id": 126,
+      "pv2_code": "durst_p5_hs",
+      "pv2_name": "Dürst P5 HS",
+      "serial_nr": "332176",
+      "machine_nr": "LM70-067",
+      "ink": "Roll-Led",
+      "inkset": "CMYK • CMYKLcLm W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_312-2_Plus_PF6",
+      "printer_name": "DK_FO_312-2_Plus",
+      "layout_name": "foil-printer-19",
+      "pv2_id": 64,
+      "pv2_code": "00162_durst_312_2",
+      "pv2_name": "Dürst 312-2",
+      "serial_nr": "126177",
+      "machine_nr": "AF26_068",
+      "ink": "FLT",
+      "inkset": "CMYK • CMYKLcLm W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_SC9100-1+2_PF23",
+      "printer_name": "DK_FO_SC9100-1",
+      "layout_name": "foil-printer-5",
+      "pv2_id": 265,
+      "pv2_code": "DK_NL_FO_EPSON_SC9100_1",
+      "pv2_name": "Epson S9100 - 3",
+      "serial_nr": "XD3S000083",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_SC9100-1+2_PF23",
+      "printer_name": "DK_FO_SC9100-2",
+      "layout_name": "foil-printer-4",
+      "pv2_id": 266,
+      "pv2_code": "DK_NL_FO_EPSON_SC9100_2",
+      "pv2_name": "Epson S9100 - 4",
+      "serial_nr": "XD3S000067",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_SC80600-1_PF9",
+      "printer_name": "DK_FO_SC80600-1",
+      "layout_name": "foil-printer-15",
+      "pv2_id": 169,
+      "pv2_code": "epson_01",
+      "pv2_name": "Epson 80600 - 1",
+      "serial_nr": "X6CS00604",
+      "machine_nr": null,
+      "ink": "UltraChrome GS",
+      "inkset": "CMYKLcLmLk R OR"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_SC80600-2_PF10",
+      "printer_name": "DK_FO_SC80600-2",
+      "layout_name": "foil-printer-14",
+      "pv2_id": 170,
+      "pv2_code": "epson_02",
+      "pv2_name": "Epson 80600 - 2",
+      "serial_nr": "X6CS00608",
+      "machine_nr": null,
+      "ink": "UltraChrome GS",
+      "inkset": "CMYKLcLmLk R OR"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_SCG6000-1+2_PF25",
+      "printer_name": "DK_FO_SCG6000-1",
+      "layout_name": "foil-printer-16",
+      "pv2_id": 279,
+      "pv2_code": "DK_NL_FO_EPSON_SCG6000_1",
+      "pv2_name": "Epson SCG6000 - 5",
+      "serial_nr": "XDLH000225",
+      "machine_nr": null,
+      "ink": "UltraChrome DTF-INK",
+      "inkset": "CMYK+W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_SCG6000-1+2_PF25",
+      "printer_name": "DK_FO_SCG6000-2",
+      "layout_name": "foil-printer-17",
+      "pv2_id": 280,
+      "pv2_code": "DK_NL_FO_EPSON_SCG6000_2",
+      "pv2_name": "Epson SCG6000 - 6",
+      "serial_nr": "XDLH000206",
+      "machine_nr": null,
+      "ink": "UltraChrome DTF-INK",
+      "inkset": "CMYK+W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP3600-1_LTX_PF7",
+      "printer_name": "DK_FO_HP3600-1_LTX",
+      "layout_name": "foil-printer-2",
+      "pv2_id": 67,
+      "pv2_code": "hp_3600",
+      "pv2_name": "HP 3600",
+      "serial_nr": "SG01D1R001",
+      "machine_nr": null,
+      "ink": "Latex 3600",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP3600-2_LTX_PF41",
+      "printer_name": "DK_FO_HP3600-2_LTX",
+      "layout_name": "foil-printer-3",
+      "pv2_id": 231,
+      "pv2_code": "hp_3600_2",
+      "pv2_name": "HP 3600-2",
+      "serial_nr": "SG44TRF001",
+      "machine_nr": null,
+      "ink": "Latex 3600",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP2700-1_LTX_PF15",
+      "printer_name": "DK_FO_HP2700-1_LTX",
+      "layout_name": "foil-printer-20",
+      "pv2_id": 209,
+      "pv2_code": "01423_HP_2700",
+      "pv2_name": "HP 2700",
+      "serial_nr": "SG3C72F002",
+      "machine_nr": null,
+      "ink": "Latex 2700",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-5_LTX_PF8",
+      "printer_name": "DK_FO_HP800-5_LTX",
+      "layout_name": "foil-printer-11",
+      "pv2_id": 122,
+      "pv2_code": "hp_800_5",
+      "pv2_name": "HP Latex 800 5",
+      "serial_nr": "MY1BO2W00J",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-6_LTX_PF8",
+      "printer_name": "DK_FO_HP800-6_LTX",
+      "layout_name": "foil-printer-10",
+      "pv2_id": 123,
+      "pv2_code": "hp_800_6",
+      "pv2_name": "HP Latex 800 6",
+      "serial_nr": "MY1B22W003",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-7_LTX+W_PF29",
+      "printer_name": "DK_FO_HP800-7_LTX+W",
+      "layout_name": "foil-printer-1",
+      "pv2_id": 116,
+      "pv2_code": "hp_800_7",
+      "pv2_name": "HP Latex 800 7",
+      "serial_nr": "MY16G2T00V",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-8_LTX+W_PF29",
+      "printer_name": "DK_FO_HP800-8_LTX+W_U465",
+      "layout_name": "foil-printer-7",
+      "pv2_id": 115,
+      "pv2_code": "hp_800_8",
+      "pv2_name": "HP Latex 800 8",
+      "serial_nr": "MY16E2T00G",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-9_LTX+W_PF30",
+      "printer_name": "DK_FO_HP800-9_LTX+W_U",
+      "layout_name": "foil-printer-12",
+      "pv2_id": 114,
+      "pv2_code": "hp_800_8",
+      "pv2_name": "HP Latex 800 9",
+      "serial_nr": "MY16R2T00B",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-10_LTX+W_PF30",
+      "printer_name": "DK_FO_HP800-10_LTX+W_U",
+      "layout_name": "foil-printer-13",
+      "pv2_id": 113,
+      "pv2_code": "hp_800_10",
+      "pv2_name": "HP Latex 800 10",
+      "serial_nr": "MY16D2T001",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-11_LTX_PF18",
+      "printer_name": "DK_FO_HP800-11_LTX",
+      "layout_name": "foil-printer-9",
+      "pv2_id": 124,
+      "pv2_code": "hp_800_11",
+      "pv2_name": "HP Latex 800 11",
+      "serial_nr": "MY1B22W001",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_HP800-12_LTX_PF18",
+      "printer_name": "DK_FO_HP800-12_LTX",
+      "layout_name": "foil-printer-8",
+      "pv2_id": 125,
+      "pv2_code": "hp_800_12",
+      "pv2_name": "HP Latex 800 12",
+      "serial_nr": "MY1BO2W008",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "HP",
+      "eam": "AFGEVOERD",
+      "driver": null,
+      "rip_name": "DK_FO_HP800-13_LTX_PF15",
+      "printer_name": "DK_FO_HP800-13_LTX_U1524",
+      "layout_name": "foil-printer-6",
+      "pv2_id": 221,
+      "pv2_code": "hp_800_13",
+      "pv2_name": "HP Latex 800 13",
+      "serial_nr": "AFGEVOERD",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "SWISSQ",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_FO_Karibu-1_PFWF02",
+      "printer_name": "DK_FO_Karibu-1_U",
+      "layout_name": "foil-printer-18",
+      "pv2_id": 262,
+      "pv2_code": "DK-NL-FO-SQ-KARIBU-01",
+      "pv2_name": "Swiss Q - Karibu - 01",
+      "serial_nr": "220077",
+      "machine_nr": null,
+      "ink": "NG",
+      "inkset": "CMYK • NEON • W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_SU_P5-1_iSub_PF31",
+      "printer_name": "DK_SU_P5-1_iSub",
+      "layout_name": "textile-printer-2",
+      "pv2_id": 84,
+      "pv2_code": "00468_durst_P5_iSUB",
+      "pv2_name": "Dürst P5 iSUB 1",
+      "serial_nr": "290216",
+      "machine_nr": "AE28-009",
+      "ink": "DyeSub",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_SU_P5-2_iSub_PF39",
+      "printer_name": "DK_SU_P5-2_iSub",
+      "layout_name": "textile-printer-1",
+      "pv2_id": 206,
+      "pv2_code": "01420_durst_P5_iSUB_02",
+      "pv2_name": "Dürst P5 iSUB 2",
+      "serial_nr": "414053",
+      "machine_nr": "AE28-081",
+      "ink": "DyeSub",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_SU_P5-3_iSub_PF21",
+      "printer_name": "DK_SU_P5-3_iSub",
+      "layout_name": "textile-printer-3",
+      "pv2_id": 237,
+      "pv2_code": "00001_durst_P5_iSUB_03",
+      "pv2_name": "Dürst P5 iSUB 3",
+      "serial_nr": "441911",
+      "machine_nr": "AE28-111",
+      "ink": "DyeSub",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_SU_P5-4_iSub-500_PF5",
+      "printer_name": "DK_SU_P5-4_iSub-500",
+      "layout_name": "textile-printer-4",
+      "pv2_id": 273,
+      "pv2_code": "00001_durst_P5_500_iSUB",
+      "pv2_name": "Dürst P5 500 iSUB 1",
+      "serial_nr": "478072",
+      "machine_nr": "AC78-006",
+      "ink": "DyeSub",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_SU_Stitch-1_1000_PF37",
+      "printer_name": "DK_SU_Stitch-1_1000",
+      "layout_name": "textile-printer-6",
+      "pv2_id": 207,
+      "pv2_code": "01407_HP_Stitch_S1000_1",
+      "pv2_name": "HP_Stitch_01",
+      "serial_nr": "SG37C1F001",
+      "machine_nr": null,
+      "ink": "HP Stitch",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_SU_Stitch-2_1000_PF38",
+      "printer_name": "DK_SU_Stitch-2_1000",
+      "layout_name": "textile-printer-5",
+      "pv2_id": 208,
+      "pv2_code": "01413_HP_Stitch_S1000_2",
+      "pv2_name": "HP_Stitch_2",
+      "serial_nr": "SG38A1F001 ",
+      "machine_nr": null,
+      "ink": "HP Stitch",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PL_P5-2_210_PF12",
+      "printer_name": "DK_PL_P5-2_210",
+      "layout_name": "sheet-printer-4",
+      "pv2_id": 40,
+      "pv2_code": "00275_durst_p5_210_2",
+      "pv2_name": "Durst P5 210 -2",
+      "serial_nr": "204720",
+      "machine_nr": "AK25-004",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PL_P5-3_210HS_PF34",
+      "printer_name": "DK_PL_P5-3_210HS_U509",
+      "layout_name": "sheet-printer-5",
+      "pv2_id": 117,
+      "pv2_code": "00509_durst_p5_3_hs",
+      "pv2_name": "Dürst P5 210 HS-3",
+      "serial_nr": "310339",
+      "machine_nr": "LM80-004",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PL_P5-4_210_PF14",
+      "printer_name": "DK_PL_P5-4_210_U278",
+      "layout_name": "sheet-printer-3",
+      "pv2_id": 42,
+      "pv2_code": "00278_durst_p5_210_4",
+      "pv2_name": "Dürst P5 210 -4",
+      "serial_nr": "209411",
+      "machine_nr": "AK25-006",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm • W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PL_P5-5_350HS_PF13",
+      "printer_name": "DK_PL_P5-5_350HS_U276",
+      "layout_name": "sheet-printer-1",
+      "pv2_id": 245,
+      "pv2_code": "DK_NL_PL_DURST_P5_5_350HS",
+      "pv2_name": "Dürst P5 350 HS-5",
+      "serial_nr": "473363",
+      "machine_nr": "LM72-118",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm • W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PL_P5-6_Autom_350HS_PF24",
+      "printer_name": "DK_PL_P5-6_Autom_350HS_U1540",
+      "layout_name": "sheet-printer-2",
+      "pv2_id": 226,
+      "pv2_code": "00001_durst_p5_6_hs",
+      "pv2_name": "Dürst P5 350 HS-6",
+      "serial_nr": "450272",
+      "machine_nr": "LM72-081",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "SWISSQ",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PL_Kudu-1_PF11",
+      "printer_name": "DK_PL_Kudu-1",
+      "layout_name": "sheet-printer-6",
+      "pv2_id": 263,
+      "pv2_code": "DK-NL-ST-SQ-KUDU-01",
+      "pv2_name": "Swiss Q - Kudu - 01",
+      "serial_nr": "240183",
+      "machine_nr": null,
+      "ink": "KX2",
+      "inkset": "CMYK • NEON • W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_P5-5_350HSR-D4_PF35",
+      "printer_name": "DK_UV_P5-5_350HSR-D4",
+      "layout_name": "na-printer-5",
+      "pv2_id": 264,
+      "pv2_code": "DK_NL_UV_DURST_P5_350HSR2",
+      "pv2_name": "Dürst P5 350 HSR - 2",
+      "serial_nr": "471388",
+      "machine_nr": "471388",
+      "ink": "Roll-Led M+",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_P5-3_350HS-D4_PF40",
+      "printer_name": "DK_UV_P5-3_350HS-D4_U1523",
+      "layout_name": "na-printer-6",
+      "pv2_id": 210,
+      "pv2_code": "durst_p5_350HS_D4_03",
+      "pv2_name": "Durst P5 350 HS D4 - 3",
+      "serial_nr": "435536",
+      "machine_nr": "LM72-057",
+      "ink": "Roll-Led M+",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_P5-4_350HSRI-D4_PF28",
+      "printer_name": "DK_UV_P5-4_350HSRI-D4",
+      "layout_name": "na-printer-7",
+      "pv2_id": 246,
+      "pv2_code": "DK_NL_UV_DURST_P5_350HSRi",
+      "pv2_name": "Dürst P5 350 HSRI",
+      "serial_nr": "471337",
+      "machine_nr": "XXXXXX",
+      "ink": "Roll-Led M+",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_P5-1_500HS-D4_PF1",
+      "printer_name": "DK_UV_P5-1_500HS-D4",
+      "layout_name": "na-printer-1",
+      "pv2_id": 165,
+      "pv2_code": "00578_durst_p5_500_1",
+      "pv2_name": "Dürst P5-500 - UV",
+      "serial_nr": "337203",
+      "machine_nr": "AK27-005",
+      "ink": "Roll-Led M+",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_512-2_Plus_PF2",
+      "printer_name": "DK_UV_512-2_Plus",
+      "layout_name": "na-printer-2",
+      "pv2_id": 48,
+      "pv2_code": "00003_durst_512_2",
+      "pv2_name": "Dürst 512 - 2",
+      "serial_nr": "63682",
+      "machine_nr": "B27049VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_512-3_Plus_PF3",
+      "printer_name": "DK_UV_512-3_Plus",
+      "layout_name": "na-printer-3",
+      "pv2_id": 49,
+      "pv2_code": "00165_durst_512_3",
+      "pv2_name": "Dürst 512 - 3",
+      "serial_nr": "114630",
+      "machine_nr": "AC27-121",
+      "ink": "FLT",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_512-4_Plus_PF",
+      "printer_name": "DK_UV_512-4_Plus",
+      "layout_name": "na-printer-8",
+      "pv2_id": 50,
+      "pv2_code": "00008_durst_512_4",
+      "pv2_name": "Dürst 512 - 4",
+      "serial_nr": "154428",
+      "machine_nr": "B27078VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_512-4_Plus_PF4",
+      "printer_name": "DK_UV_512-4_Plus",
+      "layout_name": "na-printer-4",
+      "pv2_id": 50,
+      "pv2_code": "00008_durst_512_4",
+      "pv2_name": "Dürst 512 - 4",
+      "serial_nr": "78981",
+      "machine_nr": "B27078VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "LA",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_LA_Tau-1_330 RSC  5C",
+      "printer_name": "DK_LA_Tau-1_330 RSC  5C",
+      "layout_name": "label-printer-1",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "319540",
+      "machine_nr": "AI42-041",
+      "ink": "TAU",
+      "inkset": "CMYK W"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "LA",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_LA_Tau-2_330 RSC 4C",
+      "printer_name": "DK_LA_Tau-2_330 RSC 4C",
+      "layout_name": "label-printer-2",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "317837",
+      "machine_nr": "AI42-042",
+      "ink": "TAU",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PA",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PA_Indigo-1_12000",
+      "printer_name": "DK_PA_Indigo-1_12000_U177",
+      "layout_name": "paper-printer-1",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "IL20110235",
+      "machine_nr": null,
+      "ink": "HP Indigo",
+      "inkset": "CMYK"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PA",
+      "manufacturer": "HP",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_PA_Indigo-2_12000",
+      "printer_name": "DK_PA_Indigo-2_12000",
+      "layout_name": "paper-printer-2",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "IL20110241",
+      "machine_nr": null,
+      "ink": "HP Indigo",
+      "inkset": "CMYK"
+    }
+  ],
+  "cutters": [
+    {
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "BH_DE_FO_ZUND_1",
+      "pv2_id": 275,
+      "pv2_code": "BH_DE_FO_ZUND_1",
+      "pv2_name": "BH_DE_FO_ZUND_1",
+      "serial_nr": "G300L252533"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "BH_DE_FO_ZUND_2",
+      "pv2_id": 276,
+      "pv2_code": "BH_DE_FO_ZUND_2",
+      "pv2_name": "BH_DE_FO_ZUND_2",
+      "serial_nr": "S300L120513"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "SU/UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund G3 XL - 01 - UV-BH",
+      "pv2_id": 243,
+      "pv2_code": "DE-BH-UV-ZU-G3XL321090-01",
+      "pv2_name": "Zund G3 XL - 01 - UV-BH",
+      "serial_nr": "G3XL321090"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "SU/UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund G3 XL - 02 - UV-BH",
+      "pv2_id": 242,
+      "pv2_code": "DE-BH-UV-ZU-G3XL321089-02",
+      "pv2_name": "Zund G3 XL - 02 - UV-BH",
+      "serial_nr": "G3XL321089"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "DE-BH-ST-ZU-3XL000000-01",
+      "pv2_id": "Zund 3XL - 01 - ST -BH",
+      "pv2_code": "DE-BH-ST-ZU-3XL000000-01",
+      "pv2_name": "Zund 3XL - 01 - ST -BH",
+      "serial_nr": "G30XL320532"
+    },
+    {
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "DE-BH-ST-ZU-3XL000000-01",
+      "pv2_id": "Zund 3XL - 02 - ST -BH",
+      "pv2_code": "DE-BH-ST-ZU-3XL000000-02",
+      "pv2_name": "Zund 3XL - 02 - ST -BH",
+      "serial_nr": "G30XL320795"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "EUROLASER",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "EUROLASER",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "ZUND",
+      "cutter_name": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund_DB_Sheet",
+      "pv2_id": 168,
+      "pv2_code": "Zund_DB_Sheet",
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 02 - Plaat",
+      "pv2_id": 44,
+      "pv2_code": "00026_zund_g3xl3200_02",
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 03 - Plaat",
+      "pv2_id": 45,
+      "pv2_code": "00037_zund_glxl3200_03",
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 04 - Plaat",
+      "pv2_id": 46,
+      "pv2_code": "00192_zund-g3xl3200_04",
+      "pv2_name": null,
+      "serial_nr": null
+    },
+    {
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd Q 32-32 D",
+      "pv2_id": 260,
+      "pv2_code": "DK-NL-ST-ZU-Q3232-01",
+      "pv2_name": null,
+      "serial_nr": "Q3232D13"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 01 - UV",
+      "pv2_id": 87,
+      "pv2_code": "87",
+      "pv2_name": "00045_zund_g3xl3200_01",
+      "serial_nr": "G33XL320185"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 02 - UV",
+      "pv2_id": 130,
+      "pv2_code": "130",
+      "pv2_name": "00500_zund_g3xl3200_02",
+      "serial_nr": "G33XL320877"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 03 - UV",
+      "pv2_id": 131,
+      "pv2_code": "131",
+      "pv2_name": "00526_zund_g3xl3200_03",
+      "serial_nr": "G33XL160084"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ARISTO",
+      "cutter_name": "Aristomat cutting machine",
+      "pv2_id": 77,
+      "pv2_code": "00189_aristomat",
+      "pv2_name": "Aristomat cutting machine",
+      "serial_nr": "DH0357-0110"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "BULLMER",
+      "cutter_name": "Bullmer cutting machine",
+      "pv2_id": 76,
+      "pv2_code": "00043_bullmer",
+      "pv2_name": "Bullmer cutting machine",
+      "serial_nr": "1602 0037"
+    }
+  ],
+  "finishing": [
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "JUKI",
+      "pv2_id": 250,
+      "pv2_code": "BH_DE_SU_JUKI_ES_01",
+      "pv2_name": "Juki enkelstik 01 BH"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "JUKI",
+      "pv2_id": 251,
+      "pv2_code": "BH_DE_SU_JUKI_ES_02",
+      "pv2_name": "Juki enkelstik 02 BH"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "JUKI",
+      "pv2_id": 252,
+      "pv2_code": "BH_DE_SU_JUKI_DS_01",
+      "pv2_name": "Juki dubbelstik 01 BH"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "JUKI",
+      "pv2_id": 253,
+      "pv2_code": "BH_DE_SU_JUKI_DS_02",
+      "pv2_name": "Juki dubbelstik 02 BH"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "MATIC",
+      "pv2_id": 254,
+      "pv2_code": "BH_DE_SU_MATIC_01",
+      "pv2_name": "Matic Peesmachine 01 BH"
+    },
+    {
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "MATIC",
+      "pv2_id": 255,
+      "pv2_code": "BH_DE_SU_MATIC_02",
+      "pv2_name": "Matic Peesmachine 02 BH"
+    }
+  ]
+}

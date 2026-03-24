@@ -54,4 +54,6 @@ export type ThreeModelViewProps = {
     onObjectClick?: (data: ObjectData | null) => void;
     /** Ref callback to get a function that dismisses the popover */
     popoverRef?: React.MutableRefObject<(() => void) | null>;
+    /** Render a persistent label above each matched object. Return null to skip. */
+    renderLabel?: (data: ObjectData) => React.ReactNode;
 } & React.HTMLAttributes<HTMLDivElement>;
