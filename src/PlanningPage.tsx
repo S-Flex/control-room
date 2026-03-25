@@ -117,7 +117,7 @@ function StateTimelineBar({ segments, totalMinutes, startHour, barHeight, svgWid
   svgHeight: number;
   fontSize: number;
 }) {
-  const [hover, setHover] = useState<{ seg: TimelineSegment; x: number; y: number } | null>(null);
+  const [hover, setHover] = useState<{ seg: TimelineSegment; x: number; y: number; } | null>(null);
   const hours = totalMinutes / 60;
 
   return (
@@ -606,7 +606,7 @@ function formatTimeSlot(slot: number): string {
 
 /* ---- Shift definitions ---- */
 const SHIFTS = [
-  { name: 'Shift 1', startHour: 6,  endHour: 15 },
+  { name: 'Shift 1', startHour: 6, endHour: 15 },
   { name: 'Shift 2', startHour: 15, endHour: 24 },
 ];
 
@@ -619,18 +619,18 @@ function shiftDurationHours(shift: typeof SHIFTS[0]) {
 /** Nominal speed (sqm/hr) by equipment name pattern */
 function getNominalSpeed(name: string): number {
   const n = name.toLowerCase();
-  if (n.includes('q-line') || n.includes('qline'))             return 160;
-  if (n.includes('350'))                                        return 186;
-  if (n.includes('210-hs') || n.includes('210 hs'))             return 130;
-  if (n.includes('210'))                                        return 70;
-  if (n.includes('500'))                                        return 186;
+  if (n.includes('q-line') || n.includes('qline')) return 160;
+  if (n.includes('350')) return 186;
+  if (n.includes('210-hs') || n.includes('210 hs')) return 130;
+  if (n.includes('210')) return 70;
+  if (n.includes('500')) return 186;
   if (n.includes('epson') || n.includes('sc-s') || n.includes('sc-g')) return 30;
-  if (n.includes('hp'))                                         return 30;
+  if (n.includes('hp')) return 30;
   if (n.includes('swissq') || n.includes('kudu') || n.includes('karibu')) return 160;
   if (n.includes('zünd') || n.includes('zund') || n.includes('bullmer') || n.includes('aristo') || n.includes('itotec')) return 60;
-  if (n.includes('sei') || n.includes('laser') || n.includes('abg'))  return 60;
-  if (n.includes('tau'))                                        return 50;
-  if (n.includes('rho'))                                        return 100;
+  if (n.includes('sei') || n.includes('laser') || n.includes('abg')) return 60;
+  if (n.includes('tau')) return 50;
+  if (n.includes('rho')) return 100;
   return 50; // default for other equipment (laminators, calanders, etc.)
 }
 
@@ -975,7 +975,7 @@ export function PlanningPage() {
   const renderLabel = useCallback((data: Record<string, unknown>) => {
     if (!showCapacity) return null;
     if (data.type === 'stock' || data.type === 'queue') return null;
-    const shifts = data._shifts as { name: string; oee: number; capacity: number; planned: number; available: number }[] | undefined;
+    const shifts = data._shifts as { name: string; oee: number; capacity: number; planned: number; available: number; }[] | undefined;
     if (!shifts) return null;
     return (
       <div className="planning-3d-label">
