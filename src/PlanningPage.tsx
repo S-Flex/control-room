@@ -21,14 +21,20 @@ type ModelsData = { lines: LineConfig[]; };
 type ResourceStateEntry = {
   code: string;
   color: string;
+  oee_set?: string;
   block: {
     title: string;
     i18n?: Record<string, { title: string; }>;
   };
 };
+type StateSet = {
+  code: string;
+  states: { code: string }[];
+};
 type ResourceStatesData = {
   content: ResourceStateEntry[];
   states: { code: string; }[];
+  state_sets?: StateSet[];
 };
 
 function buildStateMap(data: ResourceStatesData): Map<string, ResourceStateEntry> {
@@ -102,37 +108,36 @@ function buildTimeline(
   return segments;
 }
 
-function StateTimelineSvg({ segments, totalMinutes, startHour }: {
+function StateTimelineBar({ segments, totalMinutes, startHour, barHeight, svgWidth, svgHeight, fontSize }: {
   segments: TimelineSegment[];
   totalMinutes: number;
   startHour: number;
+  barHeight: number;
+  svgWidth: number;
+  svgHeight: number;
+  fontSize: number;
 }) {
   const [hover, setHover] = useState<{ seg: TimelineSegment; x: number; y: number } | null>(null);
-  const svgWidth = 600;
-  const barHeight = 28;
-  const svgHeight = barHeight + 20; // bar + time axis
   const hours = totalMinutes / 60;
 
   return (
-    <div className="planning-timeline-wrap">
+    <>
       <svg
         width="100%"
         viewBox={`0 0 ${svgWidth} ${svgHeight}`}
         preserveAspectRatio="xMinYMin meet"
         className="planning-timeline-svg"
       >
-        {/* Time axis ticks */}
         {Array.from({ length: Math.floor(hours) + 1 }, (_, i) => {
           const x = (i * 60 / totalMinutes) * svgWidth;
           const hour = startHour + i;
           return (
             <g key={i}>
               <line x1={x} y1={barHeight} x2={x} y2={barHeight + 4} stroke="var(--text-muted)" strokeWidth="0.5" />
-              <text x={x} y={barHeight + 14} fill="var(--text-muted)" fontSize="8" textAnchor="middle">{hour}:00</text>
+              <text x={x} y={barHeight + fontSize + 6} fill="var(--text-muted)" fontSize={fontSize} textAnchor="middle">{hour}:00</text>
             </g>
           );
         })}
-        {/* State rectangles */}
         {segments.map((seg, i) => {
           const x = (seg.startMin / totalMinutes) * svgWidth;
           const w = Math.max(1, ((seg.endMin - seg.startMin) / totalMinutes) * svgWidth);
@@ -163,17 +168,99 @@ function StateTimelineSvg({ segments, totalMinutes, startHour }: {
           )}
         </div>
       )}
+    </>
+  );
+}
+
+function StateTimelineSvg({ segments, totalMinutes, startHour, date, onHoverChange }: {
+  segments: TimelineSegment[];
+  totalMinutes: number;
+  startHour: number;
+  date: string;
+  onHoverChange?: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+}) {
+  return (
+    <div
+      className="planning-timeline-wrap"
+      onMouseEnter={() => onHoverChange?.({ segments, date })}
+      onMouseLeave={() => onHoverChange?.(null)}
+    >
+      <StateTimelineBar
+        segments={segments}
+        totalMinutes={totalMinutes}
+        startHour={startHour}
+        barHeight={28}
+        svgWidth={600}
+        svgHeight={48}
+        fontSize={8}
+      />
     </div>
   );
 }
 
 /* ---- Sidebar content component ---- */
-function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, selectedDates }: {
+type OeeGroupData = { key: string; title: string; color: string; minutes: number; pct: number };
+
+function OeeDonutChart({ groups }: { groups: OeeGroupData[] }) {
+  const size = 120;
+  const cx = size / 2;
+  const cy = size / 2;
+  const r = 44;
+  const stroke = 14;
+  const circumference = 2 * Math.PI * r;
+  let offset = 0;
+
+  return (
+    <div className="planning-oee-donut-wrap">
+      <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        {groups.filter(g => g.minutes > 0).map(g => {
+          const dash = (g.pct / 100) * circumference;
+          const gap = circumference - dash;
+          const el = (
+            <circle
+              key={g.key}
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="none"
+              stroke={g.color}
+              strokeWidth={stroke}
+              strokeDasharray={`${dash} ${gap}`}
+              strokeDashoffset={-offset}
+              transform={`rotate(-90 ${cx} ${cy})`}
+            />
+          );
+          offset += dash;
+          return el;
+        })}
+        <text x={cx} y={cy - 4} textAnchor="middle" fill="var(--text-primary)" fontSize="18" fontWeight="700">
+          {groups.find(g => g.key === 'producing')?.pct ?? 0}%
+        </text>
+        <text x={cx} y={cy + 12} textAnchor="middle" fill="var(--text-muted)" fontSize="9" fontWeight="500">
+          OEE
+        </text>
+      </svg>
+      <div className="planning-oee-donut-legend">
+        {groups.filter(g => g.minutes > 0).map(g => (
+          <div key={g.key} className="planning-oee-donut-legend-item">
+            <span className="planning-oee-donut-legend-dot" style={{ background: g.color }} />
+            <span className="planning-oee-donut-legend-label">{g.title}</span>
+            <span className="planning-oee-donut-legend-pct">{g.pct}%</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, selectedDates, onTimelineHover, stateSets }: {
   resource: Resource;
   stateMap: Map<string, ResourceStateEntry>;
   menuItem: string;
   stateLog: StateLogEntry[];
   selectedDates: string[];
+  onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  stateSets: StateSet[];
 }) {
   const state = stateMap.get(resource.state);
   if (!state) return null;
@@ -193,36 +280,90 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
         {state.block.title}
       </div>
 
-      {menuItem === 'oee' && resourceEntries.length > 0 ? (
-        <div className="planning-sidebar-section">
-          <div className="planning-sidebar-section-title">State Timeline</div>
-          {selectedDates.map(date => {
-            const dayStart = new Date(date + 'T06:00:00+00:00');
-            const dayEnd = new Date(date + 'T24:00:00+00:00');
-            const segments = buildTimeline(resourceEntries, stateMap, dayStart, dayEnd);
-            if (segments.length === 0) return null;
-            return (
-              <div key={date} className="planning-sidebar-timeline-day">
-                <div className="planning-sidebar-timeline-date">{date}</div>
-                <StateTimelineSvg segments={segments} totalMinutes={18 * 60} startHour={6} />
-              </div>
-            );
-          })}
-          <div className="planning-sidebar-section-title" style={{ marginTop: 12 }}>OEE</div>
-          <div className="planning-sidebar-oee">
-            <div className="planning-sidebar-oee-value">{resource.oee ?? '—'}%</div>
-            <div className="planning-sidebar-oee-bar">
-              <div className="planning-sidebar-oee-fill" style={{ width: `${resource.oee ?? 0}%`, background: state.color }} />
-            </div>
+      {menuItem === 'oee' && resourceEntries.length > 0 ? (() => {
+        // Build all segments across selected dates
+        const allSegments: TimelineSegment[] = [];
+        selectedDates.forEach(date => {
+          const dayStart = new Date(date + 'T06:00:00+00:00');
+          const dayEnd = new Date(date + 'T24:00:00+00:00');
+          allSegments.push(...buildTimeline(resourceEntries, stateMap, dayStart, dayEnd));
+        });
+
+        // Aggregate minutes per state
+        const stateMins: Record<string, number> = {};
+        allSegments.forEach(seg => {
+          stateMins[seg.state] = (stateMins[seg.state] ?? 0) + (seg.endMin - seg.startMin);
+        });
+        const totalMins = Object.values(stateMins).reduce((s, v) => s + v, 0);
+
+        // Aggregate by state_set using content entries for color/title
+        const setGroups: OeeGroupData[] = stateSets.map(ss => {
+          const minutes = ss.states.reduce((s, st) => s + (stateMins[st.code] ?? 0), 0);
+          const setEntry = stateMap.get('set.' + ss.code);
+          return {
+            key: ss.code,
+            title: setEntry?.block.title ?? ss.code,
+            color: setEntry?.color ?? '#888',
+            minutes,
+            pct: totalMins > 0 ? Math.round((minutes / totalMins) * 100) : 0,
+          };
+        });
+
+        return (
+          <div className="planning-sidebar-section">
+            <div className="planning-sidebar-section-title">State Timeline</div>
+            {selectedDates.map(date => {
+              const dayStart = new Date(date + 'T06:00:00+00:00');
+              const dayEnd = new Date(date + 'T24:00:00+00:00');
+              const segments = buildTimeline(resourceEntries, stateMap, dayStart, dayEnd);
+              if (segments.length === 0) return null;
+              return (
+                <div key={date} className="planning-sidebar-timeline-day">
+                  <div className="planning-sidebar-timeline-date">{date}</div>
+                  <StateTimelineSvg segments={segments} totalMinutes={18 * 60} startHour={6} date={date} onHoverChange={onTimelineHover} />
+                </div>
+              );
+            })}
+
+            <div className="planning-sidebar-section-title" style={{ marginTop: 16 }}>OEE Breakdown</div>
+            <OeeDonutChart groups={setGroups} />
+
+            <div className="planning-sidebar-section-title" style={{ marginTop: 16 }}>State Duration</div>
+            <table className="planning-oee-table">
+              <thead>
+                <tr><th>State</th><th>Duration</th><th>%</th></tr>
+              </thead>
+              <tbody>
+                {Object.entries(stateMins)
+                  .sort((a, b) => b[1] - a[1])
+                  .map(([code, mins]) => {
+                    const entry = stateMap.get(code);
+                    const pct = totalMins > 0 ? Math.round((mins / totalMins) * 100) : 0;
+                    const h = Math.floor(mins / 60);
+                    const m = Math.round(mins % 60);
+                    return (
+                      <tr key={code}>
+                        <td>
+                          <span className="planning-oee-table-dot" style={{ background: entry?.color ?? '#888' }} />
+                          {entry?.block.title ?? code}
+                        </td>
+                        <td>{h}h {m}m</td>
+                        <td>{pct}%</td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td><strong>Total</strong></td>
+                  <td><strong>{Math.floor(totalMins / 60)}h {Math.round(totalMins % 60)}m</strong></td>
+                  <td><strong>100%</strong></td>
+                </tr>
+              </tfoot>
+            </table>
           </div>
-          <div className="planning-sidebar-section-title" style={{ marginTop: 12 }}>Performance</div>
-          <div className="planning-sidebar-stats">
-            <div className="planning-sidebar-stat"><span className="planning-sidebar-stat-label">Producing</span><span className="planning-sidebar-stat-value">{resource.producing ?? '—'}%</span></div>
-            <div className="planning-sidebar-stat"><span className="planning-sidebar-stat-label">Stopped</span><span className="planning-sidebar-stat-value">{resource.stopped ?? '—'}%</span></div>
-            <div className="planning-sidebar-stat"><span className="planning-sidebar-stat-label">Inactive</span><span className="planning-sidebar-stat-value">{resource.inactive ?? '—'}%</span></div>
-          </div>
-        </div>
-      ) : menuItem === 'inks' && resource.inks ? (
+        );
+      })() : menuItem === 'inks' && resource.inks ? (
         <div className="planning-sidebar-section">
           <div className="planning-sidebar-section-title">Ink Levels</div>
           <div className="planning-sidebar-inks">
@@ -287,11 +428,14 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
 }
 
 /* ---- Sidebar panel: reads aux route + query param, renders directly ---- */
-function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedDates }: {
+function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedDates, onTimelineHover, stateSets, selectedKeys }: {
   resources: Resource[];
   stateMap: Map<string, ResourceStateEntry>;
   stateLog: StateLogEntry[];
   selectedDates: string[];
+  onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  stateSets: StateSet[];
+  selectedKeys: Set<string>;
 }) {
   const navigate = useNavigate();
   const menuItem = useAuxOutlet({ outlet: 'sidebar' });
@@ -304,6 +448,11 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
   // menuItem comes as "/oee" from useAuxOutlet, strip leading slash
   const item = menuItem.replace(/^\//, '');
 
+  // For OEE: if multiple resources are selected, show all of them
+  const oeeResources = item === 'oee' && selectedKeys.size > 1
+    ? resources.filter(r => selectedKeys.has(r.layout_name))
+    : [resource];
+
   const sidebarTitles: Record<string, string> = {
     machine: 'Machine',
     oee: 'OEE',
@@ -311,12 +460,13 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
     productie: 'Productie overzicht',
   };
   const sidebarTitle = sidebarTitles[item] ?? item;
+  const titleName = oeeResources.length > 1 ? `${oeeResources.length} resources` : resource.name;
 
   return (
     <div className="planning-sidebar">
       <div className="planning-sidebar-header">
         <div className="planning-sidebar-title-row">
-          <h3 className="planning-sidebar-name">{sidebarTitle} — {resource.name}</h3>
+          <h3 className="planning-sidebar-name">{sidebarTitle} — {titleName}</h3>
         </div>
         <button className="planning-sidebar-close" onClick={() => navigate('(sidebar:)')}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -324,7 +474,125 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
           </svg>
         </button>
       </div>
-      <ResourceSidebarContent resource={resource} stateMap={stateMap} menuItem={item} stateLog={stateLog} selectedDates={selectedDates} />
+      {item === 'oee' && oeeResources.length > 1 ? (
+        <OeeMultiResourceContent
+          resources={oeeResources}
+          stateMap={stateMap}
+          stateLog={stateLog}
+          selectedDates={selectedDates}
+          onTimelineHover={onTimelineHover}
+          stateSets={stateSets}
+        />
+      ) : (
+        <ResourceSidebarContent resource={resource} stateMap={stateMap} menuItem={item} stateLog={stateLog} selectedDates={selectedDates} onTimelineHover={onTimelineHover} stateSets={stateSets} />
+      )}
+    </div>
+  );
+}
+
+/** OEE sidebar for multiple selected resources: individual timelines + aggregated donut */
+function OeeMultiResourceContent({ resources, stateMap, stateLog, selectedDates, onTimelineHover, stateSets }: {
+  resources: Resource[];
+  stateMap: Map<string, ResourceStateEntry>;
+  stateLog: StateLogEntry[];
+  selectedDates: string[];
+  onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  stateSets: StateSet[];
+}) {
+  // Aggregate state minutes across all resources and dates
+  const aggStateMins: Record<string, number> = {};
+
+  return (
+    <div className="planning-sidebar-content">
+      {/* Per-resource timelines */}
+      {resources.map(res => {
+        const entries = res.resource_uid ? stateLog.filter(e => e.resource_uid === res.resource_uid) : [];
+        const resState = stateMap.get(res.state);
+        return (
+          <div key={res.layout_name} className="planning-sidebar-section">
+            <div className="planning-sidebar-title-row" style={{ marginBottom: 4 }}>
+              <span className="planning-sidebar-dot" style={{ background: resState?.color ?? '#888' }} />
+              <h3 className="planning-sidebar-name" style={{ fontSize: 13 }}>{res.name}</h3>
+            </div>
+            {selectedDates.map(date => {
+              const dayStart = new Date(date + 'T06:00:00+00:00');
+              const dayEnd = new Date(date + 'T24:00:00+00:00');
+              const segments = buildTimeline(entries, stateMap, dayStart, dayEnd);
+              // Accumulate into aggregation
+              segments.forEach(seg => {
+                aggStateMins[seg.state] = (aggStateMins[seg.state] ?? 0) + (seg.endMin - seg.startMin);
+              });
+              if (segments.length === 0) return null;
+              return (
+                <div key={date} className="planning-sidebar-timeline-day">
+                  <div className="planning-sidebar-timeline-date">{date}</div>
+                  <StateTimelineSvg segments={segments} totalMinutes={18 * 60} startHour={6} date={`${res.name} — ${date}`} onHoverChange={onTimelineHover} />
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
+
+      {/* Aggregated OEE donut + table */}
+      {(() => {
+        const totalMins = Object.values(aggStateMins).reduce((s, v) => s + v, 0);
+        const setGroups: OeeGroupData[] = stateSets.map(ss => {
+          const minutes = ss.states.reduce((s, st) => s + (aggStateMins[st.code] ?? 0), 0);
+          const setEntry = stateMap.get('set.' + ss.code);
+          return {
+            key: ss.code,
+            title: setEntry?.block.title ?? ss.code,
+            color: setEntry?.color ?? '#888',
+            minutes,
+            pct: totalMins > 0 ? Math.round((minutes / totalMins) * 100) : 0,
+          };
+        });
+
+        return (
+          <>
+            <div className="planning-sidebar-section">
+              <div className="planning-sidebar-section-title">Aggregated OEE</div>
+              <OeeDonutChart groups={setGroups} />
+            </div>
+            <div className="planning-sidebar-section">
+              <div className="planning-sidebar-section-title">State Duration (all selected)</div>
+              <table className="planning-oee-table">
+                <thead>
+                  <tr><th>State</th><th>Duration</th><th>%</th></tr>
+                </thead>
+                <tbody>
+                  {Object.entries(aggStateMins)
+                    .sort((a, b) => b[1] - a[1])
+                    .map(([code, mins]) => {
+                      const entry = stateMap.get(code);
+                      const pct = totalMins > 0 ? Math.round((mins / totalMins) * 100) : 0;
+                      const h = Math.floor(mins / 60);
+                      const m = Math.round(mins % 60);
+                      return (
+                        <tr key={code}>
+                          <td>
+                            <span className="planning-oee-table-dot" style={{ background: entry?.color ?? '#888' }} />
+                            {entry?.block.title ?? code}
+                          </td>
+                          <td>{h}h {m}m</td>
+                          <td>{pct}%</td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td><strong>Total</strong></td>
+                    <td><strong>{Math.floor(totalMins / 60)}h {Math.round(totalMins % 60)}m</strong></td>
+                    <td><strong>100%</strong></td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </>
+        );
+      })()}
     </div>
   );
 }
@@ -500,6 +768,7 @@ export function PlanningPage() {
   const [lineResources, setLineResources] = useState<Resource[]>([]);
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [stateLog, setStateLog] = useState<StateLogEntry[]>([]);
+  const [stateSets, setStateSets] = useState<StateSet[]>([]);
   const modelsDataRef = useRef<ModelsData | null>(null);
   const lineResRef = useRef<Resource[]>([]);
   const stateMapRef = useRef<Map<string, ResourceStateEntry>>(new Map());
@@ -514,6 +783,7 @@ export function PlanningPage() {
   });
   const hadActiveRef = useRef(false);
   const [showCapacity, setShowCapacity] = useState(true);
+  const [timelineOverlay, setTimelineOverlay] = useState<{ segments: TimelineSegment[]; date: string } | null>(null);
 
   // React to URL changes for selected param (browser back/forward, manual edit)
   useEffect(() => {
@@ -554,6 +824,7 @@ export function PlanningPage() {
         const map = buildStateMap(statesData);
         setStateMap(map);
         stateMapRef.current = map;
+        setStateSets(statesData.state_sets ?? []);
         setStateLog(stateLogData.entries ?? []);
         const line = modelsData.lines.find((l: LineConfig) => l.id === activeLineId);
         if (line) setLineConfig(line);
@@ -835,6 +1106,20 @@ export function PlanningPage() {
               onObjectClick={handleObjectClick}
               popoverRef={dismissPopoverRef}
             />
+            {timelineOverlay && (
+              <div className="planning-timeline-overlay">
+                <div className="planning-timeline-overlay-header">{timelineOverlay.date}</div>
+                <StateTimelineBar
+                  segments={timelineOverlay.segments}
+                  totalMinutes={18 * 60}
+                  startHour={6}
+                  barHeight={48}
+                  svgWidth={1200}
+                  svgHeight={72}
+                  fontSize={11}
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -859,7 +1144,7 @@ export function PlanningPage() {
         </div>
         </div>{/* .planning-main */}
 
-        <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} stateLog={stateLog} selectedDates={selectedDates} />
+        <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} stateLog={stateLog} selectedDates={selectedDates} onTimelineHover={setTimelineOverlay} stateSets={stateSets} selectedKeys={selectedKeys} />
       </div>
     </AuxRouteProvider>
   );

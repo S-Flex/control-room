@@ -1218,6 +1218,103 @@ body {
   text-overflow: ellipsis;
 }
 
+/* OEE donut chart */
+.planning-oee-donut-wrap {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+}
+.planning-oee-donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.planning-oee-donut-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+.planning-oee-donut-legend-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.planning-oee-donut-legend-label {
+  color: var(--text-secondary);
+  flex: 1;
+}
+.planning-oee-donut-legend-pct {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* OEE state duration table */
+.planning-oee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  font-family: 'Inter', sans-serif;
+}
+.planning-oee-table th {
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--border);
+}
+.planning-oee-table th:nth-child(2),
+.planning-oee-table th:nth-child(3) {
+  text-align: right;
+}
+.planning-oee-table td {
+  padding: 3px 6px;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border);
+}
+.planning-oee-table td:nth-child(2),
+.planning-oee-table td:nth-child(3) {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.planning-oee-table tfoot td {
+  border-top: 2px solid var(--border);
+  border-bottom: none;
+  padding-top: 5px;
+}
+.planning-oee-table-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+/* Timeline overlay on 3D viewer */
+.planning-timeline-overlay {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.82);
+  border-radius: 8px;
+  padding: 12px 16px;
+  pointer-events: auto;
+}
+.planning-timeline-overlay-header {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 6px;
+}
+
 /* Context menu */
 .planning-menu {
   position: fixed;
