@@ -1,0 +1,28 @@
+name: Deploy Docker Application
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy-probo-hub:
+    runs-on: [probo-server]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Stop and remove existing containers
+      run: |
+        docker-compose down || true
+        docker system prune -f
+        
+    - name: Build and deploy with Docker Compose
+      run: |
+        docker-compose up -d --build
+        
+    - name: Clean up unused Docker images
+      run: |
+        docker image prune -f
