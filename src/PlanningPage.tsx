@@ -31,6 +31,33 @@ type StateSet = {
   code: string;
   states: { code: string }[];
 };
+type MenuItemDef = {
+  code: string;
+  sidebar_url: string;
+  condition?: string;
+};
+type MenuGroup = {
+  type: string;
+  items: MenuItemDef[];
+};
+type MenuContentEntry = {
+  code: string;
+  block: { title?: string; textFormula?: { title: string }; i18n?: Record<string, { title?: string; textFormula?: { title: string } }> };
+};
+
+function resolveTextFormula(formula: string, params: Record<string, string>): string {
+  return formula.replace(/\{(\w+)\}/g, (_, key) => params[key] ?? '');
+}
+
+function resolveMenuLabel(entry: MenuContentEntry | undefined, params: Record<string, string>): string {
+  if (!entry) return '';
+  if (entry.block.textFormula?.title) return resolveTextFormula(entry.block.textFormula.title, params);
+  return entry.block.title ?? '';
+}
+type MenuItemsData = {
+  content: MenuContentEntry[];
+  menu_groups: MenuGroup[];
+};
 type ResourceStatesData = {
   content: ResourceStateEntry[];
   states: { code: string; }[];
@@ -428,7 +455,7 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
 }
 
 /* ---- Sidebar panel: reads aux route + query param, renders directly ---- */
-function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedDates, onTimelineHover, stateSets, selectedKeys }: {
+function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedDates, onTimelineHover, stateSets, selectedKeys, menuContent }: {
   resources: Resource[];
   stateMap: Map<string, ResourceStateEntry>;
   stateLog: StateLogEntry[];
@@ -436,6 +463,7 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
   onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
   stateSets: StateSet[];
   selectedKeys: Set<string>;
+  menuContent: Map<string, MenuContentEntry>;
 }) {
   const navigate = useNavigate();
   const menuItem = useAuxOutlet({ outlet: 'sidebar' });
@@ -453,13 +481,12 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
     ? resources.filter(r => selectedKeys.has(r.layout_name))
     : [resource];
 
-  const sidebarTitles: Record<string, string> = {
-    machine: 'Machine',
-    oee: 'OEE',
-    inks: 'Inks',
-    productie: 'Productie overzicht',
-  };
-  const sidebarTitle = sidebarTitles[item] ?? item;
+  // Look up title from menu content by sidebar_url
+  const menuEntry = [...menuContent.values()].find(e => {
+    const code = e.code.replace('menu.', '');
+    return code === item;
+  });
+  const sidebarTitle = menuEntry?.block.title ?? item;
   const titleName = oeeResources.length > 1 ? `${oeeResources.length} resources` : resource.name;
 
   return (
@@ -769,6 +796,8 @@ export function PlanningPage() {
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [stateLog, setStateLog] = useState<StateLogEntry[]>([]);
   const [stateSets, setStateSets] = useState<StateSet[]>([]);
+  const [menuGroups, setMenuGroups] = useState<MenuGroup[]>([]);
+  const [menuContent, setMenuContent] = useState<Map<string, MenuContentEntry>>(new Map());
   const modelsDataRef = useRef<ModelsData | null>(null);
   const lineResRef = useRef<Resource[]>([]);
   const stateMapRef = useRef<Map<string, ResourceStateEntry>>(new Map());
@@ -782,7 +811,7 @@ export function PlanningPage() {
     return new Set();
   });
   const hadActiveRef = useRef(false);
-  const [showCapacity, setShowCapacity] = useState(true);
+  const [showCapacity, setShowCapacity] = useState(false);
   const [timelineOverlay, setTimelineOverlay] = useState<{ segments: TimelineSegment[]; date: string } | null>(null);
 
   // React to URL changes for selected param (browser back/forward, manual edit)
@@ -817,8 +846,9 @@ export function PlanningPage() {
       fetch('/data/resource.json').then(r => r.json()),
       fetch('/data/resource_states.json').then(r => r.json()),
       fetch('/data/state.json').then(r => r.json()),
+      fetch('/data/menu-items.json').then(r => r.json()),
     ])
-      .then(([modelsData, resData, statesData, stateLogData]) => {
+      .then(([modelsData, resData, statesData, stateLogData, menuItemsData]) => {
         modelsDataRef.current = modelsData;
         setAllLines(modelsData.lines);
         const map = buildStateMap(statesData);
@@ -826,6 +856,11 @@ export function PlanningPage() {
         stateMapRef.current = map;
         setStateSets(statesData.state_sets ?? []);
         setStateLog(stateLogData.entries ?? []);
+        const mid = menuItemsData as MenuItemsData;
+        setMenuGroups(mid.menu_groups);
+        const mc = new Map<string, MenuContentEntry>();
+        mid.content.forEach((e: MenuContentEntry) => mc.set(e.code, e));
+        setMenuContent(mc);
         const line = modelsData.lines.find((l: LineConfig) => l.id === activeLineId);
         if (line) setLineConfig(line);
         setAllResources(resData.resources);
@@ -932,14 +967,20 @@ export function PlanningPage() {
   }, [selectedKeys.size]);
 
   // renderPopover: shows the context menu at the clicked resource
+  const menuGroupsRef = useRef(menuGroups);
+  menuGroupsRef.current = menuGroups;
+  const menuContentRef = useRef(menuContent);
+  menuContentRef.current = menuContent;
+
   const renderPopover = useCallback((data: Record<string, unknown>) => {
     const nodeName = data.name as string;
     const key = nodeName?.includes('_') ? nodeName.split('_').slice(1).join('_') : nodeName;
     const res = lineResRef.current.find(r => r.layout_name === key);
     if (!res) return null;
 
-    const isEquipment = res.type !== 'stock' && res.type !== 'queue';
     const expiringInks = getExpiringInks(res);
+    const group = menuGroupsRef.current.find(g => g.type === res.type);
+    const items = group?.items ?? [];
 
     const openMenuItem = (item: string) => {
       navigateRef.current({
@@ -951,22 +992,19 @@ export function PlanningPage() {
 
     return (
       <div className="planning-menu-inner">
-        <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('machine'); }}>
-          <span className="planning-menu-label">{res.name}</span>
-        </button>
-        {isEquipment && (
-          <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('oee'); }}>
-            <span className="planning-menu-label">OEE</span>
-          </button>
-        )}
-        {expiringInks.length > 0 && (
-          <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('inks'); }}>
-            <span className="planning-menu-label">Inks expiring</span>
-          </button>
-        )}
-        <button className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem('productie'); }}>
-          <span className="planning-menu-label">Productie overzicht</span>
-        </button>
+        {items.map(item => {
+          // Check conditions
+          if (item.condition === 'inks_expiring' && expiringInks.length === 0) return null;
+
+          const entry = menuContentRef.current.get(item.code);
+          const label = resolveMenuLabel(entry, { resource_name: res.name }) || item.code;
+
+          return (
+            <button key={item.code} className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem(item.sidebar_url); }}>
+              <span className="planning-menu-label">{label}</span>
+            </button>
+          );
+        })}
       </div>
     );
   }, []);
@@ -1144,7 +1182,7 @@ export function PlanningPage() {
         </div>
         </div>{/* .planning-main */}
 
-        <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} stateLog={stateLog} selectedDates={selectedDates} onTimelineHover={setTimelineOverlay} stateSets={stateSets} selectedKeys={selectedKeys} />
+        <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} stateLog={stateLog} selectedDates={selectedDates} onTimelineHover={setTimelineOverlay} stateSets={stateSets} selectedKeys={selectedKeys} menuContent={menuContent} />
       </div>
     </AuxRouteProvider>
   );
