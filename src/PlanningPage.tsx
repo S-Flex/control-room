@@ -29,7 +29,7 @@ type ResourceStateEntry = {
 };
 type StateSet = {
   code: string;
-  states: { code: string }[];
+  states: { code: string; }[];
 };
 type MenuItemDef = {
   code: string;
@@ -42,7 +42,7 @@ type MenuGroup = {
 };
 type MenuContentEntry = {
   code: string;
-  block: { title?: string; textFormula?: { title: string }; i18n?: Record<string, { title?: string; textFormula?: { title: string } }> };
+  block: { title?: string; textFormula?: { title: string; }; i18n?: Record<string, { title?: string; textFormula?: { title: string; }; }>; };
 };
 
 function resolveTextFormula(formula: string, params: Record<string, string>): string {
@@ -204,7 +204,7 @@ function StateTimelineSvg({ segments, totalMinutes, startHour, date, onHoverChan
   totalMinutes: number;
   startHour: number;
   date: string;
-  onHoverChange?: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  onHoverChange?: (data: { segments: TimelineSegment[]; date: string; } | null) => void;
 }) {
   return (
     <div
@@ -226,9 +226,9 @@ function StateTimelineSvg({ segments, totalMinutes, startHour, date, onHoverChan
 }
 
 /* ---- Sidebar content component ---- */
-type OeeGroupData = { key: string; title: string; color: string; minutes: number; pct: number };
+type OeeGroupData = { key: string; title: string; color: string; minutes: number; pct: number; };
 
-function OeeDonutChart({ groups }: { groups: OeeGroupData[] }) {
+function OeeDonutChart({ groups }: { groups: OeeGroupData[]; }) {
   const size = 120;
   const cx = size / 2;
   const cy = size / 2;
@@ -286,7 +286,7 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
   menuItem: string;
   stateLog: StateLogEntry[];
   selectedDates: string[];
-  onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  onTimelineHover: (data: { segments: TimelineSegment[]; date: string; } | null) => void;
   stateSets: StateSet[];
 }) {
   const state = stateMap.get(resource.state);
@@ -460,7 +460,7 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
   stateMap: Map<string, ResourceStateEntry>;
   stateLog: StateLogEntry[];
   selectedDates: string[];
-  onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  onTimelineHover: (data: { segments: TimelineSegment[]; date: string; } | null) => void;
   stateSets: StateSet[];
   selectedKeys: Set<string>;
   menuContent: Map<string, MenuContentEntry>;
@@ -523,7 +523,7 @@ function OeeMultiResourceContent({ resources, stateMap, stateLog, selectedDates,
   stateMap: Map<string, ResourceStateEntry>;
   stateLog: StateLogEntry[];
   selectedDates: string[];
-  onTimelineHover: (data: { segments: TimelineSegment[]; date: string } | null) => void;
+  onTimelineHover: (data: { segments: TimelineSegment[]; date: string; } | null) => void;
   stateSets: StateSet[];
 }) {
   // Aggregate state minutes across all resources and dates
@@ -812,7 +812,7 @@ export function PlanningPage() {
   });
   const hadActiveRef = useRef(false);
   const [showCapacity, setShowCapacity] = useState(false);
-  const [timelineOverlay, setTimelineOverlay] = useState<{ segments: TimelineSegment[]; date: string } | null>(null);
+  const [timelineOverlay, setTimelineOverlay] = useState<{ segments: TimelineSegment[]; date: string; } | null>(null);
 
   // React to URL changes for selected param (browser back/forward, manual edit)
   useEffect(() => {
@@ -1051,9 +1051,8 @@ export function PlanningPage() {
   }
 
   return (
-    <AuxRouteProvider>
-      <div className="planning-page">
-        <div className="planning-main">
+    <div className="planning-page">
+      <div className="planning-main">
         <header className="planning-header">
           <div className="planning-header-left">
             <div className="planning-dates">
@@ -1180,10 +1179,9 @@ export function PlanningPage() {
             </div>
           </div>
         </div>
-        </div>{/* .planning-main */}
+      </div>{/* .planning-main */}
 
-        <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} stateLog={stateLog} selectedDates={selectedDates} onTimelineHover={setTimelineOverlay} stateSets={stateSets} selectedKeys={selectedKeys} menuContent={menuContent} />
-      </div>
-    </AuxRouteProvider>
+      <PlanningResourceSidebarPanel resources={lineResources} stateMap={stateMap} stateLog={stateLog} selectedDates={selectedDates} onTimelineHover={setTimelineOverlay} stateSets={stateSets} selectedKeys={selectedKeys} menuContent={menuContent} />
+    </div>
   );
 }
