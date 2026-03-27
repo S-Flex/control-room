@@ -10,20 +10,30 @@ export async function fetchDatatable(src: string) {
 }
 
 export async function fetchDataGroups(src: string) {
-    const dd = await (fetchDataRow('getDataGroup', [{ key: 'dataGroup', val: src }]) as Promise<{ ok: true; data: [{ dataGroupJSON: string; }]; } | { ok: false; error: string; code: string; }>);
+    const dd = await fetchDataRow<{ get_data_group: DataGroup[]; }>('get_data_group', [{ key: 'data_group', val: src }]);
 
     if (!dd.ok) return dd;
 
     return {
         ok: true as const,
-        data: JSON.parse(dd.data[0].dataGroupJSON) as DataGroup[],
+        data: dd.data[0].get_data_group,
     };
 }
 
+function resolveDynamicParams(params: ParamValue[]): ParamValue[] {
+    return params.map(p => {
+        if (p.val === 'now()') return { ...p, val: new Date().toISOString() };
+        if (p.val === 'weekDay()') return { ...p, val: new Date().getDay() };
+        if (typeof p.val === 'object' && p.val !== null) return { ...p, val: JSON.stringify(p.val) };
+        return p;
+    });
+}
+
 export async function fetchDataRow<T = JSONRecord>(src: string, params: ParamValue[]) {
+    const resolved = resolveDynamicParams(params);
     return apiRequest<T[]>(`/api/Query/data-row/${src}`, {
         method: "POST",
-        body: JSON.stringify({ src, params }),
+        body: JSON.stringify({ src, params: resolved }),
         headers: { "Content-Type": "application/json" },
     });
 }

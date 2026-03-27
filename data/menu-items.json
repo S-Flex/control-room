@@ -7,7 +7,8 @@
         "i18n": {
           "en": { "textFormula": { "title": "{resource_name}" } },
           "nl": { "textFormula": { "title": "{resource_name}" } },
-          "de": { "textFormula": { "title": "{resource_name}" } }
+          "de": { "textFormula": { "title": "{resource_name}" } },
+          "uk": { "textFormula": { "title": "{resource_name}" } }
         }
       }
     },
@@ -18,7 +19,8 @@
         "i18n": {
           "en": { "title": "OEE" },
           "nl": { "title": "OEE" },
-          "de": { "title": "OEE" }
+          "de": { "title": "OEE" },
+          "uk": { "title": "OEE" }
         }
       }
     },
@@ -29,7 +31,8 @@
         "i18n": {
           "en": { "title": "TCO" },
           "nl": { "title": "TCO" },
-          "de": { "title": "TCO" }
+          "de": { "title": "TCO" },
+          "uk": { "title": "TCO" }
         }
       }
     },
@@ -40,7 +43,8 @@
         "i18n": {
           "en": { "title": "Production" },
           "nl": { "title": "Productie" },
-          "de": { "title": "Produktion" }
+          "de": { "title": "Produktion" },
+          "uk": { "title": "Виробництво" }
         }
       }
     },
@@ -51,7 +55,8 @@
         "i18n": {
           "en": { "title": "Ink & heads" },
           "nl": { "title": "Inkt & koppen" },
-          "de": { "title": "Tinte & Köpfe" }
+          "de": { "title": "Tinte & Köpfe" },
+          "uk": { "title": "Чорнила та головки" }
         }
       }
     },
@@ -62,7 +67,8 @@
         "i18n": {
           "en": { "title": "Quality management" },
           "nl": { "title": "Kwaliteitsbeheer" },
-          "de": { "title": "Qualitätsmanagement" }
+          "de": { "title": "Qualitätsmanagement" },
+          "uk": { "title": "Управління якістю" }
         }
       }
     },
@@ -73,7 +79,8 @@
         "i18n": {
           "en": { "title": "Maintenance & tickets" },
           "nl": { "title": "Onderhoud & tickets" },
-          "de": { "title": "Wartung & Tickets" }
+          "de": { "title": "Wartung & Tickets" },
+          "uk": { "title": "Обслуговування та заявки" }
         }
       }
     },
@@ -84,7 +91,8 @@
         "i18n": {
           "en": { "title": "Tooling & wear" },
           "nl": { "title": "Gereedschap & slijtage" },
-          "de": { "title": "Werkzeug & Verschleiß" }
+          "de": { "title": "Werkzeug & Verschleiß" },
+          "uk": { "title": "Інструмент та знос" }
         }
       }
     },
@@ -95,7 +103,8 @@
         "i18n": {
           "en": { "title": "Consumption & waste" },
           "nl": { "title": "Verbruik & afval" },
-          "de": { "title": "Verbrauch & Abfall" }
+          "de": { "title": "Verbrauch & Abfall" },
+          "uk": { "title": "Споживання та відходи" }
         }
       }
     },
@@ -106,7 +115,8 @@
         "i18n": {
           "en": { "title": "Material specifications" },
           "nl": { "title": "Materiaalspecificaties" },
-          "de": { "title": "Materialspezifikationen" }
+          "de": { "title": "Materialspezifikationen" },
+          "uk": { "title": "Специфікації матеріалів" }
         }
       }
     },
@@ -117,7 +127,8 @@
         "i18n": {
           "en": { "title": "Blocked jobs" },
           "nl": { "title": "Geblokkeerde jobs" },
-          "de": { "title": "Blockierte Aufträge" }
+          "de": { "title": "Blockierte Aufträge" },
+          "uk": { "title": "Заблоковані завдання" }
         }
       }
     }
@@ -126,136 +137,136 @@
     {
       "type": "printer",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.ink-heads", "sidebar_url": "ink-heads" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.ink-heads", "path": "(sidebar:ink-heads)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "cutter",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.tooling-wear", "sidebar_url": "tooling-wear" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.tooling-wear", "path": "(sidebar:tooling-wear)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "laser",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "coater",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "calander",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "laminator",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "cure-oven",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "slitter",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.tooling-wear", "sidebar_url": "tooling-wear" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.tooling-wear", "path": "(sidebar:tooling-wear)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "folder",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "finish",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.quality-management", "sidebar_url": "quality-management" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "grommet-seam",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.oee", "sidebar_url": "oee" },
-        { "code": "menu.tco", "sidebar_url": "tco" },
-        { "code": "menu.production", "sidebar_url": "production" },
-        { "code": "menu.maintenance-tickets", "sidebar_url": "maintenance-tickets" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.oee", "path": "(sidebar:oee)" },
+        { "code": "menu.tco", "path": "(sidebar:tco)" },
+        { "code": "menu.production", "path": "(sidebar:production)" },
+        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
       ]
     },
     {
       "type": "queue",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.blocked-jobs", "sidebar_url": "blocked-jobs" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.blocked-jobs", "path": "(sidebar:blocked-jobs)" }
       ]
     },
     {
       "type": "stock",
       "items": [
-        { "code": "menu.info", "sidebar_url": "info" },
-        { "code": "menu.consumption-waste", "sidebar_url": "consumption-waste" },
-        { "code": "menu.material-specs", "sidebar_url": "material-specs" }
+        { "code": "menu.info", "path": "(sidebar:info)" },
+        { "code": "menu.consumption-waste", "path": "(sidebar:consumption-waste)" },
+        { "code": "menu.material-specs", "path": "(sidebar:material-specs)" }
       ]
     }
   ]

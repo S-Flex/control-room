@@ -6,17 +6,18 @@ import {
   useAuxOutlet,
   AuxRouteProvider,
 } from 'xfw-url';
+import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
+import type { ContentLike } from 'xfw-get-block';
 import type { Resource, StateLogEntry } from './viewer/types';
 import './app.css';
 
 type LineConfig = {
-  id: string;
-  name: string;
+  code: string;
   glb: string;
   camera?: CameraState;
 };
 
-type ModelsData = { lines: LineConfig[]; };
+type ModelsData = { content: ContentLike[]; lines: LineConfig[]; };
 
 type ResourceStateEntry = {
   code: string;
@@ -33,7 +34,7 @@ type StateSet = {
 };
 type MenuItemDef = {
   code: string;
-  sidebar_url: string;
+  path: string;
   condition?: string;
 };
 type MenuGroup = {
@@ -51,8 +52,12 @@ function resolveTextFormula(formula: string, params: Record<string, string>): st
 
 function resolveMenuLabel(entry: MenuContentEntry | undefined, params: Record<string, string>): string {
   if (!entry) return '';
+  const lang = getLanguage();
+  const langBlock = entry.block.i18n?.[lang];
+  const textFormula = (langBlock as Record<string, unknown>)?.textFormula as { title?: string } | undefined;
+  if (textFormula?.title) return resolveTextFormula(textFormula.title, params);
   if (entry.block.textFormula?.title) return resolveTextFormula(entry.block.textFormula.title, params);
-  return entry.block.title ?? '';
+  return (langBlock as Record<string, unknown>)?.title as string ?? entry.block.title ?? '';
 }
 type MenuItemsData = {
   content: MenuContentEntry[];
@@ -128,7 +133,7 @@ function buildTimeline(
       color: stateEntry?.color ?? '#888',
       startMin: (segStart - startMs) / 60000,
       endMin: (segEnd - startMs) / 60000,
-      label: stateEntry?.block.title ?? entry.state,
+      label: getBlock(stateColorMap, entry.state, 'title'),
       jobName: entry.job_name,
     });
   }
@@ -304,7 +309,7 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
         <h3 className="planning-sidebar-name">{resource.name}</h3>
       </div>
       <div className="planning-sidebar-status" style={{ background: state.color + '20', color: state.color }}>
-        {state.block.title}
+        {getBlock(stateMap, resource.state, 'title')}
       </div>
 
       {menuItem === 'oee' && resourceEntries.length > 0 ? (() => {
@@ -329,7 +334,7 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
           const setEntry = stateMap.get('set.' + ss.code);
           return {
             key: ss.code,
-            title: setEntry?.block.title ?? ss.code,
+            title: getBlock(stateMap, 'set.' + ss.code, 'title'),
             color: setEntry?.color ?? '#888',
             minutes,
             pct: totalMins > 0 ? Math.round((minutes / totalMins) * 100) : 0,
@@ -372,7 +377,7 @@ function ResourceSidebarContent({ resource, stateMap, menuItem, stateLog, select
                       <tr key={code}>
                         <td>
                           <span className="planning-oee-table-dot" style={{ background: entry?.color ?? '#888' }} />
-                          {entry?.block.title ?? code}
+                          {getBlock(stateMap, code, 'title')}
                         </td>
                         <td>{h}h {m}m</td>
                         <td>{pct}%</td>
@@ -481,12 +486,9 @@ function PlanningResourceSidebarPanel({ resources, stateMap, stateLog, selectedD
     ? resources.filter(r => selectedKeys.has(r.layout_name))
     : [resource];
 
-  // Look up title from menu content by sidebar_url
-  const menuEntry = [...menuContent.values()].find(e => {
-    const code = e.code.replace('menu.', '');
-    return code === item;
-  });
-  const sidebarTitle = menuEntry?.block.title ?? item;
+  // Look up title from menu content by path
+  const menuCode = 'menu.' + item;
+  const sidebarTitle = getBlock(menuContent, menuCode, 'title');
   const titleName = oeeResources.length > 1 ? `${oeeResources.length} resources` : resource.name;
 
   return (
@@ -569,7 +571,7 @@ function OeeMultiResourceContent({ resources, stateMap, stateLog, selectedDates,
           const setEntry = stateMap.get('set.' + ss.code);
           return {
             key: ss.code,
-            title: setEntry?.block.title ?? ss.code,
+            title: getBlock(stateMap, 'set.' + ss.code, 'title'),
             color: setEntry?.color ?? '#888',
             minutes,
             pct: totalMins > 0 ? Math.round((minutes / totalMins) * 100) : 0,
@@ -600,7 +602,7 @@ function OeeMultiResourceContent({ resources, stateMap, stateLog, selectedDates,
                         <tr key={code}>
                           <td>
                             <span className="planning-oee-table-dot" style={{ background: entry?.color ?? '#888' }} />
-                            {entry?.block.title ?? code}
+                            {getBlock(stateMap, code, 'title')}
                           </td>
                           <td>{h}h {m}m</td>
                           <td>{pct}%</td>
@@ -761,7 +763,7 @@ function computeResourceShiftStats(resource: Resource, minutesFromMidnight: numb
 export function PlanningPage() {
   const navigate = useNavigate();
   const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(() => getLanguage());
 
   // Read dates and time from URL query params
   const urlParams = useQueryParams([
@@ -786,6 +788,7 @@ export function PlanningPage() {
   const timeLabel = formatTimeSlot(timeSlot);
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
+  const [modelsContent, setModelsContent] = useState<ContentLike[]>([]);
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('line') || 'sheet-line';
@@ -850,6 +853,7 @@ export function PlanningPage() {
     ])
       .then(([modelsData, resData, statesData, stateLogData, menuItemsData]) => {
         modelsDataRef.current = modelsData;
+        setModelsContent(modelsData.content);
         setAllLines(modelsData.lines);
         const map = buildStateMap(statesData);
         setStateMap(map);
@@ -861,13 +865,13 @@ export function PlanningPage() {
         const mc = new Map<string, MenuContentEntry>();
         mid.content.forEach((e: MenuContentEntry) => mc.set(e.code, e));
         setMenuContent(mc);
-        const line = modelsData.lines.find((l: LineConfig) => l.id === activeLineId);
+        const line = modelsData.lines.find((l: LineConfig) => l.code === activeLineId);
         if (line) setLineConfig(line);
         setAllResources(resData.resources);
         const filtered = resData.resources.filter((r: Resource) => r.line === activeLineId);
         setLineResources(filtered);
         lineResRef.current = filtered;
-        document.title = `Planning — ${line?.name || ''}`;
+        document.title = `Planning — ${getBlock(modelsData.content, activeLineId, 'title')}`;
       });
   }, [activeLineId]);
 
@@ -891,7 +895,7 @@ export function PlanningPage() {
   const handleSaveCamera = useCallback((state: CameraState) => {
     const models = modelsDataRef.current;
     if (!models) return;
-    const line = models.lines.find(l => l.id === activeLineId);
+    const line = models.lines.find(l => l.code === activeLineId);
     if (!line) return;
     line.camera = state;
     setLineConfig(prev => prev ? { ...prev, camera: state } : prev);
@@ -906,10 +910,11 @@ export function PlanningPage() {
     if (id === activeLineId) return;
     setActiveLineId(id);
     setSelectedKeys(new Set());
-    const line = modelsDataRef.current?.lines.find(l => l.id === id);
+    const models = modelsDataRef.current;
+    const line = models?.lines.find(l => l.code === id);
     if (line) {
       setLineConfig(line);
-      document.title = `Planning — ${line.name}`;
+      document.title = `Planning — ${getBlock(models!.content, line.code, 'title')}`;
       const filtered = allResources.filter(r => r.line === id);
       setLineResources(filtered);
       lineResRef.current = filtered;
@@ -931,11 +936,6 @@ export function PlanningPage() {
           .map(r => r.layout_name);
         setSelectedKeys(new Set(selectableKeys));
       }
-      // Clear resource query param and close sidebar
-      navigateRef.current({
-        queryParams: [{ key: 'resource', val: '' }],
-        partialPath: '(sidebar:)',
-      });
       return;
     }
 
@@ -982,10 +982,10 @@ export function PlanningPage() {
     const group = menuGroupsRef.current.find(g => g.type === res.type);
     const items = group?.items ?? [];
 
-    const openMenuItem = (item: string) => {
+    const openMenuItem = (path: string) => {
       navigateRef.current({
         queryParams: [{ key: 'resource', val: res.layout_name }],
-        partialPath: `(sidebar:${item})`,
+        partialPath: path,
       });
       dismissPopoverRef.current?.();
     };
@@ -1000,7 +1000,7 @@ export function PlanningPage() {
           const label = resolveMenuLabel(entry, { resource_name: res.name }) || item.code;
 
           return (
-            <button key={item.code} className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem(item.sidebar_url); }}>
+            <button key={item.code} className="planning-menu-item" onPointerDown={e => { e.stopPropagation(); openMenuItem(item.path); }}>
               <span className="planning-menu-label">{label}</span>
             </button>
           );
@@ -1107,11 +1107,11 @@ export function PlanningPage() {
             <select
               className="planning-select"
               value={lang}
-              onChange={e => setLang(e.target.value)}
+              onChange={e => { setLanguage(e.target.value); setLang(e.target.value); }}
             >
-              <option value="en">EN</option>
-              <option value="nl">NL</option>
-              <option value="uk">UK</option>
+              {languages.map(l => (
+                <option key={l} value={l}>{l.toUpperCase()}</option>
+              ))}
             </select>
             <button
               className="planning-icon-btn"
@@ -1131,7 +1131,7 @@ export function PlanningPage() {
         <div className="planning-content">
           <div className="planning-viewer">
             <ThreeModelView
-              key={lineConfig.id}
+              key={lineConfig.code}
               url={lineConfig.glb}
               className="scene"
               data={resourceData}
@@ -1169,11 +1169,11 @@ export function PlanningPage() {
             <div className="planning-thumbs">
               {allLines.map(line => (
                 <button
-                  key={line.id}
-                  className={`planning-thumb${line.id === activeLineId ? ' active' : ''}`}
-                  onClick={() => switchLine(line.id)}
+                  key={line.code}
+                  className={`planning-thumb${line.code === activeLineId ? ' active' : ''}`}
+                  onClick={() => switchLine(line.code)}
                 >
-                  <span className="planning-thumb-name">{line.name}</span>
+                  <span className="planning-thumb-name">{getBlock(modelsContent, line.code, 'title')}</span>
                 </button>
               ))}
             </div>

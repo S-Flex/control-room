@@ -17,8 +17,12 @@
       "xfw-url": ["./packages/xfw-url"],
       "xfw-url/*": ["./packages/xfw-url/*"],
       "xfw-data": ["./packages/xfw-data"],
-      "xfw-data/*": ["./packages/xfw-data/*"]
+      "xfw-data/*": ["./packages/xfw-data/*"],
+      "xfw-button-group": ["./packages/xfw-button-group"],
+      "xfw-button-group/*": ["./packages/xfw-button-group/*"],
+      "xfw-get-block": ["./packages/xfw-get-block"],
+      "xfw-get-block/*": ["./packages/xfw-get-block/*"]
     }
   },
-  "include": ["src", "packages/xfw-three", "packages/xfw-url", "packages/xfw-data"]
+  "include": ["src", "packages/xfw-three", "packages/xfw-url", "packages/xfw-data", "packages/xfw-button-group", "packages/xfw-get-block"]
 }

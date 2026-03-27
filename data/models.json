@@ -1,8 +1,81 @@
 {
+  "content": [
+    {
+      "code": "sheet-line",
+      "block": {
+        "title": "Sheet",
+        "i18n": {
+          "en": { "title": "Sheet" },
+          "nl": { "title": "Plaat" },
+          "de": { "title": "Blatt" },
+          "uk": { "title": "Листовий" }
+        }
+      }
+    },
+    {
+      "code": "textile-line",
+      "block": {
+        "title": "Sublimation",
+        "i18n": {
+          "en": { "title": "Sublimation" },
+          "nl": { "title": "Sublimatie" },
+          "de": { "title": "Sublimation" },
+          "uk": { "title": "Сублімація" }
+        }
+      }
+    },
+    {
+      "code": "non-adhesive-line",
+      "block": {
+        "title": "UV",
+        "i18n": {
+          "en": { "title": "UV" },
+          "nl": { "title": "UV" },
+          "de": { "title": "UV" },
+          "uk": { "title": "УФ" }
+        }
+      }
+    },
+    {
+      "code": "foil-line",
+      "block": {
+        "title": "Foil",
+        "i18n": {
+          "en": { "title": "Foil" },
+          "nl": { "title": "Folie" },
+          "de": { "title": "Folie" },
+          "uk": { "title": "Фольга" }
+        }
+      }
+    },
+    {
+      "code": "bh-line",
+      "block": {
+        "title": "BH",
+        "i18n": {
+          "en": { "title": "BH" },
+          "nl": { "title": "BH" },
+          "de": { "title": "BH" },
+          "uk": { "title": "BH" }
+        }
+      }
+    },
+    {
+      "code": "warehouse",
+      "block": {
+        "title": "Warehouse",
+        "i18n": {
+          "en": { "title": "Ware-house" },
+          "nl": { "title": "Magazijn" },
+          "de": { "title": "Lager" },
+          "uk": { "title": "Склад" }
+        }
+      }
+    }
+  ],
   "lines": [
     {
-      "id": "sheet-line",
-      "name": "Sheet",
+      "code": "sheet-line",
       "glb": "/models/sheet.glb",
       "camera": {
         "position": [
@@ -18,8 +91,7 @@
       }
     },
     {
-      "id": "textile-line",
-      "name": "Textile",
+      "code": "textile-line",
       "glb": "/models/textile.glb",
       "camera": {
         "position": [
@@ -35,8 +107,7 @@
       }
     },
     {
-      "id": "non-adhesive-line",
-      "name": "Non-Adhesive",
+      "code": "non-adhesive-line",
       "glb": "/models/non-adhesive.glb",
       "camera": {
         "position": [
@@ -52,8 +123,7 @@
       }
     },
     {
-      "id": "foil-line",
-      "name": "Foil",
+      "code": "foil-line",
       "glb": "/models/foil.glb",
       "camera": {
         "position": [
@@ -69,8 +139,23 @@
       }
     },
     {
-      "id": "warehouse",
-      "name": "Ware-house",
+      "code": "bh-line",
+      "glb": "/models/bh.glb",
+      "camera": {
+        "position": [
+          84.06117832499079,
+          52.141858688351974,
+          -90.730790388423
+        ],
+        "target": [
+          56.1063622920235,
+          1.1089289217367302,
+          -20.677336655521444
+        ]
+      }
+    },
+    {
+      "code": "warehouse",
       "glb": "/models/warehouse.glb"
     }
   ]

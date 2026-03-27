@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ThreeModelView, type CameraState, type JSONRecord, type ObjectData } from 'xfw-three';
+import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
+import type { ContentLike } from 'xfw-get-block';
 import { EquipCard } from './viewer/EquipCard';
 import type { Resource } from './viewer/types';
 import { WidgetPanel } from './widgets/WidgetPanel';
@@ -10,13 +12,13 @@ import type { DashboardData } from './widgets/types';
 import './app.css';
 
 type LineConfig = {
-  id: string;
-  name: string;
+  code: string;
   glb: string;
   camera?: CameraState;
 };
 
 type ModelsData = {
+  content: ContentLike[];
   lines: LineConfig[];
 };
 
@@ -41,7 +43,9 @@ function buildStateMap(data: ResourceStatesData): Map<string, ResourceStateEntry
 
 export function App() {
   const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
+  const [lang, setLang] = useState(() => getLanguage());
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
+  const [modelsContent, setModelsContent] = useState<ContentLike[]>([]);
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
@@ -86,8 +90,9 @@ export function App() {
       .then(([modelsData, resData, inflow, queues, ticker, statesData]) => {
         modelsDataRef.current = modelsData;
         setStateMap(buildStateMap(statesData));
+        setModelsContent(modelsData.content);
         setAllLines(modelsData.lines);
-        const line = modelsData.lines.find((l: LineConfig) => l.id === activeLineId);
+        const line = modelsData.lines.find((l: LineConfig) => l.code === activeLineId);
         if (!line) { setError(`Line "${activeLineId}" not found`); return; }
         setLineConfig(line);
         setAllResources(resData.resources);
@@ -96,7 +101,7 @@ export function App() {
         lineResRef.current = filtered;
         setDisplayDuration((resData.displayDuration || 5) * 1000);
         setDashData({ inflow, queues, ticker });
-        document.title = `Control Room — ${line.name}`;
+        document.title = `Control Room — ${getBlock(modelsData.content, line.code, 'title')}`;
       })
       .catch(err => setError(err.message));
   }, [activeLineId]);
@@ -130,7 +135,7 @@ export function App() {
   const handleSaveCamera = useCallback((state: CameraState) => {
     const models = modelsDataRef.current;
     if (!models) return;
-    const line = models.lines.find(l => l.id === activeLineId);
+    const line = models.lines.find(l => l.code === activeLineId);
     if (!line) return;
     line.camera = state;
     setLineConfig(prev => prev ? { ...prev, camera: state } : prev);
@@ -149,10 +154,11 @@ export function App() {
     setActiveMatchKey(null);
     setCyclePaused(false);
     currentIdx.current = -1;
-    const line = modelsDataRef.current?.lines.find(l => l.id === id);
+    const models = modelsDataRef.current;
+    const line = models?.lines.find(l => l.code === id);
     if (line) {
       setLineConfig(line);
-      document.title = `Control Room — ${line.name}`;
+      document.title = `Control Room — ${getBlock(models!.content, line.code, 'title')}`;
       const filtered = allResources.filter(r => r.line === id);
       setLineResources(filtered);
       lineResRef.current = filtered;
@@ -206,7 +212,7 @@ export function App() {
           <DashboardHeader className="inner-only" />
           <div className="sheet-view">
             <ThreeModelView
-              key={lineConfig.id}
+              key={lineConfig.code}
               url={lineConfig.glb}
               className="scene"
               data={resourceData}
@@ -221,12 +227,12 @@ export function App() {
               <div className="model-thumbs">
                 {allLines.map(line => (
                   <button
-                    key={line.id}
-                    className={`model-thumb${line.id === activeLineId ? ' active' : ''}`}
-                    onClick={() => switchLine(line.id)}
-                    title={line.name}
+                    key={line.code}
+                    className={`model-thumb${line.code === activeLineId ? ' active' : ''}`}
+                    onClick={() => switchLine(line.code)}
+                    title={getBlock(modelsContent, line.code, 'title')}
                   >
-                    <span className="model-thumb-label">{line.name}</span>
+                    <span className="model-thumb-label">{getBlock(modelsContent, line.code, 'title')}</span>
                   </button>
                 ))}
               </div>

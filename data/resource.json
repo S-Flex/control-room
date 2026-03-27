@@ -13,7 +13,6 @@
         "grote durst"
       ],
       "type": "printer",
-      "status": "printing",
       "oee": 67,
       "producing": 29,
       "stopped": 17,
@@ -54,7 +53,9 @@
       "machine_nr": "LM72-118",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm • W",
-      "resource_uid": "PR5TM01fye5Z"
+      "resource_uid": "PR5TM01fye5Z",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "sheet-line",
@@ -66,7 +67,6 @@
         "automaat"
       ],
       "type": "printer",
-      "status": "printing",
       "oee": 73,
       "producing": 32,
       "stopped": 17,
@@ -107,7 +107,9 @@
       "machine_nr": "LM72-081",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PR6ohvwK3lMk"
+      "resource_uid": "PR6ohvwK3lMk",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "sheet-line",
@@ -122,7 +124,6 @@
         "210 een"
       ],
       "type": "printer",
-      "status": "printing",
       "oee": 69,
       "producing": 30,
       "stopped": 18,
@@ -163,7 +164,9 @@
       "machine_nr": "AK25-006",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm • W",
-      "resource_uid": "PR7TM01fwqtF"
+      "resource_uid": "PR7TM01fwqtF",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "sheet-line",
@@ -178,7 +181,6 @@
         "210 twee"
       ],
       "type": "printer",
-      "status": "printing",
       "oee": 58,
       "producing": 26,
       "stopped": 19,
@@ -219,7 +221,9 @@
       "machine_nr": "AK25-004",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PR8ohvwK1v80"
+      "resource_uid": "PR8ohvwK1v80",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "sheet-line",
@@ -234,7 +238,6 @@
         "snelle 210"
       ],
       "type": "printer",
-      "status": "error",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -274,7 +277,9 @@
       "serial_nr": "310339",
       "machine_nr": "LM80-004",
       "ink": "Aturion",
-      "inkset": "CMYK • CMYKLcLm"
+      "inkset": "CMYK • CMYKLcLm",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "sheet-line",
@@ -287,7 +292,6 @@
         "koedu"
       ],
       "type": "printer",
-      "status": "printing",
       "oee": 76,
       "producing": 35,
       "stopped": 20,
@@ -327,7 +331,10 @@
       "serial_nr": "240183",
       "ink": "KX2",
       "inkset": "CMYK • NEON • W",
-      "resource_uid": "PRaohvwKZFwI"
+      "resource_uid": "PRaohvwKZFwI",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "sheet-line",
@@ -341,7 +348,6 @@
         "burkle"
       ],
       "type": "coater",
-      "status": "initializing",
       "oee": 56,
       "producing": 26,
       "stopped": 16,
@@ -366,7 +372,6 @@
         "koe lijn"
       ],
       "type": "cutter",
-      "status": "cutting",
       "oee": 70,
       "producing": 29,
       "stopped": 24,
@@ -376,7 +381,15 @@
       "jobsToday": 58,
       "material": "Mixed",
       "state": "producing",
-      "resource_uid": "PRCOfZGkuCB9"
+      "resource_uid": "PRCOfZGkuCB9",
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 04 - Plaat",
+      "pv2_id": 46,
+      "pv2_code": "00192_zund-g3xl3200_04",
+      "pv2_name": null,
+      "serial_nr": "G30XL320933"
     },
     {
       "line": "sheet-line",
@@ -389,7 +402,6 @@
         "de laser"
       ],
       "type": "laser",
-      "status": "cutting",
       "oee": 47,
       "producing": 23,
       "stopped": 18,
@@ -412,7 +424,6 @@
         "zund een"
       ],
       "type": "cutter",
-      "status": "cutting",
       "oee": 69,
       "producing": 28,
       "stopped": 24,
@@ -422,7 +433,15 @@
       "jobsToday": 38,
       "material": "Board",
       "state": "producing",
-      "resource_uid": "PRDjKubPXHiu"
+      "resource_uid": "PRDjKubPXHiu",
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 03 - Plaat",
+      "pv2_id": 45,
+      "pv2_code": "00037_zund_glxl3200_03",
+      "pv2_name": null,
+      "serial_nr": "G30XL320836"
     },
     {
       "line": "sheet-line",
@@ -435,7 +454,6 @@
         "zund twee"
       ],
       "type": "cutter",
-      "status": "cutting",
       "oee": 56,
       "producing": 23,
       "stopped": 23,
@@ -445,7 +463,15 @@
       "jobsToday": 44,
       "material": "PVC",
       "state": "starved",
-      "resource_uid": "PREOfZGksOZP"
+      "resource_uid": "PREOfZGksOZP",
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 05 - Plaat",
+      "pv2_id": 44,
+      "pv2_code": "00026_zund_g3xl3200_05",
+      "pv2_name": null,
+      "serial_nr": "G30XL321384"
     },
     {
       "line": "sheet-line",
@@ -458,7 +484,6 @@
         "zund drie"
       ],
       "type": "cutter",
-      "status": "cutting",
       "oee": 67,
       "producing": 27,
       "stopped": 22,
@@ -468,7 +493,15 @@
       "jobsToday": 32,
       "material": "Foam",
       "state": "producing",
-      "resource_uid": "PRFjKubPXTGa"
+      "resource_uid": "PRFjKubPXTGa",
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund_DB_Sheet",
+      "pv2_id": 168,
+      "pv2_code": "Zund_DB_Sheet",
+      "pv2_name": null,
+      "serial_nr": "D30XL320100"
     },
     {
       "line": "sheet-line",
@@ -481,7 +514,6 @@
         "zund vier"
       ],
       "type": "cutter",
-      "status": "idle",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -491,14 +523,21 @@
       "jobsToday": 0,
       "material": "—",
       "state": "idle",
-      "resource_uid": "PRGOfZGkqYnv"
+      "resource_uid": "PRGOfZGkqYnv",
+      "site_code": "DK",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd Q 32-32 D",
+      "pv2_id": 260,
+      "pv2_code": "DK-NL-ST-ZU-Q3232-01",
+      "pv2_name": null,
+      "serial_nr": "Q3232D13"
     },
     {
       "line": "textile-line",
       "layout_name": "textile-printer-1",
       "name": "Dürst P5-350 ISub 1",
       "type": "printer",
-      "status": "printing",
       "oee": 76,
       "producing": 31,
       "stopped": 23,
@@ -539,14 +578,15 @@
       "machine_nr": "AE28-081",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRQCVhWcxPiO"
+      "resource_uid": "PRQCVhWcxPiO",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "textile-line",
       "layout_name": "textile-printer-2",
       "name": "Dürst P5-350 ISub 2",
       "type": "printer",
-      "status": "printing",
       "oee": 75,
       "producing": 30,
       "stopped": 22,
@@ -587,14 +627,15 @@
       "machine_nr": "AE28-009",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRR7qMrH0UZ9"
+      "resource_uid": "PRR7qMrH0UZ9",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "textile-line",
       "layout_name": "textile-printer-3",
       "name": "Dürst P5-350 ISub 3",
       "type": "printer",
-      "status": "printing",
       "oee": 74,
       "producing": 38,
       "stopped": 22,
@@ -635,14 +676,15 @@
       "machine_nr": "AE28-111",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRSCVhWcv1Gu"
+      "resource_uid": "PRSCVhWcv1Gu",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "textile-line",
       "layout_name": "textile-printer-4",
       "name": "Dürst P5-500 ISub",
       "type": "printer",
-      "status": "printing",
       "oee": 73,
       "producing": 37,
       "stopped": 21,
@@ -683,14 +725,15 @@
       "machine_nr": "AC78-006",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRT7qMrHY6lP"
+      "resource_uid": "PRT7qMrHY6lP",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "textile-line",
       "layout_name": "textile-printer-5",
       "name": "HP Stitch S1000",
       "type": "printer",
-      "status": "printing",
       "oee": 60,
       "producing": 31,
       "stopped": 21,
@@ -730,14 +773,16 @@
       "serial_nr": "SG38A1F001 ",
       "ink": "HP Stitch",
       "inkset": "CMYK",
-      "resource_uid": "PRUCVhWctb2a"
+      "resource_uid": "PRUCVhWctb2a",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "textile-line",
       "layout_name": "textile-printer-6",
       "name": "HP Stitch S1000 (2)",
       "type": "printer",
-      "status": "idle",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -777,14 +822,16 @@
       "serial_nr": "SG37C1F001",
       "ink": "HP Stitch",
       "inkset": "CMYK",
-      "resource_uid": "PRV7qMrHYgJv"
+      "resource_uid": "PRV7qMrHYgJv",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "textile-line",
       "layout_name": "textile-laser-1",
       "name": "Eurolaser 3XL 1",
       "type": "laser",
-      "status": "cutting",
       "oee": 61,
       "producing": 27,
       "stopped": 14,
@@ -794,14 +841,21 @@
       "jobsToday": 48,
       "material": "Polyester",
       "state": "producing",
-      "resource_uid": "PRPNuSfJQUHL"
+      "resource_uid": "PRPNuSfJQUHL",
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "EUROLASER",
+      "cutter_name": "eurolaser-3xl-3200",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "1727S5021P"
     },
     {
       "line": "textile-line",
       "layout_name": "textile-laser-2",
       "name": "Eurolaser 3XL 2",
       "type": "laser",
-      "status": "cutting",
       "oee": 60,
       "producing": 27,
       "stopped": 13,
@@ -811,14 +865,21 @@
       "jobsToday": 39,
       "material": "Cotton blend",
       "state": "producing",
-      "resource_uid": "PROiZnKenN0q"
+      "resource_uid": "PROiZnKenN0q",
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "EUROLASER",
+      "cutter_name": "eurolaser-3xl-3200",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "1909S8659P"
     },
     {
       "line": "textile-line",
       "layout_name": "textile-cutter-1",
       "name": "Zünd G3 XL",
       "type": "cutter",
-      "status": "cutting",
       "oee": 69,
       "producing": 32,
       "stopped": 20,
@@ -828,14 +889,21 @@
       "jobsToday": 35,
       "material": "Mixed textile",
       "state": "blocked",
-      "resource_uid": "PRjtq2xje4io"
+      "resource_uid": "PRjtq2xje4io",
+      "site_code": "DK",
+      "line_code": "SU",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund (1) - G33XL320478",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "G33XL320478"
     },
     {
       "line": "textile-line",
       "layout_name": "textile-calander-1",
       "name": "Monti 79 K2",
       "type": "calander",
-      "status": "printing",
       "oee": 70,
       "producing": 28,
       "stopped": 13,
@@ -852,7 +920,6 @@
       "layout_name": "textile-calander-2",
       "name": "Monti Antonio 91 K3",
       "type": "calander",
-      "status": "printing",
       "oee": 71,
       "producing": 29,
       "stopped": 14,
@@ -869,7 +936,6 @@
       "layout_name": "textile-calander-3",
       "name": "Klieverik",
       "type": "calander",
-      "status": "error",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -895,8 +961,7 @@
           "name": "Roughmark",
           "quantity": 21
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -916,8 +981,7 @@
           "name": "Coroplast",
           "quantity": 10
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -941,8 +1005,7 @@
           "name": "Roughmark",
           "quantity": 13
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -970,8 +1033,7 @@
           "name": "Coroplast",
           "quantity": 30
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -987,8 +1049,7 @@
           "name": "Coroplast",
           "quantity": 37
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1008,8 +1069,7 @@
           "name": "Roughmark",
           "quantity": 14
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1033,8 +1093,7 @@
           "name": "Coroplast",
           "quantity": 5
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1062,8 +1121,7 @@
           "name": "Roughmark",
           "quantity": 10
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1079,8 +1137,7 @@
           "name": "Roughmark",
           "quantity": 13
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1100,8 +1157,7 @@
           "name": "Coroplast",
           "quantity": 18
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1125,8 +1181,7 @@
           "name": "Roughmark",
           "quantity": 37
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1154,8 +1209,7 @@
           "name": "Coroplast",
           "quantity": 30
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1171,8 +1225,7 @@
           "name": "Coroplast",
           "quantity": 29
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1192,8 +1245,7 @@
           "name": "Roughmark",
           "quantity": 22
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1217,8 +1269,7 @@
           "name": "Coroplast",
           "quantity": 29
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "sheet-line",
@@ -1246,8 +1297,7 @@
           "name": "Roughmark",
           "quantity": 10
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "textile-line",
@@ -1263,8 +1313,7 @@
           "name": "Flag fabric",
           "quantity": 5
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1284,8 +1333,7 @@
           "name": "Satin",
           "quantity": 26
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1309,8 +1357,7 @@
           "name": "Cotton blend",
           "quantity": 21
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1338,8 +1385,7 @@
           "name": "Flag fabric",
           "quantity": 30
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1355,8 +1401,7 @@
           "name": "Satin",
           "quantity": 21
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1376,8 +1421,7 @@
           "name": "Cotton blend",
           "quantity": 30
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1401,8 +1445,7 @@
           "name": "Flag fabric",
           "quantity": 13
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "textile-line",
@@ -1430,8 +1473,7 @@
           "name": "Satin",
           "quantity": 10
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "textile-line",
@@ -1447,8 +1489,7 @@
           "name": "Cotton blend",
           "quantity": 37
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "textile-line",
@@ -1468,8 +1509,7 @@
           "name": "Flag fabric",
           "quantity": 34
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "textile-line",
@@ -1493,8 +1533,7 @@
           "name": "Satin",
           "quantity": 5
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "textile-line",
@@ -1522,8 +1561,7 @@
           "name": "Cotton blend",
           "quantity": 30
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "textile-line",
@@ -1539,15 +1577,13 @@
           "name": "Flag fabric",
           "quantity": 13
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-1",
       "name": "Dürst P5-350",
       "type": "printer",
-      "status": "printing",
       "oee": 64,
       "producing": 32,
       "stopped": 25,
@@ -1578,24 +1614,25 @@
       "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
-      "manufacturer": "DURST",
-      "rip_name": "DK_FO_P5-1_350HS_PF36b",
-      "printer_name": "DK_FO_P5-1_350HS",
-      "pv2_id": 126,
-      "pv2_code": "durst_p5_hs",
-      "pv2_name": "Dürst P5 HS",
-      "serial_nr": "332176",
-      "machine_nr": "LM70-067",
-      "ink": "Roll-Led",
-      "inkset": "CMYK • CMYKLcLm W",
-      "resource_uid": "PRBJzPEMIgzB"
+      "manufacturer": "HP",
+      "rip_name": "DK_FO_HP800-7_LTX+W_PF29",
+      "printer_name": "DK_FO_HP800-7_LTX+W",
+      "pv2_id": 116,
+      "pv2_code": "hp_800_7",
+      "pv2_name": "HP Latex 800 7",
+      "serial_nr": "MY16G2T00V",
+      "machine_nr": null,
+      "ink": "Latex 800",
+      "inkset": "CMYKLcLm W",
+      "resource_uid": "PRBJzPEMIgzB",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-2",
       "name": "HP Latex 3600 (2)",
       "type": "printer",
-      "status": "printing",
       "oee": 65,
       "producing": 33,
       "stopped": 10,
@@ -1635,14 +1672,16 @@
       "serial_nr": "SG01D1R001",
       "ink": "Latex 3600",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRAe4k9hfbSg"
+      "resource_uid": "PRAe4k9hfbSg",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-3",
       "name": "HP Latex 3600 (3)",
       "type": "printer",
-      "status": "printing",
       "oee": 66,
       "producing": 34,
       "stopped": 11,
@@ -1682,14 +1721,16 @@
       "serial_nr": "SG44TRF001",
       "ink": "Latex 3600",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRzJzPEMK6bV"
+      "resource_uid": "PRzJzPEMK6bV",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-4",
       "name": "Epson SC-S9100 (4)",
       "type": "printer",
-      "status": "printing",
       "oee": 67,
       "producing": 34,
       "stopped": 12,
@@ -1729,14 +1770,16 @@
       "serial_nr": "XD3S000067",
       "ink": "UltraChrome GS3",
       "inkset": "CMYKLcLmLk R OR GR",
-      "resource_uid": "PRye4k9hf1uA"
+      "resource_uid": "PRye4k9hf1uA",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-5",
       "name": "Epson SC-S9100 (5)",
       "type": "printer",
-      "status": "printing",
       "oee": 68,
       "producing": 35,
       "stopped": 12,
@@ -1776,14 +1819,16 @@
       "serial_nr": "XD3S000083",
       "ink": "UltraChrome GS3",
       "inkset": "CMYKLcLmLk R OR GR",
-      "resource_uid": "PRxJzPEMMUPf"
+      "resource_uid": "PRxJzPEMMUPf",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-6",
       "name": "HP Latex 800W (6)",
       "type": "printer",
-      "status": "printing",
       "oee": 57,
       "producing": 30,
       "stopped": 13,
@@ -1824,14 +1869,15 @@
       "serial_nr": "AFGEVOERD",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRwe4k9hhP8U"
+      "resource_uid": "PRwe4k9hhP8U",
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-7",
       "name": "HP Latex 800W (7)",
       "type": "printer",
-      "status": "idle",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -1871,14 +1917,16 @@
       "serial_nr": "MY16E2T00G",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRvJzPEMOKrx"
+      "resource_uid": "PRvJzPEMOKrx",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-8",
       "name": "HP Latex 800W (8)",
       "type": "printer",
-      "status": "printing",
       "oee": 71,
       "producing": 29,
       "stopped": 14,
@@ -1918,14 +1966,16 @@
       "serial_nr": "MY1BO2W008",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRue4k9hjFKc"
+      "resource_uid": "PRue4k9hjFKc",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-9",
       "name": "HP Latex 800W (9)",
       "type": "printer",
-      "status": "printing",
       "oee": 72,
       "producing": 30,
       "stopped": 15,
@@ -1965,14 +2015,16 @@
       "serial_nr": "MY1B22W001",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRtJzPEMQA3R"
+      "resource_uid": "PRtJzPEMQA3R",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-10",
       "name": "HP Latex 800W (10)",
       "type": "printer",
-      "status": "printing",
       "oee": 81,
       "producing": 36,
       "stopped": 20,
@@ -2012,14 +2064,16 @@
       "serial_nr": "MY1B22W003",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRhTzfwk4UFT"
+      "resource_uid": "PRhTzfwk4UFT",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-11",
       "name": "HP Latex 800W (11)",
       "type": "printer",
-      "status": "printing",
       "oee": 82,
       "producing": 38,
       "stopped": 20,
@@ -2059,14 +2113,16 @@
       "serial_nr": "MY1BO2W00J",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRio4K1Px1me"
+      "resource_uid": "PRio4K1Px1me",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-12",
       "name": "HP Latex 800W (12)",
       "type": "printer",
-      "status": "printing",
       "oee": 83,
       "producing": 38,
       "stopped": 21,
@@ -2106,14 +2162,16 @@
       "serial_nr": "MY16R2T00B",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRjTzfwk263B"
+      "resource_uid": "PRjTzfwk263B",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-13",
       "name": "HP Latex 800W (13)",
       "type": "printer",
-      "status": "printing",
       "oee": 72,
       "producing": 34,
       "stopped": 21,
@@ -2153,14 +2211,16 @@
       "serial_nr": "MY16D2T001",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRko4K1PxbKW"
+      "resource_uid": "PRko4K1PxbKW",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-14",
       "name": "Epson SC-S80600 (14)",
       "type": "printer",
-      "status": "printing",
       "oee": 85,
       "producing": 40,
       "stopped": 22,
@@ -2200,14 +2260,16 @@
       "serial_nr": "X6CS00608",
       "ink": "UltraChrome GS",
       "inkset": "CMYKLcLmLk R OR",
-      "resource_uid": "PRlTzfwk0grh"
+      "resource_uid": "PRlTzfwk0grh",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-15",
       "name": "Epson SC-S80600 (15)",
       "type": "printer",
-      "status": "error",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -2247,14 +2309,16 @@
       "serial_nr": "X6CS00604",
       "ink": "UltraChrome GS",
       "inkset": "CMYKLcLmLk R OR",
-      "resource_uid": "PRmo4K1Pvl6C"
+      "resource_uid": "PRmo4K1Pvl6C",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-16",
       "name": "Epson SC-G6000 (16)",
       "type": "printer",
-      "status": "printing",
       "oee": 61,
       "producing": 29,
       "stopped": 23,
@@ -2294,14 +2358,16 @@
       "serial_nr": "XDLH000225",
       "ink": "UltraChrome DTF-INK",
       "inkset": "CMYK+W",
-      "resource_uid": "PRnTzfwkYqNX"
+      "resource_uid": "PRnTzfwkYqNX",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-17",
       "name": "Epson SC-G6000 (17)",
       "type": "printer",
-      "status": "printing",
       "oee": 62,
       "producing": 30,
       "stopped": 24,
@@ -2341,14 +2407,16 @@
       "serial_nr": "XDLH000206",
       "ink": "UltraChrome DTF-INK",
       "inkset": "CMYK+W",
-      "resource_uid": "PRoo4K1Ptxui"
+      "resource_uid": "PRoo4K1Ptxui",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-18",
       "name": "SwissQ Karibu 2",
       "type": "printer",
-      "status": "printing",
       "oee": 67,
       "producing": 33,
       "stopped": 24,
@@ -2388,14 +2456,16 @@
       "serial_nr": "220077",
       "ink": "NG",
       "inkset": "CMYK • NEON • W",
-      "resource_uid": "PRpTzfwkYCbD"
+      "resource_uid": "PRpTzfwkYCbD",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-19",
       "name": "Dürst Rho 312R Plus",
       "type": "printer",
-      "status": "printing",
       "oee": 64,
       "producing": 32,
       "stopped": 25,
@@ -2436,14 +2506,15 @@
       "machine_nr": "AF26_068",
       "ink": "FLT",
       "inkset": "CMYK • CMYKLcLm W",
-      "resource_uid": "PRqo4K1PrHSY"
+      "resource_uid": "PRqo4K1PrHSY",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-printer-20",
       "name": "HP Latex 2700W",
       "type": "printer",
-      "status": "printing",
       "oee": 50,
       "producing": 25,
       "stopped": 24,
@@ -2483,14 +2554,16 @@
       "serial_nr": "SG3C72F002",
       "ink": "Latex 2700",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRMo4K1N9B0u"
+      "resource_uid": "PRMo4K1N9B0u",
+      "eam": null,
+      "driver": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "foil-cutter-1",
       "name": "Zünd Folie 1",
       "type": "cutter",
-      "status": "cutting",
       "oee": 75,
       "producing": 39,
       "stopped": 22,
@@ -2500,14 +2573,21 @@
       "jobsToday": 52,
       "material": "Mixed",
       "state": "producing",
-      "resource_uid": "PRkOQgH1Tfhl"
+      "resource_uid": "PRkOQgH1Tfhl",
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "zund DB (1) - D300L320060",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "D300L320060"
     },
     {
       "line": "foil-line",
       "layout_name": "foil-cutter-2",
       "name": "Zünd 6500 (2)",
       "type": "cutter",
-      "status": "cutting",
       "oee": 74,
       "producing": 38,
       "stopped": 22,
@@ -2517,14 +2597,21 @@
       "jobsToday": 44,
       "material": "Self-adhesive vinyl",
       "state": "producing",
-      "resource_uid": "PRjjlLcwoaA0"
+      "resource_uid": "PRjjlLcwoaA0",
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "zund DB (2) - D300L251382",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "D300L251382"
     },
     {
       "line": "foil-line",
       "layout_name": "foil-cutter-3",
       "name": "Zünd 6500 (3)",
       "type": "cutter",
-      "status": "cutting",
       "oee": 73,
       "producing": 37,
       "stopped": 21,
@@ -2534,14 +2621,21 @@
       "jobsToday": 42,
       "material": "Window film",
       "state": "producing",
-      "resource_uid": "PRiOQgH1V5TF"
+      "resource_uid": "PRiOQgH1V5TF",
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "zund (3) - G300L251393",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "G300L251393"
     },
     {
       "line": "foil-line",
       "layout_name": "foil-cutter-4",
       "name": "Zünd Folie 4",
       "type": "cutter",
-      "status": "idle",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -2551,14 +2645,21 @@
       "jobsToday": 0,
       "material": "—",
       "state": "idle",
-      "resource_uid": "PRhjlLcwq0ck"
+      "resource_uid": "PRhjlLcwq0ck",
+      "site_code": "DK",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "zund (4) - D300L320212",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "D300L320212"
     },
     {
       "line": "foil-line",
       "layout_name": "foil-laminator-1",
       "name": "Neschen Coldlam 1650 (1)",
       "type": "laminator",
-      "status": "running",
       "oee": 61,
       "producing": 30,
       "stopped": 23,
@@ -2575,7 +2676,6 @@
       "layout_name": "foil-laminator-2",
       "name": "Neschen Coldlam 1650 (2)",
       "type": "laminator",
-      "status": "running",
       "oee": 62,
       "producing": 30,
       "stopped": 24,
@@ -2592,7 +2692,6 @@
       "layout_name": "foil-cureoven-1",
       "name": "Adkins Cure Oven 1",
       "type": "cure-oven",
-      "status": "running",
       "oee": 66,
       "producing": 27,
       "stopped": 23,
@@ -2609,7 +2708,6 @@
       "layout_name": "foil-cureoven-2",
       "name": "Adkins Cure Oven 2",
       "type": "cure-oven",
-      "status": "running",
       "oee": 77,
       "producing": 32,
       "stopped": 23,
@@ -2626,7 +2724,6 @@
       "layout_name": "label-printer-2",
       "name": "Dürst Tau 330 RSC",
       "type": "printer",
-      "status": "printing",
       "oee": 64,
       "producing": 32,
       "stopped": 25,
@@ -2664,14 +2761,18 @@
       "machine_nr": "AI42-042",
       "ink": "TAU",
       "inkset": "CMYK",
-      "resource_uid": "PRkI1Jq8FDww"
+      "resource_uid": "PRkI1Jq8FDww",
+      "eam": null,
+      "driver": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null
     },
     {
       "line": "foil-line",
       "layout_name": "label-printer-2_1",
       "name": "Dürst Tau 330 RSC (2)",
       "type": "printer",
-      "status": "printing",
       "oee": 67,
       "producing": 34,
       "stopped": 12,
@@ -2707,7 +2808,6 @@
       "layout_name": "label-printer-concept",
       "name": "Dürst Tau RSCi LED",
       "type": "printer",
-      "status": "concept",
       "oee": 83,
       "producing": 39,
       "stopped": 21,
@@ -2743,7 +2843,6 @@
       "layout_name": "label-cutter-1",
       "name": "SEI Laser 2",
       "type": "cutter",
-      "status": "cutting",
       "oee": 80,
       "producing": 34,
       "stopped": 25,
@@ -2760,7 +2859,6 @@
       "layout_name": "label-cutter-2",
       "name": "SEI Laser 1",
       "type": "cutter",
-      "status": "cutting",
       "oee": 67,
       "producing": 28,
       "stopped": 24,
@@ -2777,7 +2875,6 @@
       "layout_name": "label-cutter-3",
       "name": "ABG Laser Series 3",
       "type": "cutter",
-      "status": "cutting",
       "oee": 66,
       "producing": 27,
       "stopped": 24,
@@ -2794,7 +2891,6 @@
       "layout_name": "label-slitter-1",
       "name": "ABG Omega SRI 1",
       "type": "slitter",
-      "status": "running",
       "oee": 80,
       "producing": 36,
       "stopped": 19,
@@ -2811,7 +2907,6 @@
       "layout_name": "label-slitter-2",
       "name": "ABG Omega SRI 2",
       "type": "slitter",
-      "status": "running",
       "oee": 81,
       "producing": 37,
       "stopped": 20,
@@ -2828,7 +2923,6 @@
       "layout_name": "paper-printer-1",
       "name": "HP 12000 Digital Press (1)",
       "type": "printer",
-      "status": "printing",
       "oee": 73,
       "producing": 31,
       "stopped": 15,
@@ -2865,14 +2959,19 @@
       "serial_nr": "IL20110235",
       "ink": "HP Indigo",
       "inkset": "CMYK",
-      "resource_uid": "PR1p6W1fSQpp"
+      "resource_uid": "PR1p6W1fSQpp",
+      "eam": null,
+      "driver": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "paper-printer-2",
       "name": "HP 12000 Digital Press (2)",
       "type": "printer",
-      "status": "printing",
       "oee": 74,
       "producing": 32,
       "stopped": 16,
@@ -2909,14 +3008,19 @@
       "serial_nr": "IL20110241",
       "ink": "HP Indigo",
       "inkset": "CMYK",
-      "resource_uid": "PR2UBrwKlV6K"
+      "resource_uid": "PR2UBrwKlV6K",
+      "eam": null,
+      "driver": null,
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "machine_nr": null
     },
     {
       "line": "foil-line",
       "layout_name": "paper-folder-1",
       "name": "Horizon Cross Folder",
       "type": "folder",
-      "status": "running",
       "oee": 72,
       "producing": 30,
       "stopped": 15,
@@ -2933,7 +3037,6 @@
       "layout_name": "paper-folder-2",
       "name": "Horizon AFC-40",
       "type": "folder",
-      "status": "running",
       "oee": 73,
       "producing": 31,
       "stopped": 15,
@@ -2950,7 +3053,6 @@
       "layout_name": "paper-slitter-1",
       "name": "Horizon SML 100",
       "type": "slitter",
-      "status": "running",
       "oee": 52,
       "producing": 26,
       "stopped": 10,
@@ -2967,7 +3069,6 @@
       "layout_name": "paper-laminator-1",
       "name": "Komfi Delta 52E",
       "type": "laminator",
-      "status": "running",
       "oee": 83,
       "producing": 36,
       "stopped": 11,
@@ -2984,7 +3085,6 @@
       "layout_name": "paper-cutter-1",
       "name": "Itotec Robocut 115",
       "type": "cutter",
-      "status": "cutting",
       "oee": 66,
       "producing": 34,
       "stopped": 11,
@@ -3022,8 +3122,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3051,8 +3150,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3080,8 +3178,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3109,8 +3206,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3138,8 +3234,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "foil-line",
@@ -3167,8 +3262,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "foil-line",
@@ -3196,8 +3290,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "foil-line",
@@ -3225,8 +3318,7 @@
           "name": "Wall wrap",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "foil-line",
@@ -3250,8 +3342,7 @@
           "name": "Wine label",
           "quantity": 22
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3275,8 +3366,7 @@
           "name": "Wine label",
           "quantity": 22
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3300,8 +3390,7 @@
           "name": "Wine label",
           "quantity": 22
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "foil-line",
@@ -3325,8 +3414,7 @@
           "name": "Wine label",
           "quantity": 22
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "foil-line",
@@ -3350,15 +3438,13 @@
           "name": "Card 300gsm",
           "quantity": 22
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-printer-1",
       "name": "Dürst P5-500",
       "type": "printer",
-      "status": "printing",
       "oee": 61,
       "producing": 29,
       "stopped": 23,
@@ -3399,14 +3485,15 @@
       "machine_nr": "AK27-005",
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
-      "resource_uid": "PRAAI0m8VZOU"
+      "resource_uid": "PRAAI0m8VZOU",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-printer-2",
       "name": "Dürst Rho 512R (2)",
       "type": "printer",
-      "status": "printing",
       "oee": 62,
       "producing": 30,
       "stopped": 24,
@@ -3447,14 +3534,15 @@
       "machine_nr": "B27049VD",
       "ink": "Pop-Flex",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PRB5dvRDq4vf"
+      "resource_uid": "PRB5dvRDq4vf",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-printer-3",
       "name": "Dürst Rho 512R (3)",
       "type": "printer",
-      "status": "printing",
       "oee": 51,
       "producing": 25,
       "stopped": 24,
@@ -3495,14 +3583,15 @@
       "machine_nr": "AC27-121",
       "ink": "FLT",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PRCAI0m8T9aA"
+      "resource_uid": "PRCAI0m8T9aA",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-printer-4",
       "name": "Dürst Rho 512R (4)",
       "type": "printer",
-      "status": "printing",
       "oee": 64,
       "producing": 32,
       "stopped": 25,
@@ -3543,14 +3632,15 @@
       "machine_nr": "B27078VD",
       "ink": "Pop-Flex",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PRD5dvRDogRV"
+      "resource_uid": "PRD5dvRDogRV",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-printer-5",
       "name": "Dürst P5-350 (5)",
       "type": "printer",
-      "status": "printing",
       "oee": 65,
       "producing": 33,
       "stopped": 11,
@@ -3591,14 +3681,15 @@
       "machine_nr": "471388",
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
-      "resource_uid": "PREAI0m8Rlyg"
+      "resource_uid": "PREAI0m8Rlyg",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-printer-6",
       "name": "Dürst P5-350 (6)",
       "type": "printer",
-      "status": "error",
       "oee": 0,
       "producing": 0,
       "stopped": 0,
@@ -3639,14 +3730,15 @@
       "machine_nr": "LM72-057",
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
-      "resource_uid": "PRF5dvRDmqfB"
+      "resource_uid": "PRF5dvRDmqfB",
+      "eam": null,
+      "driver": null
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-cutter-1",
       "name": "Bullmer",
       "type": "cutter",
-      "status": "cutting",
       "oee": 81,
       "producing": 36,
       "stopped": 20,
@@ -3656,14 +3748,21 @@
       "jobsToday": 40,
       "material": "PVC Banner",
       "state": "producing",
-      "resource_uid": "PRv5Vnv1x7s6"
+      "resource_uid": "PRv5Vnv1x7s6",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "BULLMER",
+      "cutter_name": "Bullmer cutting machine",
+      "pv2_id": 76,
+      "pv2_code": "00043_bullmer",
+      "pv2_name": "Bullmer cutting machine",
+      "serial_nr": "1602 0037"
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-cutter-2",
       "name": "Aristo LFC 5232",
       "type": "cutter",
-      "status": "cutting",
       "oee": 82,
       "producing": 38,
       "stopped": 20,
@@ -3673,14 +3772,21 @@
       "jobsToday": 36,
       "material": "Canvas",
       "state": "producing",
-      "resource_uid": "PRuAqS0w22LL"
+      "resource_uid": "PRuAqS0w22LL",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ARISTO",
+      "cutter_name": "Aristomat cutting machine",
+      "pv2_id": 77,
+      "pv2_code": "00189_aristomat",
+      "pv2_name": "Aristomat cutting machine",
+      "serial_nr": "DH0357-0110"
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-cutter-3",
       "name": "Zünd G3 3XL (3)",
       "type": "cutter",
-      "status": "cutting",
       "oee": 83,
       "producing": 38,
       "stopped": 21,
@@ -3690,14 +3796,21 @@
       "jobsToday": 48,
       "material": "Mixed",
       "state": "producing",
-      "resource_uid": "PRt5Vnv1zX6q"
+      "resource_uid": "PRt5Vnv1zX6q",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 01 - UV",
+      "pv2_id": 87,
+      "pv2_code": "87",
+      "pv2_name": "00045_zund_g3xl3200_01",
+      "serial_nr": "G33XL320185"
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-cutter-4",
       "name": "Zünd G3 3XL (4)",
       "type": "cutter",
-      "status": "cutting",
       "oee": 84,
       "producing": 39,
       "stopped": 21,
@@ -3707,14 +3820,21 @@
       "jobsToday": 32,
       "material": "Blockout",
       "state": "producing",
-      "resource_uid": "PRsAqS0w4Sp5"
+      "resource_uid": "PRsAqS0w4Sp5",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 02 - UV",
+      "pv2_id": 130,
+      "pv2_code": "130",
+      "pv2_name": "00500_zund_g3xl3200_02",
+      "serial_nr": "G33XL320877"
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-cutter-5",
       "name": "Zünd G3 XL 3200",
       "type": "cutter",
-      "status": "cutting",
       "oee": 85,
       "producing": 40,
       "stopped": 22,
@@ -3724,14 +3844,21 @@
       "jobsToday": 38,
       "material": "Mesh",
       "state": "producing",
-      "resource_uid": "PRr5Vnv1BLIK"
+      "resource_uid": "PRr5Vnv1BLIK",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zünd G3 XL 3200 03 - UV",
+      "pv2_id": 131,
+      "pv2_code": "131",
+      "pv2_name": "00526_zund_g3xl3200_03",
+      "serial_nr": "G33XL160084"
     },
     {
       "line": "non-adhesive-line",
       "layout_name": "na-finish-1",
       "name": "Plastgrommet",
       "type": "finish",
-      "status": "running",
       "oee": 76,
       "producing": 33,
       "stopped": 17,
@@ -3748,7 +3875,6 @@
       "layout_name": "na-finish-2",
       "name": "Miller Weldmaster Extreme 112",
       "type": "finish",
-      "status": "running",
       "oee": 65,
       "producing": 29,
       "stopped": 17,
@@ -3765,7 +3891,6 @@
       "layout_name": "na-grommetseamtable-1",
       "name": "Grommet Seam Table 1",
       "type": "grommet-seam",
-      "status": "running",
       "oee": 62,
       "producing": 30,
       "stopped": 24,
@@ -3782,7 +3907,6 @@
       "layout_name": "na-grommetseamtable-2",
       "name": "Grommet Seam Table 2",
       "type": "grommet-seam",
-      "status": "running",
       "oee": 63,
       "producing": 32,
       "stopped": 25,
@@ -3799,7 +3923,6 @@
       "layout_name": "na-grommetseamtable-3",
       "name": "Grommet Seam Table 3",
       "type": "grommet-seam",
-      "status": "running",
       "oee": 52,
       "producing": 26,
       "stopped": 10,
@@ -3816,7 +3939,6 @@
       "layout_name": "na-grommetseamtable-4",
       "name": "Grommet Seam Table M",
       "type": "grommet-seam",
-      "status": "running",
       "oee": 65,
       "producing": 33,
       "stopped": 11,
@@ -3858,8 +3980,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -3891,8 +4012,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -3924,8 +4044,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -3957,8 +4076,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -3990,8 +4108,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4023,8 +4140,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4056,8 +4172,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "queue"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4089,8 +4204,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4122,8 +4236,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4155,8 +4268,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4188,8 +4300,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4221,8 +4332,7 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
     },
     {
       "line": "non-adhesive-line",
@@ -4254,8 +4364,882 @@
           "name": "Tarpaulin",
           "quantity": 8
         }
-      ],
-      "state": "stock"
+      ]
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-printer-1",
+      "name": "Epson S9100 - 1 - BH",
+      "type": "printer",
+      "oee": 59,
+      "producing": 28,
+      "stopped": 12,
+      "inactive": 5,
+      "errors": 13,
+      "downtime": "27 min",
+      "jobsToday": 22,
+      "material": "PP Film",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-1_PF03",
+      "printer_name": "BH_FO_SC9100-1",
+      "pv2_id": 267,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_1",
+      "pv2_name": "Epson S9100 - 1 - BH",
+      "serial_nr": "XD3S000328",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-printer-2",
+      "name": "Epson S9100 - 2 - BH",
+      "type": "printer",
+      "oee": 73,
+      "producing": 45,
+      "stopped": 22,
+      "inactive": 12,
+      "errors": 3,
+      "downtime": "33 min",
+      "jobsToday": 41,
+      "material": "Textiel",
+      "state": "stopped",
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-2_PF03",
+      "printer_name": "BH_FO_SC9100-2",
+      "pv2_id": 268,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_2",
+      "pv2_name": "Epson S9100 - 2 - BH",
+      "serial_nr": "XD3S000229",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-printer-3",
+      "name": "Epson S9100 - 3 - BH",
+      "type": "printer",
+      "oee": 59,
+      "producing": 28,
+      "stopped": 21,
+      "inactive": 8,
+      "errors": 10,
+      "downtime": "10 min",
+      "jobsToday": 36,
+      "material": "PVC",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-3_PF03",
+      "printer_name": "BH_FO_SC9100-3",
+      "pv2_id": 269,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_3",
+      "pv2_name": "Epson S9100 - 3 - BH",
+      "serial_nr": "XD3S000236",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-printer-4",
+      "name": "Epson S9100 - 4 - BH",
+      "type": "printer",
+      "oee": 56,
+      "producing": 45,
+      "stopped": 9,
+      "inactive": 12,
+      "errors": 4,
+      "downtime": "28 min",
+      "jobsToday": 41,
+      "material": "PP Film",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "EPSON",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_FO_SC9100-4_PF03",
+      "printer_name": "BH_FO_SC9100-4",
+      "pv2_id": 270,
+      "pv2_code": "BH_DE_FO_EPSON_SC9100_4",
+      "pv2_name": "Epson S9100 - 4 - BH",
+      "serial_nr": "XD3S000060",
+      "machine_nr": null,
+      "ink": "UltraChrome GS3",
+      "inkset": "CMYKLcLmLk R OR GR"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhtextile-printer-1",
+      "name": "Dürst P5 iSUB 1 BH",
+      "type": "printer",
+      "oee": 63,
+      "producing": 31,
+      "stopped": 9,
+      "inactive": 5,
+      "errors": 10,
+      "downtime": "28 min",
+      "jobsToday": 10,
+      "material": "PP Film",
+      "state": "idle",
+      "site_code": "BH",
+      "line_code": "SU",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_SU_P5-1_iSub_PF01",
+      "printer_name": "BH_SU_P5-1_iSub",
+      "pv2_id": 244,
+      "pv2_code": "DE_BH_SU_DURST_P5_1_iSub",
+      "pv2_name": "Dürst P5 iSUB 1 BH",
+      "serial_nr": "465302",
+      "machine_nr": "AE28-112",
+      "ink": "DyeSub",
+      "inkset": "CMYK"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-printer-2",
+      "name": "Durst P5 210 - 2 - BH",
+      "type": "printer",
+      "oee": 76,
+      "producing": 27,
+      "stopped": 22,
+      "inactive": 11,
+      "errors": 2,
+      "downtime": "33 min",
+      "jobsToday": 24,
+      "material": "PP Film",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_PL_P5-5_210_PF02",
+      "printer_name": "BH_PL_P5-5_210",
+      "pv2_id": 178,
+      "pv2_code": "00002_durst_p5_210_5",
+      "pv2_name": "Durst P5 210 - 2 - BH",
+      "serial_nr": "206029",
+      "machine_nr": "AK25-007",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-printer-1",
+      "name": "Durst P5 210 - 1 - BH",
+      "type": "printer",
+      "oee": 82,
+      "producing": 34,
+      "stopped": 9,
+      "inactive": 5,
+      "errors": 10,
+      "downtime": "28 min",
+      "jobsToday": 49,
+      "material": "Mesh",
+      "state": "idle",
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_PL_P5-4_210_PF02",
+      "printer_name": "BH_PL_P5-1_210",
+      "pv2_id": 39,
+      "pv2_code": "00285_durst_p5_210_1",
+      "pv2_name": "Durst P5 210 - 1 - BH",
+      "serial_nr": "202430",
+      "machine_nr": "AK25-001",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm • W"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-printer-5",
+      "name": "Dürst P5-350 HS - 2 BH",
+      "type": "printer",
+      "oee": 88,
+      "producing": 25,
+      "stopped": 15,
+      "inactive": 15,
+      "errors": 14,
+      "downtime": "29 min",
+      "jobsToday": 35,
+      "material": "Textiel",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_PL_P5-2_350HS_PF01",
+      "printer_name": "BH_PL_P5-2_350HS",
+      "pv2_id": 118,
+      "pv2_code": "durst_p5_350HS_D4_01",
+      "pv2_name": "Dürst P5-350 HS - 2 BH",
+      "serial_nr": "379338",
+      "machine_nr": "LM72-009",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm • W"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-printer-3",
+      "name": "Dürst P5 350 HS-1 BH",
+      "type": "printer",
+      "oee": 67,
+      "producing": 41,
+      "stopped": 19,
+      "inactive": 10,
+      "errors": 13,
+      "downtime": "27 min",
+      "jobsToday": 24,
+      "material": "Mesh",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_P5-1_350HS_PF1",
+      "printer_name": "BH_UV_P5-1_350HS",
+      "pv2_id": 240,
+      "pv2_code": "01560_durst_p5_hs_1_bh",
+      "pv2_name": "Dürst P5 350 HS-1 BH",
+      "serial_nr": "469973",
+      "machine_nr": "LM72-115",
+      "ink": "Aturion",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-printer-1",
+      "name": "Dürst 312-1 BH",
+      "type": "printer",
+      "oee": 62,
+      "producing": 25,
+      "stopped": 20,
+      "inactive": 10,
+      "errors": 10,
+      "downtime": "35 min",
+      "jobsToday": 54,
+      "material": "Vinyl",
+      "state": "idle",
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_312-1_Plus_PF01",
+      "printer_name": "BH_UV_312-1_Plus",
+      "pv2_id": 241,
+      "pv2_code": "01561_durst_312_1_bh",
+      "pv2_name": "Dürst 312-1 BH",
+      "serial_nr": "57186",
+      "machine_nr": "B26014VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-printer-2",
+      "name": "Dürst 312-2 BH",
+      "type": "printer",
+      "oee": 74,
+      "producing": 25,
+      "stopped": 15,
+      "inactive": 10,
+      "errors": 3,
+      "downtime": "31 min",
+      "jobsToday": 46,
+      "material": "Mesh",
+      "state": "stopped",
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_312-2_Plus_PF02",
+      "printer_name": "BH_UV_312-2_Plus",
+      "pv2_id": 121,
+      "pv2_code": "00009_durst_312_7",
+      "pv2_name": "Dürst 312-2 BH",
+      "serial_nr": "62548",
+      "machine_nr": "B26025VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-printer-4",
+      "name": "Dürst P5-350 HS D4 - 1 BH",
+      "type": "printer",
+      "oee": 67,
+      "producing": 25,
+      "stopped": 9,
+      "inactive": 13,
+      "errors": 12,
+      "downtime": "5 min",
+      "jobsToday": 46,
+      "material": "Textiel",
+      "state": "stopped",
+      "site_code": "BH",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "BH_UV_P5-1_350D4_PF2",
+      "printer_name": "BH_UV_P5-1_350D4",
+      "pv2_id": 171,
+      "pv2_code": "durst_p5_350HS_D4_02",
+      "pv2_name": "Dürst P5-350 HS D4 - 1 BH",
+      "serial_nr": "376790",
+      "machine_nr": "LM72-006",
+      "ink": "Aturion",
+      "inkset": "CMYK"
+    },
+    {
+      "line": "non-adhesive-line",
+      "layout_name": "na-printer-7",
+      "name": "Dürst P5 350 HSRI",
+      "type": "printer",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Unknown",
+      "state": "inactive",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_P5-4_350HSRI-D4_PF28",
+      "printer_name": "DK_UV_P5-4_350HSRI-D4",
+      "pv2_id": 246,
+      "pv2_code": "DK_NL_UV_DURST_P5_350HSRi",
+      "pv2_name": "Dürst P5 350 HSRI",
+      "serial_nr": "471337",
+      "machine_nr": "XXXXXX",
+      "ink": "Roll-Led M+",
+      "inkset": "CMYK"
+    },
+    {
+      "line": "non-adhesive-line",
+      "layout_name": "na-printer-8",
+      "name": "Dürst 512 - 4",
+      "type": "printer",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Unknown",
+      "state": "inactive",
+      "site_code": "DK",
+      "line_code": "UV",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_UV_312-5_Plus_PF",
+      "printer_name": "DK_UV_512-4_Plus",
+      "pv2_id": 50,
+      "pv2_code": "00008_durst_512_4",
+      "pv2_name": "Dürst 512 - 4",
+      "serial_nr": "154428",
+      "machine_nr": "B27078VD",
+      "ink": "Pop-Flex",
+      "inkset": "CMYK • CMYKLcLm"
+    },
+    {
+      "line": "label-line",
+      "layout_name": "label-printer-1",
+      "name": "DK_LA_Tau-1_330 RSC  5C",
+      "type": "printer",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Unknown",
+      "state": "inactive",
+      "site_code": "DK",
+      "line_code": "LA",
+      "manufacturer": "DURST",
+      "eam": null,
+      "driver": null,
+      "rip_name": "DK_LA_Tau-1_330 RSC  5C",
+      "printer_name": "DK_LA_Tau-1_330 RSC  5C",
+      "pv2_id": null,
+      "pv2_code": null,
+      "pv2_name": null,
+      "serial_nr": "319540",
+      "machine_nr": "AI42-041",
+      "ink": "TAU",
+      "inkset": "CMYK W"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-cutter-1",
+      "name": "BH_DE_FO_ZUND_1",
+      "type": "cutter",
+      "oee": 68,
+      "producing": 36,
+      "stopped": 17,
+      "inactive": 12,
+      "errors": 9,
+      "downtime": "9 min",
+      "jobsToday": 48,
+      "material": "PP Film",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "BH_DE_FO_ZUND_1",
+      "pv2_id": 275,
+      "pv2_code": "BH_DE_FO_ZUND_1",
+      "pv2_name": "BH_DE_FO_ZUND_1",
+      "serial_nr": "G300L252533"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-cutter-2",
+      "name": "BH_DE_FO_ZUND_2",
+      "type": "cutter",
+      "oee": 56,
+      "producing": 25,
+      "stopped": 8,
+      "inactive": 6,
+      "errors": 5,
+      "downtime": "37 min",
+      "jobsToday": 13,
+      "material": "Textiel",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "FO",
+      "manufacturer": "ZUND",
+      "cutter_name": "BH_DE_FO_ZUND_2",
+      "pv2_id": 276,
+      "pv2_code": "BH_DE_FO_ZUND_2",
+      "pv2_name": "BH_DE_FO_ZUND_2",
+      "serial_nr": "S300L120513"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-cutter-1",
+      "name": "Zund G3 XL - 01 - UV-BH",
+      "type": "cutter",
+      "oee": 71,
+      "producing": 44,
+      "stopped": 14,
+      "inactive": 8,
+      "errors": 4,
+      "downtime": "25 min",
+      "jobsToday": 31,
+      "material": "Mesh",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "SU/UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund G3 XL - 01 - UV-BH",
+      "pv2_id": 243,
+      "pv2_code": "DE-BH-UV-ZU-G3XL321090-01",
+      "pv2_name": "Zund G3 XL - 01 - UV-BH",
+      "serial_nr": "G3XL321090"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-cutter-2",
+      "name": "Zund G3 XL - 02 - UV-BH",
+      "type": "cutter",
+      "oee": 71,
+      "producing": 32,
+      "stopped": 11,
+      "inactive": 6,
+      "errors": 7,
+      "downtime": "25 min",
+      "jobsToday": 47,
+      "material": "Vinyl",
+      "state": "stopped",
+      "site_code": "BH",
+      "line_code": "SU/UV",
+      "manufacturer": "ZUND",
+      "cutter_name": "Zund G3 XL - 02 - UV-BH",
+      "pv2_id": 242,
+      "pv2_code": "DE-BH-UV-ZU-G3XL321089-02",
+      "pv2_name": "Zund G3 XL - 02 - UV-BH",
+      "serial_nr": "G3XL321089"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-cutter-1",
+      "name": "Zund 3XL - 01 - ST -BH",
+      "type": "cutter",
+      "oee": 71,
+      "producing": 44,
+      "stopped": 15,
+      "inactive": 9,
+      "errors": 10,
+      "downtime": "31 min",
+      "jobsToday": 10,
+      "material": "Mesh",
+      "state": "idle",
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "DE-BH-ST-ZU-3XL000000-01",
+      "pv2_id": "Zund 3XL - 01 - ST -BH",
+      "pv2_code": "DE-BH-ST-ZU-3XL000000-01",
+      "pv2_name": "Zund 3XL - 01 - ST -BH",
+      "serial_nr": "G30XL320532"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-cutter-2",
+      "name": "Zund 3XL - 02 - ST -BH",
+      "type": "cutter",
+      "oee": 74,
+      "producing": 34,
+      "stopped": 19,
+      "inactive": 6,
+      "errors": 13,
+      "downtime": "35 min",
+      "jobsToday": 13,
+      "material": "Mesh",
+      "state": "producing",
+      "site_code": "BH",
+      "line_code": "PL",
+      "manufacturer": "ZUND",
+      "cutter_name": "DE-BH-ST-ZU-3XL000000-01",
+      "pv2_id": "Zund 3XL - 02 - ST -BH",
+      "pv2_code": "DE-BH-ST-ZU-3XL000000-02",
+      "pv2_name": "Zund 3XL - 02 - ST -BH",
+      "serial_nr": "G30XL320795"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-laminator-1",
+      "name": "Foil Laminator 1",
+      "type": "laminator",
+      "oee": 72,
+      "producing": 40,
+      "stopped": 11,
+      "inactive": 9,
+      "errors": 4,
+      "downtime": "40 min",
+      "jobsToday": 33,
+      "material": "Vinyl",
+      "state": "producing",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-laminator-2",
+      "name": "Foil Laminator 2",
+      "type": "laminator",
+      "oee": 58,
+      "producing": 42,
+      "stopped": 21,
+      "inactive": 9,
+      "errors": 5,
+      "downtime": "13 min",
+      "jobsToday": 18,
+      "material": "PVC",
+      "state": "idle",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-queue-1",
+      "name": "Foil Queue 1",
+      "type": "queue",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Textiel",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-queue-2",
+      "name": "Foil Queue 2",
+      "type": "queue",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Mesh",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhfoil-stock-1",
+      "name": "Foil Stock 1",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Mixed",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-hemmingtable-1",
+      "name": "Na Hemmingtable 1",
+      "type": "finish",
+      "oee": 59,
+      "producing": 43,
+      "stopped": 14,
+      "inactive": 10,
+      "errors": 7,
+      "downtime": "13 min",
+      "jobsToday": 10,
+      "material": "Mixed",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-hemmingtable-2",
+      "name": "Na Hemmingtable 2",
+      "type": "finish",
+      "oee": 86,
+      "producing": 41,
+      "stopped": 16,
+      "inactive": 13,
+      "errors": 10,
+      "downtime": "17 min",
+      "jobsToday": 27,
+      "material": "PVC",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-hemmingtable-3",
+      "name": "Na Hemmingtable 3",
+      "type": "finish",
+      "oee": 76,
+      "producing": 32,
+      "stopped": 8,
+      "inactive": 10,
+      "errors": 4,
+      "downtime": "21 min",
+      "jobsToday": 25,
+      "material": "PVC",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-packingtable-1",
+      "name": "Na Packingtable 1",
+      "type": "finish",
+      "oee": 88,
+      "producing": 36,
+      "stopped": 9,
+      "inactive": 15,
+      "errors": 7,
+      "downtime": "30 min",
+      "jobsToday": 18,
+      "material": "Vinyl",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-packingtable-2",
+      "name": "Na Packingtable 2",
+      "type": "finish",
+      "oee": 61,
+      "producing": 39,
+      "stopped": 13,
+      "inactive": 9,
+      "errors": 11,
+      "downtime": "11 min",
+      "jobsToday": 47,
+      "material": "Textiel",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-queue-1",
+      "name": "Na Queue 1",
+      "type": "queue",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Mixed",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-queue-2",
+      "name": "Na Queue 2",
+      "type": "queue",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Vinyl",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-stock-1",
+      "name": "Na Stock 1",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "PVC",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-stock-2",
+      "name": "Na Stock 2",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Vinyl",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhna-stock-4",
+      "name": "Na Stock 4",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Mesh",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-queue-1",
+      "name": "Sheet Queue 1",
+      "type": "queue",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Textiel",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-queue-2",
+      "name": "Sheet Queue 2",
+      "type": "queue",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Vinyl",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-stock-1",
+      "name": "Sheet Stock 1",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "PP Film",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhsheet-stock-2",
+      "name": "Sheet Stock 2",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Mesh",
+      "site_code": "BH"
+    },
+    {
+      "line": "bh-line",
+      "layout_name": "bhtextile-stock-1",
+      "name": "Textile Stock 1",
+      "type": "stock",
+      "oee": 0,
+      "producing": 0,
+      "stopped": 0,
+      "inactive": 0,
+      "errors": 0,
+      "downtime": "0 min",
+      "jobsToday": 0,
+      "material": "Mesh",
+      "site_code": "BH"
     }
   ]
 }

@@ -1,7 +1,7 @@
 import type { ApiResult, DataConfig } from "../types";
 
 let config: DataConfig = {
-    baseUrl: "http://localhost:8081",
+    baseUrl: "http://probo-hub.hub.probo",
     getToken: () => null,
 };
 
