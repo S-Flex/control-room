@@ -46,13 +46,13 @@ function StockQueueCard({ eq }: { eq: Resource }) {
   const maxQty = Math.max(...(eq.materials?.map(m => m.quantity) ?? [1]));
 
   return (
-    <div className="stock-card-3d" style={{ borderColor: stateToColor(eq.state) }}>
+    <div className="stock-card-3d" style={{ borderColor: stateToColor(eq.oee_group?.state ?? 'offline') }}>
       <div className="equip-header">
         <div className="equip-header-left">
-          <span className="equip-dot" style={{ background: stateToColor(eq.state) }} />
+          <span className="equip-dot" style={{ background: stateToColor(eq.oee_group?.state ?? 'offline') }} />
           <span className="equip-card-name">{eq.name}</span>
         </div>
-        <span className="stock-type-badge" style={{ background: stateToColor(eq.state) }}>
+        <span className="stock-type-badge" style={{ background: stateToColor(eq.oee_group?.state ?? 'offline') }}>
           {isQueue ? 'queue' : 'stock'}
         </span>
       </div>
@@ -67,7 +67,7 @@ function StockQueueCard({ eq }: { eq: Resource }) {
             <div className="stock-mat-bar-track">
               <div
                 className="stock-mat-bar-fill"
-                style={{ width: `${(m.quantity / maxQty) * 100}%`, background: stateToColor(eq.state) }}
+                style={{ width: `${(m.quantity / maxQty) * 100}%`, background: stateToColor(eq.oee_group?.state ?? 'offline') }}
               />
             </div>
             <span className="stock-mat-qty">{m.quantity}</span>
@@ -79,14 +79,14 @@ function StockQueueCard({ eq }: { eq: Resource }) {
 }
 
 function MachineCard({ eq }: { eq: Resource }) {
-  const oee = eq.oee || 0;
-  const st = eq.status || eq.state || eq.type;
+  const oee = eq.oee_group?.oee || 0;
+  const st = eq.status || eq.oee_group?.state || eq.type;
 
   return (
-    <div className={`equip-card-3d ${stateToBorderClass(eq.state)}`}>
+    <div className={`equip-card-3d ${stateToBorderClass(eq.oee_group?.state ?? 'offline')}`}>
       <div className="equip-header">
         <div className="equip-header-left">
-          <span className="equip-dot" style={{ background: stateToColor(eq.state) }} />
+          <span className="equip-dot" style={{ background: stateToColor(eq.oee_group?.state ?? 'offline') }} />
           <span className="equip-card-name">{eq.name}</span>
         </div>
         <span className={`equip-status-badge ${statusClass(st)}`}>{st}</span>
@@ -105,20 +105,20 @@ function MachineCard({ eq }: { eq: Resource }) {
           </div>
         </div>
         <div className="equip-pie">
-          <div className="equip-pie-chart" style={{ background: makePie(eq.producing || 0, eq.stopped || 0, eq.inactive || 0) }} />
+          <div className="equip-pie-chart" style={{ background: makePie(eq.oee_group?.producing || 0, eq.oee_group?.stopped || 0, eq.oee_group?.inactive || 0) }} />
           <div className="equip-pie-legend">
-            <div className="equip-pie-item"><span className="equip-pie-dot" style={{ background: '#079455' }} />{eq.producing || 0}% prod</div>
-            <div className="equip-pie-item"><span className="equip-pie-dot" style={{ background: '#d92d20' }} />{eq.stopped || 0}% stop</div>
-            <div className="equip-pie-item"><span className="equip-pie-dot" style={{ background: '#94969c' }} />{eq.inactive || 0}% idle</div>
+            <div className="equip-pie-item"><span className="equip-pie-dot" style={{ background: '#079455' }} />{eq.oee_group?.producing || 0}% prod</div>
+            <div className="equip-pie-item"><span className="equip-pie-dot" style={{ background: '#d92d20' }} />{eq.oee_group?.stopped || 0}% stop</div>
+            <div className="equip-pie-item"><span className="equip-pie-dot" style={{ background: '#94969c' }} />{eq.oee_group?.inactive || 0}% idle</div>
           </div>
         </div>
       </div>
       <div className="equip-col">
         <div className="equip-col-label">Production</div>
-        <div className="equip-stat-row"><span className="equip-stat-label">Errors</span><span className={`equip-stat-val${(eq.errors || 0) > 15 ? ' val-red' : ''}`}>{eq.errors || 0}</span></div>
-        <div className="equip-stat-row"><span className="equip-stat-label">Downtime</span><span className="equip-stat-val">{eq.downtime || '—'}</span></div>
-        <div className="equip-stat-row"><span className="equip-stat-label">Jobs today</span><span className="equip-stat-val">{eq.jobsToday || 0}</span></div>
-        <div className="equip-stat-row"><span className="equip-stat-label">Material</span><span className="equip-stat-val">{eq.material || '—'}</span></div>
+        <div className="equip-stat-row"><span className="equip-stat-label">Errors</span><span className={`equip-stat-val${(eq.oee_group?.errors || 0) > 15 ? ' val-red' : ''}`}>{eq.oee_group?.errors || 0}</span></div>
+        <div className="equip-stat-row"><span className="equip-stat-label">Downtime</span><span className="equip-stat-val">{eq.oee_group?.downtime || '—'}</span></div>
+        <div className="equip-stat-row"><span className="equip-stat-label">Jobs today</span><span className="equip-stat-val">{eq.oee_group?.jobsToday || 0}</span></div>
+        <div className="equip-stat-row"><span className="equip-stat-label">Material</span><span className="equip-stat-val">{eq.oee_group?.material || '—'}</span></div>
       </div>
     </div>
   );

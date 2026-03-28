@@ -1,162 +1,188 @@
-{
-  "content": [
-    {
-      "code": "sheet-line",
-      "block": {
-        "title": "Sheet",
-        "i18n": {
-          "en": { "title": "Sheet" },
-          "nl": { "title": "Plaat" },
-          "de": { "title": "Blatt" },
-          "uk": { "title": "Листовий" }
-        }
-      }
+[
+  {
+    "code": "sheet",
+    "glb": "/models/sheet.glb",
+    "camera": {
+      "position": [
+        -36.05636450993362,
+        21.081003448776425,
+        -12.839818936576147
+      ],
+      "target": [
+        -9.556378266854027,
+        0.05000000122480214,
+        -3.622709538550553
+      ]
     },
-    {
-      "code": "textile-line",
-      "block": {
-        "title": "Sublimation",
-        "i18n": {
-          "en": { "title": "Sublimation" },
-          "nl": { "title": "Sublimatie" },
-          "de": { "title": "Sublimation" },
-          "uk": { "title": "Сублімація" }
-        }
-      }
-    },
-    {
-      "code": "non-adhesive-line",
-      "block": {
-        "title": "UV",
-        "i18n": {
-          "en": { "title": "UV" },
-          "nl": { "title": "UV" },
-          "de": { "title": "UV" },
-          "uk": { "title": "УФ" }
-        }
-      }
-    },
-    {
-      "code": "foil-line",
-      "block": {
-        "title": "Foil",
-        "i18n": {
-          "en": { "title": "Foil" },
-          "nl": { "title": "Folie" },
-          "de": { "title": "Folie" },
-          "uk": { "title": "Фольга" }
-        }
-      }
-    },
-    {
-      "code": "bh-line",
-      "block": {
-        "title": "BH",
-        "i18n": {
-          "en": { "title": "BH" },
-          "nl": { "title": "BH" },
-          "de": { "title": "BH" },
-          "uk": { "title": "BH" }
-        }
-      }
-    },
-    {
-      "code": "warehouse",
-      "block": {
-        "title": "Warehouse",
-        "i18n": {
-          "en": { "title": "Ware-house" },
-          "nl": { "title": "Magazijn" },
-          "de": { "title": "Lager" },
-          "uk": { "title": "Склад" }
+    "block": {
+      "title": "Sheet",
+      "i18n": {
+        "en": {
+          "title": "Sheet"
+        },
+        "nl": {
+          "title": "Plaat"
+        },
+        "de": {
+          "title": "Blatt"
+        },
+        "uk": {
+          "title": "Листовий"
         }
       }
     }
-  ],
-  "lines": [
-    {
-      "code": "sheet-line",
-      "glb": "/models/sheet.glb",
-      "camera": {
-        "position": [
-          -36.05636450993362,
-          21.081003448776425,
-          -12.839818936576147
-        ],
-        "target": [
-          -9.556378266854027,
-          0.05000000122480214,
-          -3.622709538550553
-        ]
-      }
+  },
+  {
+    "code": "textile",
+    "glb": "/models/textile.glb",
+    "camera": {
+      "position": [
+        14.79398982533834,
+        21.41396351676514,
+        17.819142978194485
+      ],
+      "target": [
+        25.128156517569202,
+        -1.8384715155149967e-28,
+        -13.985697993557224
+      ]
     },
-    {
-      "code": "textile-line",
-      "glb": "/models/textile.glb",
-      "camera": {
-        "position": [
-          14.79398982533834,
-          21.41396351676514,
-          17.819142978194485
-        ],
-        "target": [
-          25.128156517569202,
-          -1.8384715155149967e-28,
-          -13.985697993557224
-        ]
+    "block": {
+      "title": "Sublimation",
+      "i18n": {
+        "en": {
+          "title": "Sublimation"
+        },
+        "nl": {
+          "title": "Sublimatie"
+        },
+        "de": {
+          "title": "Sublimation"
+        },
+        "uk": {
+          "title": "Сублімація"
+        }
       }
-    },
-    {
-      "code": "non-adhesive-line",
-      "glb": "/models/non-adhesive.glb",
-      "camera": {
-        "position": [
-          12.626714669148623,
-          28.689986278155228,
-          -68.1231441549845
-        ],
-        "target": [
-          21.182310126319845,
-          -1.5707103763421533e-10,
-          -37.547277866941435
-        ]
-      }
-    },
-    {
-      "code": "foil-line",
-      "glb": "/models/foil.glb",
-      "camera": {
-        "position": [
-          -15.86114607434736,
-          13.413502365153086,
-          -46.49373984797422
-        ],
-        "target": [
-          16.127189387795323,
-          -0.05060232134794972,
-          -31.181946785628437
-        ]
-      }
-    },
-    {
-      "code": "bh-line",
-      "glb": "/models/bh.glb",
-      "camera": {
-        "position": [
-          84.06117832499079,
-          52.141858688351974,
-          -90.730790388423
-        ],
-        "target": [
-          56.1063622920235,
-          1.1089289217367302,
-          -20.677336655521444
-        ]
-      }
-    },
-    {
-      "code": "warehouse",
-      "glb": "/models/warehouse.glb"
     }
-  ]
-}
+  },
+  {
+    "code": "non-adhesive",
+    "glb": "/models/non-adhesive.glb",
+    "camera": {
+      "position": [
+        12.626714669148623,
+        28.689986278155228,
+        -68.1231441549845
+      ],
+      "target": [
+        21.182310126319845,
+        -1.5707103763421533e-10,
+        -37.547277866941435
+      ]
+    },
+    "block": {
+      "title": "UV",
+      "i18n": {
+        "en": {
+          "title": "UV"
+        },
+        "nl": {
+          "title": "UV"
+        },
+        "de": {
+          "title": "UV"
+        },
+        "uk": {
+          "title": "УФ"
+        }
+      }
+    }
+  },
+  {
+    "code": "foil",
+    "glb": "/models/foil.glb",
+    "camera": {
+      "position": [
+        -15.86114607434736,
+        13.413502365153086,
+        -46.49373984797422
+      ],
+      "target": [
+        16.127189387795323,
+        -0.05060232134794972,
+        -31.181946785628437
+      ]
+    },
+    "block": {
+      "title": "Foil",
+      "i18n": {
+        "en": {
+          "title": "Foil"
+        },
+        "nl": {
+          "title": "Folie"
+        },
+        "de": {
+          "title": "Folie"
+        },
+        "uk": {
+          "title": "Фольга"
+        }
+      }
+    }
+  },
+  {
+    "code": "bh",
+    "glb": "/models/bh.glb",
+    "camera": {
+      "position": [
+        84.06117832499079,
+        52.141858688351974,
+        -90.730790388423
+      ],
+      "target": [
+        56.1063622920235,
+        1.1089289217367302,
+        -20.677336655521444
+      ]
+    },
+    "block": {
+      "title": "BH",
+      "i18n": {
+        "en": {
+          "title": "BH"
+        },
+        "nl": {
+          "title": "BH"
+        },
+        "de": {
+          "title": "BH"
+        },
+        "uk": {
+          "title": "BH"
+        }
+      }
+    }
+  },
+  {
+    "code": "warehouse",
+    "glb": "/models/warehouse.glb",
+    "block": {
+      "title": "Warehouse",
+      "i18n": {
+        "en": {
+          "title": "Ware-house"
+        },
+        "nl": {
+          "title": "Magazijn"
+        },
+        "de": {
+          "title": "Lager"
+        },
+        "uk": {
+          "title": "Склад"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,13 @@
+[
+  { "code": "info", "data_groups": ["resource_info"] },
+  { "code": "oee", "data_groups": ["resource_oee_timeline", "resource_oee_chart"] },
+  { "code": "tco", "data_groups": ["resource_tco"] },
+  { "code": "production", "data_groups": ["resource_production"] },
+  { "code": "ink-heads", "data_groups": ["resource_ink","resource_ink_heads"] },
+  { "code": "quality-management", "data_groups": ["resource_quality_management"] },
+  { "code": "maintenance-tickets", "data_groups": ["resource_maintenance_tickets"] },
+  { "code": "tooling-wear", "data_groups": ["resource_tooling_wear"] },
+  { "code": "consumption-waste", "data_groups": ["resource_consumption_waste"] },
+  { "code": "material-specs", "data_groups": ["resource_material_specs"] },
+  { "code": "blocked-jobs", "data_groups": ["resource_blocked_jobs"] }
+]

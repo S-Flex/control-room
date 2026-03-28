@@ -2,7 +2,7 @@
   "displayDuration": 5,
   "resources": [
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-printer-1",
       "name": "Dürst P5-350-HS",
       "voice": [
@@ -13,14 +13,6 @@
         "grote durst"
       ],
       "type": "printer",
-      "oee": 67,
-      "producing": 29,
-      "stopped": 17,
-      "inactive": 10,
-      "errors": 12,
-      "downtime": "18 min",
-      "jobsToday": 47,
-      "material": "PP Film",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -40,7 +32,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -53,12 +44,11 @@
       "machine_nr": "LM72-118",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm • W",
-      "resource_uid": "PR5TM01fye5Z",
       "eam": null,
       "driver": null
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-printer-2",
       "name": "Dürst P5-350-HS Automat",
       "voice": [
@@ -67,14 +57,6 @@
         "automaat"
       ],
       "type": "printer",
-      "oee": 73,
-      "producing": 32,
-      "stopped": 17,
-      "inactive": 8,
-      "errors": 8,
-      "downtime": "24 min",
-      "jobsToday": 39,
-      "material": "Vinyl",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -94,7 +76,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -107,12 +88,11 @@
       "machine_nr": "LM72-081",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PR6ohvwK3lMk",
       "eam": null,
       "driver": null
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-printer-3",
       "name": "Dürst P5-210 1",
       "voice": [
@@ -124,14 +104,6 @@
         "210 een"
       ],
       "type": "printer",
-      "oee": 69,
-      "producing": 30,
-      "stopped": 18,
-      "inactive": 9,
-      "errors": 3,
-      "downtime": "6 min",
-      "jobsToday": 62,
-      "material": "Acrylic",
       "ink_expiration": true,
       "inks": {
         "cyan": {
@@ -151,7 +123,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -164,12 +135,11 @@
       "machine_nr": "AK25-006",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm • W",
-      "resource_uid": "PR7TM01fwqtF",
       "eam": null,
       "driver": null
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-printer-4",
       "name": "Dürst P5-210 2",
       "voice": [
@@ -181,14 +151,6 @@
         "210 twee"
       ],
       "type": "printer",
-      "oee": 58,
-      "producing": 26,
-      "stopped": 19,
-      "inactive": 13,
-      "errors": 18,
-      "downtime": "32 min",
-      "jobsToday": 34,
-      "material": "Roughmark",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -208,7 +170,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "starved",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -221,14 +182,12 @@
       "machine_nr": "AK25-004",
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PR8ohvwK1v80",
       "eam": null,
       "driver": null
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-printer-5",
-      "resource_uid": "PRkcku8ssWmL",
       "name": "Dürst P5-210-HS",
       "voice": [
         "210 hs",
@@ -238,14 +197,6 @@
         "snelle 210"
       ],
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 36,
-      "downtime": "96 min",
-      "jobsToday": 11,
-      "material": "PP Film",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -265,7 +216,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "breakdown",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -282,7 +232,7 @@
       "driver": null
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-printer-6",
       "name": "SwissQ Kudu",
       "voice": [
@@ -292,14 +242,6 @@
         "koedu"
       ],
       "type": "printer",
-      "oee": 76,
-      "producing": 35,
-      "stopped": 20,
-      "inactive": 7,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 53,
-      "material": "Textile",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -319,7 +261,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "starved.operator",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "SWISSQ",
@@ -331,13 +272,12 @@
       "serial_nr": "240183",
       "ink": "KX2",
       "inkset": "CMYK • NEON • W",
-      "resource_uid": "PRaohvwKZFwI",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-coater",
       "name": "Bürkle 2100 Coater",
       "voice": [
@@ -347,20 +287,10 @@
         "coaten",
         "burkle"
       ],
-      "type": "coater",
-      "oee": 56,
-      "producing": 26,
-      "stopped": 16,
-      "inactive": 13,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—",
-      "state": "offline",
-      "resource_uid": "PRZ9maVT1JrP"
+      "type": "coater"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-cutter-1",
       "name": "Q-line",
       "voice": [
@@ -372,16 +302,6 @@
         "koe lijn"
       ],
       "type": "cutter",
-      "oee": 70,
-      "producing": 29,
-      "stopped": 24,
-      "inactive": 9,
-      "errors": 4,
-      "downtime": "8 min",
-      "jobsToday": 58,
-      "material": "Mixed",
-      "state": "producing",
-      "resource_uid": "PRCOfZGkuCB9",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -392,7 +312,7 @@
       "serial_nr": "G30XL320933"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-laser-1",
       "name": "SEI Laser",
       "voice": [
@@ -401,20 +321,10 @@
         "sei laser",
         "de laser"
       ],
-      "type": "laser",
-      "oee": 47,
-      "producing": 23,
-      "stopped": 18,
-      "inactive": 16,
-      "errors": 7,
-      "downtime": "14 min",
-      "jobsToday": 45,
-      "material": "Acrylic",
-      "state": "blocked",
-      "resource_uid": "PR6yRpaObL9x"
+      "type": "laser"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-cutter-2",
       "name": "Zünd D30XL",
       "voice": [
@@ -424,16 +334,6 @@
         "zund een"
       ],
       "type": "cutter",
-      "oee": 69,
-      "producing": 28,
-      "stopped": 24,
-      "inactive": 9,
-      "errors": 10,
-      "downtime": "20 min",
-      "jobsToday": 38,
-      "material": "Board",
-      "state": "producing",
-      "resource_uid": "PRDjKubPXHiu",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -444,7 +344,7 @@
       "serial_nr": "G30XL320836"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-cutter-3",
       "name": "Zünd G30XL (321384)",
       "voice": [
@@ -454,16 +354,6 @@
         "zund twee"
       ],
       "type": "cutter",
-      "oee": 56,
-      "producing": 23,
-      "stopped": 23,
-      "inactive": 13,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 44,
-      "material": "PVC",
-      "state": "starved",
-      "resource_uid": "PREOfZGksOZP",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -474,7 +364,7 @@
       "serial_nr": "G30XL321384"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-cutter-4",
       "name": "Zünd G30XL (320836)",
       "voice": [
@@ -484,16 +374,6 @@
         "zund drie"
       ],
       "type": "cutter",
-      "oee": 67,
-      "producing": 27,
-      "stopped": 22,
-      "inactive": 10,
-      "errors": 14,
-      "downtime": "28 min",
-      "jobsToday": 32,
-      "material": "Foam",
-      "state": "producing",
-      "resource_uid": "PRFjKubPXTGa",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -504,7 +384,7 @@
       "serial_nr": "D30XL320100"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-cutter-5",
       "name": "Zünd G30XL (320933)",
       "voice": [
@@ -514,16 +394,6 @@
         "zund vier"
       ],
       "type": "cutter",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—",
-      "state": "idle",
-      "resource_uid": "PRGOfZGkqYnv",
       "site_code": "DK",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -534,18 +404,10 @@
       "serial_nr": "Q3232D13"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-printer-1",
       "name": "Dürst P5-350 ISub 1",
       "type": "printer",
-      "oee": 76,
-      "producing": 31,
-      "stopped": 23,
-      "inactive": 7,
-      "errors": 4,
-      "downtime": "10 min",
-      "jobsToday": 52,
-      "material": "Polyester",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -565,7 +427,6 @@
           "expires": "2026-04-17"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "DURST",
@@ -578,23 +439,14 @@
       "machine_nr": "AE28-081",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRQCVhWcxPiO",
       "eam": null,
       "driver": null
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-printer-2",
       "name": "Dürst P5-350 ISub 2",
       "type": "printer",
-      "oee": 75,
-      "producing": 30,
-      "stopped": 22,
-      "inactive": 8,
-      "errors": 7,
-      "downtime": "20 min",
-      "jobsToday": 41,
-      "material": "Cotton blend",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -614,7 +466,6 @@
           "expires": "2026-04-17"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "DURST",
@@ -627,23 +478,14 @@
       "machine_nr": "AE28-009",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRR7qMrH0UZ9",
       "eam": null,
       "driver": null
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-printer-3",
       "name": "Dürst P5-350 ISub 3",
       "type": "printer",
-      "oee": 74,
-      "producing": 38,
-      "stopped": 22,
-      "inactive": 8,
-      "errors": 5,
-      "downtime": "14 min",
-      "jobsToday": 46,
-      "material": "Polyester",
       "ink_expiration": true,
       "inks": {
         "cyan": {
@@ -663,7 +505,6 @@
           "expires": "2026-04-17"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "DURST",
@@ -676,23 +517,14 @@
       "machine_nr": "AE28-111",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRSCVhWcv1Gu",
       "eam": null,
       "driver": null
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-printer-4",
       "name": "Dürst P5-500 ISub",
       "type": "printer",
-      "oee": 73,
-      "producing": 37,
-      "stopped": 21,
-      "inactive": 8,
-      "errors": 11,
-      "downtime": "30 min",
-      "jobsToday": 33,
-      "material": "Nylon",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -712,7 +544,6 @@
           "expires": "2026-04-17"
         }
       },
-      "state": "starved.operator",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "DURST",
@@ -725,23 +556,14 @@
       "machine_nr": "AC78-006",
       "ink": "DyeSub",
       "inkset": "CMYK",
-      "resource_uid": "PRT7qMrHY6lP",
       "eam": null,
       "driver": null
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-printer-5",
       "name": "HP Stitch S1000",
       "type": "printer",
-      "oee": 60,
-      "producing": 31,
-      "stopped": 21,
-      "inactive": 12,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 44,
-      "material": "Polyester",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -761,7 +583,6 @@
           "expires": "2026-04-17"
         }
       },
-      "state": "starved",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "HP",
@@ -773,24 +594,15 @@
       "serial_nr": "SG38A1F001 ",
       "ink": "HP Stitch",
       "inkset": "CMYK",
-      "resource_uid": "PRUCVhWctb2a",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-printer-6",
       "name": "HP Stitch S1000 (2)",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -810,7 +622,6 @@
           "expires": "2026-04-17"
         }
       },
-      "state": "idle",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "HP",
@@ -822,26 +633,15 @@
       "serial_nr": "SG37C1F001",
       "ink": "HP Stitch",
       "inkset": "CMYK",
-      "resource_uid": "PRV7qMrHYgJv",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-laser-1",
       "name": "Eurolaser 3XL 1",
       "type": "laser",
-      "oee": 61,
-      "producing": 27,
-      "stopped": 14,
-      "inactive": 12,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 48,
-      "material": "Polyester",
-      "state": "producing",
-      "resource_uid": "PRPNuSfJQUHL",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "EUROLASER",
@@ -852,20 +652,10 @@
       "serial_nr": "1727S5021P"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-laser-2",
       "name": "Eurolaser 3XL 2",
       "type": "laser",
-      "oee": 60,
-      "producing": 27,
-      "stopped": 13,
-      "inactive": 12,
-      "errors": 8,
-      "downtime": "22 min",
-      "jobsToday": 39,
-      "material": "Cotton blend",
-      "state": "producing",
-      "resource_uid": "PROiZnKenN0q",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "EUROLASER",
@@ -876,20 +666,10 @@
       "serial_nr": "1909S8659P"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-cutter-1",
       "name": "Zünd G3 XL",
       "type": "cutter",
-      "oee": 69,
-      "producing": 32,
-      "stopped": 20,
-      "inactive": 9,
-      "errors": 9,
-      "downtime": "24 min",
-      "jobsToday": 35,
-      "material": "Mixed textile",
-      "state": "blocked",
-      "resource_uid": "PRjtq2xje4io",
       "site_code": "DK",
       "line_code": "SU",
       "manufacturer": "ZUND",
@@ -900,698 +680,202 @@
       "serial_nr": "G33XL320478"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-calander-1",
       "name": "Monti 79 K2",
-      "type": "calander",
-      "oee": 70,
-      "producing": 28,
-      "stopped": 13,
-      "inactive": 9,
-      "errors": 3,
-      "downtime": "8 min",
-      "jobsToday": 55,
-      "material": "Polyester",
-      "state": "producing",
-      "resource_uid": "PRq8XlaklbV1"
+      "type": "calander"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-calander-2",
       "name": "Monti Antonio 91 K3",
-      "type": "calander",
-      "oee": 71,
-      "producing": 29,
-      "stopped": 14,
-      "inactive": 9,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 43,
-      "material": "Cotton blend",
-      "state": "producing",
-      "resource_uid": "PRrDsQFPQgCm"
+      "type": "calander"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-calander-3",
       "name": "Klieverik",
-      "type": "calander",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 32,
-      "downtime": "105 min",
-      "jobsToday": 8,
-      "material": "Polyester",
-      "state": "breakdown",
-      "resource_uid": "PRs8XlaijljH"
+      "type": "calander"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-1",
       "name": "Queue 1",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PP Film",
-          "quantity": 13
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 21
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-2",
       "name": "Queue 2",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Vinyl",
-          "quantity": 20
-        },
-        {
-          "name": "PVC 5mm",
-          "quantity": 35
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 10
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-3",
       "name": "Queue 3",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Acrylic 3mm",
-          "quantity": 27
-        },
-        {
-          "name": "Foam board",
-          "quantity": 9
-        },
-        {
-          "name": "PP Film",
-          "quantity": 31
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 13
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-4",
       "name": "Queue 4",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Roughmark",
-          "quantity": 34
-        },
-        {
-          "name": "Dibond",
-          "quantity": 23
-        },
-        {
-          "name": "Vinyl",
-          "quantity": 12
-        },
-        {
-          "name": "PVC 5mm",
-          "quantity": 41
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 30
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-6",
       "name": "Queue 6",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC 5mm",
-          "quantity": 41
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 37
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-7",
       "name": "Queue 7",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Foam board",
-          "quantity": 8
-        },
-        {
-          "name": "PP Film",
-          "quantity": 11
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 14
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-8",
       "name": "Queue 8",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Dibond",
-          "quantity": 15
-        },
-        {
-          "name": "Vinyl",
-          "quantity": 25
-        },
-        {
-          "name": "PVC 5mm",
-          "quantity": 35
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 5
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-9",
       "name": "Queue 9",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Coroplast",
-          "quantity": 22
-        },
-        {
-          "name": "Acrylic 3mm",
-          "quantity": 39
-        },
-        {
-          "name": "Foam board",
-          "quantity": 16
-        },
-        {
-          "name": "PP Film",
-          "quantity": 33
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 10
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-10",
       "name": "Queue 10",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PP Film",
-          "quantity": 29
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 13
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-queue-11",
       "name": "Queue 11",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Vinyl",
-          "quantity": 36
-        },
-        {
-          "name": "PVC 5mm",
-          "quantity": 27
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 18
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-stock-1",
       "name": "Stock 1",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Acrylic 3mm",
-          "quantity": 43
-        },
-        {
-          "name": "Foam board",
-          "quantity": 41
-        },
-        {
-          "name": "PP Film",
-          "quantity": 39
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 37
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-stock-2",
       "name": "Stock 2",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Roughmark",
-          "quantity": 10
-        },
-        {
-          "name": "Dibond",
-          "quantity": 15
-        },
-        {
-          "name": "Vinyl",
-          "quantity": 20
-        },
-        {
-          "name": "PVC 5mm",
-          "quantity": 25
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 30
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-stock-3",
       "name": "Stock 3",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC 5mm",
-          "quantity": 17
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 29
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-stock-4",
       "name": "Stock 4",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Foam board",
-          "quantity": 24
-        },
-        {
-          "name": "PP Film",
-          "quantity": 43
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 22
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet-stock-5",
       "name": "Stock 5",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Dibond",
-          "quantity": 31
-        },
-        {
-          "name": "Vinyl",
-          "quantity": 17
-        },
-        {
-          "name": "PVC 5mm",
-          "quantity": 43
-        },
-        {
-          "name": "Coroplast",
-          "quantity": 29
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "sheet-line",
+      "line": "sheet",
       "layout_name": "sheet.stock.6",
       "name": "Stock 6",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Coroplast",
-          "quantity": 38
-        },
-        {
-          "name": "Acrylic 3mm",
-          "quantity": 31
-        },
-        {
-          "name": "Foam board",
-          "quantity": 24
-        },
-        {
-          "name": "PP Film",
-          "quantity": 17
-        },
-        {
-          "name": "Roughmark",
-          "quantity": 10
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-1",
       "name": "Queue 1",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Nylon mesh",
-          "quantity": 5
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 5
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-2",
       "name": "Queue 2",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Satin",
-          "quantity": 12
-        },
-        {
-          "name": "Polyester 150gsm",
-          "quantity": 19
-        },
-        {
-          "name": "Satin",
-          "quantity": 26
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-3",
       "name": "Queue 3",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Canvas 320gsm",
-          "quantity": 19
-        },
-        {
-          "name": "Cotton blend",
-          "quantity": 33
-        },
-        {
-          "name": "Canvas 320gsm",
-          "quantity": 7
-        },
-        {
-          "name": "Cotton blend",
-          "quantity": 21
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-4",
       "name": "Queue 4",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Flag fabric",
-          "quantity": 26
-        },
-        {
-          "name": "Nylon mesh",
-          "quantity": 7
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 28
-        },
-        {
-          "name": "Nylon mesh",
-          "quantity": 9
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 30
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-5",
       "name": "Queue 5",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Polyester 150gsm",
-          "quantity": 33
-        },
-        {
-          "name": "Satin",
-          "quantity": 21
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-6",
       "name": "Queue 6",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Cotton blend",
-          "quantity": 40
-        },
-        {
-          "name": "Canvas 320gsm",
-          "quantity": 35
-        },
-        {
-          "name": "Cotton blend",
-          "quantity": 30
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-queue-7",
       "name": "Queue 7",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Nylon mesh",
-          "quantity": 7
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 9
-        },
-        {
-          "name": "Nylon mesh",
-          "quantity": 11
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 13
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-stock-1",
       "name": "Stock 1",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Satin",
-          "quantity": 14
-        },
-        {
-          "name": "Polyester 150gsm",
-          "quantity": 23
-        },
-        {
-          "name": "Satin",
-          "quantity": 32
-        },
-        {
-          "name": "Polyester 150gsm",
-          "quantity": 41
-        },
-        {
-          "name": "Satin",
-          "quantity": 10
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-stock-2",
       "name": "Stock 2",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Canvas 320gsm",
-          "quantity": 21
-        },
-        {
-          "name": "Cotton blend",
-          "quantity": 37
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-stock-3",
       "name": "Stock 3",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Flag fabric",
-          "quantity": 28
-        },
-        {
-          "name": "Nylon mesh",
-          "quantity": 11
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 34
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-stock-4",
       "name": "Stock 4",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Polyester 150gsm",
-          "quantity": 35
-        },
-        {
-          "name": "Satin",
-          "quantity": 25
-        },
-        {
-          "name": "Polyester 150gsm",
-          "quantity": 15
-        },
-        {
-          "name": "Satin",
-          "quantity": 5
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-stock-5",
       "name": "Stock 5",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Cotton blend",
-          "quantity": 42
-        },
-        {
-          "name": "Canvas 320gsm",
-          "quantity": 39
-        },
-        {
-          "name": "Cotton blend",
-          "quantity": 36
-        },
-        {
-          "name": "Canvas 320gsm",
-          "quantity": 33
-        },
-        {
-          "name": "Cotton blend",
-          "quantity": 30
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "textile-line",
+      "line": "textile",
       "layout_name": "textile-stock-6",
       "name": "Stock 6",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Nylon mesh",
-          "quantity": 9
-        },
-        {
-          "name": "Flag fabric",
-          "quantity": 13
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-1",
       "name": "Dürst P5-350",
       "type": "printer",
-      "oee": 64,
-      "producing": 32,
-      "stopped": 25,
-      "inactive": 11,
-      "errors": 3,
-      "downtime": "8 min",
-      "jobsToday": 58,
-      "material": "Car wrap",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1611,7 +895,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -1624,23 +907,14 @@
       "machine_nr": null,
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRBJzPEMIgzB",
       "eam": null,
       "driver": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-2",
       "name": "HP Latex 3600 (2)",
       "type": "printer",
-      "oee": 65,
-      "producing": 33,
-      "stopped": 10,
-      "inactive": 11,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 50,
-      "material": "Wall wrap",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1660,7 +934,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -1672,24 +945,15 @@
       "serial_nr": "SG01D1R001",
       "ink": "Latex 3600",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRAe4k9hfbSg",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-3",
       "name": "HP Latex 3600 (3)",
       "type": "printer",
-      "oee": 66,
-      "producing": 34,
-      "stopped": 11,
-      "inactive": 10,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 45,
-      "material": "Self-adhesive vinyl",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1709,7 +973,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -1721,24 +984,15 @@
       "serial_nr": "SG44TRF001",
       "ink": "Latex 3600",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRzJzPEMK6bV",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-4",
       "name": "Epson SC-S9100 (4)",
       "type": "printer",
-      "oee": 67,
-      "producing": 34,
-      "stopped": 12,
-      "inactive": 10,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 44,
-      "material": "Window film",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1758,7 +1012,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -1770,24 +1023,15 @@
       "serial_nr": "XD3S000067",
       "ink": "UltraChrome GS3",
       "inkset": "CMYKLcLmLk R OR GR",
-      "resource_uid": "PRye4k9hf1uA",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-5",
       "name": "Epson SC-S9100 (5)",
       "type": "printer",
-      "oee": 68,
-      "producing": 35,
-      "stopped": 12,
-      "inactive": 10,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 42,
-      "material": "Floor graphic",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1807,7 +1051,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -1819,24 +1062,15 @@
       "serial_nr": "XD3S000083",
       "ink": "UltraChrome GS3",
       "inkset": "CMYKLcLmLk R OR GR",
-      "resource_uid": "PRxJzPEMMUPf",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-6",
       "name": "HP Latex 800W (6)",
       "type": "printer",
-      "oee": 57,
-      "producing": 30,
-      "stopped": 13,
-      "inactive": 13,
-      "errors": 4,
-      "downtime": "10 min",
-      "jobsToday": 54,
-      "material": "Self-adhesive vinyl",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1856,7 +1090,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "starved",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -1869,23 +1102,14 @@
       "serial_nr": "AFGEVOERD",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRwe4k9hhP8U",
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-7",
       "name": "HP Latex 800W (7)",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1905,7 +1129,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "idle",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -1917,24 +1140,15 @@
       "serial_nr": "MY16E2T00G",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRvJzPEMOKrx",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-8",
       "name": "HP Latex 800W (8)",
       "type": "printer",
-      "oee": 71,
-      "producing": 29,
-      "stopped": 14,
-      "inactive": 9,
-      "errors": 11,
-      "downtime": "28 min",
-      "jobsToday": 32,
-      "material": "Car wrap",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -1954,7 +1168,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -1966,24 +1179,15 @@
       "serial_nr": "MY1BO2W008",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRue4k9hjFKc",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-9",
       "name": "HP Latex 800W (9)",
       "type": "printer",
-      "oee": 72,
-      "producing": 30,
-      "stopped": 15,
-      "inactive": 8,
-      "errors": 8,
-      "downtime": "20 min",
-      "jobsToday": 40,
-      "material": "Floor graphic",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2003,7 +1207,6 @@
           "expires": "2026-04-29"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -2015,24 +1218,15 @@
       "serial_nr": "MY1B22W001",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRtJzPEMQA3R",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-10",
       "name": "HP Latex 800W (10)",
       "type": "printer",
-      "oee": 81,
-      "producing": 36,
-      "stopped": 20,
-      "inactive": 6,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 48,
-      "material": "Wall wrap",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2052,7 +1246,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -2064,24 +1257,15 @@
       "serial_nr": "MY1B22W003",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRhTzfwk4UFT",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-11",
       "name": "HP Latex 800W (11)",
       "type": "printer",
-      "oee": 82,
-      "producing": 38,
-      "stopped": 20,
-      "inactive": 5,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 42,
-      "material": "Self-adhesive vinyl",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2101,7 +1285,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -2113,24 +1296,15 @@
       "serial_nr": "MY1BO2W00J",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRio4K1Px1me",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-12",
       "name": "HP Latex 800W (12)",
       "type": "printer",
-      "oee": 83,
-      "producing": 38,
-      "stopped": 21,
-      "inactive": 5,
-      "errors": 5,
-      "downtime": "14 min",
-      "jobsToday": 46,
-      "material": "Car wrap",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2150,7 +1324,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -2162,24 +1335,15 @@
       "serial_nr": "MY16R2T00B",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRjTzfwk263B",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-13",
       "name": "HP Latex 800W (13)",
       "type": "printer",
-      "oee": 72,
-      "producing": 34,
-      "stopped": 21,
-      "inactive": 8,
-      "errors": 13,
-      "downtime": "30 min",
-      "jobsToday": 30,
-      "material": "Wall wrap",
       "ink_expiration": true,
       "inks": {
         "cyan": {
@@ -2199,7 +1363,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "starved",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -2211,24 +1374,15 @@
       "serial_nr": "MY16D2T001",
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
-      "resource_uid": "PRko4K1PxbKW",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-14",
       "name": "Epson SC-S80600 (14)",
       "type": "printer",
-      "oee": 85,
-      "producing": 40,
-      "stopped": 22,
-      "inactive": 5,
-      "errors": 10,
-      "downtime": "24 min",
-      "jobsToday": 35,
-      "material": "Window film",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2248,7 +1402,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -2260,24 +1413,15 @@
       "serial_nr": "X6CS00608",
       "ink": "UltraChrome GS",
       "inkset": "CMYKLcLmLk R OR",
-      "resource_uid": "PRlTzfwk0grh",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-15",
       "name": "Epson SC-S80600 (15)",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 34,
-      "downtime": "98 min",
-      "jobsToday": 9,
-      "material": "Floor graphic",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2297,7 +1441,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "breakdown",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -2309,24 +1452,15 @@
       "serial_nr": "X6CS00604",
       "ink": "UltraChrome GS",
       "inkset": "CMYKLcLmLk R OR",
-      "resource_uid": "PRmo4K1Pvl6C",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-16",
       "name": "Epson SC-G6000 (16)",
       "type": "printer",
-      "oee": 61,
-      "producing": 29,
-      "stopped": 23,
-      "inactive": 12,
-      "errors": 5,
-      "downtime": "14 min",
-      "jobsToday": 46,
-      "material": "Self-adhesive vinyl",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2346,7 +1480,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -2358,24 +1491,15 @@
       "serial_nr": "XDLH000225",
       "ink": "UltraChrome DTF-INK",
       "inkset": "CMYK+W",
-      "resource_uid": "PRnTzfwkYqNX",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-17",
       "name": "Epson SC-G6000 (17)",
       "type": "printer",
-      "oee": 62,
-      "producing": 30,
-      "stopped": 24,
-      "inactive": 11,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 42,
-      "material": "Window film",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2395,7 +1519,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -2407,24 +1530,15 @@
       "serial_nr": "XDLH000206",
       "ink": "UltraChrome DTF-INK",
       "inkset": "CMYK+W",
-      "resource_uid": "PRoo4K1Ptxui",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-18",
       "name": "SwissQ Karibu 2",
       "type": "printer",
-      "oee": 67,
-      "producing": 33,
-      "stopped": 24,
-      "inactive": 10,
-      "errors": 10,
-      "downtime": "26 min",
-      "jobsToday": 34,
-      "material": "Floor graphic",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2444,7 +1558,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "starved.operator",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "SWISSQ",
@@ -2456,24 +1569,15 @@
       "serial_nr": "220077",
       "ink": "NG",
       "inkset": "CMYK • NEON • W",
-      "resource_uid": "PRpTzfwkYCbD",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-19",
       "name": "Dürst Rho 312R Plus",
       "type": "printer",
-      "oee": 64,
-      "producing": 32,
-      "stopped": 25,
-      "inactive": 11,
-      "errors": 6,
-      "downtime": "14 min",
-      "jobsToday": 47,
-      "material": "Self-adhesive vinyl",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2493,7 +1597,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "DURST",
@@ -2506,23 +1609,14 @@
       "machine_nr": "AF26_068",
       "ink": "FLT",
       "inkset": "CMYK • CMYKLcLm W",
-      "resource_uid": "PRqo4K1PrHSY",
       "eam": null,
       "driver": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-printer-20",
       "name": "HP Latex 2700W",
       "type": "printer",
-      "oee": 50,
-      "producing": 25,
-      "stopped": 24,
-      "inactive": 15,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 37,
-      "material": "Wall wrap",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2542,7 +1636,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "starved",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "HP",
@@ -2554,26 +1647,15 @@
       "serial_nr": "SG3C72F002",
       "ink": "Latex 2700",
       "inkset": "CMYKLcLm",
-      "resource_uid": "PRMo4K1N9B0u",
       "eam": null,
       "driver": null,
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-cutter-1",
       "name": "Zünd Folie 1",
       "type": "cutter",
-      "oee": 75,
-      "producing": 39,
-      "stopped": 22,
-      "inactive": 8,
-      "errors": 4,
-      "downtime": "10 min",
-      "jobsToday": 52,
-      "material": "Mixed",
-      "state": "producing",
-      "resource_uid": "PRkOQgH1Tfhl",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "ZUND",
@@ -2584,20 +1666,10 @@
       "serial_nr": "D300L320060"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-cutter-2",
       "name": "Zünd 6500 (2)",
       "type": "cutter",
-      "oee": 74,
-      "producing": 38,
-      "stopped": 22,
-      "inactive": 8,
-      "errors": 7,
-      "downtime": "16 min",
-      "jobsToday": 44,
-      "material": "Self-adhesive vinyl",
-      "state": "producing",
-      "resource_uid": "PRjjlLcwoaA0",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "ZUND",
@@ -2608,20 +1680,10 @@
       "serial_nr": "D300L251382"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-cutter-3",
       "name": "Zünd 6500 (3)",
       "type": "cutter",
-      "oee": 73,
-      "producing": 37,
-      "stopped": 21,
-      "inactive": 8,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 42,
-      "material": "Window film",
-      "state": "producing",
-      "resource_uid": "PRiOQgH1V5TF",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "ZUND",
@@ -2632,20 +1694,10 @@
       "serial_nr": "G300L251393"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-cutter-4",
       "name": "Zünd Folie 4",
       "type": "cutter",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—",
-      "state": "idle",
-      "resource_uid": "PRhjlLcwq0ck",
       "site_code": "DK",
       "line_code": "FO",
       "manufacturer": "ZUND",
@@ -2656,82 +1708,34 @@
       "serial_nr": "D300L320212"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-laminator-1",
       "name": "Neschen Coldlam 1650 (1)",
-      "type": "laminator",
-      "oee": 61,
-      "producing": 30,
-      "stopped": 23,
-      "inactive": 12,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 42,
-      "material": "Gloss laminate",
-      "state": "producing",
-      "resource_uid": "PRkk04RzKSyg"
+      "type": "laminator"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-laminator-2",
       "name": "Neschen Coldlam 1650 (2)",
-      "type": "laminator",
-      "oee": 62,
-      "producing": 30,
-      "stopped": 24,
-      "inactive": 11,
-      "errors": 8,
-      "downtime": "22 min",
-      "jobsToday": 38,
-      "material": "Matt laminate",
-      "state": "producing",
-      "resource_uid": "PRjPvzm4fNRV"
+      "type": "laminator"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-cureoven-1",
       "name": "Adkins Cure Oven 1",
-      "type": "cure-oven",
-      "oee": 66,
-      "producing": 27,
-      "stopped": 23,
-      "inactive": 10,
-      "errors": 2,
-      "downtime": "6 min",
-      "jobsToday": 60,
-      "material": "UV ink",
-      "state": "starved",
-      "resource_uid": "PRkccsfrBHGg"
+      "type": "cure-oven"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-cureoven-2",
       "name": "Adkins Cure Oven 2",
-      "type": "cure-oven",
-      "oee": 77,
-      "producing": 32,
-      "stopped": 23,
-      "inactive": 7,
-      "errors": 3,
-      "downtime": "8 min",
-      "jobsToday": 56,
-      "material": "UV ink",
-      "state": "producing",
-      "resource_uid": "PRlHHXKW6MlD"
+      "type": "cure-oven"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-printer-2",
       "name": "Dürst Tau 330 RSC",
       "type": "printer",
-      "oee": 64,
-      "producing": 32,
-      "stopped": 25,
-      "inactive": 11,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 50,
-      "material": "Pharma label",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2751,7 +1755,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "starved.operator",
       "site_code": "DK",
       "line_code": "LA",
       "manufacturer": "DURST",
@@ -2761,7 +1764,6 @@
       "machine_nr": "AI42-042",
       "ink": "TAU",
       "inkset": "CMYK",
-      "resource_uid": "PRkI1Jq8FDww",
       "eam": null,
       "driver": null,
       "pv2_id": null,
@@ -2769,18 +1771,10 @@
       "pv2_name": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-printer-2_1",
       "name": "Dürst Tau 330 RSC (2)",
       "type": "printer",
-      "oee": 67,
-      "producing": 34,
-      "stopped": 12,
-      "inactive": 10,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 44,
-      "material": "Wine label",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2799,23 +1793,13 @@
           "amount": 53,
           "expires": "2026-04-17"
         }
-      },
-      "state": "producing",
-      "resource_uid": "PRK0TD8UjRQs"
+      }
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-printer-concept",
       "name": "Dürst Tau RSCi LED",
       "type": "printer",
-      "oee": 83,
-      "producing": 39,
-      "stopped": 21,
-      "inactive": 5,
-      "errors": 0,
-      "downtime": "—",
-      "jobsToday": 0,
-      "material": "—",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2834,103 +1818,43 @@
           "amount": 79,
           "expires": "2026-04-21"
         }
-      },
-      "state": "offline",
-      "resource_uid": "PRgc3BcS7FQy"
+      }
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-cutter-1",
       "name": "SEI Laser 2",
-      "type": "cutter",
-      "oee": 80,
-      "producing": 34,
-      "stopped": 25,
-      "inactive": 6,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 46,
-      "material": "Label stock",
-      "state": "producing",
-      "resource_uid": "PRCiP7eO6s3P"
+      "type": "cutter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-cutter-2",
       "name": "SEI Laser 1",
-      "type": "cutter",
-      "oee": 67,
-      "producing": 28,
-      "stopped": 24,
-      "inactive": 10,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 42,
-      "material": "Barcode roll",
-      "state": "blocked",
-      "resource_uid": "PRBNkCJjBlmu"
+      "type": "cutter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-cutter-3",
       "name": "ABG Laser Series 3",
-      "type": "cutter",
-      "oee": 66,
-      "producing": 27,
-      "stopped": 24,
-      "inactive": 10,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 38,
-      "material": "Label stock",
-      "state": "starved",
-      "resource_uid": "PRAiP7eO6gF9"
+      "type": "cutter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-slitter-1",
       "name": "ABG Omega SRI 1",
-      "type": "slitter",
-      "oee": 80,
-      "producing": 36,
-      "stopped": 19,
-      "inactive": 6,
-      "errors": 5,
-      "downtime": "14 min",
-      "jobsToday": 48,
-      "material": "Label stock",
-      "state": "producing",
-      "resource_uid": "PR04bJK6MwVL"
+      "type": "slitter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-slitter-2",
       "name": "ABG Omega SRI 2",
-      "type": "slitter",
-      "oee": 81,
-      "producing": 37,
-      "stopped": 20,
-      "inactive": 6,
-      "errors": 8,
-      "downtime": "20 min",
-      "jobsToday": 40,
-      "material": "Label stock",
-      "state": "producing",
-      "resource_uid": "PRZzGefBhreq"
+      "type": "slitter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-printer-1",
       "name": "HP 12000 Digital Press (1)",
       "type": "printer",
-      "oee": 73,
-      "producing": 31,
-      "stopped": 15,
-      "inactive": 8,
-      "errors": 4,
-      "downtime": "10 min",
-      "jobsToday": 54,
-      "material": "Coated 170gsm",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2950,7 +1874,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "PA",
       "manufacturer": "HP",
@@ -2959,7 +1882,6 @@
       "serial_nr": "IL20110235",
       "ink": "HP Indigo",
       "inkset": "CMYK",
-      "resource_uid": "PR1p6W1fSQpp",
       "eam": null,
       "driver": null,
       "pv2_id": null,
@@ -2968,18 +1890,10 @@
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-printer-2",
       "name": "HP 12000 Digital Press (2)",
       "type": "printer",
-      "oee": 74,
-      "producing": 32,
-      "stopped": 16,
-      "inactive": 8,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 48,
-      "material": "Offset 120gsm",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -2999,7 +1913,6 @@
           "expires": "2026-04-15"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "PA",
       "manufacturer": "HP",
@@ -3008,7 +1921,6 @@
       "serial_nr": "IL20110241",
       "ink": "HP Indigo",
       "inkset": "CMYK",
-      "resource_uid": "PR2UBrwKlV6K",
       "eam": null,
       "driver": null,
       "pv2_id": null,
@@ -3017,442 +1929,118 @@
       "machine_nr": null
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-folder-1",
       "name": "Horizon Cross Folder",
-      "type": "folder",
-      "oee": 72,
-      "producing": 30,
-      "stopped": 15,
-      "inactive": 8,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 44,
-      "material": "Coated 170gsm",
-      "state": "producing",
-      "resource_uid": "PRXbmotzYIzt"
+      "type": "folder"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-folder-2",
       "name": "Horizon AFC-40",
-      "type": "folder",
-      "oee": 73,
-      "producing": 31,
-      "stopped": 15,
-      "inactive": 8,
-      "errors": 9,
-      "downtime": "22 min",
-      "jobsToday": 38,
-      "material": "Offset 120gsm",
-      "state": "starved.operator",
-      "resource_uid": "PRYGRTY4tPgO"
+      "type": "folder"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-slitter-1",
       "name": "Horizon SML 100",
-      "type": "slitter",
-      "oee": 52,
-      "producing": 26,
-      "stopped": 10,
-      "inactive": 14,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 46,
-      "material": "Mixed",
-      "state": "starved",
-      "resource_uid": "PRAelvm4CI3t"
+      "type": "slitter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-laminator-1",
       "name": "Komfi Delta 52E",
-      "type": "laminator",
-      "oee": 83,
-      "producing": 36,
-      "stopped": 11,
-      "inactive": 5,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 42,
-      "material": "Gloss laminate",
-      "state": "producing",
-      "resource_uid": "PRWAPdYWPhhj"
+      "type": "laminator"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-cutter-1",
       "name": "Itotec Robocut 115",
-      "type": "cutter",
-      "oee": 66,
-      "producing": 34,
-      "stopped": 11,
-      "inactive": 10,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 50,
-      "material": "Card 300gsm",
-      "state": "producing",
-      "resource_uid": "PRCwXzMswYvl"
+      "type": "cutter"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-queue-1",
       "name": "Foil Queue 1",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-queue-2",
       "name": "Foil Queue 2",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-queue-3",
       "name": "Foil Queue 3",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-queue-4",
       "name": "Foil Queue 4",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-stock-1",
       "name": "Foil Storage 1",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-stock-2",
       "name": "Foil Storage 2",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-small-1",
       "name": "Foil Small Cart 1",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "foil-small-2",
       "name": "Foil Small Cart 2",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Self-adhesive vinyl",
-          "quantity": 22
-        },
-        {
-          "name": "Window film",
-          "quantity": 36
-        },
-        {
-          "name": "Floor graphic",
-          "quantity": 15
-        },
-        {
-          "name": "Car wrap",
-          "quantity": 29
-        },
-        {
-          "name": "Wall wrap",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-queue-1",
       "name": "Label Queue 1",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Label stock",
-          "quantity": 29
-        },
-        {
-          "name": "Pharma label",
-          "quantity": 15
-        },
-        {
-          "name": "Barcode roll",
-          "quantity": 36
-        },
-        {
-          "name": "Wine label",
-          "quantity": 22
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-queue-2",
       "name": "Label Queue 2",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Label stock",
-          "quantity": 29
-        },
-        {
-          "name": "Pharma label",
-          "quantity": 15
-        },
-        {
-          "name": "Barcode roll",
-          "quantity": 36
-        },
-        {
-          "name": "Wine label",
-          "quantity": 22
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-queue-3",
       "name": "Label Queue 3",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "Label stock",
-          "quantity": 29
-        },
-        {
-          "name": "Pharma label",
-          "quantity": 15
-        },
-        {
-          "name": "Barcode roll",
-          "quantity": 36
-        },
-        {
-          "name": "Wine label",
-          "quantity": 22
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "label-stock-1",
       "name": "Label Storage",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Label stock",
-          "quantity": 29
-        },
-        {
-          "name": "Pharma label",
-          "quantity": 15
-        },
-        {
-          "name": "Barcode roll",
-          "quantity": 36
-        },
-        {
-          "name": "Wine label",
-          "quantity": 22
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "foil-line",
+      "line": "foil",
       "layout_name": "paper-stock-1",
       "name": "Paper Storage",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "Offset 120gsm",
-          "quantity": 29
-        },
-        {
-          "name": "Coated 170gsm",
-          "quantity": 15
-        },
-        {
-          "name": "Uncoated 80gsm",
-          "quantity": 36
-        },
-        {
-          "name": "Card 300gsm",
-          "quantity": 22
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-1",
       "name": "Dürst P5-500",
       "type": "printer",
-      "oee": 61,
-      "producing": 29,
-      "stopped": 23,
-      "inactive": 12,
-      "errors": 5,
-      "downtime": "12 min",
-      "jobsToday": 50,
-      "material": "PVC Banner",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -3472,7 +2060,6 @@
           "expires": "2026-04-27"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -3485,23 +2072,14 @@
       "machine_nr": "AK27-005",
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
-      "resource_uid": "PRAAI0m8VZOU",
       "eam": null,
       "driver": null
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-2",
       "name": "Dürst Rho 512R (2)",
       "type": "printer",
-      "oee": 62,
-      "producing": 30,
-      "stopped": 24,
-      "inactive": 11,
-      "errors": 8,
-      "downtime": "20 min",
-      "jobsToday": 42,
-      "material": "Mesh",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -3521,7 +2099,6 @@
           "expires": "2026-04-27"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -3534,23 +2111,14 @@
       "machine_nr": "B27049VD",
       "ink": "Pop-Flex",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PRB5dvRDq4vf",
       "eam": null,
       "driver": null
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-3",
       "name": "Dürst Rho 512R (3)",
       "type": "printer",
-      "oee": 51,
-      "producing": 25,
-      "stopped": 24,
-      "inactive": 15,
-      "errors": 9,
-      "downtime": "24 min",
-      "jobsToday": 38,
-      "material": "Canvas",
       "ink_expiration": true,
       "inks": {
         "cyan": {
@@ -3570,7 +2138,6 @@
           "expires": "2026-04-27"
         }
       },
-      "state": "blocked",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -3583,23 +2150,14 @@
       "machine_nr": "AC27-121",
       "ink": "FLT",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PRCAI0m8T9aA",
       "eam": null,
       "driver": null
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-4",
       "name": "Dürst Rho 512R (4)",
       "type": "printer",
-      "oee": 64,
-      "producing": 32,
-      "stopped": 25,
-      "inactive": 11,
-      "errors": 6,
-      "downtime": "16 min",
-      "jobsToday": 46,
-      "material": "PVC Banner",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -3619,7 +2177,6 @@
           "expires": "2026-04-27"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -3632,23 +2189,14 @@
       "machine_nr": "B27078VD",
       "ink": "Pop-Flex",
       "inkset": "CMYK • CMYKLcLm",
-      "resource_uid": "PRD5dvRDogRV",
       "eam": null,
       "driver": null
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-5",
       "name": "Dürst P5-350 (5)",
       "type": "printer",
-      "oee": 65,
-      "producing": 33,
-      "stopped": 11,
-      "inactive": 11,
-      "errors": 12,
-      "downtime": "28 min",
-      "jobsToday": 34,
-      "material": "Blockout",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -3668,7 +2216,6 @@
           "expires": "2026-04-27"
         }
       },
-      "state": "producing",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -3681,23 +2228,14 @@
       "machine_nr": "471388",
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
-      "resource_uid": "PREAI0m8Rlyg",
       "eam": null,
       "driver": null
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-6",
       "name": "Dürst P5-350 (6)",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 100,
-      "errors": 38,
-      "downtime": "112 min",
-      "jobsToday": 6,
-      "material": "Mesh",
       "ink_expiration": false,
       "inks": {
         "cyan": {
@@ -3717,7 +2255,6 @@
           "expires": "2026-04-27"
         }
       },
-      "state": "breakdown",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -3730,25 +2267,14 @@
       "machine_nr": "LM72-057",
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
-      "resource_uid": "PRF5dvRDmqfB",
       "eam": null,
       "driver": null
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-cutter-1",
       "name": "Bullmer",
       "type": "cutter",
-      "oee": 81,
-      "producing": 36,
-      "stopped": 20,
-      "inactive": 6,
-      "errors": 7,
-      "downtime": "18 min",
-      "jobsToday": 40,
-      "material": "PVC Banner",
-      "state": "producing",
-      "resource_uid": "PRv5Vnv1x7s6",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "BULLMER",
@@ -3759,20 +2285,10 @@
       "serial_nr": "1602 0037"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-cutter-2",
       "name": "Aristo LFC 5232",
       "type": "cutter",
-      "oee": 82,
-      "producing": 38,
-      "stopped": 20,
-      "inactive": 5,
-      "errors": 8,
-      "downtime": "22 min",
-      "jobsToday": 36,
-      "material": "Canvas",
-      "state": "producing",
-      "resource_uid": "PRuAqS0w22LL",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "ARISTO",
@@ -3783,20 +2299,10 @@
       "serial_nr": "DH0357-0110"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-cutter-3",
       "name": "Zünd G3 3XL (3)",
       "type": "cutter",
-      "oee": 83,
-      "producing": 38,
-      "stopped": 21,
-      "inactive": 5,
-      "errors": 5,
-      "downtime": "14 min",
-      "jobsToday": 48,
-      "material": "Mixed",
-      "state": "producing",
-      "resource_uid": "PRt5Vnv1zX6q",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "ZUND",
@@ -3807,20 +2313,10 @@
       "serial_nr": "G33XL320185"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-cutter-4",
       "name": "Zünd G3 3XL (4)",
       "type": "cutter",
-      "oee": 84,
-      "producing": 39,
-      "stopped": 21,
-      "inactive": 5,
-      "errors": 11,
-      "downtime": "26 min",
-      "jobsToday": 32,
-      "material": "Blockout",
-      "state": "producing",
-      "resource_uid": "PRsAqS0w4Sp5",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "ZUND",
@@ -3831,20 +2327,10 @@
       "serial_nr": "G33XL320877"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-cutter-5",
       "name": "Zünd G3 XL 3200",
       "type": "cutter",
-      "oee": 85,
-      "producing": 40,
-      "stopped": 22,
-      "inactive": 5,
-      "errors": 9,
-      "downtime": "20 min",
-      "jobsToday": 38,
-      "material": "Mesh",
-      "state": "producing",
-      "resource_uid": "PRr5Vnv1BLIK",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "ZUND",
@@ -3855,531 +2341,124 @@
       "serial_nr": "G33XL160084"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-finish-1",
       "name": "Plastgrommet",
-      "type": "finish",
-      "oee": 76,
-      "producing": 33,
-      "stopped": 17,
-      "inactive": 7,
-      "errors": 10,
-      "downtime": "30 min",
-      "jobsToday": 28,
-      "material": "Mixed",
-      "state": "producing",
-      "resource_uid": "PRlHPNE2Pfci"
+      "type": "finish"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-finish-2",
       "name": "Miller Weldmaster Extreme 112",
-      "type": "finish",
-      "oee": 65,
-      "producing": 29,
-      "stopped": 17,
-      "inactive": 11,
-      "errors": 8,
-      "downtime": "22 min",
-      "jobsToday": 34,
-      "material": "PVC Banner",
-      "state": "starved",
-      "resource_uid": "PRmcki9xkkTD"
+      "type": "finish"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-grommetseamtable-1",
       "name": "Grommet Seam Table 1",
-      "type": "grommet-seam",
-      "oee": 62,
-      "producing": 30,
-      "stopped": 24,
-      "inactive": 11,
-      "errors": 9,
-      "downtime": "24 min",
-      "jobsToday": 30,
-      "material": "Mixed",
-      "state": "producing",
-      "resource_uid": "PRJDZJ8kQcSA"
+      "type": "grommet-seam"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-grommetseamtable-2",
       "name": "Grommet Seam Table 2",
-      "type": "grommet-seam",
-      "oee": 63,
-      "producing": 32,
-      "stopped": 25,
-      "inactive": 11,
-      "errors": 7,
-      "downtime": "20 min",
-      "jobsToday": 36,
-      "material": "Mixed",
-      "state": "producing",
-      "resource_uid": "PRK8ueDPlhzV"
+      "type": "grommet-seam"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-grommetseamtable-3",
       "name": "Grommet Seam Table 3",
-      "type": "grommet-seam",
-      "oee": 52,
-      "producing": 26,
-      "stopped": 10,
-      "inactive": 14,
-      "errors": 11,
-      "downtime": "28 min",
-      "jobsToday": 26,
-      "material": "Mixed",
-      "state": "blocked",
-      "resource_uid": "PRLDZJ8kOmgi"
+      "type": "grommet-seam"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-grommetseamtable-4",
       "name": "Grommet Seam Table M",
-      "type": "grommet-seam",
-      "oee": 65,
-      "producing": 33,
-      "stopped": 11,
-      "inactive": 11,
-      "errors": 13,
-      "downtime": "32 min",
-      "jobsToday": 22,
-      "material": "Mixed",
-      "state": "starved.operator",
-      "resource_uid": "PRM8ueDPjrXD"
+      "type": "grommet-seam"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-1",
       "name": "NA Queue 1 (500)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-2",
       "name": "NA Queue 2 (500)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-3",
       "name": "NA Queue 3 (320)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-4",
       "name": "NA Queue 4 (320)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-5",
       "name": "NA Queue 5 (320)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-6",
       "name": "NA Queue 6 (200)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-queue-7",
       "name": "NA Queue 7 (200)",
-      "type": "queue",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "queue"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-stock-1",
       "name": "NA Stock 1 (500)",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-stock-2",
       "name": "NA Stock 2 (500)",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-stock-3",
       "name": "NA Stock 3 (500)",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-stock-4",
       "name": "NA Stock 4 (500)",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-stock-5",
       "name": "NA Stock 5 (320)",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-stock-6",
       "name": "NA Stock 6 (320)",
-      "type": "stock",
-      "materials": [
-        {
-          "name": "PVC Banner 440gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Mesh 270gsm",
-          "quantity": 8
-        },
-        {
-          "name": "Canvas",
-          "quantity": 8
-        },
-        {
-          "name": "Blockout",
-          "quantity": 8
-        },
-        {
-          "name": "Backlit film",
-          "quantity": 8
-        },
-        {
-          "name": "Tarpaulin",
-          "quantity": 8
-        }
-      ]
+      "type": "stock"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-printer-1",
       "name": "Epson S9100 - 1 - BH",
       "type": "printer",
-      "oee": 59,
-      "producing": 28,
-      "stopped": 12,
-      "inactive": 5,
-      "errors": 13,
-      "downtime": "27 min",
-      "jobsToday": 22,
-      "material": "PP Film",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -4396,19 +2475,10 @@
       "inkset": "CMYKLcLmLk R OR GR"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-printer-2",
       "name": "Epson S9100 - 2 - BH",
       "type": "printer",
-      "oee": 73,
-      "producing": 45,
-      "stopped": 22,
-      "inactive": 12,
-      "errors": 3,
-      "downtime": "33 min",
-      "jobsToday": 41,
-      "material": "Textiel",
-      "state": "stopped",
       "site_code": "BH",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -4425,19 +2495,10 @@
       "inkset": "CMYKLcLmLk R OR GR"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-printer-3",
       "name": "Epson S9100 - 3 - BH",
       "type": "printer",
-      "oee": 59,
-      "producing": 28,
-      "stopped": 21,
-      "inactive": 8,
-      "errors": 10,
-      "downtime": "10 min",
-      "jobsToday": 36,
-      "material": "PVC",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -4454,19 +2515,10 @@
       "inkset": "CMYKLcLmLk R OR GR"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-printer-4",
       "name": "Epson S9100 - 4 - BH",
       "type": "printer",
-      "oee": 56,
-      "producing": 45,
-      "stopped": 9,
-      "inactive": 12,
-      "errors": 4,
-      "downtime": "28 min",
-      "jobsToday": 41,
-      "material": "PP Film",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "FO",
       "manufacturer": "EPSON",
@@ -4483,19 +2535,10 @@
       "inkset": "CMYKLcLmLk R OR GR"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhtextile-printer-1",
       "name": "Dürst P5 iSUB 1 BH",
       "type": "printer",
-      "oee": 63,
-      "producing": 31,
-      "stopped": 9,
-      "inactive": 5,
-      "errors": 10,
-      "downtime": "28 min",
-      "jobsToday": 10,
-      "material": "PP Film",
-      "state": "idle",
       "site_code": "BH",
       "line_code": "SU",
       "manufacturer": "DURST",
@@ -4512,19 +2555,10 @@
       "inkset": "CMYK"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-printer-2",
       "name": "Durst P5 210 - 2 - BH",
       "type": "printer",
-      "oee": 76,
-      "producing": 27,
-      "stopped": 22,
-      "inactive": 11,
-      "errors": 2,
-      "downtime": "33 min",
-      "jobsToday": 24,
-      "material": "PP Film",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -4541,19 +2575,10 @@
       "inkset": "CMYK • CMYKLcLm"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-printer-1",
       "name": "Durst P5 210 - 1 - BH",
       "type": "printer",
-      "oee": 82,
-      "producing": 34,
-      "stopped": 9,
-      "inactive": 5,
-      "errors": 10,
-      "downtime": "28 min",
-      "jobsToday": 49,
-      "material": "Mesh",
-      "state": "idle",
       "site_code": "BH",
       "line_code": "PL",
       "manufacturer": "DURST",
@@ -4570,19 +2595,10 @@
       "inkset": "CMYK • CMYKLcLm • W"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-printer-5",
       "name": "Dürst P5-350 HS - 2 BH",
       "type": "printer",
-      "oee": 88,
-      "producing": 25,
-      "stopped": 15,
-      "inactive": 15,
-      "errors": 14,
-      "downtime": "29 min",
-      "jobsToday": 35,
-      "material": "Textiel",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4599,19 +2615,10 @@
       "inkset": "CMYK • CMYKLcLm • W"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-printer-3",
       "name": "Dürst P5 350 HS-1 BH",
       "type": "printer",
-      "oee": 67,
-      "producing": 41,
-      "stopped": 19,
-      "inactive": 10,
-      "errors": 13,
-      "downtime": "27 min",
-      "jobsToday": 24,
-      "material": "Mesh",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4628,19 +2635,10 @@
       "inkset": "CMYK • CMYKLcLm"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-printer-1",
       "name": "Dürst 312-1 BH",
       "type": "printer",
-      "oee": 62,
-      "producing": 25,
-      "stopped": 20,
-      "inactive": 10,
-      "errors": 10,
-      "downtime": "35 min",
-      "jobsToday": 54,
-      "material": "Vinyl",
-      "state": "idle",
       "site_code": "BH",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4657,19 +2655,10 @@
       "inkset": "CMYK"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-printer-2",
       "name": "Dürst 312-2 BH",
       "type": "printer",
-      "oee": 74,
-      "producing": 25,
-      "stopped": 15,
-      "inactive": 10,
-      "errors": 3,
-      "downtime": "31 min",
-      "jobsToday": 46,
-      "material": "Mesh",
-      "state": "stopped",
       "site_code": "BH",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4686,19 +2675,10 @@
       "inkset": "CMYK"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-printer-4",
       "name": "Dürst P5-350 HS D4 - 1 BH",
       "type": "printer",
-      "oee": 67,
-      "producing": 25,
-      "stopped": 9,
-      "inactive": 13,
-      "errors": 12,
-      "downtime": "5 min",
-      "jobsToday": 46,
-      "material": "Textiel",
-      "state": "stopped",
       "site_code": "BH",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4715,19 +2695,10 @@
       "inkset": "CMYK"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-7",
       "name": "Dürst P5 350 HSRI",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Unknown",
-      "state": "inactive",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4744,19 +2715,10 @@
       "inkset": "CMYK"
     },
     {
-      "line": "non-adhesive-line",
+      "line": "non-adhesive",
       "layout_name": "na-printer-8",
       "name": "Dürst 512 - 4",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Unknown",
-      "state": "inactive",
       "site_code": "DK",
       "line_code": "UV",
       "manufacturer": "DURST",
@@ -4773,19 +2735,10 @@
       "inkset": "CMYK • CMYKLcLm"
     },
     {
-      "line": "label-line",
+      "line": "label",
       "layout_name": "label-printer-1",
       "name": "DK_LA_Tau-1_330 RSC  5C",
       "type": "printer",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Unknown",
-      "state": "inactive",
       "site_code": "DK",
       "line_code": "LA",
       "manufacturer": "DURST",
@@ -4802,19 +2755,10 @@
       "inkset": "CMYK W"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-cutter-1",
       "name": "BH_DE_FO_ZUND_1",
       "type": "cutter",
-      "oee": 68,
-      "producing": 36,
-      "stopped": 17,
-      "inactive": 12,
-      "errors": 9,
-      "downtime": "9 min",
-      "jobsToday": 48,
-      "material": "PP Film",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "FO",
       "manufacturer": "ZUND",
@@ -4825,19 +2769,10 @@
       "serial_nr": "G300L252533"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-cutter-2",
       "name": "BH_DE_FO_ZUND_2",
       "type": "cutter",
-      "oee": 56,
-      "producing": 25,
-      "stopped": 8,
-      "inactive": 6,
-      "errors": 5,
-      "downtime": "37 min",
-      "jobsToday": 13,
-      "material": "Textiel",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "FO",
       "manufacturer": "ZUND",
@@ -4848,19 +2783,10 @@
       "serial_nr": "S300L120513"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-cutter-1",
       "name": "Zund G3 XL - 01 - UV-BH",
       "type": "cutter",
-      "oee": 71,
-      "producing": 44,
-      "stopped": 14,
-      "inactive": 8,
-      "errors": 4,
-      "downtime": "25 min",
-      "jobsToday": 31,
-      "material": "Mesh",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "SU/UV",
       "manufacturer": "ZUND",
@@ -4871,19 +2797,10 @@
       "serial_nr": "G3XL321090"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-cutter-2",
       "name": "Zund G3 XL - 02 - UV-BH",
       "type": "cutter",
-      "oee": 71,
-      "producing": 32,
-      "stopped": 11,
-      "inactive": 6,
-      "errors": 7,
-      "downtime": "25 min",
-      "jobsToday": 47,
-      "material": "Vinyl",
-      "state": "stopped",
       "site_code": "BH",
       "line_code": "SU/UV",
       "manufacturer": "ZUND",
@@ -4894,19 +2811,10 @@
       "serial_nr": "G3XL321089"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-cutter-1",
       "name": "Zund 3XL - 01 - ST -BH",
       "type": "cutter",
-      "oee": 71,
-      "producing": 44,
-      "stopped": 15,
-      "inactive": 9,
-      "errors": 10,
-      "downtime": "31 min",
-      "jobsToday": 10,
-      "material": "Mesh",
-      "state": "idle",
       "site_code": "BH",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -4917,19 +2825,10 @@
       "serial_nr": "G30XL320532"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-cutter-2",
       "name": "Zund 3XL - 02 - ST -BH",
       "type": "cutter",
-      "oee": 74,
-      "producing": 34,
-      "stopped": 19,
-      "inactive": 6,
-      "errors": 13,
-      "downtime": "35 min",
-      "jobsToday": 13,
-      "material": "Mesh",
-      "state": "producing",
       "site_code": "BH",
       "line_code": "PL",
       "manufacturer": "ZUND",
@@ -4940,305 +2839,143 @@
       "serial_nr": "G30XL320795"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-laminator-1",
       "name": "Foil Laminator 1",
       "type": "laminator",
-      "oee": 72,
-      "producing": 40,
-      "stopped": 11,
-      "inactive": 9,
-      "errors": 4,
-      "downtime": "40 min",
-      "jobsToday": 33,
-      "material": "Vinyl",
-      "state": "producing",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-laminator-2",
       "name": "Foil Laminator 2",
       "type": "laminator",
-      "oee": 58,
-      "producing": 42,
-      "stopped": 21,
-      "inactive": 9,
-      "errors": 5,
-      "downtime": "13 min",
-      "jobsToday": 18,
-      "material": "PVC",
-      "state": "idle",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-queue-1",
       "name": "Foil Queue 1",
       "type": "queue",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Textiel",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-queue-2",
       "name": "Foil Queue 2",
       "type": "queue",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Mesh",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhfoil-stock-1",
       "name": "Foil Stock 1",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Mixed",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-hemmingtable-1",
       "name": "Na Hemmingtable 1",
       "type": "finish",
-      "oee": 59,
-      "producing": 43,
-      "stopped": 14,
-      "inactive": 10,
-      "errors": 7,
-      "downtime": "13 min",
-      "jobsToday": 10,
-      "material": "Mixed",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-hemmingtable-2",
       "name": "Na Hemmingtable 2",
       "type": "finish",
-      "oee": 86,
-      "producing": 41,
-      "stopped": 16,
-      "inactive": 13,
-      "errors": 10,
-      "downtime": "17 min",
-      "jobsToday": 27,
-      "material": "PVC",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-hemmingtable-3",
       "name": "Na Hemmingtable 3",
       "type": "finish",
-      "oee": 76,
-      "producing": 32,
-      "stopped": 8,
-      "inactive": 10,
-      "errors": 4,
-      "downtime": "21 min",
-      "jobsToday": 25,
-      "material": "PVC",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-packingtable-1",
       "name": "Na Packingtable 1",
       "type": "finish",
-      "oee": 88,
-      "producing": 36,
-      "stopped": 9,
-      "inactive": 15,
-      "errors": 7,
-      "downtime": "30 min",
-      "jobsToday": 18,
-      "material": "Vinyl",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-packingtable-2",
       "name": "Na Packingtable 2",
       "type": "finish",
-      "oee": 61,
-      "producing": 39,
-      "stopped": 13,
-      "inactive": 9,
-      "errors": 11,
-      "downtime": "11 min",
-      "jobsToday": 47,
-      "material": "Textiel",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-queue-1",
       "name": "Na Queue 1",
       "type": "queue",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Mixed",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-queue-2",
       "name": "Na Queue 2",
       "type": "queue",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Vinyl",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-stock-1",
       "name": "Na Stock 1",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "PVC",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-stock-2",
       "name": "Na Stock 2",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Vinyl",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhna-stock-4",
       "name": "Na Stock 4",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Mesh",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-queue-1",
       "name": "Sheet Queue 1",
       "type": "queue",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Textiel",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-queue-2",
       "name": "Sheet Queue 2",
       "type": "queue",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Vinyl",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-stock-1",
       "name": "Sheet Stock 1",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "PP Film",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhsheet-stock-2",
       "name": "Sheet Stock 2",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Mesh",
       "site_code": "BH"
     },
     {
-      "line": "bh-line",
+      "line": "bh",
       "layout_name": "bhtextile-stock-1",
       "name": "Textile Stock 1",
       "type": "stock",
-      "oee": 0,
-      "producing": 0,
-      "stopped": 0,
-      "inactive": 0,
-      "errors": 0,
-      "downtime": "0 min",
-      "jobsToday": 0,
-      "material": "Mesh",
       "site_code": "BH"
     }
   ]

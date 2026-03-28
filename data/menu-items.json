@@ -1,273 +1,310 @@
-{
-  "content": [
-    {
-      "code": "menu.info",
-      "block": {
-        "textFormula": { "title": "{resource_name}" },
-        "i18n": {
-          "en": { "textFormula": { "title": "{resource_name}" } },
-          "nl": { "textFormula": { "title": "{resource_name}" } },
-          "de": { "textFormula": { "title": "{resource_name}" } },
-          "uk": { "textFormula": { "title": "{resource_name}" } }
-        }
-      }
-    },
-    {
-      "code": "menu.oee",
-      "block": {
-        "title": "OEE",
-        "i18n": {
-          "en": { "title": "OEE" },
-          "nl": { "title": "OEE" },
-          "de": { "title": "OEE" },
-          "uk": { "title": "OEE" }
-        }
-      }
-    },
-    {
-      "code": "menu.tco",
-      "block": {
-        "title": "TCO",
-        "i18n": {
-          "en": { "title": "TCO" },
-          "nl": { "title": "TCO" },
-          "de": { "title": "TCO" },
-          "uk": { "title": "TCO" }
-        }
-      }
-    },
-    {
-      "code": "menu.production",
-      "block": {
-        "title": "Production",
-        "i18n": {
-          "en": { "title": "Production" },
-          "nl": { "title": "Productie" },
-          "de": { "title": "Produktion" },
-          "uk": { "title": "Виробництво" }
-        }
-      }
-    },
-    {
-      "code": "menu.ink-heads",
-      "block": {
-        "title": "Ink & heads",
-        "i18n": {
-          "en": { "title": "Ink & heads" },
-          "nl": { "title": "Inkt & koppen" },
-          "de": { "title": "Tinte & Köpfe" },
-          "uk": { "title": "Чорнила та головки" }
-        }
-      }
-    },
-    {
-      "code": "menu.quality-management",
-      "block": {
-        "title": "Quality management",
-        "i18n": {
-          "en": { "title": "Quality management" },
-          "nl": { "title": "Kwaliteitsbeheer" },
-          "de": { "title": "Qualitätsmanagement" },
-          "uk": { "title": "Управління якістю" }
-        }
-      }
-    },
-    {
-      "code": "menu.maintenance-tickets",
-      "block": {
-        "title": "Maintenance & tickets",
-        "i18n": {
-          "en": { "title": "Maintenance & tickets" },
-          "nl": { "title": "Onderhoud & tickets" },
-          "de": { "title": "Wartung & Tickets" },
-          "uk": { "title": "Обслуговування та заявки" }
-        }
-      }
-    },
-    {
-      "code": "menu.tooling-wear",
-      "block": {
-        "title": "Tooling & wear",
-        "i18n": {
-          "en": { "title": "Tooling & wear" },
-          "nl": { "title": "Gereedschap & slijtage" },
-          "de": { "title": "Werkzeug & Verschleiß" },
-          "uk": { "title": "Інструмент та знос" }
-        }
-      }
-    },
-    {
-      "code": "menu.consumption-waste",
-      "block": {
-        "title": "Consumption & waste",
-        "i18n": {
-          "en": { "title": "Consumption & waste" },
-          "nl": { "title": "Verbruik & afval" },
-          "de": { "title": "Verbrauch & Abfall" },
-          "uk": { "title": "Споживання та відходи" }
-        }
-      }
-    },
-    {
-      "code": "menu.material-specs",
-      "block": {
-        "title": "Material specifications",
-        "i18n": {
-          "en": { "title": "Material specifications" },
-          "nl": { "title": "Materiaalspecificaties" },
-          "de": { "title": "Materialspezifikationen" },
-          "uk": { "title": "Специфікації матеріалів" }
-        }
-      }
-    },
-    {
-      "code": "menu.blocked-jobs",
-      "block": {
-        "title": "Blocked jobs",
-        "i18n": {
-          "en": { "title": "Blocked jobs" },
-          "nl": { "title": "Geblokkeerde jobs" },
-          "de": { "title": "Blockierte Aufträge" },
-          "uk": { "title": "Заблоковані завдання" }
-        }
+[
+  {
+    "code": "resource.info",
+    "path": "(sidebar:info)",
+    "block": {
+      "textFormula": {
+        "title": "{resource_name}"
       }
     }
-  ],
-  "menu_groups": [
-    {
-      "type": "printer",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.ink-heads", "path": "(sidebar:ink-heads)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
+  },
+  {
+    "code": "resource.oee",
+    "path": "(sidebar:oee)",
+    "block": {
+      "title": "OEE"
     },
-    {
-      "type": "cutter",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.tooling-wear", "path": "(sidebar:tooling-wear)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "laser",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "coater",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "calander",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "laminator",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "cure-oven",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "slitter",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.tooling-wear", "path": "(sidebar:tooling-wear)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "folder",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "finish",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.quality-management", "path": "(sidebar:quality-management)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "grommet-seam",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.oee", "path": "(sidebar:oee)" },
-        { "code": "menu.tco", "path": "(sidebar:tco)" },
-        { "code": "menu.production", "path": "(sidebar:production)" },
-        { "code": "menu.maintenance-tickets", "path": "(sidebar:maintenance-tickets)" }
-      ]
-    },
-    {
-      "type": "queue",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.blocked-jobs", "path": "(sidebar:blocked-jobs)" }
-      ]
-    },
-    {
-      "type": "stock",
-      "items": [
-        { "code": "menu.info", "path": "(sidebar:info)" },
-        { "code": "menu.consumption-waste", "path": "(sidebar:consumption-waste)" },
-        { "code": "menu.material-specs", "path": "(sidebar:material-specs)" }
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "printer",
+        "cutter",
+        "laser",
+        "coater",
+        "calander",
+        "laminator",
+        "cure-oven",
+        "slitter",
+        "folder",
+        "finish",
+        "grommet-seam"
       ]
     }
-  ]
-}
+  },
+  {
+    "code": "resource.tco",
+    "path": "(sidebar:tco)",
+    "block": {
+      "title": "TCO"
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "printer",
+        "cutter",
+        "laser",
+        "coater",
+        "calander",
+        "laminator",
+        "cure-oven",
+        "slitter",
+        "folder",
+        "finish",
+        "grommet-seam"
+      ]
+    }
+  },
+  {
+    "code": "resource.production",
+    "path": "(sidebar:production)",
+    "block": {
+      "title": "Production",
+      "i18n": {
+        "en": {
+          "title": "Production"
+        },
+        "nl": {
+          "title": "Productie"
+        },
+        "de": {
+          "title": "Produktion"
+        },
+        "uk": {
+          "title": "Виробництво"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "printer",
+        "cutter",
+        "laser",
+        "coater",
+        "calander",
+        "laminator",
+        "cure-oven",
+        "slitter",
+        "folder",
+        "finish",
+        "grommet-seam"
+      ]
+    }
+  },
+  {
+    "code": "resource.ink-heads",
+    "path": "(sidebar:ink-heads)",
+    "block": {
+      "title": "Ink & heads",
+      "i18n": {
+        "en": {
+          "title": "Ink & heads"
+        },
+        "nl": {
+          "title": "Inkt & koppen"
+        },
+        "de": {
+          "title": "Tinte & Köpfe"
+        },
+        "uk": {
+          "title": "Чорнила та головки"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "printer"
+      ]
+    }
+  },
+  {
+    "code": "resource.quality-management",
+    "path": "(sidebar:quality-management)",
+    "block": {
+      "title": "Quality management",
+      "i18n": {
+        "en": {
+          "title": "Quality management"
+        },
+        "nl": {
+          "title": "Kwaliteitsbeheer"
+        },
+        "de": {
+          "title": "Qualitätsmanagement"
+        },
+        "uk": {
+          "title": "Управління якістю"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "printer",
+        "cutter",
+        "laser",
+        "coater",
+        "calander",
+        "laminator",
+        "finish"
+      ]
+    }
+  },
+  {
+    "code": "resource.maintenance-tickets",
+    "path": "(sidebar:maintenance-tickets)",
+    "block": {
+      "title": "Maintenance & tickets",
+      "i18n": {
+        "en": {
+          "title": "Maintenance & tickets"
+        },
+        "nl": {
+          "title": "Onderhoud & tickets"
+        },
+        "de": {
+          "title": "Wartung & Tickets"
+        },
+        "uk": {
+          "title": "Обслуговування та заявки"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "printer",
+        "cutter",
+        "laser",
+        "coater",
+        "calander",
+        "laminator",
+        "cure-oven",
+        "slitter",
+        "folder",
+        "finish",
+        "grommet-seam"
+      ]
+    }
+  },
+  {
+    "code": "resource.tooling-wear",
+    "path": "(sidebar:tooling-wear)",
+    "block": {
+      "title": "Tooling & wear",
+      "i18n": {
+        "en": {
+          "title": "Tooling & wear"
+        },
+        "nl": {
+          "title": "Gereedschap & slijtage"
+        },
+        "de": {
+          "title": "Werkzeug & Verschleiß"
+        },
+        "uk": {
+          "title": "Інструмент та знос"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "cutter",
+        "slitter"
+      ]
+    }
+  },
+  {
+    "code": "resource.blocked-jobs",
+    "path": "(sidebar:blocked-jobs)",
+    "block": {
+      "title": "Blocked jobs",
+      "i18n": {
+        "en": {
+          "title": "Blocked jobs"
+        },
+        "nl": {
+          "title": "Geblokkeerde jobs"
+        },
+        "de": {
+          "title": "Blockierte Aufträge"
+        },
+        "uk": {
+          "title": "Заблоковані завдання"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "queue"
+      ]
+    }
+  },
+  {
+    "code": "resource.consumption-waste",
+    "path": "(sidebar:consumption-waste)",
+    "block": {
+      "title": "Consumption & waste",
+      "i18n": {
+        "en": {
+          "title": "Consumption & waste"
+        },
+        "nl": {
+          "title": "Verbruik & afval"
+        },
+        "de": {
+          "title": "Verbrauch & Abfall"
+        },
+        "uk": {
+          "title": "Споживання та відходи"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "stock"
+      ]
+    }
+  },
+  {
+    "code": "resource.material-specs",
+    "path": "(sidebar:material-specs)",
+    "block": {
+      "title": "Material specifications",
+      "i18n": {
+        "en": {
+          "title": "Material specifications"
+        },
+        "nl": {
+          "title": "Materiaalspecificaties"
+        },
+        "de": {
+          "title": "Materialspezifikationen"
+        },
+        "uk": {
+          "title": "Специфікації матеріалів"
+        }
+      }
+    },
+    "hidden_when": {
+      "key": "type",
+      "op": "not in",
+      "val": [
+        "stock"
+      ]
+    }
+  }
+]

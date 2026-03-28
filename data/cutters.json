@@ -1,0 +1,336 @@
+[
+    {
+        "deviceId": "5003",
+        "name": "Folie - Zund 3",
+        "deviceSerial": "G300L251393",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "5062",
+        "name": "BH - Plaat - 1",
+        "deviceSerial": "G30XL320532",
+        "timeZone": "Europe/Berlin",
+        "zccVersion": "3.5.10.39",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "5108",
+        "name": "SubTex - Zund 1",
+        "deviceSerial": "G33XL320478",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "5191",
+        "name": "Folie - DB Zund 1",
+        "deviceSerial": "D300L320060",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "6276",
+        "name": "Folie - Zund 2",
+        "deviceSerial": "G300L251382",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "8902",
+        "name": "BH - Plaat - 2",
+        "deviceSerial": "G30XL320795",
+        "timeZone": "Europe/Berlin",
+        "zccVersion": "3.5.10.39",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "8938",
+        "name": "G3 XL-3200",
+        "deviceSerial": "G30XL320836",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "9008",
+        "name": "G3 XL-3200",
+        "deviceSerial": "G30XL320933",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "10227",
+        "name": "UV - Zund 3",
+        "deviceSerial": "G33XL320185",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "15577",
+        "name": "Plaat - Zund 6",
+        "deviceSerial": "G30XL321384",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "15672",
+        "name": "BH - Folie - 2 (S)",
+        "deviceSerial": "S300L120513",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.10.39",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "16098",
+        "name": "UV - Zund 2",
+        "deviceSerial": "G33XL320877",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "16474",
+        "name": "Plaat - DB Zund 5",
+        "deviceSerial": "D30XL320100",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "18046",
+        "name": "UV - Zund 3",
+        "deviceSerial": "G33XL321023",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "18540",
+        "name": "Folie - DB Zund 4",
+        "deviceSerial": "D300L320212",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.6.35",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "19091",
+        "name": "BH - Rol - 2",
+        "deviceSerial": "G33XL321089",
+        "timeZone": "Europe/Berlin",
+        "zccVersion": "3.5.10.39",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "19092",
+        "name": "BH - Rol - 1",
+        "deviceSerial": "G33XL321090",
+        "timeZone": "Europe/Berlin",
+        "zccVersion": "3.5.10.39",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "19248",
+        "name": "Q3232D13",
+        "deviceSerial": "Q3232D13",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "4.5.3.56",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            },
+            {
+                "licenseType": "ZUND_CONNECT_ANALYZER",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    },
+    {
+        "deviceId": "19347",
+        "name": "BH - Folie - 1",
+        "deviceSerial": "G300L252533",
+        "timeZone": "Europe/Amsterdam",
+        "zccVersion": "3.5.10.39",
+        "licenses": [
+            {
+                "licenseType": "ZUND_CONNECT_FREE",
+                "__typename": "DeviceLicense"
+            }
+        ],
+        "__typename": "DeviceWithMetadata"
+    }
+]

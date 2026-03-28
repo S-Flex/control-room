@@ -1,260 +1,303 @@
-{
-  "content": [
-    {
-      "code": "producing",
-      "color": "#15d899",
-      "oee_set": "producing",
-      "block": {
-        "title": "Producing",
-        "i18n": {
-          "en": { "title": "Producing" },
-          "nl": { "title": "Producerend" },
-          "uk": { "title": "\u0412\u0438\u0440\u043e\u0431\u043d\u0438\u0446\u0442\u0432\u043e" }
+[
+  {
+    "code": "producing",
+    "states": [
+      {
+        "code": "producing",
+        "block": {
+          "title": "Producing",
+          "i18n": {
+            "en": {
+              "title": "Producing"
+            },
+            "nl": {
+              "title": "Producerend"
+            },
+            "uk": {
+              "title": "Виробництво"
+            }
+          }
+        },
+        "color": "#15d899"
+      },
+      {
+        "code": "setup",
+        "block": {
+          "title": "Setup",
+          "i18n": {
+            "en": {
+              "title": "Setup"
+            },
+            "nl": {
+              "title": "Instellen"
+            },
+            "uk": {
+              "title": "Налаштування"
+            }
+          }
+        },
+        "color": "#5f4bd5"
+      }
+    ],
+    "block": {
+      "title": "Producing",
+      "i18n": {
+        "en": {
+          "title": "Producing"
+        },
+        "nl": {
+          "title": "Producerend"
         }
       }
     },
-    {
-      "code": "setup",
-      "color": "#5f4bd5",
-      "oee_set": "producing",
-      "block": {
-        "title": "Setup",
-        "i18n": {
-          "en": { "title": "Setup" },
-          "nl": { "title": "Instellen" },
-          "uk": { "title": "\u041d\u0430\u043b\u0430\u0448\u0442\u0443\u0432\u0430\u043d\u043d\u044f" }
+    "color": "#15d899"
+  },
+  {
+    "code": "waiting",
+    "states": [
+      {
+        "code": "starved",
+        "block": {
+          "title": "Starved",
+          "i18n": {
+            "en": {
+              "title": "Starved"
+            },
+            "nl": {
+              "title": "Uitgehongerd"
+            },
+            "uk": {
+              "title": "Голодування"
+            }
+          }
+        },
+        "color": "#83ffd7"
+      },
+      {
+        "code": "starved.operator",
+        "block": {
+          "title": "Starved (Operator)",
+          "i18n": {
+            "en": {
+              "title": "Starved (Operator)"
+            },
+            "nl": {
+              "title": "Uitgehongerd (Operator)"
+            },
+            "uk": {
+              "title": "Голодування (Оператор)"
+            }
+          }
+        },
+        "color": "#74debc"
+      },
+      {
+        "code": "blocked",
+        "block": {
+          "title": "Blocked",
+          "i18n": {
+            "en": {
+              "title": "Blocked"
+            },
+            "nl": {
+              "title": "Geblokkeerd"
+            },
+            "uk": {
+              "title": "Заблоковано"
+            }
+          }
+        },
+        "color": "#5caf94"
+      },
+      {
+        "code": "idle",
+        "block": {
+          "title": "Idle",
+          "i18n": {
+            "en": {
+              "title": "Idle"
+            },
+            "nl": {
+              "title": "Inactief"
+            },
+            "uk": {
+              "title": "Неактивний"
+            }
+          }
+        },
+        "color": "#fecc0f"
+      }
+    ],
+    "block": {
+      "title": "Waiting",
+      "i18n": {
+        "en": {
+          "title": "Waiting"
+        },
+        "nl": {
+          "title": "Wachtend"
         }
       }
     },
-    {
-      "code": "starved",
-      "color": "#83ffd7",
-      "oee_set": "waiting",
-      "block": {
-        "title": "Starved",
-        "i18n": {
-          "en": { "title": "Starved" },
-          "nl": { "title": "Uitgehongerd" },
-          "uk": { "title": "\u0413\u043e\u043b\u043e\u0434\u0443\u0432\u0430\u043d\u043d\u044f" }
+    "color": "#0f9b6e"
+  },
+  {
+    "code": "breakdown",
+    "states": [
+      {
+        "code": "breakdown",
+        "block": {
+          "title": "Breakdown",
+          "i18n": {
+            "en": {
+              "title": "Breakdown"
+            },
+            "nl": {
+              "title": "Storing"
+            },
+            "uk": {
+              "title": "Поломка"
+            }
+          }
+        },
+        "color": "#fc155c"
+      }
+    ],
+    "block": {
+      "title": "Breakdown",
+      "i18n": {
+        "en": {
+          "title": "Breakdown"
+        },
+        "nl": {
+          "title": "Storing"
         }
       }
     },
-    {
-      "code": "starved.operator",
-      "color": "#74debc",
-      "oee_set": "waiting",
-      "block": {
-        "title": "Starved (Operator)",
-        "i18n": {
-          "en": { "title": "Starved (Operator)" },
-          "nl": { "title": "Uitgehongerd (Operator)" },
-          "uk": { "title": "\u0413\u043e\u043b\u043e\u0434\u0443\u0432\u0430\u043d\u043d\u044f (\u041e\u043f\u0435\u0440\u0430\u0442\u043e\u0440)" }
+    "color": "#fc155c"
+  },
+  {
+    "code": "maintenance",
+    "states": [
+      {
+        "code": "maintenance",
+        "block": {
+          "title": "Maintenance",
+          "i18n": {
+            "en": {
+              "title": "Maintenance"
+            },
+            "nl": {
+              "title": "Onderhoud"
+            },
+            "uk": {
+              "title": "Технічне обслуговування"
+            }
+          }
+        },
+        "color": "#594bb1"
+      },
+      {
+        "code": "maintenance.testprint",
+        "block": {
+          "title": "Maintenance (Test Print)",
+          "i18n": {
+            "en": {
+              "title": "Maintenance (Test Print)"
+            },
+            "nl": {
+              "title": "Onderhoud (Testprint)"
+            },
+            "uk": {
+              "title": "Технічне обслуговування (Тестовий друк)"
+            }
+          }
+        },
+        "color": "#594bb1"
+      }
+    ],
+    "block": {
+      "title": "Maintenance",
+      "i18n": {
+        "en": {
+          "title": "Maintenance"
+        },
+        "nl": {
+          "title": "Onderhoud"
         }
       }
     },
-    {
-      "code": "blocked",
-      "color": "#5caf94",
-      "oee_set": "waiting",
-      "block": {
-        "title": "Blocked",
-        "i18n": {
-          "en": { "title": "Blocked" },
-          "nl": { "title": "Geblokkeerd" },
-          "uk": { "title": "\u0417\u0430\u0431\u043b\u043e\u043a\u043e\u0432\u0430\u043d\u043e" }
+    "color": "#594bb1"
+  },
+  {
+    "code": "offline",
+    "states": [
+      {
+        "code": "offline",
+        "block": {
+          "title": "Offline",
+          "i18n": {
+            "en": {
+              "title": "Offline"
+            },
+            "nl": {
+              "title": "Offline"
+            },
+            "uk": {
+              "title": "Офлайн"
+            }
+          }
+        },
+        "color": "#cdcdd2"
+      },
+      {
+        "code": "installation",
+        "block": {
+          "title": "Installation",
+          "i18n": {
+            "en": {
+              "title": "Installation"
+            },
+            "nl": {
+              "title": "Installatie"
+            },
+            "uk": {
+              "title": "Інсталяція"
+            }
+          }
+        },
+        "color": "#3b82f6"
+      },
+      {
+        "code": "missingdata",
+        "block": {
+          "title": "Missing Data",
+          "i18n": {
+            "en": {
+              "title": "Missing Data"
+            },
+            "nl": {
+              "title": "Ontbrekende data"
+            },
+            "uk": {
+              "title": "Відсутні дані"
+            }
+          }
+        },
+        "color": "#fc155c"
+      }
+    ],
+    "block": {
+      "title": "Offline",
+      "i18n": {
+        "en": {
+          "title": "Offline"
+        },
+        "nl": {
+          "title": "Offline"
         }
       }
     },
-    {
-      "code": "idle",
-      "color": "#fecc0f",
-      "oee_set": "waiting",
-      "block": {
-        "title": "Idle",
-        "i18n": {
-          "en": { "title": "Idle" },
-          "nl": { "title": "Inactief" },
-          "uk": { "title": "\u041d\u0435\u0430\u043a\u0442\u0438\u0432\u043d\u0438\u0439" }
-        }
-      }
-    },
-    {
-      "code": "breakdown",
-      "color": "#fc155c",
-      "oee_set": "breakdown",
-      "block": {
-        "title": "Breakdown",
-        "i18n": {
-          "en": { "title": "Breakdown" },
-          "nl": { "title": "Storing" },
-          "uk": { "title": "\u041f\u043e\u043b\u043e\u043c\u043a\u0430" }
-        }
-      }
-    },
-    {
-      "code": "maintenance",
-      "color": "#594bb1",
-      "oee_set": "maintenance",
-      "block": {
-        "title": "Maintenance",
-        "i18n": {
-          "en": { "title": "Maintenance" },
-          "nl": { "title": "Onderhoud" },
-          "uk": { "title": "\u0422\u0435\u0445\u043d\u0456\u0447\u043d\u0435 \u043e\u0431\u0441\u043b\u0443\u0433\u043e\u0432\u0443\u0432\u0430\u043d\u043d\u044f" }
-        }
-      }
-    },
-    {
-      "code": "maintenance.testprint",
-      "color": "#594bb1",
-      "oee_set": "maintenance",
-      "block": {
-        "title": "Maintenance (Test Print)",
-        "i18n": {
-          "en": { "title": "Maintenance (Test Print)" },
-          "nl": { "title": "Onderhoud (Testprint)" },
-          "uk": { "title": "\u0422\u0435\u0445\u043d\u0456\u0447\u043d\u0435 \u043e\u0431\u0441\u043b\u0443\u0433\u043e\u0432\u0443\u0432\u0430\u043d\u043d\u044f (\u0422\u0435\u0441\u0442\u043e\u0432\u0438\u0439 \u0434\u0440\u0443\u043a)" }
-        }
-      }
-    },
-    {
-      "code": "installation",
-      "color": "#3b82f6",
-      "oee_set": "offline",
-      "block": {
-        "title": "Installation",
-        "i18n": {
-          "en": { "title": "Installation" },
-          "nl": { "title": "Installatie" },
-          "uk": { "title": "\u0406\u043d\u0441\u0442\u0430\u043b\u044f\u0446\u0456\u044f" }
-        }
-      }
-    },
-    {
-      "code": "missingdata",
-      "color": "#fc155c",
-      "oee_set": "offline",
-      "block": {
-        "title": "Missing Data",
-        "i18n": {
-          "en": { "title": "Missing Data" },
-          "nl": { "title": "Ontbrekende data" },
-          "uk": { "title": "\u0412\u0456\u0434\u0441\u0443\u0442\u043d\u0456 \u0434\u0430\u043d\u0456" }
-        }
-      }
-    },
-    {
-      "code": "offline",
-      "color": "#cdcdd2",
-      "oee_set": "offline",
-      "block": {
-        "title": "Offline",
-        "i18n": {
-          "en": { "title": "Offline" },
-          "nl": { "title": "Offline" },
-          "uk": { "title": "\u041e\u0444\u043b\u0430\u0439\u043d" }
-        }
-      }
-    },
-    {
-      "code": "stock",
-      "color": "#bc7644",
-      "block": {
-        "title": "Stock",
-        "i18n": {
-          "en": { "title": "Stock" },
-          "nl": { "title": "Voorraad" },
-          "uk": { "title": "\u0417\u0430\u043f\u0430\u0441" }
-        }
-      }
-    },
-    {
-      "code": "queue",
-      "color": "#d5a47f",
-      "block": {
-        "title": "Queue",
-        "i18n": {
-          "en": { "title": "Queue" },
-          "nl": { "title": "Wachtrij" },
-          "uk": { "title": "\u0427\u0435\u0440\u0433\u0430" }
-        }
-      }
-    },
-    {
-      "code": "set.producing",
-      "color": "#15d899",
-      "block": {
-        "title": "Producing",
-        "i18n": {
-          "en": { "title": "Producing" },
-          "nl": { "title": "Producerend" }
-        }
-      }
-    },
-    {
-      "code": "set.waiting",
-      "color": "#0f9b6e",
-      "block": {
-        "title": "Waiting",
-        "i18n": {
-          "en": { "title": "Waiting" },
-          "nl": { "title": "Wachtend" }
-        }
-      }
-    },
-    {
-      "code": "set.breakdown",
-      "color": "#fc155c",
-      "block": {
-        "title": "Breakdown",
-        "i18n": {
-          "en": { "title": "Breakdown" },
-          "nl": { "title": "Storing" }
-        }
-      }
-    },
-    {
-      "code": "set.maintenance",
-      "color": "#594bb1",
-      "block": {
-        "title": "Maintenance",
-        "i18n": {
-          "en": { "title": "Maintenance" },
-          "nl": { "title": "Onderhoud" }
-        }
-      }
-    },
-    {
-      "code": "set.offline",
-      "color": "#cdcdd2",
-      "block": {
-        "title": "Offline",
-        "i18n": {
-          "en": { "title": "Offline" },
-          "nl": { "title": "Offline" }
-        }
-      }
-    }
-  ],
-  "states": [
-    { "code": "producing" },
-    { "code": "starved" },
-    { "code": "starved.operator" },
-    { "code": "blocked" },
-    { "code": "idle" },
-    { "code": "setup" },
-    { "code": "breakdown" },
-    { "code": "maintenance" },
-    { "code": "maintenance.testprint" },
-    { "code": "installation" },
-    { "code": "missingdata" },
-    { "code": "offline" }
-  ],
-  "state_sets": [
-    { "code": "producing", "states": [{ "code": "producing" }, { "code": "setup" }] },
-    { "code": "waiting", "states": [{ "code": "starved" }, { "code": "starved.operator" }, { "code": "blocked" }, { "code": "idle" }] },
-    { "code": "breakdown", "states": [{ "code": "breakdown" }] },
-    { "code": "maintenance", "states": [{ "code": "maintenance" }, { "code": "maintenance.testprint" }] },
-    { "code": "offline", "states": [{ "code": "offline" }, { "code": "installation" }, { "code": "missingdata" }] }
-  ]
-}
+    "color": "#cdcdd2"
+  }
+]

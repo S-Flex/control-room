@@ -10,9 +10,10 @@ import {
   MainRoutes,
   AuxRouteProvider,
 } from 'xfw-url';
-import { App } from './App';
+import { HomePage } from './HomePage';
+import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';
-import { PlanningPage } from './PlanningPage';
+import { ProductionLinesPage } from './ProductionLinesPage';
 import { DataGroupPage } from './DataGroupPage';
 
 const queryClient = new QueryClient({
@@ -28,10 +29,11 @@ const queryClient = new QueryClient({
 function Root() {
   return (
     <MainRoutes>
+      <Route path="/control-room" element={<ControlRoomPage />} />
+      <Route path="/production-lines" element={<ProductionLinesPage />} />
       <Route path="/layout" element={<LayoutPage />} />
-      <Route path="/planning" element={<PlanningPage />} />
       <Route path="/data" element={<DataGroupPage />} />
-      <Route path="*" element={<App />} />
+      <Route path="*" element={<HomePage />} />
     </MainRoutes>
   );
 }

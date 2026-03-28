@@ -1,7 +1,15 @@
 import { useDataGroups, useDataGeneric, type DataGroup, type ParamValue } from 'xfw-data';
 import { useMemo } from 'react';
 
-const DATA_GROUP_NAME = 'productionLineThreeView2';
+const DATA_GROUP_NAME = 'production_line_overview';
+
+function useUrlQueryParams(): Record<string, string> {
+  return useMemo(() => {
+    const params: Record<string, string> = {};
+    new URLSearchParams(window.location.search).forEach((v, k) => { params[k] = v; });
+    return params;
+  }, []);
+}
 
 const preStyle: React.CSSProperties = {
   background: '#1e2433',
@@ -14,12 +22,21 @@ const preStyle: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
-function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
+function DataGroupSection({ dataGroup, queryParams }: { dataGroup: DataGroup; queryParams: Record<string, string> }) {
+  // Build params: all data group params filled with query param values, then defaults
   const params = useMemo<ParamValue[]>(() => {
-    return dataGroup.params
-      .filter(p => p.default_value !== undefined || p.val !== undefined)
-      .map(p => ({ key: p.key, val: p.default_value ?? p.val ?? null }));
-  }, [dataGroup.params]);
+    const result: ParamValue[] = dataGroup.params.map(p => ({
+      key: p.key,
+      val: p.key in queryParams ? queryParams[p.key] : (p.default_value ?? p.val ?? null),
+    }));
+    // Add extra query params not in the data group definition
+    for (const [key, val] of Object.entries(queryParams)) {
+      if (!result.some(p => p.key === key)) result.push({ key, val });
+    }
+    return result;
+  }, [dataGroup.params, queryParams]);
+
+  console.log('DataGroupSection params:', params);
 
   const {
     dataTable,
@@ -46,11 +63,15 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
       {isInitialLoading && <p>Loading data...</p>}
       {error instanceof Error && <p style={{ color: '#d92d20' }}>Error: {error.message}</p>}
 
-      <h3 style={{ marginTop: 12, marginBottom: 4, fontSize: 14 }}>DataTable schema ({primarySrc})</h3>
       {dataTable ? (
-        <pre style={preStyle}>{JSON.stringify(dataTable, null, 2)}</pre>
+        <details style={{ marginTop: 12 }}>
+          <summary style={{ cursor: 'pointer', marginBottom: 4, fontSize: 14 }}>DataTable schema ({primarySrc})</summary>
+          <pre style={preStyle}>{JSON.stringify(dataTable, null, 2)}</pre>
+        </details>
       ) : (
-        <p style={{ color: '#85888e' }}>{isLoading ? 'Loading...' : 'No schema'}</p>
+        <h3 style={{ marginTop: 12, marginBottom: 4, fontSize: 14 }}>DataTable schema ({primarySrc})
+          <p style={{ color: '#85888e', fontWeight: 'normal' }}>{isLoading ? 'Loading...' : 'No schema'}</p>
+        </h3>
       )}
 
       <h3 style={{ marginTop: 12, marginBottom: 4, fontSize: 14 }}>
@@ -64,11 +85,13 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
 
       {metaSrc && (
         <>
-          <h3 style={{ marginTop: 12, marginBottom: 4, fontSize: 14 }}>Meta DataTable ({metaSrc})</h3>
           {metaDataTable ? (
-            <pre style={preStyle}>{JSON.stringify(metaDataTable, null, 2)}</pre>
+            <details style={{ marginTop: 12 }}>
+              <summary style={{ cursor: 'pointer', marginBottom: 4, fontSize: 14 }}>Meta DataTable ({metaSrc})</summary>
+              <pre style={preStyle}>{JSON.stringify(metaDataTable, null, 2)}</pre>
+            </details>
           ) : (
-            <p style={{ color: '#85888e' }}>{isLoading ? 'Loading...' : 'No meta schema'}</p>
+            <p style={{ color: '#85888e', marginTop: 12 }}>{isLoading ? 'Loading...' : 'No meta schema'}</p>
           )}
 
           <h3 style={{ marginTop: 12, marginBottom: 4, fontSize: 14 }}>
@@ -86,6 +109,7 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
 }
 
 export function DataGroupPage() {
+  const queryParams = useUrlQueryParams();
   const { data: dataGroups, isLoading, error } = useDataGroups(DATA_GROUP_NAME);
 
   return (
@@ -107,7 +131,7 @@ export function DataGroupPage() {
           </details>
 
           {dataGroups.map(dg => (
-            <DataGroupSection key={dg.widget_id} dataGroup={dg} />
+            <DataGroupSection key={dg.widget_id} dataGroup={dg} queryParams={queryParams} />
           ))}
         </>
       )}

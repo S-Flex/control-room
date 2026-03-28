@@ -1,12 +1,5 @@
-export type Resource = {
-  line: string;
-  layout_name: string;
-  resource_uid?: string;
-  name: string;
-  type: string;
-  color?: string;
+export type OeeGroup = {
   state: string;
-  status?: string;
   oee?: number;
   producing?: number;
   stopped?: number;
@@ -15,6 +8,22 @@ export type Resource = {
   downtime?: string;
   jobsToday?: number;
   material?: string;
+};
+
+export type ResourceDetail = OeeGroup & {
+  layout_name: string;
+  materials?: { name: string; quantity: number }[];
+};
+
+export type Resource = {
+  line: string;
+  layout_name: string;
+  name: string;
+  type: string;
+  color?: string;
+  status?: string;
+  oee?: number;
+  oee_group?: OeeGroup;
   ink_expiration?: boolean;
   inks?: Record<string, { amount: number; expires: string }>;
   materials?: { name: string; quantity: number }[];

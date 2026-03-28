@@ -67,6 +67,7 @@ export default defineConfig({
       'xfw-three': path.resolve(__dirname, 'packages/xfw-three'),
       'xfw-url': path.resolve(__dirname, 'packages/xfw-url'),
       'xfw-data': path.resolve(__dirname, 'packages/xfw-data'),
+      'xfw-nav': path.resolve(__dirname, 'packages/xfw-nav'),
       'xfw-button-group': path.resolve(__dirname, 'packages/xfw-button-group'),
       'xfw-get-block': path.resolve(__dirname, 'packages/xfw-get-block')
     },

@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ThreeModelView, type CameraState, type JSONRecord, type ObjectData } from 'xfw-three';
+import { useQueryParams } from 'xfw-url';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
-import type { ContentLike } from 'xfw-get-block';
 import { EquipCard } from './viewer/EquipCard';
 import type { Resource } from './viewer/types';
+import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { WidgetPanel } from './widgets/WidgetPanel';
 import { StatusBar } from './widgets/StatusBar';
 import { Ticker } from './widgets/Ticker';
@@ -14,13 +15,11 @@ import './app.css';
 type LineConfig = {
   code: string;
   glb: string;
+  block: Record<string, unknown>;
   camera?: CameraState;
 };
 
-type ModelsData = {
-  content: ContentLike[];
-  lines: LineConfig[];
-};
+type ModelsData = LineConfig[];
 
 type ResourceStateEntry = {
   code: string;
@@ -30,26 +29,33 @@ type ResourceStateEntry = {
     i18n?: Record<string, { title: string }>;
   };
 };
-type ResourceStatesData = {
-  content: ResourceStateEntry[];
-  states: { code: string }[];
+type StateSetData = {
+  code: string;
+  color: string;
+  block: { title: string; i18n?: Record<string, { title: string }>; };
+  states: ResourceStateEntry[];
 };
 
-function buildStateMap(data: ResourceStatesData): Map<string, ResourceStateEntry> {
+function buildStateMap(stateSets: StateSetData[]): Map<string, ResourceStateEntry> {
   const map = new Map<string, ResourceStateEntry>();
-  for (const entry of data.content) map.set(entry.code, entry);
+  for (const ss of stateSets) {
+    map.set('set.' + ss.code, { code: 'set.' + ss.code, color: ss.color, block: ss.block });
+    for (const st of ss.states) map.set(st.code, st);
+  }
   return map;
 }
 
-export function App() {
+export function ControlRoomPage() {
   const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
   const [lang, setLang] = useState(() => getLanguage());
+  const urlParams = useQueryParams([{ key: 'model', isQueryParam: true }]);
+  const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
-  const [modelsContent, setModelsContent] = useState<ContentLike[]>([]);
+  const { rowMap: overviewMap } = useProductionLineOverview(urlModel || 'sheet');
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get('line') || 'sheet-line';
+    return params.get('model') || 'sheet';
   });
   const [lineConfig, setLineConfig] = useState<LineConfig | null>(null);
   const [allResources, setAllResources] = useState<Resource[]>([]);
@@ -64,6 +70,22 @@ export function App() {
   const currentIdx = useRef(-1);
   const modelsDataRef = useRef<ModelsData | null>(null);
 
+  // Sync model query param to URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('model') !== activeLineId) {
+      params.set('model', activeLineId);
+      window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    }
+  }, [activeLineId]);
+
+  // React to model query param changes
+  useEffect(() => {
+    if (urlModel && urlModel !== activeLineId) {
+      setActiveLineId(urlModel);
+    }
+  }, [urlModel]);
+
   // Toggle dark mode on double-click
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -77,7 +99,7 @@ export function App() {
     return () => document.removeEventListener('dblclick', handler);
   }, []);
 
-  // Fetch all data
+  // Fetch static data (models, resource list, dashboard feeds, state definitions)
   useEffect(() => {
     Promise.all([
       fetch('/data/models.json').then(r => r.json()),
@@ -89,10 +111,9 @@ export function App() {
     ])
       .then(([modelsData, resData, inflow, queues, ticker, statesData]) => {
         modelsDataRef.current = modelsData;
-        setStateMap(buildStateMap(statesData));
-        setModelsContent(modelsData.content);
-        setAllLines(modelsData.lines);
-        const line = modelsData.lines.find((l: LineConfig) => l.code === activeLineId);
+        setStateMap(buildStateMap(statesData as StateSetData[]));
+        setAllLines(modelsData);
+        const line = modelsData.find((l: LineConfig) => l.code === activeLineId);
         if (!line) { setError(`Line "${activeLineId}" not found`); return; }
         setLineConfig(line);
         setAllResources(resData.resources);
@@ -101,7 +122,7 @@ export function App() {
         lineResRef.current = filtered;
         setDisplayDuration((resData.displayDuration || 5) * 1000);
         setDashData({ inflow, queues, ticker });
-        document.title = `Control Room — ${getBlock(modelsData.content, line.code, 'title')}`;
+        document.title = `Control Room — ${getBlock(modelsData, line.code, 'title')}`;
       })
       .catch(err => setError(err.message));
   }, [activeLineId]);
@@ -123,8 +144,8 @@ export function App() {
   }, [lineResources, cycleNext, displayDuration, cyclePaused]);
 
   const resourceData: JSONRecord[] = lineResources.map(r => {
-    const stateEntry = stateMap.get(r.state);
-    const color = stateEntry?.color || '#888888';
+    const overview = overviewMap.get(r.layout_name);
+    const color = overview?.state.color ?? '#888888';
     return {
       layout_name: r.layout_name,
       color,
@@ -135,7 +156,7 @@ export function App() {
   const handleSaveCamera = useCallback((state: CameraState) => {
     const models = modelsDataRef.current;
     if (!models) return;
-    const line = models.lines.find(l => l.code === activeLineId);
+    const line = models.find(l => l.code === activeLineId);
     if (!line) return;
     line.camera = state;
     setLineConfig(prev => prev ? { ...prev, camera: state } : prev);
@@ -151,14 +172,17 @@ export function App() {
   const switchLine = useCallback((id: string) => {
     if (id === activeLineId) return;
     setActiveLineId(id);
+    const params = new URLSearchParams(window.location.search);
+    params.set('model', id);
+    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
     setActiveMatchKey(null);
     setCyclePaused(false);
     currentIdx.current = -1;
     const models = modelsDataRef.current;
-    const line = models?.lines.find(l => l.code === id);
+    const line = models?.find(l => l.code === id);
     if (line) {
       setLineConfig(line);
-      document.title = `Control Room — ${getBlock(models!.content, line.code, 'title')}`;
+      document.title = `Control Room — ${getBlock(models!, line.code, 'title')}`;
       const filtered = allResources.filter(r => r.line === id);
       setLineResources(filtered);
       lineResRef.current = filtered;
@@ -230,9 +254,9 @@ export function App() {
                     key={line.code}
                     className={`model-thumb${line.code === activeLineId ? ' active' : ''}`}
                     onClick={() => switchLine(line.code)}
-                    title={getBlock(modelsContent, line.code, 'title')}
+                    title={getBlock(allLines, line.code, 'title')}
                   >
-                    <span className="model-thumb-label">{getBlock(modelsContent, line.code, 'title')}</span>
+                    <span className="model-thumb-label">{getBlock(allLines, line.code, 'title')}</span>
                   </button>
                 ))}
               </div>
