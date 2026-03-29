@@ -130,7 +130,6 @@ function SingleTimelineBar({
   totalSeconds,
   startHour,
   label,
-  titleField,
   isEnlarged,
   onClick,
 }: {
@@ -138,12 +137,9 @@ function SingleTimelineBar({
   totalSeconds: number;
   startHour: number;
   label?: string;
-  titleField?: string;
   isEnlarged?: boolean;
   onClick?: () => void;
 }) {
-  const [hover, setHover] = useState<{ seg: Segment; x: number; y: number } | null>(null);
-
   if (totalSeconds <= 0) return null;
 
   return (
@@ -155,23 +151,7 @@ function SingleTimelineBar({
       {renderTimelineSvg({
         segments, totalSeconds, startHour,
         barHeight: 28, svgWidth: 600, svgHeight: 48, fontSize: 8,
-        interactive: true,
-        onSegHover: (seg, x, y) => setHover({ seg, x, y }),
-        onSegLeave: () => setHover(null),
       })}
-      {hover && (
-        <div className="timeline-bar-tooltip" style={{ left: hover.x + 12, top: hover.y - 10 }}>
-          <div className="timeline-bar-tooltip-color" style={{ color: hover.seg.color }}>
-            {String(resolve(hover.seg.row, titleField) ?? '')}
-          </div>
-          <div className="timeline-bar-tooltip-dur">
-            {Math.round(hover.seg.duration / 60)} min
-          </div>
-          {hover.seg.row.job_name && (
-            <div className="timeline-bar-tooltip-job">{String(hover.seg.row.job_name)}</div>
-          )}
-        </div>
-      )}
     </div>
   );
 }
@@ -181,15 +161,18 @@ function EnlargedTimelineOverlay({
   totalSeconds,
   startHour,
   label,
+  titleField,
   onClose,
 }: {
   segments: Segment[];
   totalSeconds: number;
   startHour: number;
   label?: string;
+  titleField?: string;
   onClose: () => void;
 }) {
   const [container, setContainer] = useState<Element | null>(null);
+  const [hover, setHover] = useState<{ seg: Segment; x: number; y: number } | null>(null);
 
   useEffect(() => {
     setContainer(document.querySelector('.planning-viewer'));
@@ -197,22 +180,43 @@ function EnlargedTimelineOverlay({
 
   if (totalSeconds <= 0 || !container) return null;
 
-  return createPortal(
-    <div className="timeline-overlay">
-      <div className="timeline-overlay-header">
-        {label && <div className="timeline-overlay-label">{label}</div>}
-        <button className="timeline-overlay-close" onClick={onClose} title="Close">
-          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-          </svg>
-        </button>
-      </div>
-      {renderTimelineSvg({
-        segments, totalSeconds, startHour,
-        barHeight: 48, svgWidth: 1200, svgHeight: 80, fontSize: 11,
-      })}
-    </div>,
-    container
+  return (
+    <>
+      {createPortal(
+        <div className="timeline-overlay">
+          <div className="timeline-overlay-header">
+            {label && <div className="timeline-overlay-label">{label}</div>}
+            <button className="timeline-overlay-close" onClick={onClose} title="Close">
+              <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+          {renderTimelineSvg({
+            segments, totalSeconds, startHour,
+            barHeight: 48, svgWidth: 1200, svgHeight: 80, fontSize: 11,
+            interactive: true,
+            onSegHover: (seg, x, y) => setHover({ seg, x, y }),
+            onSegLeave: () => setHover(null),
+          })}
+        </div>,
+        container
+      )}
+      {hover && createPortal(
+        <div className="timeline-bar-tooltip" style={{ left: hover.x + 12, top: hover.y - 10 }}>
+          <div className="timeline-bar-tooltip-state" style={{ color: hover.seg.color }}>
+            {String(resolve(hover.seg.row, 'state.block.title') ?? resolve(hover.seg.row, 'state.code') ?? '')}
+          </div>
+          <div className="timeline-bar-tooltip-dur">
+            {Math.round(hover.seg.duration / 60)} min
+          </div>
+          {hover.seg.row.job_name && (
+            <div className="timeline-bar-tooltip-job">{String(hover.seg.row.job_name)}</div>
+          )}
+        </div>,
+        document.body
+      )}
+    </>
   );
 }
 
@@ -279,7 +283,6 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
           totalSeconds={globalTotalSeconds}
           startHour={startHour}
           label={groups.length > 1 ? g.label : undefined}
-          titleField={titleField}
           isEnlarged={enlargedGroup === g.key}
           onClick={() => setEnlargedGroup(prev => prev === g.key ? null : g.key)}
         />
@@ -290,6 +293,7 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
           totalSeconds={globalTotalSeconds}
           startHour={startHour}
           label={enlarged.label}
+          titleField={titleField}
           onClose={() => setEnlargedGroup(null)}
         />
       )}

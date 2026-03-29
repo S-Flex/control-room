@@ -1,6 +1,7 @@
-import type { DataGroup, JSONRecord } from 'xfw-data';
+import type { DataGroup, JSONRecord, JSONValue } from 'xfw-data';
 import { getLanguage } from 'xfw-get-block';
 import { resolve } from './resolve';
+import { Content } from './Content';
 
 /** Convert a field key to a human-readable label. */
 function toDisplayLabel(key: string): string {
@@ -15,11 +16,21 @@ function toDisplayLabel(key: string): string {
 
 function resolveLabel(fieldConfig: DataGroup['field_config'], key: string): string {
   const fc = fieldConfig?.[key];
-  const i18n = fc?.ui?.i18n as Record<string, Record<string, string>> | undefined;
-  if (i18n) {
+  const raw = fc?.ui?.i18n;
+  if (raw) {
     const lang = getLanguage();
-    const label = i18n[lang]?.label ?? Object.values(i18n).find(v => v?.label)?.label;
+    const r = raw as Record<string, unknown>;
+    // Format: { label: "Width" } or { title: "Width" } — direct
+    if (typeof r.label === 'string') return r.label;
+    if (typeof r.title === 'string') return r.title;
+    // Format: { en: { label: "Width" }, nl: { title: "Datum" } } — per-language
+    const byLang = raw as Record<string, Record<string, string>>;
+    const langEntry = byLang[lang];
+    const label = langEntry?.label ?? langEntry?.title;
     if (label) return label;
+    for (const v of Object.values(byLang)) {
+      if (v?.label ?? v?.title) return v.label ?? v.title;
+    }
   }
   return toDisplayLabel(key);
 }
@@ -83,6 +94,15 @@ function Card({ row, fields, fieldConfig }: {
           const fc = fieldConfig?.[key];
           const className = fc?.ui?.class_name;
           const fieldType = fc?.ui?.field_type ?? fc?.type;
+
+          if (fieldType === 'content') {
+            const val = resolve(row, key) as JSONValue;
+            return (
+              <div key={key} className={`cards-field${className ? ' ' + className : ''}`}>
+                <Content data={val} />
+              </div>
+            );
+          }
 
           return (
             <div key={key} className={`cards-field${className ? ' ' + className : ''}`}>

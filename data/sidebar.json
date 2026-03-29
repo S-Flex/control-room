@@ -105,12 +105,12 @@
       {
         "code": "resource_maintenance_tickets",
         "block": {
-          "title": "Maintenance & tickets",
+          "title": "Overview",
           "i18n": {
-            "en": { "title": "Maintenance & tickets" },
-            "nl": { "title": "Onderhoud & tickets" },
-            "de": { "title": "Wartung & Tickets" },
-            "uk": { "title": "Обслуговування та заявки" }
+            "en": { "title": "Overview" },
+            "nl": { "title": "Overzicht" },
+            "de": { "title": "Übersicht" },
+            "uk": { "title": "Огляд" }
           }
         }
       }
