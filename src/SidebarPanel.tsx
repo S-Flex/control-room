@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from 'xfw-data';
 import { TimelineBar, type TimelineBarConfig } from './widgets/TimelineBar';
 import { DonutChart, type DonutChartConfig } from './widgets/DonutChart';
@@ -8,6 +8,23 @@ type SidebarConfig = {
   code: string;
   data_groups: string[];
 };
+
+function FallbackDataRows({ data }: { data: JSONRecord[] }) {
+  return (
+    <div className="sidebar-data-rows">
+      {data.map((row, i) => (
+        <div key={i} className="sidebar-data-row">
+          {Object.entries(row).map(([key, val]) => (
+            <div key={key} className="sidebar-data-field">
+              <span className="sidebar-field-label">{key}</span>
+              <span className="sidebar-field-value">{typeof val === 'object' ? JSON.stringify(val) : String(val ?? '—')}</span>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
 
 function WidgetRenderer({ layout, widgetConfig, data }: { layout: string; widgetConfig: Record<string, unknown>; data: JSONRecord[] }) {
   const key = layout.replace(/_/g, '-');
@@ -20,20 +37,7 @@ function WidgetRenderer({ layout, widgetConfig, data }: { layout: string; widget
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
     default:
       console.warn(`Unknown widget layout: "${layout}"`);
-      return (
-        <div className="sidebar-data-rows">
-          {data.map((row, i) => (
-            <div key={i} className="sidebar-data-row">
-              {Object.entries(row).map(([key, val]) => (
-                <div key={key} className="sidebar-data-field">
-                  <span className="sidebar-field-label">{key}</span>
-                  <span className="sidebar-field-value">{typeof val === 'object' ? JSON.stringify(val) : String(val ?? '—')}</span>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
-      );
+      return <FallbackDataRows data={data} />;
   }
 }
 
@@ -47,17 +51,12 @@ function SidebarDataGroup({ dataGroupName }: { dataGroupName: string }) {
 }
 
 function SidebarDataGroupContent({ dataGroup, dataGroupName }: { dataGroup: DataGroup; dataGroupName: string }) {
-  const params = useMemo(
-    () => structuredClone(dataGroup.params),
-    [dataGroup.params]
-  );
-
   const {
     dataTable,
     dataRows,
     isLoading,
     error,
-  } = useDataGeneric(dataGroup, params);
+  } = useDataGeneric(dataGroup);
 
   if (isLoading) return <p className="sidebar-loading">Loading...</p>;
   if (error instanceof Error) return <p className="sidebar-error">Error: {error.message}</p>;
@@ -75,18 +74,7 @@ function SidebarDataGroupContent({ dataGroup, dataGroupName }: { dataGroup: Data
       {widgetConfig ? (
         <WidgetRenderer layout={layout} widgetConfig={widgetConfig} data={dataRows} />
       ) : (
-        <div className="sidebar-data-rows">
-          {dataRows.map((row, i) => (
-            <div key={i} className="sidebar-data-row">
-              {Object.entries(row).map(([key, val]) => (
-                <div key={key} className="sidebar-data-field">
-                  <span className="sidebar-field-label">{key}</span>
-                  <span className="sidebar-field-value">{typeof val === 'object' ? JSON.stringify(val) : String(val ?? '—')}</span>
-                </div>
-              ))}
-            </div>
-          ))}
-        </div>
+        <FallbackDataRows data={dataRows} />
       )}
     </div>
   );

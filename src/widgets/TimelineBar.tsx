@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import type { JSONRecord, JSONValue } from 'xfw-data';
+import type { JSONRecord } from 'xfw-data';
+import { resolve } from './resolve';
 
 export type TimelineBarConfig = {
   offset_field: string;
@@ -8,16 +9,6 @@ export type TimelineBarConfig = {
   color_field: string;
   group_field?: string;
 };
-
-function resolve(row: JSONRecord, path: string | undefined): JSONValue {
-  if (!path) return null;
-  let val: JSONValue = row;
-  for (const seg of path.split('.')) {
-    if (val === null || typeof val !== 'object' || Array.isArray(val)) return null;
-    val = (val as JSONRecord)[seg] ?? null;
-  }
-  return val;
-}
 
 type Segment = {
   offset: number;
@@ -71,17 +62,22 @@ function getTotalSeconds(segments: Segment[]): number {
   return segments.reduce((max, s) => Math.max(max, s.offset + s.duration), 0);
 }
 
-function renderTimelineSvg(
-  segments: Segment[],
-  totalSeconds: number,
-  barHeight: number,
-  svgWidth: number,
-  svgHeight: number,
-  fontSize: number,
-  interactive: boolean,
-  onSegHover?: (seg: Segment, x: number, y: number) => void,
-  onSegLeave?: () => void,
-) {
+type TimelineSvgOptions = {
+  segments: Segment[];
+  totalSeconds: number;
+  barHeight: number;
+  svgWidth: number;
+  svgHeight: number;
+  fontSize: number;
+  interactive?: boolean;
+  onSegHover?: (seg: Segment, x: number, y: number) => void;
+  onSegLeave?: () => void;
+};
+
+function renderTimelineSvg({
+  segments, totalSeconds, barHeight, svgWidth, svgHeight, fontSize,
+  interactive = false, onSegHover, onSegLeave,
+}: TimelineSvgOptions) {
   const totalHours = totalSeconds / 3600;
 
   return (
@@ -150,13 +146,13 @@ function SingleTimelineBar({
       onMouseLeave={e => { setHover(null); onHoverEnd?.(); }}
     >
       {label && <div className="timeline-bar-label">{label}</div>}
-      {renderTimelineSvg(
+      {renderTimelineSvg({
         segments, totalSeconds,
-        28, 600, 48, 8,
-        true,
-        (seg, x, y) => setHover({ seg, x, y }),
-        () => setHover(null),
-      )}
+        barHeight: 28, svgWidth: 600, svgHeight: 48, fontSize: 8,
+        interactive: true,
+        onSegHover: (seg, x, y) => setHover({ seg, x, y }),
+        onSegLeave: () => setHover(null),
+      })}
       {hover && (
         <div className="timeline-bar-tooltip" style={{ left: hover.x + 12, top: hover.y - 10 }}>
           <div className="timeline-bar-tooltip-color" style={{ color: hover.seg.color }}>
@@ -194,11 +190,10 @@ function EnlargedTimelineOverlay({
   return createPortal(
     <div className="timeline-overlay">
       {label && <div className="timeline-overlay-label">{label}</div>}
-      {renderTimelineSvg(
+      {renderTimelineSvg({
         segments, totalSeconds,
-        48, 1200, 80, 11,
-        false,
-      )}
+        barHeight: 48, svgWidth: 1200, svgHeight: 80, fontSize: 11,
+      })}
     </div>,
     container
   );

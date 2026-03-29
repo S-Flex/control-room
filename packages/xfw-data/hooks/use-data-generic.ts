@@ -1,98 +1,75 @@
+import { useLoadingSubscription } from "../../providers/loading-boundary-provider";
+import { useOverrideParams } from "../../providers/override-params-provider";
+import type { DataGroup, JSONRecord } from "../types";
 import { useMemo } from "react";
-import type { DataGroup, JSONRecord, ParamDefinition, ParamValue } from "../types";
+import { useQueryParams } from "xfw-url";
 import { useDataRows } from "./use-datarows";
 import { useDatatable } from "./use-datatable";
-import { useQueryParams } from "xfw-url";
 
-export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: ParamDefinition[]) => {
-    // Handle single or multiple sources
+
+export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup) => {
+    // 1. Gather and combine all params.
+    const dataGroupQueryParams = useQueryParams(dataGroup.params);
+    const overrideParams = useOverrideParams(dataGroup.params);
+    const params = useMemo(
+        () => [...dataGroupQueryParams, ...overrideParams],
+        [dataGroupQueryParams, overrideParams]
+    );
+
+    // 2. Handle single or multiple sources
     const sources = useMemo(() => {
         return Array.isArray(dataGroup.src) ? dataGroup.src : [dataGroup.src];
     }, [dataGroup.src]);
 
     const primarySrc = sources[0];
-    const metaSrc = sources[1];
+    const metaSrc = sources[1]; // Support one meta source
 
-    // Fetch primary datatable
+    // 3. Fetch primary datatable
     const {
         data: dataTable,
         isLoading: isLoadingDataTable,
         error: errorDataTable,
     } = useDatatable(primarySrc);
 
-    // Fetch meta datatable (always call hook, but with conditional src)
+    // 4. Fetch meta datatable (always call hook, but with conditional src)
     const {
         data: metaDataTable,
         isLoading: isLoadingMetaDataTable,
         error: errorMetaDataTable,
     } = useDatatable(metaSrc || "");
 
-    console.log("useDataGeneric", dataGroup, params);
-
-    // Read URL query params for dataTable params marked is_query_param
-    const queryParamConfig = useMemo(
-        () => dataTable?.params
-            ?.filter(p => p.is_query_param)
-            .map(p => ({ key: p.key, isQueryParam: true as const })) ?? [],
-        [dataTable]
-    );
-    const urlParams = useQueryParams(queryParamConfig);
-
-    console.log("useDataGeneric - urlParams:", urlParams);
-
-    // Resolve params: URL query param values override defaults
-    const mergedParams = useMemo<ParamValue[]>(() => {
-        const urlMap = new Map(urlParams.map(p => [p.key, p.val]));
-        const merged: ParamValue[] = params.map(p => ({
-            key: p.key,
-            val: urlMap.has(p.key) && urlMap.get(p.key) != null
-                ? urlMap.get(p.key)!
-                : (p.default_value ?? p.val ?? null),
-        }));
-        // Add URL params not already in the list
-        for (const { key, val } of urlParams) {
-            if (val != null && !merged.some(p => p.key === key)) {
-                merged.push({ key, val });
-            }
-        }
-        return merged;
-    }, [params, urlParams]);
-
-    // Check for mandatory params availability
+    // 4.1 Check mandatory params using dataTable.params.
     const mandatoryParams = useMemo(
-        () => dataTable?.params?.filter(p => !p.is_ident_only && !p.is_optional) ?? [],
+        () => dataTable?.params.filter(p => !p.is_ident_only && !p.is_optional) ?? null,
         [dataTable]
     );
     const allMandatoryParamsAvailable = useMemo(() => {
-        return mandatoryParams.every(mp =>
-            mergedParams.some(p => p.key === mp.key && p.val !== undefined && p.val !== null)
-        );
-    }, [mandatoryParams, mergedParams]);
+        return mandatoryParams?.every(mp => params.some(p => p.key === mp.key && p.val !== undefined && p.val !== null)) ?? false;
+    }, [mandatoryParams, params]);
 
-    const primaryIdKey = useMemo(
-        () => dataTable?.primary_keys?.[0] ?? "id",
-        [dataTable]
-    );
+    // primaryIdKey defaults to "id" until the datatable resolves — acceptable for the initial fetch.
+    const primaryIdKey = useMemo(() => dataTable?.primary_keys?.[0] ?? "id", [dataTable]);
 
-    // Fetch data rows (disabled until datatable is loaded and all mandatory params are available)
-    const { data, isLoading, error, refetch, isInitialLoading, setLocalData, mutate, dataUpdatedAt } =
-        useDataRows<T>(primarySrc, mergedParams, {
-            enabled: !!dataTable && allMandatoryParamsAvailable,
-        }, primaryIdKey);
+    // 5. Fetch data rows in parallel with the datatable — no longer gated on it.
+    const { data, isLoading, error, refetch, isInitialLoading, setLocalData, mutate, dataUpdatedAt } = useDataRows<T>(primarySrc, params, {
+        enabled: allMandatoryParamsAvailable,
+    }, primaryIdKey);
 
-    // Fetch meta data rows
+    // 6. Fetch meta data rows (always call hook, but with conditional enablement)
     const {
         data: metaData,
         isLoading: isLoadingMeta,
         error: errorMeta,
-    } = useDataRows(metaSrc || "", mergedParams, {
-        enabled: !!metaSrc && !!metaDataTable && allMandatoryParamsAvailable,
+    } = useDataRows(metaSrc || "", params, {
+        enabled: !!metaSrc && allMandatoryParamsAvailable,
     });
 
-    // Aggregate loading and error states
+    // 7. Aggregate loading and error states
     const totalIsLoading = isLoadingDataTable || (metaSrc ? isLoadingMetaDataTable : false) || isLoading || (metaSrc ? isLoadingMeta : false);
     const totalIsInitialLoading = isLoadingDataTable || (metaSrc ? isLoadingMetaDataTable : false) || isInitialLoading;
     const totalError = errorDataTable || (metaSrc ? errorMetaDataTable : null) || error || (metaSrc ? errorMeta : null);
+
+    useLoadingSubscription(totalIsLoading && totalIsInitialLoading);
 
     return {
         dataTable,
@@ -102,7 +79,7 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
         isLoading: totalIsLoading,
         isInitialLoading: totalIsInitialLoading,
         error: totalError,
-        params: mergedParams,
+        params,
         refetchDataRows: refetch,
         setLocalData,
         mutate,

@@ -22,11 +22,6 @@ export function useProductionLineOverview() {
     const { data: dataGroups } = useDataGroups(DATA_GROUP_NAME);
     const dataGroup = dataGroups?.[0];
 
-    const params = useMemo(
-        () => dataGroup ? structuredClone(dataGroup.params) : [],
-        [dataGroup]
-    );
-
     const emptyDataGroup = useMemo(() => ({
         widget_id: '',
         src: '',
@@ -36,7 +31,6 @@ export function useProductionLineOverview() {
 
     const { dataRows, dataTable, isLoading, error } = useDataGeneric<OverviewRow>(
         dataGroup ?? emptyDataGroup,
-        params,
     );
 
     // Build a map from layout_name to row for quick lookup

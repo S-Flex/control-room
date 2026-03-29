@@ -36,4 +36,3 @@ export { useDataRows } from "./hooks/use-datarows";
 export { useDataGroups } from "./hooks/use-datagroup";
 export { useDataGeneric } from "./hooks/use-data-generic";
 export { useMinimalDiffRows } from "./hooks/use-minimal-diff-rows";
-export type { DiffableRow } from "./hooks/use-minimal-diff-rows";

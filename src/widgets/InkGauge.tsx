@@ -1,4 +1,5 @@
 import type { JSONRecord, JSONValue } from 'xfw-data';
+import { resolve } from './resolve';
 
 export type InkGaugeConfig = {
   ink_field: string;
@@ -7,16 +8,6 @@ export type InkGaugeConfig = {
   expiration_date_field?: string;
   level_relative_to: 'total' | 'full';
 };
-
-function resolve(row: JSONRecord, path: string | undefined): JSONValue {
-  if (!path) return null;
-  let val: JSONValue = row;
-  for (const seg of path.split('.')) {
-    if (val === null || typeof val !== 'object' || Array.isArray(val)) return null;
-    val = (val as JSONRecord)[seg] ?? null;
-  }
-  return val;
-}
 
 type InkEntry = {
   name: string;

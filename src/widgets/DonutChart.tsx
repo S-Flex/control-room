@@ -1,5 +1,6 @@
 import type { JSONRecord, JSONValue } from 'xfw-data';
 import { getBlock } from 'xfw-get-block';
+import { resolve } from './resolve';
 
 export type DonutChartConfig = {
   group_field: string;
@@ -9,16 +10,6 @@ export type DonutChartConfig = {
   aggregate_fn?: string;
   show_legend?: boolean;
 };
-
-function resolve(row: JSONRecord, path: string | undefined): JSONValue {
-  if (!path) return null;
-  let val: JSONValue = row;
-  for (const seg of path.split('.')) {
-    if (val === null || typeof val !== 'object' || Array.isArray(val)) return null;
-    val = (val as JSONRecord)[seg] ?? null;
-  }
-  return val;
-}
 
 function groupKey(groupObj: JSONValue): string {
   if (typeof groupObj === 'object' && groupObj !== null && !Array.isArray(groupObj)) {

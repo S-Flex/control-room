@@ -3,7 +3,7 @@ import { fetchDataGroups } from "../lib/data";
 
 export function useDataGroups(src: string | undefined) {
     return useQuery({
-        queryKey: ["datagroup", src],
+        queryKey: ["data_group", src],
         queryFn: async () => {
             const result = await fetchDataGroups(src!);
             if (!result.ok) throw new Error(result.error);

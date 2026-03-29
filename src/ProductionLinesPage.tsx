@@ -476,7 +476,7 @@ export function ProductionLinesPage() {
   }, [activeLineId]);
 
   const minutesFromMidnight = timeSlot * 5;
-  const resourceData: JSONRecord[] = lineResources.map(r => {
+  const resourceData: JSONRecord[] = useMemo(() => lineResources.map(r => {
     const overview = overviewMap.get(r.layout_name);
     const stateCode = overview?.state.code ?? 'offline';
     const color = overview?.state.color ?? '#888888';
@@ -492,7 +492,7 @@ export function ProductionLinesPage() {
       ...(shifts ? { _shifts: shifts as unknown as JSONRecord[] } : {}),
       ...(r.ink_expiration ? { ink_expiration: true, inks: r.inks } : {}),
     };
-  });
+  }), [lineResources, overviewMap, selectedKeys, minutesFromMidnight]);
 
   const handleSaveCamera = useCallback((state: CameraState) => {
     const models = modelsDataRef.current;
@@ -657,10 +657,10 @@ export function ProductionLinesPage() {
     );
   }, [showCapacity]);
 
-  const offTrackCount = lineResources.filter(r => {
+  const offTrackCount = useMemo(() => lineResources.filter(r => {
     const s = overviewMap.get(r.layout_name)?.state.code ?? 'offline';
     return s === 'breakdown' || s === 'starved' || s === 'starved.operator' || s === 'blocked';
-  }).length;
+  }).length, [lineResources, overviewMap]);
 
   if (!lineConfig) {
     return (
