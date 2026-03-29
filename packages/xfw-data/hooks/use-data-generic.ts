@@ -47,6 +47,8 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup) => {
         return mandatoryParams?.every(mp => params.some(p => p.key === mp.key && p.val !== undefined && p.val !== null)) ?? false;
     }, [mandatoryParams, params]);
 
+    console.log("allMandatoryParamsAvailable", { allMandatoryParamsAvailable, mandatoryParams, params });
+
     // primaryIdKey defaults to "id" until the datatable resolves — acceptable for the initial fetch.
     const primaryIdKey = useMemo(() => dataTable?.primary_keys?.[0] ?? "id", [dataTable]);
 

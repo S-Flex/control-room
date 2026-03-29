@@ -11,16 +11,14 @@ export async function fetchDatatable(
     });
 }
 
-export async function fetchDataGroups(src: string): Promise<ApiResult<DataGroup[]>> {
-    const dd = await (fetchDataRow('get_data_group', [{ key: 'data_group', val: src }]) as Promise<ApiResult<[{ data_group_json: string; }]>>);
-
-    console.log('fetchDataGroups', { src, dd });
+export async function fetchDataGroups(src: string) {
+    const dd = await fetchDataRow<{ get_data_group: DataGroup[]; }>('get_data_group', [{ key: 'data_group', val: src }]);
 
     if (!dd.ok) return dd;
 
     return {
-        ok: true,
-        data: JSON.parse(dd.data[0].data_group_json) as DataGroup[],
+        ok: true as const,
+        data: dd.data[0].get_data_group,
     };
 }
 

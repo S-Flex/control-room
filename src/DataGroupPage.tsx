@@ -60,9 +60,7 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
 
 export function DataGroupPage() {
   const { data: dataGroups, isLoading, error } = useDataGroups(DATA_GROUP_NAME);
-
-  console.log('DataGroupPage render', { dataGroups, isLoading, error });
-
+  
   return (
     <div style={{ padding: 32, color: '#e0e0e0' }}>
       <h1>DataGroup Debug — {DATA_GROUP_NAME}</h1>

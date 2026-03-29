@@ -36,7 +36,7 @@ const OverrideParamsProviderComponent: React.FC<OverrideParamsProviderProps> = (
 
         return Array.from(paramMap.values());
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [...parentParams.map(v => v.val), ...params.map(v => v.val)]);
+    }, [JSON.stringify(parentParams), JSON.stringify(params)]);
 
     return (
         <OverrideParamsContext.Provider value={mergedParams}>
@@ -87,5 +87,5 @@ export const useOverrideParams = (filter?: ParamDefinition[] | string[]) => {
         // 2.3 Filter params by allowed keys.
         return params.filter((param) => allowedKeys.has(param.key));
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params, ...(filter?.map(f => typeof f === 'string' ? f : f.key).sort() || [])]);
+    }, [params, filter?.map(f => typeof f === 'string' ? f : f.key).sort().join(',')]);
 };
