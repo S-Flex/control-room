@@ -12,7 +12,13 @@
     "code": "resource.oee",
     "path": "(sidebar:oee)",
     "block": {
-      "title": "OEE"
+      "title": "Analytics",
+      "i18n": {
+        "en": { "title": "Analytics" },
+        "nl": { "title": "Analyse" },
+        "de": { "title": "Analytik" },
+        "uk": { "title": "Аналітика" }
+      }
     },
     "hidden_when": {
       "key": "type",
@@ -224,22 +230,22 @@
     }
   },
   {
-    "code": "resource.blocked-jobs",
-    "path": "(sidebar:blocked-jobs)",
+    "code": "resource.queued-jobs",
+    "path": "(sidebar:queued-jobs)",
     "block": {
-      "title": "Blocked jobs",
+      "title": "Queued jobs",
       "i18n": {
         "en": {
-          "title": "Blocked jobs"
+          "title": "Queued jobs"
         },
         "nl": {
-          "title": "Geblokkeerde jobs"
+          "title": "Wachtrij"
         },
         "de": {
-          "title": "Blockierte Aufträge"
+          "title": "Warteschlange"
         },
         "uk": {
-          "title": "Заблоковані завдання"
+          "title": "Черга"
         }
       }
     },

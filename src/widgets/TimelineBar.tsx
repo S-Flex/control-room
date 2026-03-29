@@ -7,6 +7,7 @@ export type TimelineBarConfig = {
   offset_field: string;
   duration_field: string;
   color_field: string;
+  title_field?: string;
   group_field?: string;
 };
 
@@ -65,6 +66,7 @@ function getTotalSeconds(segments: Segment[]): number {
 type TimelineSvgOptions = {
   segments: Segment[];
   totalSeconds: number;
+  startHour: number;
   barHeight: number;
   svgWidth: number;
   svgHeight: number;
@@ -75,7 +77,7 @@ type TimelineSvgOptions = {
 };
 
 function renderTimelineSvg({
-  segments, totalSeconds, barHeight, svgWidth, svgHeight, fontSize,
+  segments, totalSeconds, startHour, barHeight, svgWidth, svgHeight, fontSize,
   interactive = false, onSegHover, onSegLeave,
 }: TimelineSvgOptions) {
   const totalHours = totalSeconds / 3600;
@@ -90,11 +92,12 @@ function renderTimelineSvg({
       {Array.from({ length: Math.floor(totalHours) + 1 }, (_, i) => {
         const hourSec = i * 3600;
         const x = (hourSec / totalSeconds) * svgWidth;
+        const h = (startHour + i) % 24;
         return (
           <g key={i}>
             <line x1={x} y1={barHeight} x2={x} y2={barHeight + 4} stroke="var(--text-muted)" strokeWidth="0.5" />
             <text x={x} y={barHeight + fontSize + 6} fill="var(--text-muted)" fontSize={fontSize} textAnchor="middle">
-              {i}:00
+              {h}:00
             </text>
           </g>
         );
@@ -125,15 +128,19 @@ function renderTimelineSvg({
 function SingleTimelineBar({
   segments,
   totalSeconds,
+  startHour,
   label,
-  onHoverStart,
-  onHoverEnd,
+  titleField,
+  isEnlarged,
+  onClick,
 }: {
   segments: Segment[];
   totalSeconds: number;
+  startHour: number;
   label?: string;
-  onHoverStart?: (e: React.MouseEvent) => void;
-  onHoverEnd?: () => void;
+  titleField?: string;
+  isEnlarged?: boolean;
+  onClick?: () => void;
 }) {
   const [hover, setHover] = useState<{ seg: Segment; x: number; y: number } | null>(null);
 
@@ -141,13 +148,12 @@ function SingleTimelineBar({
 
   return (
     <div
-      className="timeline-bar-wrap"
-      onMouseEnter={onHoverStart}
-      onMouseLeave={e => { setHover(null); onHoverEnd?.(); }}
+      className={`timeline-bar-wrap${isEnlarged ? ' enlarged' : ''}`}
+      onClick={onClick}
     >
       {label && <div className="timeline-bar-label">{label}</div>}
       {renderTimelineSvg({
-        segments, totalSeconds,
+        segments, totalSeconds, startHour,
         barHeight: 28, svgWidth: 600, svgHeight: 48, fontSize: 8,
         interactive: true,
         onSegHover: (seg, x, y) => setHover({ seg, x, y }),
@@ -156,7 +162,7 @@ function SingleTimelineBar({
       {hover && (
         <div className="timeline-bar-tooltip" style={{ left: hover.x + 12, top: hover.y - 10 }}>
           <div className="timeline-bar-tooltip-color" style={{ color: hover.seg.color }}>
-            {String(resolve(hover.seg.row, 'state.block.title') ?? resolve(hover.seg.row, 'state.code') ?? '')}
+            {String(resolve(hover.seg.row, titleField) ?? '')}
           </div>
           <div className="timeline-bar-tooltip-dur">
             {Math.round(hover.seg.duration / 60)} min
@@ -173,11 +179,15 @@ function SingleTimelineBar({
 function EnlargedTimelineOverlay({
   segments,
   totalSeconds,
+  startHour,
   label,
+  onClose,
 }: {
   segments: Segment[];
   totalSeconds: number;
+  startHour: number;
   label?: string;
+  onClose: () => void;
 }) {
   const [container, setContainer] = useState<Element | null>(null);
 
@@ -189,9 +199,16 @@ function EnlargedTimelineOverlay({
 
   return createPortal(
     <div className="timeline-overlay">
-      {label && <div className="timeline-overlay-label">{label}</div>}
+      <div className="timeline-overlay-header">
+        {label && <div className="timeline-overlay-label">{label}</div>}
+        <button className="timeline-overlay-close" onClick={onClose} title="Close">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+            <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        </button>
+      </div>
       {renderTimelineSvg({
-        segments, totalSeconds,
+        segments, totalSeconds, startHour,
         barHeight: 48, svgWidth: 1200, svgHeight: 80, fontSize: 11,
       })}
     </div>,
@@ -204,19 +221,37 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
 
   if (!data || data.length === 0) return null;
 
+  // Derive startHour from the earliest start_at in the data
+  let startHour = 0;
+  for (const row of data) {
+    const startAt = row.start_at as string | undefined;
+    if (startAt) {
+      const d = new Date(startAt);
+      if (!isNaN(d.getTime())) {
+        startHour = d.getHours();
+        break;
+      }
+    }
+  }
+
   // Group data by group_field if specified
   const groupField = widgetConfig.group_field;
   const groups: { key: string; label: string; rows: JSONRecord[] }[] = [];
 
+  const titleField = widgetConfig.title_field;
+
   if (groupField) {
-    const map = new Map<string, JSONRecord[]>();
+    const map = new Map<string, { rows: JSONRecord[]; label: string }>();
     for (const row of data) {
       const val = String(resolve(row, groupField) ?? 'unknown');
-      if (!map.has(val)) map.set(val, []);
-      map.get(val)!.push(row);
+      if (!map.has(val)) {
+        const label = titleField ? String(resolve(row, titleField) ?? val) : val;
+        map.set(val, { rows: [], label });
+      }
+      map.get(val)!.rows.push(row);
     }
-    for (const [key, rows] of map) {
-      groups.push({ key, label: key, rows });
+    for (const [key, { rows, label }] of map) {
+      groups.push({ key, label, rows });
     }
   } else {
     groups.push({ key: '_all', label: '', rows: data });
@@ -242,16 +277,20 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
           key={g.key}
           segments={g.segments}
           totalSeconds={globalTotalSeconds}
+          startHour={startHour}
           label={groups.length > 1 ? g.label : undefined}
-          onHoverStart={() => setEnlargedGroup(g.key)}
-          onHoverEnd={() => setEnlargedGroup(null)}
+          titleField={titleField}
+          isEnlarged={enlargedGroup === g.key}
+          onClick={() => setEnlargedGroup(prev => prev === g.key ? null : g.key)}
         />
       ))}
       {enlarged && enlarged.segments.length > 0 && (
         <EnlargedTimelineOverlay
           segments={enlarged.segments}
           totalSeconds={globalTotalSeconds}
+          startHour={startHour}
           label={enlarged.label}
+          onClose={() => setEnlargedGroup(null)}
         />
       )}
     </div>

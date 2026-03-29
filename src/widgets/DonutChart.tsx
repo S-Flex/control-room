@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { JSONRecord, JSONValue } from 'xfw-data';
 import { getBlock } from 'xfw-get-block';
 import { resolve } from './resolve';
@@ -9,6 +10,7 @@ export type DonutChartConfig = {
   aggregate_field: string;
   aggregate_fn?: string;
   show_legend?: boolean;
+  filter_field?: string;
 };
 
 function groupKey(groupObj: JSONValue): string {
@@ -52,12 +54,9 @@ function formatDuration(seconds: number): string {
   return `${m}m`;
 }
 
-export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartConfig; data: JSONRecord[] }) {
-  if (!data || data.length === 0) return null;
-
+function buildGroups(data: JSONRecord[], widgetConfig: DonutChartConfig): Group[] {
   const fn = widgetConfig.aggregate_fn ?? 'sum';
 
-  // Group rows by group_field
   const buckets = new Map<string, AggBucket>();
   for (const row of data) {
     const groupObj = resolve(row, widgetConfig.group_field);
@@ -75,7 +74,6 @@ export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartCon
     buckets.get(code)!.values.push(val);
   }
 
-  // Aggregate each bucket
   const groups: Group[] = [];
   let total = 0;
   for (const bucket of buckets.values()) {
@@ -86,15 +84,15 @@ export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartCon
     }
   }
 
-  if (total <= 0) return null;
-
-  for (const g of groups) {
-    g.pct = Math.round((g.value / total) * 100);
+  if (total > 0) {
+    for (const g of groups) g.pct = Math.round((g.value / total) * 100);
   }
 
-  // Sort by value descending
   groups.sort((a, b) => b.value - a.value);
+  return groups;
+}
 
+function DonutRing({ groups }: { groups: Group[] }) {
   const size = 200;
   const cx = size / 2;
   const cy = size / 2;
@@ -102,45 +100,111 @@ export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartCon
   const stroke = 22;
   const circumference = 2 * Math.PI * r;
   let offset = 0;
-
   const producingGroup = groups.find(g => g.key === 'producing');
 
   return (
+    <div className="donut-chart-ring">
+      <svg width="100%" viewBox={`0 0 ${size} ${size}`}>
+        <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--bar-bg)" strokeWidth={stroke} />
+        {groups.map(g => {
+          const dash = (g.pct / 100) * circumference;
+          const gap = circumference - dash;
+          const el = (
+            <circle
+              key={g.key}
+              cx={cx}
+              cy={cy}
+              r={r}
+              fill="none"
+              stroke={g.color}
+              strokeWidth={stroke}
+              strokeDasharray={`${dash} ${gap}`}
+              strokeDashoffset={-offset}
+              strokeLinecap="round"
+              transform={`rotate(-90 ${cx} ${cy})`}
+              style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }}
+            />
+          );
+          offset += dash;
+          return el;
+        })}
+        <text x={cx} y={cy - 6} textAnchor="middle" fill="var(--text-primary)" fontSize="28" fontWeight="800">
+          {producingGroup?.pct ?? 0}%
+        </text>
+        <text x={cx} y={cy + 14} textAnchor="middle" fill="var(--text-muted)" fontSize="11" fontWeight="500">
+          OEE
+        </text>
+      </svg>
+    </div>
+  );
+}
+
+export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartConfig; data: JSONRecord[] }) {
+  // Build filter options from filter_field
+  const filterField = widgetConfig.filter_field;
+  const filterOptions: { key: string; label: string }[] = [];
+  if (filterField && data) {
+    const seen = new Set<string>();
+    for (const row of data) {
+      const val = String(resolve(row, filterField) ?? '');
+      if (val && !seen.has(val)) {
+        seen.add(val);
+        filterOptions.push({ key: val, label: val });
+      }
+    }
+  }
+
+  // All selected by default
+  const [activeFilters, setActiveFilters] = useState<Set<string>>(() => new Set(filterOptions.map(o => o.key)));
+
+  // Sync filter options when data changes (new keys appear)
+  const currentKeys = filterOptions.map(o => o.key).sort().join(',');
+  const [prevKeys, setPrevKeys] = useState(currentKeys);
+  if (currentKeys !== prevKeys) {
+    setPrevKeys(currentKeys);
+    setActiveFilters(new Set(filterOptions.map(o => o.key)));
+  }
+
+  const toggleFilter = (key: string) => {
+    setActiveFilters(prev => {
+      const next = new Set(prev);
+      if (next.has(key)) {
+        // Don't allow deselecting the last one
+        if (next.size <= 1) return prev;
+        next.delete(key);
+      } else {
+        next.add(key);
+      }
+      return next;
+    });
+  };
+
+  if (!data || data.length === 0) return null;
+
+  // Apply filter
+  const filteredData = filterField
+    ? data.filter(row => activeFilters.has(String(resolve(row, filterField) ?? '')))
+    : data;
+
+  const groups = buildGroups(filteredData, widgetConfig);
+  if (groups.length === 0) return null;
+
+  return (
     <div className="donut-chart-wrap">
-      <div className="donut-chart-ring">
-        <svg width="100%" viewBox={`0 0 ${size} ${size}`}>
-          {/* Background ring */}
-          <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--bar-bg)" strokeWidth={stroke} />
-          {groups.map(g => {
-            const dash = (g.pct / 100) * circumference;
-            const gap = circumference - dash;
-            const el = (
-              <circle
-                key={g.key}
-                cx={cx}
-                cy={cy}
-                r={r}
-                fill="none"
-                stroke={g.color}
-                strokeWidth={stroke}
-                strokeDasharray={`${dash} ${gap}`}
-                strokeDashoffset={-offset}
-                strokeLinecap="round"
-                transform={`rotate(-90 ${cx} ${cy})`}
-                style={{ filter: 'drop-shadow(0 1px 2px rgba(0,0,0,0.15))' }}
-              />
-            );
-            offset += dash;
-            return el;
-          })}
-          <text x={cx} y={cy - 6} textAnchor="middle" fill="var(--text-primary)" fontSize="28" fontWeight="800">
-            {producingGroup?.pct ?? 0}%
-          </text>
-          <text x={cx} y={cy + 14} textAnchor="middle" fill="var(--text-muted)" fontSize="11" fontWeight="500">
-            OEE
-          </text>
-        </svg>
-      </div>
+      {filterOptions.length > 1 && (
+        <div className="donut-filter-tabstrip">
+          {filterOptions.map(o => (
+            <button
+              key={o.key}
+              className={`donut-filter-tab${activeFilters.has(o.key) ? ' active' : ''}`}
+              onClick={() => toggleFilter(o.key)}
+            >
+              {o.label}
+            </button>
+          ))}
+        </div>
+      )}
+      <DonutRing groups={groups} />
       {widgetConfig.show_legend !== false && (
         <div className="donut-chart-legend">
           {groups.map(g => (

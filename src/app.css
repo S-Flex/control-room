@@ -1806,12 +1806,39 @@ body {
   flex-direction: column;
   gap: 12px;
 }
+.sidebar-data-group {
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.sidebar-data-group:first-child {
+  border-top: none;
+  padding-top: 0;
+}
 .sidebar-section-title {
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 8px;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.1s;
+}
+.sidebar-section-title:hover {
+  color: var(--text-primary);
+}
+.sidebar-collapse-icon {
+  transition: transform 0.15s;
+  flex-shrink: 0;
+}
+.sidebar-collapse-icon.collapsed {
+  transform: rotate(-90deg);
 }
 .sidebar-data-rows {
   display: flex;
@@ -1848,10 +1875,6 @@ body {
 }
 
 /* ---- Timeline Bar Widget ---- */
-.timeline-bar-wrap {
-  position: relative;
-  width: 100%;
-}
 .timeline-bar-svg {
   display: block;
   width: 100%;
@@ -1896,12 +1919,27 @@ body {
   width: 100%;
 }
 .timeline-bar-label {
-  font-size: 11px;
-  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
   margin-bottom: 2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.timeline-bar-wrap {
+  position: relative;
+  width: 100%;
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  padding: 4px 6px;
+  transition: background 0.15s;
+}
+.timeline-bar-wrap:hover {
+  background: var(--bar-bg);
+}
+.timeline-bar-wrap.enlarged {
+  background: var(--bar-bg);
 }
 .timeline-overlay {
   position: absolute;
@@ -1915,13 +1953,34 @@ body {
   border-radius: var(--radius-md);
   padding: 16px 24px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  pointer-events: none;
+}
+.timeline-overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
 }
 .timeline-overlay-label {
   font-size: 14px;
   font-weight: 600;
-  margin-bottom: 8px;
   color: var(--text);
+}
+.timeline-overlay-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  transition: background 0.1s, color 0.1s;
+}
+.timeline-overlay-close:hover {
+  background: var(--bar-bg);
+  color: var(--text-primary);
 }
 
 /* ---- Donut Chart Widget ---- */
@@ -1984,6 +2043,45 @@ body {
   color: var(--text-primary);
   min-width: 36px;
   text-align: right;
+}
+
+/* ---- Donut Filter Tabstrip ---- */
+.donut-filter-tabstrip {
+  display: flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 8px;
+}
+.donut-filter-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  height: 36px;
+  padding: 0 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.donut-filter-tab + .donut-filter-tab {
+  border-left: 1px solid var(--border);
+}
+.donut-filter-tab:hover {
+  background: var(--bar-bg);
+  color: var(--text-secondary);
+}
+.donut-filter-tab.active {
+  background: var(--brand-pale);
+  color: var(--brand);
 }
 
 /* ---- Ink Gauge Widget ---- */

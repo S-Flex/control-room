@@ -5,6 +5,7 @@ Create a TimeLineBar, DonutChart and InkGauge component in the widgets directory
 
 ```json
 "widget_config": {
+    "title_field": "name",
     "group_field": "resource_uid",
     "offset_field":   "offset_seconds",
     "duration_field": "duration_seconds",
@@ -26,6 +27,7 @@ Remove the code for the timeline from the ProductionLinesPage.tsx
 
 ```json
 "widget_config": {
+    "filter_field": "type",
     "group_field":       "state,code",
     "code_field":        "state.code",
     "color_field":       "state.color",

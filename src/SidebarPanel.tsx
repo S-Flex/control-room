@@ -1,12 +1,18 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from 'xfw-data';
+import { getBlock } from 'xfw-get-block';
 import { TimelineBar, type TimelineBarConfig } from './widgets/TimelineBar';
 import { DonutChart, type DonutChartConfig } from './widgets/DonutChart';
 import { InkGauge, type InkGaugeConfig } from './widgets/InkGauge';
 
+type SidebarDataGroupEntry = {
+  code: string;
+  block: { title: string; i18n?: Record<string, { title: string }> };
+};
+
 type SidebarConfig = {
   code: string;
-  data_groups: string[];
+  data_groups: SidebarDataGroupEntry[];
 };
 
 function FallbackDataRows({ data }: { data: JSONRecord[] }) {
@@ -41,16 +47,17 @@ function WidgetRenderer({ layout, widgetConfig, data }: { layout: string; widget
   }
 }
 
-function SidebarDataGroup({ dataGroupName }: { dataGroupName: string }) {
-  const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(dataGroupName);
+function SidebarDataGroup({ entry }: { entry: SidebarDataGroupEntry }) {
+  const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(entry.code);
   const dataGroup = dataGroups?.[0];
 
   if (isLoadingGroups || !dataGroup) return <p className="sidebar-loading">Loading...</p>;
 
-  return <SidebarDataGroupContent dataGroup={dataGroup} dataGroupName={dataGroupName} />;
+  return <SidebarDataGroupContent dataGroup={dataGroup} entry={entry} />;
 }
 
-function SidebarDataGroupContent({ dataGroup, dataGroupName }: { dataGroup: DataGroup; dataGroupName: string }) {
+function SidebarDataGroupContent({ dataGroup, entry }: { dataGroup: DataGroup; entry: SidebarDataGroupEntry }) {
+  const [collapsed, setCollapsed] = useState(false);
   const {
     dataTable,
     dataRows,
@@ -65,16 +72,24 @@ function SidebarDataGroupContent({ dataGroup, dataGroupName }: { dataGroup: Data
   const layout = dataGroup.layout ?? '';
   const dg = dataGroup as Record<string, unknown>;
   const widgetConfig = dg.widget_config as Record<string, unknown> | undefined;
+  const sectionTitle = getBlock([entry], entry.code, 'title');
 
   return (
     <div className="sidebar-data-group">
-      {dataGroup.title?.text && (
-        <div className="sidebar-section-title">{dataGroup.title.text}</div>
+      {sectionTitle && (
+        <button className="sidebar-section-title" onClick={() => setCollapsed(c => !c)}>
+          <svg className={`sidebar-collapse-icon${collapsed ? ' collapsed' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          {sectionTitle}
+        </button>
       )}
-      {widgetConfig ? (
-        <WidgetRenderer layout={layout} widgetConfig={widgetConfig} data={dataRows} />
-      ) : (
-        <FallbackDataRows data={dataRows} />
+      {!collapsed && (
+        widgetConfig ? (
+          <WidgetRenderer layout={layout} widgetConfig={widgetConfig} data={dataRows} />
+        ) : (
+          <FallbackDataRows data={dataRows} />
+        )
       )}
     </div>
   );
@@ -133,8 +148,8 @@ export function SidebarPanel({ code, title, onClose }: {
       </div>
       <div className="sidebar-body">
         {!config && <p className="sidebar-loading">Loading...</p>}
-        {config?.data_groups.map(name => (
-          <SidebarDataGroup key={name} dataGroupName={name} />
+        {config?.data_groups.map(entry => (
+          <SidebarDataGroup key={entry.code} entry={entry} />
         ))}
       </div>
     </div>

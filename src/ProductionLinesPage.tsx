@@ -241,12 +241,12 @@ export function ProductionLinesPage() {
     { key: 'model', is_query_param: true },
     { key: 'from', is_query_param: true },
     { key: 'until', is_query_param: true },
-    { key: 'selected', is_query_param: true },
+    { key: 'resource_uids', is_query_param: true },
   ]);
   const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
   const urlFrom = urlParams.find(p => p.key === 'from')?.val as string | undefined;
   const urlUntil = urlParams.find(p => p.key === 'until')?.val as string | undefined;
-  const urlSelectedVal = urlParams.find(p => p.key === 'selected')?.val;
+  const urlResourceUids = urlParams.find(p => p.key === 'resource_uids')?.val as string[] | null;
 
   // Build a 06:00 ISO string for a given YYYY-MM-DD date
   const buildFromIso = useCallback((date: string) => {
@@ -389,6 +389,8 @@ export function ProductionLinesPage() {
   const stateMapRef = useRef<Map<string, ResourceStateEntry>>(new Map());
   const navigateRef = useRef(navigate);
   navigateRef.current = navigate;
+  const overviewMapRef = useRef(overviewMap);
+  overviewMapRef.current = overviewMap;
   const dismissPopoverRef = useRef<(() => void) | null>(null);
   const popoverOpenRef = useRef(false);
   const ctrlKeyRef = useRef(false);
@@ -399,40 +401,61 @@ export function ProductionLinesPage() {
     window.addEventListener('keyup', up);
     return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
   }, []);
-  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(() => {
-    if (typeof urlSelectedVal === 'string' && urlSelectedVal) {
-      return new Set(urlSelectedVal.split(';').filter(Boolean));
+  // Resolve resource_uids from URL back to layout_names for selection
+  const resolveLayoutNamesFromUids = useCallback((uids: string[]): Set<string> => {
+    const uidSet = new Set(uids);
+    const names = new Set<string>();
+    for (const [layoutName, row] of overviewMap) {
+      if (row.resource_uid && uidSet.has(row.resource_uid)) {
+        names.add(layoutName);
+      }
     }
-    return new Set();
-  });
+    return names;
+  }, [overviewMap]);
+
+  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
   const hadActiveRef = useRef(false);
   const [showCapacity, setShowCapacity] = useState(false);
 
-  // React to URL changes for selected param (browser back/forward, manual edit)
+  // React to URL changes for resource_uids param
   useEffect(() => {
-    const newSelected = typeof urlSelectedVal === 'string' && urlSelectedVal
-      ? new Set(urlSelectedVal.split(';').filter(Boolean))
-      : new Set<string>();
-    setSelectedKeys(prev => {
-      if (prev.size === newSelected.size && [...prev].every(k => newSelected.has(k))) return prev;
-      return newSelected;
-    });
-  }, [urlSelectedVal]);
+    if (Array.isArray(urlResourceUids) && urlResourceUids.length > 0 && overviewMap.size > 0) {
+      const newSelected = resolveLayoutNamesFromUids(urlResourceUids);
+      setSelectedKeys(prev => {
+        if (prev.size === newSelected.size && [...prev].every(k => newSelected.has(k))) return prev;
+        return newSelected;
+      });
+    } else if (!urlResourceUids || (Array.isArray(urlResourceUids) && urlResourceUids.length === 0)) {
+      setSelectedKeys(prev => prev.size === 0 ? prev : new Set());
+    }
+  }, [urlResourceUids, resolveLayoutNamesFromUids]);
 
-  // Sync model, from, until, and selection to URL
+  // Build resource_uids from selectedKeys via overviewMap
+  const selectedResourceUids = useMemo(() => {
+    const uids: string[] = [];
+    for (const layoutName of selectedKeys) {
+      const uid = overviewMap.get(layoutName)?.resource_uid;
+      if (uid) uids.push(uid);
+    }
+    return uids;
+  }, [selectedKeys, overviewMap]);
+
+  // Sync model, from, until, and resource_uids to URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
     params.set('from', from);
     params.set('until', until);
-    if (selectedKeys.size > 0) {
-      params.set('selected', [...selectedKeys].join(';'));
+    params.delete('selected');
+    params.delete('resource');
+    if (selectedResourceUids.length > 0) {
+      params.set('resource_uids', JSON.stringify(selectedResourceUids));
     } else {
-      params.delete('selected');
+      params.delete('resource_uids');
     }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, from, until, selectedKeys]);
+  }, [activeLineId, from, until, selectedResourceUids]);
 
   // React to model query param changes
   useEffect(() => {
@@ -576,11 +599,14 @@ export function ProductionLinesPage() {
       }
     }
 
-    // Set resource in query param (sidebar not opened yet — user picks from menu)
-    navigateRef.current({
-      queryParams: [{ key: 'resource', val: res.layout_name }],
-    });
-  }, [selectedKeys.size]);
+    // Set resource_uids in query param
+    const uid = overviewMap.get(res.layout_name)?.resource_uid;
+    if (uid) {
+      navigateRef.current({
+        queryParams: [{ key: 'resource_uids', val: JSON.stringify([uid]) }],
+      });
+    }
+  }, [selectedKeys.size, overviewMap]);
 
   // renderPopover: shows the context menu at the clicked resource
   const menuItemsRef = useRef(menuItems);
@@ -606,8 +632,9 @@ export function ProductionLinesPage() {
     });
 
     const openMenuItem = (path: string) => {
+      const uid = overviewMapRef.current.get(res.layout_name)?.resource_uid;
       navigateRef.current({
-        queryParams: [{ key: 'resource', val: res.layout_name }],
+        queryParams: uid ? [{ key: 'resource_uids', val: JSON.stringify([uid]) }] : [],
         partialPath: path,
       });
       dismissPopoverRef.current?.();
