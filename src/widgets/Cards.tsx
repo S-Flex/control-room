@@ -52,7 +52,7 @@ function cardBackground(hex: string): string {
   const r = parseInt(hex.slice(1, 3), 16);
   const g = parseInt(hex.slice(3, 5), 16);
   // Warm colors (red/orange/yellow) get higher opacity for vibrancy
-  if (r > 200 && g < 80) return hexToRgba(hex, 0.30);   // reds
+  if (r > 200 && g < 80) return hexToRgba(hex, 0.48);   // reds
   if (r > 200 && g < 180) return hexToRgba(hex, 0.48);  // oranges/yellows
   return hexToRgba(hex, 0.20);                           // greens, blues, etc.
 }
@@ -102,7 +102,10 @@ export function Cards({ dataGroup, data }: { dataGroup: DataGroup; data: JSONRec
   const fieldConfig = dataGroup.field_config;
 
   const fields = fieldConfig
-    ? sortFields(Object.keys(fieldConfig).filter(k => !fieldConfig[k]?.ui?.hidden), fieldConfig)
+    ? sortFields(Object.keys(fieldConfig).filter(k => {
+        const ui = fieldConfig[k]?.ui;
+        return !ui?.hidden && ui?.field_type !== 'hidden' && !ui?.table?.hidden;
+      }), fieldConfig)
     : Object.keys(data[0]);
 
   return (
