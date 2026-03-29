@@ -1,9 +1,10 @@
 import { useMemo } from "react";
-import type { DataGroup, JSONRecord, ParamValue } from "../types";
+import type { DataGroup, JSONRecord, ParamDefinition, ParamValue } from "../types";
 import { useDataRows } from "./use-datarows";
 import { useDatatable } from "./use-datatable";
+import { useQueryParams } from "xfw-url";
 
-export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: ParamValue[]) => {
+export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: ParamDefinition[]) => {
     // Handle single or multiple sources
     const sources = useMemo(() => {
         return Array.isArray(dataGroup.src) ? dataGroup.src : [dataGroup.src];
@@ -26,6 +27,37 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
         error: errorMetaDataTable,
     } = useDatatable(metaSrc || "");
 
+    console.log("useDataGeneric", dataGroup, params);
+
+    // Read URL query params for dataTable params marked is_query_param
+    const queryParamConfig = useMemo(
+        () => dataTable?.params
+            ?.filter(p => p.is_query_param)
+            .map(p => ({ key: p.key, isQueryParam: true as const })) ?? [],
+        [dataTable]
+    );
+    const urlParams = useQueryParams(queryParamConfig);
+
+    console.log("useDataGeneric - urlParams:", urlParams);
+
+    // Resolve params: URL query param values override defaults
+    const mergedParams = useMemo<ParamValue[]>(() => {
+        const urlMap = new Map(urlParams.map(p => [p.key, p.val]));
+        const merged: ParamValue[] = params.map(p => ({
+            key: p.key,
+            val: urlMap.has(p.key) && urlMap.get(p.key) != null
+                ? urlMap.get(p.key)!
+                : (p.default_value ?? p.val ?? null),
+        }));
+        // Add URL params not already in the list
+        for (const { key, val } of urlParams) {
+            if (val != null && !merged.some(p => p.key === key)) {
+                merged.push({ key, val });
+            }
+        }
+        return merged;
+    }, [params, urlParams]);
+
     // Check for mandatory params availability
     const mandatoryParams = useMemo(
         () => dataTable?.params?.filter(p => !p.is_ident_only && !p.is_optional) ?? [],
@@ -33,9 +65,9 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
     );
     const allMandatoryParamsAvailable = useMemo(() => {
         return mandatoryParams.every(mp =>
-            params.some(p => p.key === mp.key && p.val !== undefined && p.val !== null)
+            mergedParams.some(p => p.key === mp.key && p.val !== undefined && p.val !== null)
         );
-    }, [mandatoryParams, params]);
+    }, [mandatoryParams, mergedParams]);
 
     const primaryIdKey = useMemo(
         () => dataTable?.primary_keys?.[0] ?? "id",
@@ -44,7 +76,7 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
 
     // Fetch data rows (disabled until datatable is loaded and all mandatory params are available)
     const { data, isLoading, error, refetch, isInitialLoading, setLocalData, mutate, dataUpdatedAt } =
-        useDataRows<T>(primarySrc, params, {
+        useDataRows<T>(primarySrc, mergedParams, {
             enabled: !!dataTable && allMandatoryParamsAvailable,
         }, primaryIdKey);
 
@@ -53,7 +85,7 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
         data: metaData,
         isLoading: isLoadingMeta,
         error: errorMeta,
-    } = useDataRows(metaSrc || "", params, {
+    } = useDataRows(metaSrc || "", mergedParams, {
         enabled: !!metaSrc && !!metaDataTable && allMandatoryParamsAvailable,
     });
 
@@ -70,7 +102,7 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup, params: Par
         isLoading: totalIsLoading,
         isInitialLoading: totalIsInitialLoading,
         error: totalError,
-        params,
+        params: mergedParams,
         refetchDataRows: refetch,
         setLocalData,
         mutate,

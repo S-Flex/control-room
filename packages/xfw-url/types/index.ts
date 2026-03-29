@@ -13,11 +13,11 @@ export type JSONRecord = { [key: string]: JSONValue; };
 
 export type ParamDefinition = {
     key: string;
-    isOptional?: boolean;
-    isQueryParam?: boolean;
+    is_optional?: boolean;
+    is_query_param?: boolean;
     /** When value is not used for a query, but is an output of identities (e.g. when a list lets you select an item, it outputs to query params) */
-    isIdentOnly?: boolean;
-    defaultValue?: JSONValue;
+    is_ident_only?: boolean;
+    default_value?: JSONValue;
     /** @deprecated default value for a param */
     val?: JSONValue;
 };

@@ -5,6 +5,7 @@ Create a TimeLineBar, DonutChart and InkGauge component in the widgets directory
 
 ```json
 "widget_config": {
+    "group_field": "resource_uid",
     "offset_field":   "offset_seconds",
     "duration_field": "duration_seconds",
     "color_field":    "state.color"

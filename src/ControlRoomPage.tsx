@@ -48,10 +48,10 @@ function buildStateMap(stateSets: StateSetData[]): Map<string, ResourceStateEntr
 export function ControlRoomPage() {
   const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
   const [lang, setLang] = useState(() => getLanguage());
-  const urlParams = useQueryParams([{ key: 'model', isQueryParam: true }]);
+  const urlParams = useQueryParams([{ key: 'model', is_query_param: true }]);
   const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
-  const { rowMap: overviewMap } = useProductionLineOverview(urlModel || 'sheet');
+  const { rowMap: overviewMap } = useProductionLineOverview();
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);

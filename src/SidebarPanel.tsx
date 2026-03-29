@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useDataGroups, useDataGeneric, type DataGroup, type ParamValue, type JSONRecord } from 'xfw-data';
+import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from 'xfw-data';
 import { TimelineBar, type TimelineBarConfig } from './widgets/TimelineBar';
 import { DonutChart, type DonutChartConfig } from './widgets/DonutChart';
 import { InkGauge, type InkGaugeConfig } from './widgets/InkGauge';
@@ -37,22 +37,20 @@ function WidgetRenderer({ layout, widgetConfig, data }: { layout: string; widget
   }
 }
 
-function SidebarDataGroup({ dataGroupName, queryParams }: { dataGroupName: string; queryParams: Record<string, string> }) {
+function SidebarDataGroup({ dataGroupName }: { dataGroupName: string }) {
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(dataGroupName);
   const dataGroup = dataGroups?.[0];
 
   if (isLoadingGroups || !dataGroup) return <p className="sidebar-loading">Loading...</p>;
 
-  return <SidebarDataGroupContent dataGroup={dataGroup} dataGroupName={dataGroupName} queryParams={queryParams} />;
+  return <SidebarDataGroupContent dataGroup={dataGroup} dataGroupName={dataGroupName} />;
 }
 
-function SidebarDataGroupContent({ dataGroup, dataGroupName, queryParams }: { dataGroup: DataGroup; dataGroupName: string; queryParams: Record<string, string> }) {
-  const params = useMemo<ParamValue[]>(() => {
-    return dataGroup.params.map(p => ({
-      key: p.key,
-      val: p.key in queryParams ? queryParams[p.key] : (p.default_value ?? p.val ?? null),
-    }));
-  }, [dataGroup.params, queryParams]);
+function SidebarDataGroupContent({ dataGroup, dataGroupName }: { dataGroup: DataGroup; dataGroupName: string }) {
+  const params = useMemo(
+    () => structuredClone(dataGroup.params),
+    [dataGroup.params]
+  );
 
   const {
     dataTable,
@@ -94,10 +92,9 @@ function SidebarDataGroupContent({ dataGroup, dataGroupName, queryParams }: { da
   );
 }
 
-export function SidebarPanel({ code, title, queryParams, onClose }: {
+export function SidebarPanel({ code, title, onClose }: {
   code: string;
   title: string;
-  queryParams: Record<string, string>;
   onClose: () => void;
 }) {
   const [sidebarConfigs, setSidebarConfigs] = useState<SidebarConfig[]>([]);
@@ -149,7 +146,7 @@ export function SidebarPanel({ code, title, queryParams, onClose }: {
       <div className="sidebar-body">
         {!config && <p className="sidebar-loading">Loading...</p>}
         {config?.data_groups.map(name => (
-          <SidebarDataGroup key={name} dataGroupName={name} queryParams={queryParams} />
+          <SidebarDataGroup key={name} dataGroupName={name} />
         ))}
       </div>
     </div>

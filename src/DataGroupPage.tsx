@@ -36,8 +36,6 @@ function DataGroupSection({ dataGroup, queryParams }: { dataGroup: DataGroup; qu
     return result;
   }, [dataGroup.params, queryParams]);
 
-  console.log('DataGroupSection params:', params);
-
   const {
     dataTable,
     dataRows,

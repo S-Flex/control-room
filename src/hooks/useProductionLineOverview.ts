@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useDataGroups, useDataGeneric, type ParamValue } from 'xfw-data';
+import { useDataGroups, useDataGeneric } from 'xfw-data';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 
@@ -18,24 +18,14 @@ export type OverviewRow = {
     duration_seconds?: number | null;
 };
 
-export function useProductionLineOverview(model: string, until?: string) {
+export function useProductionLineOverview() {
     const { data: dataGroups } = useDataGroups(DATA_GROUP_NAME);
     const dataGroup = dataGroups?.[0];
 
-    const params = useMemo<ParamValue[]>(() => {
-        if (!dataGroup) return [];
-        const qp: Record<string, string> = { model };
-        if (until) qp.until = until;
-        const result: ParamValue[] = dataGroup.params.map(p => ({
-            key: p.key,
-            val: p.key in qp ? qp[p.key] : (p.default_value ?? p.val ?? null),
-        }));
-        // Ensure model and until are always present
-        for (const [key, val] of Object.entries(qp)) {
-            if (!result.some(p => p.key === key)) result.push({ key, val });
-        }
-        return result;
-    }, [dataGroup, model, until]);
+    const params = useMemo(
+        () => dataGroup ? structuredClone(dataGroup.params) : [],
+        [dataGroup]
+    );
 
     const emptyDataGroup = useMemo(() => ({
         widget_id: '',

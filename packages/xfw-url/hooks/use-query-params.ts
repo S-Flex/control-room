@@ -25,11 +25,12 @@ const numberRegex = /^-?\d+(\.\d*)?$/;
 /** Provides values for the specified query parameters. */
 export const useQueryParams = (params: ParamDefinition[]): ParamValue[] => {
     // Get the keys of all query parameters to track
-    const toRetrieve = params.filter((p) => p.isQueryParam && !p.isIdentOnly).map((p) => p.key);
+    const toRetrieve = params.filter((p) => p.is_query_param && !p.is_ident_only).map((p) => p.key);
 
     // Helper to get the relevant param values
     const getRelevantParams = useCallback(() => {
         const searchParams = new URLSearchParams(window.location.search);
+
         return toRetrieve.map((key): ParamValue => {
             let val: JSONValue = searchParams.get(key);
 

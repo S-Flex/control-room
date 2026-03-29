@@ -238,13 +238,27 @@ export function ProductionLinesPage() {
 
   // Read query params from URL
   const urlParams = useQueryParams([
-    { key: 'model', isQueryParam: true },
-    { key: 'until', isQueryParam: true },
-    { key: 'selected', isQueryParam: true },
+    { key: 'model', is_query_param: true },
+    { key: 'from', is_query_param: true },
+    { key: 'until', is_query_param: true },
+    { key: 'selected', is_query_param: true },
   ]);
   const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
+  const urlFrom = urlParams.find(p => p.key === 'from')?.val as string | undefined;
   const urlUntil = urlParams.find(p => p.key === 'until')?.val as string | undefined;
   const urlSelectedVal = urlParams.find(p => p.key === 'selected')?.val;
+
+  // Build a 06:00 ISO string for a given YYYY-MM-DD date
+  const buildFromIso = useCallback((date: string) => {
+    return new Date(`${date}T06:00:00`).toISOString();
+  }, []);
+
+  // `from` is the committed "from" value sent to the API; `pendingFromDate` is staged in the UI
+  const [from, setFrom] = useState<string>(() => {
+    if (urlFrom) return urlFrom;
+    return buildFromIso(new Date().toISOString().slice(0, 10));
+  });
+  const [pendingFromDate, setPendingFromDate] = useState(() => from.slice(0, 10));
 
   // `until` is the committed value sent to the API; `pending*` is staged in the UI
   const [until, setUntil] = useState<string>(() => {
@@ -258,6 +272,14 @@ export function ProductionLinesPage() {
   });
   const [looping, setLooping] = useState(false);
   const loopRef = useRef(false);
+
+  // React to from query param changes
+  useEffect(() => {
+    if (urlFrom && urlFrom !== from) {
+      setFrom(urlFrom);
+      setPendingFromDate(urlFrom.slice(0, 10));
+    }
+  }, [urlFrom]);
 
   // React to until query param changes
   useEffect(() => {
@@ -299,8 +321,16 @@ export function ProductionLinesPage() {
 
   const handleRefresh = useCallback(() => {
     const clamped = Math.min(pendingSlot, sliderMax);
-    setUntil(buildUntilFromSlot(pendingDate, clamped));
-  }, [pendingDate, pendingSlot, sliderMax, buildUntilFromSlot]);
+    const untilIso = buildUntilFromSlot(pendingDate, clamped);
+    // Clamp from date: if it's after the until date, reset it to the until date
+    let fromDate = pendingFromDate;
+    if (fromDate > pendingDate) {
+      fromDate = pendingDate;
+      setPendingFromDate(pendingDate);
+    }
+    setFrom(buildFromIso(fromDate));
+    setUntil(untilIso);
+  }, [pendingFromDate, pendingDate, pendingSlot, sliderMax, buildFromIso, buildUntilFromSlot]);
 
   const handleDateChange = useCallback((date: string) => {
     setPendingDate(date);
@@ -343,7 +373,7 @@ export function ProductionLinesPage() {
   }, [looping, pendingSlot, pendingDate, sliderMax, buildUntilFromSlot]);
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
-  const { rowMap: overviewMap } = useProductionLineOverview(urlModel || 'sheet', until);
+  const { rowMap: overviewMap } = useProductionLineOverview();
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('model') || 'sheet';
@@ -389,10 +419,11 @@ export function ProductionLinesPage() {
     });
   }, [urlSelectedVal]);
 
-  // Sync model, until, and selection to URL
+  // Sync model, from, until, and selection to URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
+    params.set('from', from);
     params.set('until', until);
     if (selectedKeys.size > 0) {
       params.set('selected', [...selectedKeys].join(';'));
@@ -401,7 +432,7 @@ export function ProductionLinesPage() {
     }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, until, selectedKeys]);
+  }, [activeLineId, from, until, selectedKeys]);
 
   // React to model query param changes
   useEffect(() => {
@@ -648,6 +679,16 @@ export function ProductionLinesPage() {
         <header className="planning-header">
           <div className="planning-header-left">
             <div className="planning-until">
+              <label className="planning-until-label">From</label>
+              <input
+                type="date"
+                className="planning-until-input"
+                value={pendingFromDate}
+                max={pendingDate}
+                onChange={e => setPendingFromDate(e.target.value)}
+              />
+            </div>
+            <div className="planning-until">
               <label className="planning-until-label">Until</label>
               <input
                 type="date"
@@ -756,20 +797,16 @@ export function ProductionLinesPage() {
         </div>
       </div>{/* .planning-main */}
 
-      <ProductionLinesSidebar model={activeLineId} until={until} menuContent={menuContent} />
+      <ProductionLinesSidebar menuContent={menuContent} />
     </div>
   );
 }
 
-function ProductionLinesSidebar({ model, until, menuContent }: {
-  model: string;
-  until: string;
+function ProductionLinesSidebar({ menuContent }: {
   menuContent: Map<string, MenuContentEntry>;
 }) {
   const navigate = useNavigate();
   const sidebarOutlet = useAuxOutlet({ outlet: 'sidebar' });
-  const params = useQueryParams([{ key: 'resource', isQueryParam: true }]);
-  const resourceKey = params.find(p => p.key === 'resource')?.val as string | undefined;
 
   if (!sidebarOutlet) return null;
 
@@ -777,14 +814,10 @@ function ProductionLinesSidebar({ model, until, menuContent }: {
   const menuCode = 'resource.' + sidebarCode;
   const title = getBlock(menuContent, menuCode, 'title');
 
-  const queryParams: Record<string, string> = { model, until };
-  if (resourceKey) queryParams.resource = resourceKey;
-
   return (
     <SidebarPanel
       code={sidebarCode}
       title={title}
-      queryParams={queryParams}
       onClose={() => navigate('(sidebar:)')}
     />
   );
