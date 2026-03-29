@@ -1,9 +1,7 @@
 [
   {
     "code": "info",
-    "data_groups": [
-      { "code": "resource_info", "block": { "title": "Info" } }
-    ]
+    "data_groups": [{ "code": "resource_info", "block": { "title": "Info" } }]
   },
   {
     "code": "oee",
@@ -36,57 +34,154 @@
   },
   {
     "code": "tco",
-    "data_groups": [
-      { "code": "resource_tco", "block": { "title": "TCO" } }
-    ]
+    "data_groups": [{ "code": "resource_tco", "block": { "title": "TCO" } }]
   },
   {
     "code": "production",
     "data_groups": [
-      { "code": "resource_production", "block": { "title": "Production", "i18n": { "en": { "title": "Production" }, "nl": { "title": "Productie" }, "de": { "title": "Produktion" }, "uk": { "title": "Виробництво" } } } }
+      {
+        "code": "resource_production",
+        "block": {
+          "title": "Production",
+          "i18n": {
+            "en": { "title": "Production" },
+            "nl": { "title": "Productie" },
+            "de": { "title": "Produktion" },
+            "uk": { "title": "Виробництво" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "ink-heads",
     "data_groups": [
-      { "code": "resource_ink", "block": { "title": "Ink", "i18n": { "en": { "title": "Ink" }, "nl": { "title": "Inkt" }, "de": { "title": "Tinte" }, "uk": { "title": "Чорнила" } } } },
-      { "code": "resource_ink_heads", "block": { "title": "Heads", "i18n": { "en": { "title": "Heads" }, "nl": { "title": "Koppen" }, "de": { "title": "Köpfe" }, "uk": { "title": "Головки" } } } }
+      {
+        "code": "resource_ink",
+        "block": {
+          "title": "Ink",
+          "i18n": {
+            "en": { "title": "Ink" },
+            "nl": { "title": "Inkt" },
+            "de": { "title": "Tinte" },
+            "uk": { "title": "Чорнила" }
+          }
+        }
+      },
+      {
+        "code": "resource_ink_heads",
+        "block": {
+          "title": "Heads",
+          "i18n": {
+            "en": { "title": "Heads" },
+            "nl": { "title": "Koppen" },
+            "de": { "title": "Köpfe" },
+            "uk": { "title": "Головки" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "quality-management",
     "data_groups": [
-      { "code": "resource_quality_management", "block": { "title": "Quality management", "i18n": { "en": { "title": "Quality management" }, "nl": { "title": "Kwaliteitsbeheer" }, "de": { "title": "Qualitätsmanagement" }, "uk": { "title": "Управління якістю" } } } }
+      {
+        "code": "resource_quality_management",
+        "block": {
+          "title": "Quality management",
+          "i18n": {
+            "en": { "title": "Quality management" },
+            "nl": { "title": "Kwaliteitsbeheer" },
+            "de": { "title": "Qualitätsmanagement" },
+            "uk": { "title": "Управління якістю" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "maintenance-tickets",
     "data_groups": [
-      { "code": "resource_maintenance_tickets", "block": { "title": "Maintenance & tickets", "i18n": { "en": { "title": "Maintenance & tickets" }, "nl": { "title": "Onderhoud & tickets" }, "de": { "title": "Wartung & Tickets" }, "uk": { "title": "Обслуговування та заявки" } } } }
+      {
+        "code": "resource_maintenance_tickets",
+        "block": {
+          "title": "Maintenance & tickets",
+          "i18n": {
+            "en": { "title": "Maintenance & tickets" },
+            "nl": { "title": "Onderhoud & tickets" },
+            "de": { "title": "Wartung & Tickets" },
+            "uk": { "title": "Обслуговування та заявки" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "tooling-wear",
     "data_groups": [
-      { "code": "resource_tooling_wear", "block": { "title": "Tooling & wear", "i18n": { "en": { "title": "Tooling & wear" }, "nl": { "title": "Gereedschap & slijtage" }, "de": { "title": "Werkzeug & Verschleiß" }, "uk": { "title": "Інструмент та знос" } } } }
+      {
+        "code": "resource_tooling_wear",
+        "block": {
+          "title": "Tooling & wear",
+          "i18n": {
+            "en": { "title": "Tooling & wear" },
+            "nl": { "title": "Gereedschap & slijtage" },
+            "de": { "title": "Werkzeug & Verschleiß" },
+            "uk": { "title": "Інструмент та знос" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "consumption-waste",
     "data_groups": [
-      { "code": "resource_consumption_waste", "block": { "title": "Consumption & waste", "i18n": { "en": { "title": "Consumption & waste" }, "nl": { "title": "Verbruik & afval" }, "de": { "title": "Verbrauch & Abfall" }, "uk": { "title": "Споживання та відходи" } } } }
+      {
+        "code": "resource_consumption_waste",
+        "block": {
+          "title": "Consumption & waste",
+          "i18n": {
+            "en": { "title": "Consumption & waste" },
+            "nl": { "title": "Verbruik & afval" },
+            "de": { "title": "Verbrauch & Abfall" },
+            "uk": { "title": "Споживання та відходи" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "material-specs",
     "data_groups": [
-      { "code": "resource_material_specs", "block": { "title": "Material specifications", "i18n": { "en": { "title": "Material specifications" }, "nl": { "title": "Materiaalspecificaties" }, "de": { "title": "Materialspezifikationen" }, "uk": { "title": "Специфікації матеріалів" } } } }
+      {
+        "code": "resource_material_specs",
+        "block": {
+          "title": "Material specifications",
+          "i18n": {
+            "en": { "title": "Material specifications" },
+            "nl": { "title": "Materiaalspecificaties" },
+            "de": { "title": "Materialspezifikationen" },
+            "uk": { "title": "Специфікації матеріалів" }
+          }
+        }
+      }
     ]
   },
   {
     "code": "queued-jobs",
     "data_groups": [
-      { "code": "resource_queue", "block": { "title": "Queued jobs", "i18n": { "en": { "title": "Queued jobs" }, "nl": { "title": "Wachtrij" }, "de": { "title": "Warteschlange" }, "uk": { "title": "Черга" } } } }
+      {
+        "code": "resource_queue",
+        "block": {
+          "title": "Overview",
+          "i18n": {
+            "en": { "title": "Overview" },
+            "nl": { "title": "Overzicht" },
+            "de": { "title": "Übersicht" },
+            "uk": { "title": "Огляд" }
+          }
+        }
+      }
     ]
   }
 ]

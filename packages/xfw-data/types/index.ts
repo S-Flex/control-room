@@ -42,6 +42,7 @@ export type InputData =
 
 export type FieldConfig = {
     type?: string;
+    field_type?: string;
     input_data?: InputData;
     ui?: Partial<UI>;
 };
@@ -155,6 +156,8 @@ export type UI = {
     order?: number;
     hidden?: boolean;
     read_only?: boolean;
+    field_type?: string;
+    class_name?: string;
     group?: {
         title?: string;
         class_name?: string;

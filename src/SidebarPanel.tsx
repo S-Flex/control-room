@@ -4,6 +4,7 @@ import { getBlock } from 'xfw-get-block';
 import { TimelineBar, type TimelineBarConfig } from './widgets/TimelineBar';
 import { DonutChart, type DonutChartConfig } from './widgets/DonutChart';
 import { InkGauge, type InkGaugeConfig } from './widgets/InkGauge';
+import { Cards } from './widgets/Cards';
 
 type SidebarDataGroupEntry = {
   code: string;
@@ -32,7 +33,12 @@ function FallbackDataRows({ data }: { data: JSONRecord[] }) {
   );
 }
 
-function WidgetRenderer({ layout, widgetConfig, data }: { layout: string; widgetConfig: Record<string, unknown>; data: JSONRecord[] }) {
+function WidgetRenderer({ layout, widgetConfig, dataGroup, data }: {
+  layout: string;
+  widgetConfig: Record<string, unknown>;
+  dataGroup: DataGroup;
+  data: JSONRecord[];
+}) {
   const key = layout.replace(/_/g, '-');
   switch (key) {
     case 'timeline-bar':
@@ -41,6 +47,8 @@ function WidgetRenderer({ layout, widgetConfig, data }: { layout: string; widget
       return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} data={data} />;
     case 'ink-gauge':
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
+    case 'cards':
+      return <Cards dataGroup={dataGroup} data={data} />;
     default:
       console.warn(`Unknown widget layout: "${layout}"`);
       return <FallbackDataRows data={data} />;
@@ -85,8 +93,8 @@ function SidebarDataGroupContent({ dataGroup, entry }: { dataGroup: DataGroup; e
         </button>
       )}
       {!collapsed && (
-        widgetConfig ? (
-          <WidgetRenderer layout={layout} widgetConfig={widgetConfig} data={dataRows} />
+        widgetConfig || layout === 'cards' ? (
+          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={dataGroup} data={dataRows} />
         ) : (
           <FallbackDataRows data={dataRows} />
         )
