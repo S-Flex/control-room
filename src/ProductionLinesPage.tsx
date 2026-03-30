@@ -401,9 +401,12 @@ export function ProductionLinesPage() {
     window.addEventListener('keyup', up);
     return () => { window.removeEventListener('keydown', down); window.removeEventListener('keyup', up); };
   }, []);
-  // Resolve resource_uids from URL back to layout_names for selection
-  const resolveLayoutNamesFromUids = useCallback((uids: string[]): Set<string> => {
-    const uidSet = new Set(uids);
+  // Derive selectedKeys from URL resource_uids + overviewMap (URL is single source of truth)
+  const selectedKeys = useMemo<Set<string>>(() => {
+    if (!Array.isArray(urlResourceUids) || urlResourceUids.length === 0 || overviewMap.size === 0) {
+      return new Set();
+    }
+    const uidSet = new Set(urlResourceUids as string[]);
     const names = new Set<string>();
     for (const [layoutName, row] of overviewMap) {
       if (row.resource_uid && uidSet.has(row.resource_uid)) {
@@ -411,51 +414,44 @@ export function ProductionLinesPage() {
       }
     }
     return names;
-  }, [overviewMap]);
+  }, [urlResourceUids, overviewMap]);
 
-  const [selectedKeys, setSelectedKeys] = useState<Set<string>>(new Set());
-  const hadActiveRef = useRef(false);
-  const [showCapacity, setShowCapacity] = useState(false);
-
-  // React to URL changes for resource_uids param
-  useEffect(() => {
-    if (Array.isArray(urlResourceUids) && urlResourceUids.length > 0 && overviewMap.size > 0) {
-      const newSelected = resolveLayoutNamesFromUids(urlResourceUids);
-      setSelectedKeys(prev => {
-        if (prev.size === newSelected.size && [...prev].every(k => newSelected.has(k))) return prev;
-        return newSelected;
-      });
-    } else if (!urlResourceUids || (Array.isArray(urlResourceUids) && urlResourceUids.length === 0)) {
-      setSelectedKeys(prev => prev.size === 0 ? prev : new Set());
-    }
-  }, [urlResourceUids, resolveLayoutNamesFromUids]);
-
-  // Build resource_uids from selectedKeys via overviewMap
-  const selectedResourceUids = useMemo(() => {
+  // Convert layout names to UIDs for writing to URL
+  const layoutNamesToUids = useCallback((names: Iterable<string>): string[] => {
     const uids: string[] = [];
-    for (const layoutName of selectedKeys) {
-      const uid = overviewMap.get(layoutName)?.resource_uid;
+    for (const name of names) {
+      const uid = overviewMapRef.current.get(name)?.resource_uid;
       if (uid) uids.push(uid);
     }
     return uids;
-  }, [selectedKeys, overviewMap]);
+  }, []);
 
-  // Sync model, from, until, and resource_uids to URL
+  // Write resource_uids to URL (only called from user actions)
+  const setResourceUidsInUrl = useCallback((uids: string[]) => {
+    const params = new URLSearchParams(window.location.search);
+    if (uids.length > 0) {
+      params.set('resource_uids', JSON.stringify(uids));
+    } else {
+      params.delete('resource_uids');
+    }
+    params.delete('selected');
+    params.delete('resource');
+    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+    window.history.replaceState(null, '', newUrl);
+  }, []);
+
+  const hadActiveRef = useRef(false);
+  const [showCapacity, setShowCapacity] = useState(false);
+
+  // Sync model, from, until to URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
     params.set('from', from);
     params.set('until', until);
-    params.delete('selected');
-    params.delete('resource');
-    if (selectedResourceUids.length > 0) {
-      params.set('resource_uids', JSON.stringify(selectedResourceUids));
-    } else {
-      params.delete('resource_uids');
-    }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, from, until, selectedResourceUids]);
+  }, [activeLineId, from, until]);
 
   // React to model query param changes
   useEffect(() => {
@@ -537,7 +533,7 @@ export function ProductionLinesPage() {
     const params = new URLSearchParams(window.location.search);
     params.set('model', id);
     window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
-    setSelectedKeys(new Set());
+    setResourceUidsInUrl([]);
     const models = modelsDataRef.current;
     const line = models?.find(l => l.code === id);
     if (line) {
@@ -549,30 +545,28 @@ export function ProductionLinesPage() {
     }
   }, [activeLineId, allResources]);
 
-  // When an object is clicked, set resource as query param and toggle selection
+  // When an object is clicked, update resource_uids in URL directly
   const handleObjectClick = useCallback((data: Record<string, unknown> | null) => {
     const ctrl = ctrlKeyRef.current;
     if (!data) {
-      // Clicked floor — if menu was open, just close it and do nothing else
       if (popoverOpenRef.current) {
         popoverOpenRef.current = false;
         return;
       }
       if (ctrl) {
         // Ctrl+floor click: select all non-stock/queue
-        const selectableKeys = lineResRef.current
+        const selectableNames = lineResRef.current
           .filter(r => r.type !== 'stock' && r.type !== 'queue')
           .map(r => r.layout_name);
-        setSelectedKeys(new Set(selectableKeys));
+        setResourceUidsInUrl(layoutNamesToUids(selectableNames));
       } else {
         // Floor click without Ctrl: deselect everything
-        setSelectedKeys(new Set());
+        setResourceUidsInUrl([]);
         hadActiveRef.current = false;
       }
       return;
     }
 
-    // Clicked an object — mark as active (popover/menu will show)
     hadActiveRef.current = true;
 
     const nodeName = data.name as string;
@@ -580,33 +574,25 @@ export function ProductionLinesPage() {
     const res = lineResRef.current.find(r => r.layout_name === key);
     if (!res) return;
 
-    // Select/toggle for equipment (not stock/queue)
     if (res.type !== 'stock' && res.type !== 'queue') {
+      const uid = overviewMapRef.current.get(res.layout_name)?.resource_uid;
+      if (!uid) return;
+
       if (ctrl) {
-        // Ctrl+click: toggle this resource in the selection
-        setSelectedKeys(prev => {
-          const next = new Set(prev);
-          if (next.has(res.layout_name)) {
-            next.delete(res.layout_name);
-          } else {
-            next.add(res.layout_name);
-          }
-          return next;
-        });
+        // Ctrl+click: toggle this resource in the current selection
+        const currentUids = Array.isArray(urlResourceUids) ? [...urlResourceUids as string[]] : [];
+        const idx = currentUids.indexOf(uid);
+        if (idx >= 0) {
+          currentUids.splice(idx, 1);
+        } else {
+          currentUids.push(uid);
+        }
+        setResourceUidsInUrl(currentUids);
       } else {
-        // Click without Ctrl: select only this resource
-        setSelectedKeys(new Set([res.layout_name]));
+        setResourceUidsInUrl([uid]);
       }
     }
-
-    // Set resource_uids in query param
-    const uid = overviewMap.get(res.layout_name)?.resource_uid;
-    if (uid) {
-      navigateRef.current({
-        queryParams: [{ key: 'resource_uids', val: JSON.stringify([uid]) }],
-      });
-    }
-  }, [selectedKeys.size, overviewMap]);
+  }, [layoutNamesToUids, setResourceUidsInUrl, urlResourceUids]);
 
   // renderPopover: shows the context menu at the clicked resource
   const menuItemsRef = useRef(menuItems);

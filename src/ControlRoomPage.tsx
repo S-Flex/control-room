@@ -70,13 +70,18 @@ export function ControlRoomPage() {
   const currentIdx = useRef(-1);
   const modelsDataRef = useRef<ModelsData | null>(null);
 
-  // Sync model query param to URL
+  // Sync model, from, and until to URL so useDataGeneric can read them
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    if (params.get('model') !== activeLineId) {
-      params.set('model', activeLineId);
-      window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    params.set('model', activeLineId);
+    if (!params.has('until')) {
+      params.set('until', new Date().toISOString());
     }
+    if (!params.has('from')) {
+      const today = new Date().toISOString().slice(0, 10);
+      params.set('from', new Date(`${today}T06:00:00`).toISOString());
+    }
+    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
   }, [activeLineId]);
 
   // React to model query param changes

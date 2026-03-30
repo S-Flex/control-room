@@ -18,7 +18,7 @@ export function DashboardHeader({ className = '' }: { className?: string }) {
   return (
     <div className={`dashboard-header ${className}`}>
       <div>
-        <div className="header-title">Inflow Nesting Control Room</div>
+        <div className="header-title">Control Room</div>
         <div className="header-subtitle">Production floor overview</div>
       </div>
       <div className="header-right">

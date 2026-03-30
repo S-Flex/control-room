@@ -2206,6 +2206,138 @@ body {
   border: 1px solid var(--border);
 }
 
+/* ---- Ink Demo Widget ---- */
+.ink-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.ink-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 8px 0;
+}
+.ink-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.ink-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.ink-row-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.ink-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ink-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  flex: 1;
+}
+.ink-ml {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+.ink-bar {
+  height: 10px;
+  background: var(--bar-bg);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.ink-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.3s;
+}
+.ink-expiration-banner {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: var(--radius-md);
+  font-size: 11px;
+  font-weight: 600;
+  color: #e53e3e;
+  background: rgba(229, 62, 62, 0.10);
+  border: 1px solid rgba(229, 62, 62, 0.2);
+}
+.ink-expiration-banner.expiring {
+  background: rgba(229, 62, 62, 0.15);
+  border-color: rgba(229, 62, 62, 0.35);
+}
+/* Ink stock near expiration */
+.ink-stock-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 13px;
+}
+.ink-stock-expires {
+  margin-left: auto;
+  font-size: 11px;
+  font-weight: 600;
+  color: #e53e3e;
+}
+/* Ink usage table */
+.ink-usage-header-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--border);
+}
+.ink-usage-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  padding: 5px 0;
+}
+.ink-usage-total {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  padding-top: 6px;
+  border-top: 1px solid var(--border);
+  color: var(--text-primary);
+}
+.ink-usage-col-name {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+.ink-usage-col {
+  width: 65px;
+  text-align: right;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.ink-usage-diff {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
 /* ---- Ink Gauge Widget ---- */
 .ink-gauge-wrap {
   display: flex;

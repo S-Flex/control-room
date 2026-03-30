@@ -5,6 +5,7 @@ import { TimelineBar, type TimelineBarConfig } from './widgets/TimelineBar';
 import { DonutChart, type DonutChartConfig } from './widgets/DonutChart';
 import { InkGauge, type InkGaugeConfig } from './widgets/InkGauge';
 import { Cards } from './widgets/Cards';
+import { Ink } from './widgets/Ink';
 
 type SidebarDataGroupEntry = {
   code: string;
@@ -156,9 +157,13 @@ export function SidebarPanel({ code, title, onClose }: {
       </div>
       <div className="sidebar-body">
         {!config && <p className="sidebar-loading">Loading...</p>}
-        {config?.data_groups.map(entry => (
-          <SidebarDataGroup key={entry.code} entry={entry} />
-        ))}
+        {code === 'ink-heads' ? (
+          <Ink />
+        ) : (
+          config?.data_groups.map(entry => (
+            <SidebarDataGroup key={entry.code} entry={entry} />
+          ))
+        )}
       </div>
     </div>
   );
