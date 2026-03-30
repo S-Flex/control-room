@@ -1,3 +1,10 @@
+// Suppress THREE.Clock deprecation warning from @react-three/fiber (fixed in a future r3f release)
+const _warn = console.warn;
+console.warn = (...args: unknown[]) => {
+  if (typeof args[0] === 'string' && args[0].includes('THREE.Clock')) return;
+  _warn.apply(console, args);
+};
+
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route } from 'react-router-dom';
