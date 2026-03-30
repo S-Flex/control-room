@@ -3,7 +3,7 @@ import './app.css';
 export function HomePage() {
   return (
     <div className="home-page">
-      <h1 className="home-title">Probo Hub</h1>
+      <h1 className="home-title">Probo Hub BETA</h1>
       <div className="home-login-card">
         <h2 className="home-login-heading">Log in</h2>
         <label className="home-login-label">
