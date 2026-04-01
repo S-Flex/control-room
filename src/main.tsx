@@ -22,6 +22,7 @@ import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';
 import { ProductionLinesPage } from './ProductionLinesPage';
 import { DataGroupPage } from './DataGroupPage';
+import { configureClient } from '@s-flex/xfw-data';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -31,6 +32,11 @@ const queryClient = new QueryClient({
       retry: false,
     },
   },
+});
+
+configureClient({
+  baseUrl: import.meta.env.VITE_HUB_URL ?? 'http://probo-hub.hub.probo',
+  getToken: () => null,
 });
 
 function Root() {

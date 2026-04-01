@@ -17,9 +17,9 @@
   "dependencies": {
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.5.0",
-    "@s-flex/xfw-data": "^0.1.4",
-    "@s-flex/xfw-ui": "^0.1.4",
-    "@s-flex/xfw-url": "^0.1.4",
+    "@s-flex/xfw-data": "^0.1.5",
+    "@s-flex/xfw-ui": "^0.1.5",
+    "@s-flex/xfw-url": "^0.1.5",
     "@tanstack/react-query": "^5.96.0",
     "react": "^19.2.4",
     "react-aria-components": "^1.16.0",

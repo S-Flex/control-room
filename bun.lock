@@ -6,9 +6,9 @@
       "dependencies": {
         "@react-three/drei": "^10.7.7",
         "@react-three/fiber": "^9.5.0",
-        "@s-flex/xfw-data": "^0.1.4",
-        "@s-flex/xfw-ui": "^0.1.4",
-        "@s-flex/xfw-url": "^0.1.4",
+        "@s-flex/xfw-data": "^0.1.5",
+        "@s-flex/xfw-ui": "^0.1.5",
+        "@s-flex/xfw-url": "^0.1.5",
         "@tanstack/react-query": "^5.96.0",
         "react": "^19.2.4",
         "react-aria-components": "^1.16.0",
@@ -430,11 +430,11 @@
 
     "@rollup/rollup-win32-x64-msvc": ["@rollup/rollup-win32-x64-msvc@4.59.0", "", { "os": "win32", "cpu": "x64" }, "sha512-2HRCml6OztYXyJXAvdDXPKcawukWY2GpR5/nxKp4iBgiO3wcoEGkAaqctIbZcNB6KlUQBIqt8VYkNSj2397EfA=="],
 
-    "@s-flex/xfw-data": ["@s-flex/xfw-data@0.1.4", "https://npm.pkg.github.com/download/@s-flex/xfw-data/0.1.4/b7b7fb01ac35377aff891126eb2f0f3ff9c3507c", { "peerDependencies": { "@tanstack/react-query": ">=5", "react": ">=18" } }, "sha512-MxwrLChyhVDklwMWzQLvblROGlFBrJlLp9AHpzNnEXBvtZ9ZN0Zpdu51x9gVmhmyrTW2o77fAW1qVhZtQdM1dg=="],
+    "@s-flex/xfw-data": ["@s-flex/xfw-data@0.1.5", "https://npm.pkg.github.com/download/@s-flex/xfw-data/0.1.5/599a9fb8155f5082a17ffaed1ae75c26917e8390", { "peerDependencies": { "@tanstack/react-query": ">=5", "react": ">=18" } }, "sha512-uPrSqMKJfCyH2VSh9yZ/KXeQ4yGGlr8Jl/h2LkOIUuwmzLaMfwsTKYKzeVYpVyX7/ckzlzNWgZFgjzMIUsMZ5g=="],
 
-    "@s-flex/xfw-ui": ["@s-flex/xfw-ui@0.1.4", "https://npm.pkg.github.com/download/@s-flex/xfw-ui/0.1.4/f45e6e7dded94100f5892b349aa0f11a8a7f05f3", { "dependencies": { "@s-flex/xfw-data": "0.1.0", "@s-flex/xfw-url": "0.1.0" }, "peerDependencies": { "@tanstack/react-query": ">=5", "@tanstack/react-table": ">=8", "motion": ">=12", "react": ">=18", "react-aria-components": ">=1", "react-dom": ">=18", "react-router-dom": ">=7", "recharts": ">=3", "socket.io-client": ">=4", "sonner": ">=2", "tailwindcss": ">=4" } }, "sha512-sWOXf5ml3KSBJYiEXyhii+cDOEgIWDZ4aFhUCA2AgVUhSBM6SsOj1HFnnhNfkexyuRRFJA6KXO9xgAVlEpGVRA=="],
+    "@s-flex/xfw-ui": ["@s-flex/xfw-ui@0.1.5", "https://npm.pkg.github.com/download/@s-flex/xfw-ui/0.1.5/c62918bcbbdb87876c6fafa55e03f84741ad97c1", { "dependencies": { "@s-flex/xfw-data": "0.1.0", "@s-flex/xfw-url": "0.1.0" }, "peerDependencies": { "@tanstack/react-query": ">=5", "@tanstack/react-table": ">=8", "motion": ">=12", "react": ">=18", "react-aria-components": ">=1", "react-dom": ">=18", "react-router-dom": ">=7", "recharts": ">=3", "socket.io-client": ">=4", "sonner": ">=2", "tailwindcss": ">=4" } }, "sha512-cJVS3IGEJ37mvAtRdab7Ujpt23nJHceYwj7Gf8niOwDC7eiRIDdznx9GfzjSpb+tG7HD3P3RzQyUTLy6yivgUw=="],
 
-    "@s-flex/xfw-url": ["@s-flex/xfw-url@0.1.4", "https://npm.pkg.github.com/download/@s-flex/xfw-url/0.1.4/7ba56c1ff1d38002e0bcf9ac3cca47f2821cd007", { "peerDependencies": { "@tanstack/react-query": ">=5", "react": ">=18", "react-aria-components": ">=1", "react-router-dom": ">=7" } }, "sha512-ZDpS6J17cHVAfSv3bEQYJ4GtZwAIzPRlQU96o8IMcPSMeayv4Mtn5QYX7cdmEk3DAzcWL3AMsmKTPrXhsuXqBA=="],
+    "@s-flex/xfw-url": ["@s-flex/xfw-url@0.1.5", "https://npm.pkg.github.com/download/@s-flex/xfw-url/0.1.5/31b2c0357b66e68596ea6ba3853ebb3aa3afa38b", { "peerDependencies": { "@tanstack/react-query": ">=5", "react": ">=18", "react-aria-components": ">=1", "react-router-dom": ">=7" } }, "sha512-yOAZd77kOqNWFHSxaFkldS83xIXXy6WaJLoP7mje2bB2toRK7t1mH3JpL57TA8brca/gRdRVLNVlLVjLLQBnTg=="],
 
     "@socket.io/component-emitter": ["@socket.io/component-emitter@3.1.2", "", {}, "sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA=="],
 
