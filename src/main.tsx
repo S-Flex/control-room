@@ -16,7 +16,7 @@ import {
   SidebarProvider,
   MainRoutes,
   AuxRouteProvider,
-} from 'xfw-url';
+} from '@s-flex/xfw-url';
 import { HomePage } from './HomePage';
 import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';

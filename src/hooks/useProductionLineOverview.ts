@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useDataGroups, useDataGeneric } from 'xfw-data';
+import { useDataGroups, useDataGeneric } from '@s-flex/xfw-data';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 
@@ -30,7 +30,7 @@ export function useProductionLineOverview() {
     }), []);
 
     const { dataRows, dataTable, isLoading, error } = useDataGeneric<OverviewRow>(
-        dataGroup ?? emptyDataGroup,
+        dataGroup ?? emptyDataGroup, []
     );
 
     // Build a map from layout_name to row for quick lookup

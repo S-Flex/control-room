@@ -1,4 +1,4 @@
-import type { JSONRecord, JSONValue } from 'xfw-data';
+import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { resolve } from './resolve';
 
 export type InkGaugeConfig = {
@@ -17,7 +17,7 @@ type InkEntry = {
   pct: number;
 };
 
-export function InkGauge({ widgetConfig, data }: { widgetConfig: InkGaugeConfig; data: JSONRecord[] }) {
+export function InkGauge({ widgetConfig, data }: { widgetConfig: InkGaugeConfig; data: JSONRecord[]; }) {
   if (!data || data.length === 0) return null;
 
   const isFull = widgetConfig.level_relative_to === 'full';

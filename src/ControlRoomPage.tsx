@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ThreeModelView, type CameraState, type JSONRecord, type ObjectData } from 'xfw-three';
-import { useQueryParams } from 'xfw-url';
+import { useQueryParams } from '@s-flex/xfw-url';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import { EquipCard } from './viewer/EquipCard';
 import type { Resource } from './viewer/types';
@@ -26,13 +26,13 @@ type ResourceStateEntry = {
   color: string;
   block: {
     title: string;
-    i18n?: Record<string, { title: string }>;
+    i18n?: Record<string, { title: string; }>;
   };
 };
 type StateSetData = {
   code: string;
   color: string;
-  block: { title: string; i18n?: Record<string, { title: string }>; };
+  block: { title: string; i18n?: Record<string, { title: string; }>; };
   states: ResourceStateEntry[];
 };
 

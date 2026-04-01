@@ -1,4 +1,4 @@
-import type { JSONRecord, JSONValue } from 'xfw-data';
+import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 
 /** Resolve a dot-notation field path on a JSON record. */
 export function resolve(row: JSONRecord, path: string | undefined): JSONValue {

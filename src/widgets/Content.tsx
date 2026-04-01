@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { JSONValue } from 'xfw-data';
+import type { JSONValue } from '@s-flex/xfw-data';
 
 type ContentItem = {
   title?: string;
@@ -27,7 +27,7 @@ function sanitizeHtml(html: string): string {
   return div.innerHTML;
 }
 
-function ContentBlock({ item, defaultExpanded }: { item: ContentItem; defaultExpanded: boolean }) {
+function ContentBlock({ item, defaultExpanded }: { item: ContentItem; defaultExpanded: boolean; }) {
   const [expanded, setExpanded] = useState(defaultExpanded);
 
   return (
@@ -54,7 +54,7 @@ function ContentBlock({ item, defaultExpanded }: { item: ContentItem; defaultExp
   );
 }
 
-export function Content({ data }: { data: JSONValue }) {
+export function Content({ data }: { data: JSONValue; }) {
   if (!data || !Array.isArray(data) || data.length === 0) return null;
 
   const items = data as ContentItem[];

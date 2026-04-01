@@ -1,4 +1,4 @@
-import type { DataGroup, JSONRecord, JSONValue } from 'xfw-data';
+import type { DataGroup, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
 import { resolve } from './resolve';
 import { Content } from './Content';
@@ -92,8 +92,8 @@ function Card({ row, fields, fieldConfig }: {
       <div className="cards-card-fields">
         {fields.map(key => {
           const fc = fieldConfig?.[key];
-          const className = fc?.ui?.class_name;
-          const fieldType = fc?.ui?.field_type ?? fc?.type;
+          const className = fc?.ui?.group?.class_name;
+          const fieldType = fc?.ui?.control;
 
           if (fieldType === 'content') {
             const val = resolve(row, key) as JSONValue;
@@ -116,16 +116,16 @@ function Card({ row, fields, fieldConfig }: {
   );
 }
 
-export function Cards({ dataGroup, data }: { dataGroup: DataGroup; data: JSONRecord[] }) {
+export function Cards({ dataGroup, data }: { dataGroup: DataGroup; data: JSONRecord[]; }) {
   if (!data || data.length === 0) return null;
 
   const fieldConfig = dataGroup.field_config;
 
   const fields = fieldConfig
     ? sortFields(Object.keys(fieldConfig).filter(k => {
-        const ui = fieldConfig[k]?.ui;
-        return !ui?.hidden && ui?.field_type !== 'hidden' && !ui?.table?.hidden;
-      }), fieldConfig)
+      const ui = fieldConfig[k]?.ui;
+      return !ui?.hidden && !ui?.hidden && !ui?.table?.hidden;
+    }), fieldConfig)
     : Object.keys(data[0]);
 
   return (

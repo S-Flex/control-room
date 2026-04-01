@@ -1,4 +1,4 @@
-import { useDataGroups, useDataGeneric, type DataGroup } from 'xfw-data';
+import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-data';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 
@@ -13,7 +13,7 @@ const preStyle: React.CSSProperties = {
   lineHeight: 1.5,
 };
 
-function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
+function DataGroupSection({ dataGroup }: { dataGroup: DataGroup; }) {
   const {
     dataTable,
     dataRows,
@@ -22,7 +22,7 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
     isLoading,
     isInitialLoading,
     error,
-  } = useDataGeneric(dataGroup);
+  } = useDataGeneric(dataGroup, []);
 
   const primarySrc = Array.isArray(dataGroup.src) ? dataGroup.src[0] : dataGroup.src;
   const metaSrc = Array.isArray(dataGroup.src) ? dataGroup.src[1] : null;
@@ -60,7 +60,7 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup }) {
 
 export function DataGroupPage() {
   const { data: dataGroups, isLoading, error } = useDataGroups(DATA_GROUP_NAME);
-  
+
   return (
     <div style={{ padding: 32, color: '#e0e0e0' }}>
       <h1>DataGroup Debug — {DATA_GROUP_NAME}</h1>

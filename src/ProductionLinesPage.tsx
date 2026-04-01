@@ -5,7 +5,7 @@ import {
   useQueryParams,
   useAuxOutlet,
   AuxRouteProvider,
-} from 'xfw-url';
+} from '@s-flex/xfw-url';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
@@ -60,7 +60,7 @@ function resolveMenuLabel(entry: MenuContentEntry | undefined, params: Record<st
   if (!entry) return '';
   const lang = getLanguage();
   const langBlock = entry.block.i18n?.[lang];
-  const textFormula = (langBlock as Record<string, unknown>)?.textFormula as { title?: string } | undefined;
+  const textFormula = (langBlock as Record<string, unknown>)?.textFormula as { title?: string; } | undefined;
   if (textFormula?.title) return resolveTextFormula(textFormula.title, params);
   if (entry.block.textFormula?.title) return resolveTextFormula(entry.block.textFormula.title, params);
   return (langBlock as Record<string, unknown>)?.title as string ?? entry.block.title ?? '';

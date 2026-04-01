@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from 'xfw-data';
+import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from '@s-flex/xfw-data';
 import { getBlock } from 'xfw-get-block';
 import { TimelineBar, type TimelineBarConfig } from './widgets/TimelineBar';
 import { DonutChart, type DonutChartConfig } from './widgets/DonutChart';
@@ -9,7 +9,7 @@ import { Ink } from './widgets/Ink';
 
 type SidebarDataGroupEntry = {
   code: string;
-  block: { title: string; i18n?: Record<string, { title: string }> };
+  block: { title: string; i18n?: Record<string, { title: string; }>; };
 };
 
 type SidebarConfig = {
@@ -17,7 +17,7 @@ type SidebarConfig = {
   data_groups: SidebarDataGroupEntry[];
 };
 
-function FallbackDataRows({ data }: { data: JSONRecord[] }) {
+function FallbackDataRows({ data }: { data: JSONRecord[]; }) {
   return (
     <div className="sidebar-data-rows">
       {data.map((row, i) => (
@@ -56,7 +56,7 @@ function WidgetRenderer({ layout, widgetConfig, dataGroup, data }: {
   }
 }
 
-function SidebarDataGroup({ entry }: { entry: SidebarDataGroupEntry }) {
+function SidebarDataGroup({ entry }: { entry: SidebarDataGroupEntry; }) {
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(entry.code);
   const dataGroup = dataGroups?.[0];
 
@@ -65,14 +65,14 @@ function SidebarDataGroup({ entry }: { entry: SidebarDataGroupEntry }) {
   return <SidebarDataGroupContent dataGroup={dataGroup} entry={entry} />;
 }
 
-function SidebarDataGroupContent({ dataGroup, entry }: { dataGroup: DataGroup; entry: SidebarDataGroupEntry }) {
+function SidebarDataGroupContent({ dataGroup, entry }: { dataGroup: DataGroup; entry: SidebarDataGroupEntry; }) {
   const [collapsed, setCollapsed] = useState(false);
   const {
     dataTable,
     dataRows,
     isLoading,
     error,
-  } = useDataGeneric(dataGroup);
+  } = useDataGeneric(dataGroup, []);
 
   if (isLoading) return <p className="sidebar-loading">Loading...</p>;
   if (error instanceof Error) return <p className="sidebar-error">Error: {error.message}</p>;
