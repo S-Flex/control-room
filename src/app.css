@@ -1023,22 +1023,11 @@ body {
 
 .planning-view-toggle {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 8px;
+  right: 8px;
   z-index: 10;
   font-weight: 700;
-  font-size: 13px;
-  min-width: 36px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  background: var(--card-bg, #fff);
-  color: var(--text, #1a1a2e);
-  border: 1px solid var(--border, #e0e0e0);
-  box-shadow: 0 1px 4px rgba(0,0,0,.12);
-  cursor: pointer;
-}
-.planning-view-toggle:hover {
-  background: var(--bar-bg);
+  font-size: 12px;
 }
 
 .planning-home-btn {

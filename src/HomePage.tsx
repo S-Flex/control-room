@@ -19,7 +19,7 @@ export function HomePage() {
       <div className="home-buttons">
         <a href="/control-room" className="home-btn">Control Room</a>
         <a href="/production-lines" className="home-btn">Production Lines</a>
-        <a href="#" className="home-btn disabled">Inflow</a>
+        <a href="/inflow" className="home-btn">Inflow</a>
       </div>
     </div>
   );

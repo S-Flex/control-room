@@ -21,6 +21,7 @@ import { HomePage } from './HomePage';
 import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';
 import { ProductionLinesPage } from './ProductionLinesPage';
+import { InflowPage } from './InflowPage';
 import { DataGroupPage } from './DataGroupPage';
 
 const queryClient = new QueryClient({
@@ -38,6 +39,7 @@ function Root() {
     <MainRoutes>
       <Route path="/control-room" element={<ControlRoomPage />} />
       <Route path="/production-lines" element={<ProductionLinesPage />} />
+      <Route path="/inflow" element={<InflowPage />} />
       <Route path="/layout" element={<LayoutPage />} />
       <Route path="/data" element={<DataGroupPage />} />
       <Route path="*" element={<HomePage />} />

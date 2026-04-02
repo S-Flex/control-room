@@ -1,23 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ThreeModelView, type CameraState, type JSONRecord } from 'xfw-three';
-import {
-  useNavigate,
-  useQueryParams,
-  useAuxOutlet,
-  AuxRouteProvider,
-} from 'xfw-url';
-import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
+import { useNavigate, useQueryParams } from 'xfw-url';
+import { getBlock, getLanguage } from 'xfw-get-block';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
-import { SidebarPanel } from './SidebarPanel';
+import { PageHeader } from './PageHeader';
+import { PageFooter } from './PageFooter';
+import { PageSidebar } from './PageSidebar';
+import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 import './app.css';
-
-type LineConfig = {
-  code: string;
-  glb: string;
-  block: Record<string, unknown>;
-  camera?: CameraState;
-};
 
 type ModelsData = LineConfig[];
 
@@ -34,22 +25,6 @@ type StateSet = {
   color: string;
   block: { title: string; i18n?: Record<string, { title: string; }>; };
   states: ResourceStateEntry[];
-};
-type HiddenWhen = {
-  key: string;
-  op: string;
-  val: string[];
-};
-type MenuItemDef = {
-  code: string;
-  path: string;
-  condition?: string;
-  hidden_when?: HiddenWhen;
-  block?: { title?: string; textFormula?: { title: string; }; i18n?: Record<string, { title?: string; textFormula?: { title: string; }; }>; };
-};
-type MenuContentEntry = {
-  code: string;
-  block: { title?: string; textFormula?: { title: string; }; i18n?: Record<string, { title?: string; textFormula?: { title: string; }; }>; };
 };
 
 function resolveTextFormula(formula: string, params: Record<string, string>): string {
@@ -233,8 +208,8 @@ function computeResourceShiftStats(resource: Resource, minutesFromMidnight: numb
 /* ---- Main page ---- */
 export function ProductionLinesPage() {
   const navigate = useNavigate();
-  const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
-  const [lang, setLang] = useState(() => getLanguage());
+  const [, forceRender] = useState(0);
+  const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
 
   // Read query params from URL
   const urlParams = useQueryParams([
@@ -423,7 +398,7 @@ export function ProductionLinesPage() {
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [menuItems, setMenuItems] = useState<MenuItemDef[]>([]);
   const [menuContent, setMenuContent] = useState<Map<string, MenuContentEntry>>(new Map());
-  const [uiLabels, setUiLabels] = useState<{ code: string; block: Record<string, unknown> }[]>([]);
+  const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
   const modelsDataRef = useRef<ModelsData | null>(null);
   const lineResRef = useRef<Resource[]>([]);
   const stateMapRef = useRef<Map<string, ResourceStateEntry>>(new Map());
@@ -561,14 +536,15 @@ export function ProductionLinesPage() {
     if (!models) return;
     const line = models.find(l => l.code === activeLineId);
     if (!line) return;
-    line.camera = state;
-    setLineConfig(prev => prev ? { ...prev, camera: state } : prev);
+    const key = viewMode === '2d' ? 'camera2d' : 'camera';
+    line[key] = state;
+    setLineConfig(prev => prev ? { ...prev, [key]: state } : prev);
     fetch('/data/models.json', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(models, null, 2),
     }).catch(err => console.error('Failed to save camera:', err));
-  }, [activeLineId]);
+  }, [activeLineId, viewMode]);
 
   const switchLine = useCallback((id: string) => {
     if (id === activeLineId) return;
@@ -732,23 +708,24 @@ export function ProductionLinesPage() {
   return (
     <div className="planning-page">
       <div className="planning-main">
-        <header className="planning-header">
-          <div className="planning-header-left">
-            <a href="/" className="planning-icon-btn planning-home-btn" title="Home">
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <path d="M3 10l7-7 7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M5 8.5V16a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </a>
-            <select
-              className="planning-select planning-model-select"
-              value={activeLineId}
-              onChange={e => switchLine(e.target.value)}
-            >
-              {allLines.map(line => (
-                <option key={line.code} value={line.code}>{getBlock(allLines, line.code, 'title')}</option>
-              ))}
-            </select>
+        <PageHeader
+          allLines={allLines}
+          activeLineId={activeLineId}
+          switchLine={switchLine}
+          uiLabels={uiLabels}
+          onLanguageChange={handleLanguageChange}
+          actions={
+            <label className="planning-toggle" title="Show/hide capacity">
+              <input
+                type="checkbox"
+                checked={showCapacity}
+                onChange={e => setShowCapacity(e.target.checked)}
+              />
+              <span className="planning-toggle-slider" />
+              <span className="planning-toggle-label">{getBlock(uiLabels, 'capacity', 'title')}</span>
+            </label>
+          }
+        >
             <div className="planning-until">
               <label className="planning-until-label">{getBlock(uiLabels, 'from', 'title')}</label>
               <input
@@ -800,39 +777,7 @@ export function ProductionLinesPage() {
                 </svg>
               </button>
             </div>
-          </div>
-          <div className="planning-header-actions">
-            <label className="planning-toggle" title="Show/hide capacity">
-              <input
-                type="checkbox"
-                checked={showCapacity}
-                onChange={e => setShowCapacity(e.target.checked)}
-              />
-              <span className="planning-toggle-slider" />
-              <span className="planning-toggle-label">{getBlock(uiLabels, 'capacity', 'title')}</span>
-            </label>
-            <select
-              className="planning-select"
-              value={lang}
-              onChange={e => { setLanguage(e.target.value); setLang(e.target.value); }}
-            >
-              {languages.map(l => (
-                <option key={l} value={l}>{l.toUpperCase()}</option>
-              ))}
-            </select>
-            <button
-              className="planning-icon-btn"
-              title={dark ? 'Light mode' : 'Dark mode'}
-              onClick={() => { setDark(d => { document.body.classList.toggle('dark', !d); return !d; }); }}
-            >
-              {dark ? (
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="4" stroke="currentColor" strokeWidth="1.5" /><path d="M10 2V4M10 16V18M2 10H4M16 10H18M4.93 4.93L6.34 6.34M13.66 13.66L15.07 15.07M15.07 4.93L13.66 6.34M6.34 13.66L4.93 15.07" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
-              ) : (
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17.39 11.39A7.5 7.5 0 118.61 2.61 5.5 5.5 0 0017.39 11.39z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              )}
-            </button>
-          </div>
-        </header>
+        </PageHeader>
 
 
         <div className="planning-content">
@@ -845,13 +790,13 @@ export function ProductionLinesPage() {
               colorKey="color"
               renderPopover={renderPopover}
               renderLabel={renderLabel}
-              initialCamera={viewMode === '2d' ? { position: [0, 20, 0], target: [0, 0, 0] } : lineConfig.camera}
-              onSaveCamera={viewMode === '3d' ? handleSaveCamera : undefined}
+              initialCamera={viewMode === '2d' ? (lineConfig.camera2d ?? { position: [0, 20, 0], target: [0, 0, 0] }) : lineConfig.camera}
+              onSaveCamera={handleSaveCamera}
               onObjectClick={handleObjectClick}
               popoverRef={dismissPopoverRef}
             />
             <button
-              className={`planning-view-toggle planning-icon-btn`}
+              className="planning-view-toggle planning-icon-btn"
               title={viewMode === '3d' ? 'Switch to 2D view' : 'Switch to 3D view'}
               onClick={() => setViewMode(v => v === '3d' ? '2d' : '3d')}
             >
@@ -860,38 +805,10 @@ export function ProductionLinesPage() {
           </div>
         </div>
 
-        <div className="planning-bottom">
-          <div className="planning-bottom-inner">
-            <div className="planning-off-track">
-              {getBlock(uiLabels, 'off_track', 'title')}
-              <span className="planning-badge">{offTrackCount}</span>
-            </div>
-          </div>
-        </div>
+        <PageFooter uiLabels={uiLabels} offTrackCount={offTrackCount} />
       </div>{/* .planning-main */}
 
-      <ProductionLinesSidebar menuContent={menuContent} />
+      <PageSidebar menuContent={menuContent} />
     </div>
-  );
-}
-
-function ProductionLinesSidebar({ menuContent }: {
-  menuContent: Map<string, MenuContentEntry>;
-}) {
-  const navigate = useNavigate();
-  const sidebarOutlet = useAuxOutlet({ outlet: 'sidebar' });
-
-  if (!sidebarOutlet) return null;
-
-  const sidebarCode = sidebarOutlet.replace(/^\//, '');
-  const menuCode = 'resource.' + sidebarCode;
-  const title = getBlock(menuContent, menuCode, 'title');
-
-  return (
-    <SidebarPanel
-      code={sidebarCode}
-      title={title}
-      onClose={() => navigate('(sidebar:)')}
-    />
   );
 }
