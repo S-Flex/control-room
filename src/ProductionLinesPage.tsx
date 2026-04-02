@@ -272,6 +272,8 @@ export function ProductionLinesPage() {
   });
   const [looping, setLooping] = useState(false);
   const loopRef = useRef(false);
+  const [autoRefresh, setAutoRefresh] = useState(false);
+  const autoRefreshRef = useRef(false);
 
   // React to from query param changes
   useEffect(() => {
@@ -298,16 +300,9 @@ export function ProductionLinesPage() {
     return Math.round((d.getHours() * 60 + d.getMinutes()) / 5);
   }, [until]);
 
-  // Slider bounds (6:00 = slot 72)
+  // Slider bounds (6:00 = slot 72, 24:00 = slot 288)
   const sliderMin = 72;
-  const sliderMax = useMemo(() => {
-    const today = new Date().toISOString().slice(0, 10);
-    if (pendingDate === today) {
-      const now = new Date();
-      return Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
-    }
-    return 288;
-  }, [pendingDate]);
+  const sliderMax = 288;
 
   const pendingTimeLabel = formatTimeSlot(pendingSlot);
 
@@ -320,8 +315,18 @@ export function ProductionLinesPage() {
   }, []);
 
   const handleRefresh = useCallback(() => {
-    const clamped = Math.min(pendingSlot, sliderMax);
-    const untilIso = buildUntilFromSlot(pendingDate, clamped);
+    const today = new Date().toISOString().slice(0, 10);
+    let slot = pendingSlot;
+    // If viewing today and slot exceeds current time, clamp to now
+    if (pendingDate === today) {
+      const now = new Date();
+      const nowSlot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
+      if (slot > nowSlot) {
+        slot = nowSlot;
+        setPendingSlot(slot);
+      }
+    }
+    const untilIso = buildUntilFromSlot(pendingDate, slot);
     // Clamp from date: if it's after the until date, reset it to the until date
     let fromDate = pendingFromDate;
     if (fromDate > pendingDate) {
@@ -330,18 +335,35 @@ export function ProductionLinesPage() {
     }
     setFrom(buildFromIso(fromDate));
     setUntil(untilIso);
-  }, [pendingFromDate, pendingDate, pendingSlot, sliderMax, buildFromIso, buildUntilFromSlot]);
+  }, [pendingFromDate, pendingDate, pendingSlot, buildFromIso, buildUntilFromSlot]);
+
+  const handleNow = useCallback(() => {
+    const now = new Date();
+    const today = now.toISOString().slice(0, 10);
+    const slot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
+    setPendingFromDate(today);
+    setPendingDate(today);
+    setPendingSlot(slot);
+    setFrom(buildFromIso(today));
+    setUntil(buildUntilFromSlot(today, slot));
+    // Start auto-refresh
+    autoRefreshRef.current = true;
+    setAutoRefresh(true);
+  }, [buildFromIso, buildUntilFromSlot]);
 
   const handleDateChange = useCallback((date: string) => {
     setPendingDate(date);
-    // If new date is today and slot exceeds now, clamp it
-    const today = new Date().toISOString().slice(0, 10);
-    if (date === today) {
-      const now = new Date();
-      const maxSlot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
-      if (pendingSlot > maxSlot) setPendingSlot(maxSlot);
-    }
-  }, [pendingSlot]);
+    // Stop auto-refresh when date is changed manually
+    autoRefreshRef.current = false;
+    setAutoRefresh(false);
+  }, []);
+
+  // Stop auto-refresh when time slider is changed manually
+  const handleSlotChange = useCallback((slot: number) => {
+    setPendingSlot(slot);
+    autoRefreshRef.current = false;
+    setAutoRefresh(false);
+  }, []);
 
   const handleLoop = useCallback(() => {
     if (looping) {
@@ -372,6 +394,23 @@ export function ProductionLinesPage() {
     step();
   }, [looping, pendingSlot, pendingDate, sliderMax, buildUntilFromSlot]);
 
+  // Auto-refresh every 60 seconds: update to current time and sync URL
+  useEffect(() => {
+    if (!autoRefresh) return;
+    const interval = setInterval(() => {
+      if (!autoRefreshRef.current) return;
+      const now = new Date();
+      const today = now.toISOString().slice(0, 10);
+      const slot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
+      setPendingFromDate(today);
+      setPendingDate(today);
+      setPendingSlot(slot);
+      setFrom(buildFromIso(today));
+      setUntil(buildUntilFromSlot(today, slot));
+    }, 60000);
+    return () => clearInterval(interval);
+  }, [autoRefresh, buildFromIso, buildUntilFromSlot]);
+
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
   const { rowMap: overviewMap } = useProductionLineOverview();
   const [activeLineId, setActiveLineId] = useState<string>(() => {
@@ -384,6 +423,7 @@ export function ProductionLinesPage() {
   const [stateMap, setStateMap] = useState<Map<string, ResourceStateEntry>>(new Map());
   const [menuItems, setMenuItems] = useState<MenuItemDef[]>([]);
   const [menuContent, setMenuContent] = useState<Map<string, MenuContentEntry>>(new Map());
+  const [uiLabels, setUiLabels] = useState<{ code: string; block: Record<string, unknown> }[]>([]);
   const modelsDataRef = useRef<ModelsData | null>(null);
   const lineResRef = useRef<Resource[]>([]);
   const stateMapRef = useRef<Map<string, ResourceStateEntry>>(new Map());
@@ -442,6 +482,7 @@ export function ProductionLinesPage() {
 
   const hadActiveRef = useRef(false);
   const [showCapacity, setShowCapacity] = useState(false);
+  const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
 
   // Sync model, from, until to URL
   useEffect(() => {
@@ -467,8 +508,10 @@ export function ProductionLinesPage() {
       fetch('/data/resource.json').then(r => r.json()),
       fetch('/data/resource_states.json').then(r => r.json()),
       fetch('/data/menu-items.json').then(r => r.json()),
+      fetch('/data/ui-labels.json').then(r => r.json()),
     ])
-      .then(([modelsData, resData, statesData, menuItemsData]) => {
+      .then(([modelsData, resData, statesData, menuItemsData, labelsData]) => {
+        setUiLabels(labelsData);
         modelsDataRef.current = modelsData;
         setAllLines(modelsData);
         const sets = statesData as StateSet[];
@@ -691,18 +734,33 @@ export function ProductionLinesPage() {
       <div className="planning-main">
         <header className="planning-header">
           <div className="planning-header-left">
+            <a href="/" className="planning-icon-btn planning-home-btn" title="Home">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M3 10l7-7 7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M5 8.5V16a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <select
+              className="planning-select planning-model-select"
+              value={activeLineId}
+              onChange={e => switchLine(e.target.value)}
+            >
+              {allLines.map(line => (
+                <option key={line.code} value={line.code}>{getBlock(allLines, line.code, 'title')}</option>
+              ))}
+            </select>
             <div className="planning-until">
-              <label className="planning-until-label">From</label>
+              <label className="planning-until-label">{getBlock(uiLabels, 'from', 'title')}</label>
               <input
                 type="date"
                 className="planning-until-input"
                 value={pendingFromDate}
                 max={pendingDate}
-                onChange={e => setPendingFromDate(e.target.value)}
+                onChange={e => { setPendingFromDate(e.target.value); autoRefreshRef.current = false; setAutoRefresh(false); }}
               />
             </div>
             <div className="planning-until">
-              <label className="planning-until-label">Until</label>
+              <label className="planning-until-label">{getBlock(uiLabels, 'until', 'title')}</label>
               <input
                 type="date"
                 className="planning-until-input"
@@ -719,7 +777,7 @@ export function ProductionLinesPage() {
                 min={sliderMin}
                 max={sliderMax}
                 value={Math.min(pendingSlot, sliderMax)}
-                onChange={e => setPendingSlot(Number(e.target.value))}
+                onChange={e => handleSlotChange(Number(e.target.value))}
               />
               <span className="planning-time-label">{formatTimeSlot(sliderMax)}</span>
               <span className="planning-time-current">{pendingTimeLabel}</span>
@@ -735,6 +793,12 @@ export function ProductionLinesPage() {
                   <path d="M17 6H8a4 4 0 00-4 4M3 14h9a4 4 0 004-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
                 </svg>
               </button>
+              <button className={`planning-icon-btn planning-slider-btn${autoRefresh ? ' active' : ''}`} title={getBlock(uiLabels, 'now', 'title')} onClick={handleNow}>
+                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                  <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
+                  <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </button>
             </div>
           </div>
           <div className="planning-header-actions">
@@ -745,7 +809,7 @@ export function ProductionLinesPage() {
                 onChange={e => setShowCapacity(e.target.checked)}
               />
               <span className="planning-toggle-slider" />
-              <span className="planning-toggle-label">Capacity</span>
+              <span className="planning-toggle-label">{getBlock(uiLabels, 'capacity', 'title')}</span>
             </label>
             <select
               className="planning-select"
@@ -774,37 +838,33 @@ export function ProductionLinesPage() {
         <div className="planning-content">
           <div className="planning-viewer">
             <ThreeModelView
-              key={lineConfig.code}
+              key={`${lineConfig.code}-${viewMode}`}
               url={lineConfig.glb}
               className="scene"
               data={resourceData}
               colorKey="color"
               renderPopover={renderPopover}
               renderLabel={renderLabel}
-              initialCamera={lineConfig.camera}
-              onSaveCamera={handleSaveCamera}
+              initialCamera={viewMode === '2d' ? { position: [0, 20, 0], target: [0, 0, 0] } : lineConfig.camera}
+              onSaveCamera={viewMode === '3d' ? handleSaveCamera : undefined}
               onObjectClick={handleObjectClick}
               popoverRef={dismissPopoverRef}
             />
+            <button
+              className={`planning-view-toggle planning-icon-btn`}
+              title={viewMode === '3d' ? 'Switch to 2D view' : 'Switch to 3D view'}
+              onClick={() => setViewMode(v => v === '3d' ? '2d' : '3d')}
+            >
+              {viewMode === '3d' ? '2D' : '3D'}
+            </button>
           </div>
         </div>
 
         <div className="planning-bottom">
           <div className="planning-bottom-inner">
             <div className="planning-off-track">
-              Off track
+              {getBlock(uiLabels, 'off_track', 'title')}
               <span className="planning-badge">{offTrackCount}</span>
-            </div>
-            <div className="planning-thumbs">
-              {allLines.map(line => (
-                <button
-                  key={line.code}
-                  className={`planning-thumb${line.code === activeLineId ? ' active' : ''}`}
-                  onClick={() => switchLine(line.code)}
-                >
-                  <span className="planning-thumb-name">{getBlock(allLines, line.code, 'title')}</span>
-                </button>
-              ))}
             </div>
           </div>
         </div>

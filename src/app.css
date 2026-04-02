@@ -828,7 +828,7 @@ body {
   transition: background 0.15s;
 }
 .planning-icon-btn:hover { background: var(--bar-bg); }
-.planning-icon-btn.active { background: var(--brand); color: #fff; }
+.planning-icon-btn.active { background: var(--brand); color: #fff; padding-left: 8px; padding-right: 8px; }
 .planning-icon-btn.active:hover { background: var(--brand-light); }
 
 .planning-account-btn {
@@ -1019,6 +1019,38 @@ body {
   height: 100%;
   background: var(--bg);
   overflow: hidden;
+}
+
+.planning-view-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+  font-weight: 700;
+  font-size: 13px;
+  min-width: 36px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--card-bg, #fff);
+  color: var(--text, #1a1a2e);
+  border: 1px solid var(--border, #e0e0e0);
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+  cursor: pointer;
+}
+.planning-view-toggle:hover {
+  background: var(--bar-bg);
+}
+
+.planning-home-btn {
+  margin-left: -8px;
+  margin-right: -5px;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+}
+.planning-home-btn svg {
+  width: 16px;
+  height: 16px;
 }
 
 /* OEE Sidebar */
@@ -1412,9 +1444,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 32px;
-  max-width: 1280px;
-  margin: 0 auto;
+  padding: 24px 32px;
   width: 100%;
 }
 

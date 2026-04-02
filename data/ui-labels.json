@@ -1,0 +1,67 @@
+[
+  {
+    "code": "from",
+    "block": {
+      "title": "From",
+      "i18n": {
+        "en": { "title": "From" },
+        "nl": { "title": "Van" },
+        "de": { "title": "Von" },
+        "fr": { "title": "De" },
+        "uk": { "title": "Від" }
+      }
+    }
+  },
+  {
+    "code": "until",
+    "block": {
+      "title": "Until",
+      "i18n": {
+        "en": { "title": "Until" },
+        "nl": { "title": "Tot" },
+        "de": { "title": "Bis" },
+        "fr": { "title": "Jusqu'à" },
+        "uk": { "title": "До" }
+      }
+    }
+  },
+  {
+    "code": "capacity",
+    "block": {
+      "title": "Capacity",
+      "i18n": {
+        "en": { "title": "Capacity" },
+        "nl": { "title": "Capaciteit" },
+        "de": { "title": "Kapazität" },
+        "fr": { "title": "Capacité" },
+        "uk": { "title": "Потужність" }
+      }
+    }
+  },
+  {
+    "code": "off_track",
+    "block": {
+      "title": "Off track",
+      "i18n": {
+        "en": { "title": "Off track" },
+        "nl": { "title": "Off track" },
+        "de": { "title": "Off track" },
+        "fr": { "title": "Off track" },
+        "uk": { "title": "Не працює" }
+      }
+    }
+  },
+  {
+    "code": "now",
+    "block": {
+      "title": "Now",
+      "i18n": {
+        "en": { "title": "Now" },
+        "nl": { "title": "Nu" },
+        "de": { "title": "Jetzt" },
+        "fr": { "title": "Maintenant" },
+        "uk": { "title": "Зараз" }
+      }
+    }
+  }
+]
