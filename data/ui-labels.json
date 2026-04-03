@@ -1,5 +1,57 @@
 [
   {
+    "code": "mode",
+    "block": {
+      "title": "Mode",
+      "i18n": {
+        "en": { "title": "Mode" },
+        "nl": { "title": "Modus" },
+        "de": { "title": "Modus" },
+        "fr": { "title": "Mode" },
+        "uk": { "title": "Режим" }
+      }
+    }
+  },
+  {
+    "code": "manual",
+    "block": {
+      "title": "Manual",
+      "i18n": {
+        "en": { "title": "Manual" },
+        "nl": { "title": "Handmatig" },
+        "de": { "title": "Manuell" },
+        "fr": { "title": "Manuel" },
+        "uk": { "title": "Ручний" }
+      }
+    }
+  },
+  {
+    "code": "auto",
+    "block": {
+      "title": "Auto",
+      "i18n": {
+        "en": { "title": "Auto" },
+        "nl": { "title": "Automatisch" },
+        "de": { "title": "Automatisch" },
+        "fr": { "title": "Auto" },
+        "uk": { "title": "Автоматичний" }
+      }
+    }
+  },
+  {
+    "code": "locations",
+    "block": {
+      "title": "Locations",
+      "i18n": {
+        "en": { "title": "Locations" },
+        "nl": { "title": "Locaties" },
+        "de": { "title": "Standorte" },
+        "fr": { "title": "Emplacements" },
+        "uk": { "title": "Локації" }
+      }
+    }
+  },
+  {
     "code": "from",
     "block": {
       "title": "From",

@@ -1,0 +1,51 @@
+{
+  "locations": [
+    {
+      "code": "dokkum",
+      "enabled": true
+    },
+    {
+      "code": "bad-hersfeld",
+      "enabled": true
+    },
+    {
+      "code": "malaga",
+      "enabled": false
+    }
+  ],
+  "content": [
+    {
+      "code": "dokkum",
+      "block": {
+        "title": "Dokkum",
+        "i18n": {
+          "en": { "title": "Dokkum" },
+          "nl": { "title": "Dokkum" },
+          "de": { "title": "Dokkum" }
+        }
+      }
+    },
+    {
+      "code": "bad-hersfeld",
+      "block": {
+        "title": "Bad Hersfeld",
+        "i18n": {
+          "en": { "title": "Bad Hersfeld" },
+          "nl": { "title": "Bad Hersfeld" },
+          "de": { "title": "Bad Hersfeld" }
+        }
+      }
+    },
+    {
+      "code": "malaga",
+      "block": {
+        "title": "Malaga",
+        "i18n": {
+          "en": { "title": "Malaga" },
+          "nl": { "title": "Malaga" },
+          "de": { "title": "Malaga" }
+        }
+      }
+    }
+  ]
+}

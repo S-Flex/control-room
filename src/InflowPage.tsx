@@ -91,13 +91,38 @@ export function InflowPage() {
   // Checked production dates (multi-select)
   const [checkedDates, setCheckedDates] = useState<Set<string>>(() => new Set(readUrlDates()));
 
+  // Mode (manual / auto)
+  const [mode, setMode] = useState<string>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('mode') || 'manual';
+  });
+  const [modeOpen, setModeOpen] = useState(false);
+
+  // Locations (multi-select)
+  type LocationEntry = { code: string; enabled: boolean };
+  const [locations, setLocations] = useState<LocationEntry[]>([]);
+  const [locationsContent, setLocationsContent] = useState<ContentEntry[]>([]);
+  const [selectedLocations, setSelectedLocations] = useState<Set<string>>(() => {
+    const params = new URLSearchParams(window.location.search);
+    const raw = params.get('location');
+    if (!raw) return new Set<string>();
+    try {
+      const parsed = JSON.parse(raw);
+      return new Set(Array.isArray(parsed) ? parsed : []);
+    } catch {
+      return new Set<string>();
+    }
+  });
+  const [locationsOpen, setLocationsOpen] = useState(false);
+
   useEffect(() => {
     Promise.all([
       fetch('/data/models.json').then(r => r.json()),
       fetch('/data/ui-labels.json').then(r => r.json()),
       fetch('/data/menu-items.json').then(r => r.json()),
       fetch('/data/materials.json').then(r => r.json()),
-    ]).then(([modelsData, labelsData, menuItemsData, materialsData]) => {
+      fetch('/data/locations.json').then(r => r.json()),
+    ]).then(([modelsData, labelsData, menuItemsData, materialsData, locationsData]) => {
       setAllLines(modelsData);
       setUiLabels(labelsData);
       const mc = new Map<string, MenuContentEntry>();
@@ -109,6 +134,15 @@ export function InflowPage() {
       setMenuContent(mc);
       setMaterials(materialsData.materials);
       setMaterialsContent(materialsData.content);
+      setLocations(locationsData.locations);
+      setLocationsContent(locationsData.content);
+      // Auto-select enabled locations if none selected
+      if (selectedLocations.size === 0) {
+        const enabled = (locationsData.locations as LocationEntry[])
+          .filter(l => l.enabled)
+          .map(l => l.code);
+        setSelectedLocations(new Set(enabled));
+      }
       const line = (modelsData as LineConfig[]).find(l => l.code === activeLineId);
       if (line) {
         document.title = `Inflow — ${getBlock(modelsData, line.code, 'title')}`;
@@ -171,10 +205,11 @@ export function InflowPage() {
     setCheckedDates(newDates);
   }, [selectedMaterial, checkedDates]);
 
-  // Sync URL whenever model, material, or checked dates change
+  // Sync URL whenever state changes
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
+    params.set('mode', mode);
     if (selectedMaterial) params.set('material', selectedMaterial);
     else params.delete('material');
     if (checkedDates.size > 0) {
@@ -182,9 +217,28 @@ export function InflowPage() {
     } else {
       params.delete('production_dates');
     }
+    if (selectedLocations.size > 0) {
+      params.set('location', JSON.stringify([...selectedLocations]));
+    } else {
+      params.delete('location');
+    }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, selectedMaterial, checkedDates]);
+  }, [activeLineId, selectedMaterial, checkedDates, mode, selectedLocations]);
+
+  const handleSetMode = useCallback((m: string) => {
+    setMode(m);
+    setModeOpen(false);
+  }, []);
+
+  const toggleLocation = useCallback((code: string) => {
+    setSelectedLocations(prev => {
+      const next = new Set(prev);
+      if (next.has(code)) next.delete(code);
+      else next.add(code);
+      return next;
+    });
+  }, []);
 
   // Toggle a date checkbox
   const toggleDate = useCallback((date: string) => {
@@ -237,6 +291,52 @@ export function InflowPage() {
           switchLine={switchLine}
           uiLabels={uiLabels}
           onLanguageChange={handleLanguageChange}
+          actions={<>
+            <DropdownMenu
+              label={getBlock(uiLabels, mode, 'title')}
+              open={modeOpen}
+              onToggle={() => setModeOpen(o => !o)}
+              onClose={() => setModeOpen(false)}
+              fullWidth={false}
+            >
+              <div className="dropdown-menu-list">
+                {['manual', 'auto'].map(m => (
+                  <button
+                    key={m}
+                    className={`dropdown-menu-item${m === mode ? ' active' : ''}`}
+                    onClick={() => handleSetMode(m)}
+                  >
+                    {getBlock(uiLabels, m, 'title')}
+                  </button>
+                ))}
+              </div>
+            </DropdownMenu>
+            <DropdownMenu
+              label={getBlock(uiLabels, 'locations', 'title')}
+              open={locationsOpen}
+              onToggle={() => setLocationsOpen(o => !o)}
+              onClose={() => setLocationsOpen(false)}
+              fullWidth={false}
+            >
+              <div className="dropdown-menu-list">
+                {locations.map(loc => (
+                  <label
+                    key={loc.code}
+                    className={`dropdown-menu-item dropdown-menu-check${!loc.enabled ? ' disabled' : ''}${selectedLocations.has(loc.code) ? ' active' : ''}`}
+                  >
+                    <input
+                      type="checkbox"
+                      className="dropdown-menu-checkbox"
+                      checked={selectedLocations.has(loc.code)}
+                      disabled={!loc.enabled}
+                      onChange={() => toggleLocation(loc.code)}
+                    />
+                    {getBlock(locationsContent, loc.code, 'title')}
+                  </label>
+                ))}
+              </div>
+            </DropdownMenu>
+          </>}
         >
           <DropdownMenu
             label={materialLabel}

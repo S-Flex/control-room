@@ -1043,6 +1043,10 @@ body {
 
 /* ---- Generic Dropdown Menu ---- */
 
+.dropdown-menu-wrapper {
+  position: relative;
+}
+
 .dropdown-menu-trigger {
   display: flex;
   align-items: center;
@@ -1066,6 +1070,10 @@ body {
 }
 
 .dropdown-menu-panel {
+  position: fixed;
+  position-area: bottom span-right;
+  position-try-fallbacks: bottom span-left;
+  margin-top: 4px;
   z-index: 100;
   background: var(--bg);
   border: 1px solid var(--border);
@@ -1074,6 +1082,7 @@ body {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 8px;
+  width: max-content;
 }
 
 .dropdown-menu-list {
@@ -1107,6 +1116,36 @@ body {
   background: var(--brand);
   color: #fff;
 }
+
+.dropdown-menu-check {
+  justify-content: flex-start;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.dropdown-menu-check.active {
+  background: transparent;
+  color: var(--text);
+}
+
+.dropdown-menu-check.active:hover {
+  background: var(--bar-bg);
+}
+
+.dropdown-menu-checkbox {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+  accent-color: var(--brand);
+  cursor: pointer;
+}
+
+.dropdown-menu-item.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 
 /* ---- Production Schedule (extends Dropdown Menu) ---- */
 
