@@ -1,12 +1,36 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
 import { DropdownMenu } from './widgets/DropdownMenu';
+import { MaterialCarousel } from './widgets/MaterialCarousel';
 import { ProductionScheduleMenu, type Material, type ContentEntry } from './ProductionScheduleMenu';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 import './app.css';
+
+/** Build a flat ordered list of material codes matching menu order:
+ *  by interval_workdays (asc), then category, then rush_time_hours (asc) */
+function buildOrderedCodes(materials: Material[], modelCode: string): string[] {
+  const filtered = materials.filter(m => m.model.code === modelCode);
+  const intervals = [...new Set(filtered.map(m => m.interval_workdays))].sort((a, b) => a - b);
+  const codes: string[] = [];
+  for (const interval of intervals) {
+    const items = filtered
+      .filter(m => m.interval_workdays === interval)
+      .sort((a, b) => a.rush_time_hours - b.rush_time_hours);
+    const categoryMap = new Map<string, Material[]>();
+    for (const item of items) {
+      const cat = item.category.code;
+      if (!categoryMap.has(cat)) categoryMap.set(cat, []);
+      categoryMap.get(cat)!.push(item);
+    }
+    for (const group of categoryMap.values()) {
+      for (const m of group) codes.push(m.code);
+    }
+  }
+  return codes;
+}
 
 export function InflowPage() {
   const [, forceRender] = useState(0);
@@ -52,6 +76,26 @@ export function InflowPage() {
     });
   }, [activeLineId]);
 
+  // Ordered material codes for the current model
+  const orderedCodes = useMemo(
+    () => buildOrderedCodes(materials, activeLineId),
+    [materials, activeLineId],
+  );
+
+  // Auto-select first material when none selected or current not in list
+  useEffect(() => {
+    if (orderedCodes.length === 0) return;
+    if (!selectedMaterial || !orderedCodes.includes(selectedMaterial)) {
+      const first = orderedCodes[0];
+      setSelectedMaterial(first);
+      const params = new URLSearchParams(window.location.search);
+      params.set('material', first);
+      window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+    }
+  }, [orderedCodes, selectedMaterial]);
+
+  const currentIndex = selectedMaterial ? orderedCodes.indexOf(selectedMaterial) : 0;
+
   const switchLine = useCallback((id: string) => {
     if (id === activeLineId) return;
     setActiveLineId(id);
@@ -86,6 +130,18 @@ export function InflowPage() {
     ? getBlock(materialsContent, selectedMaterial, 'title')
     : scheduleLabel;
 
+  // Production dates for the selected material
+  const productionDates = useMemo(() => {
+    if (!selectedMaterial) return [];
+    const mat = materials.find(m => m.code === selectedMaterial);
+    return mat?.production_dates ?? [];
+  }, [materials, selectedMaterial]);
+
+  const getMaterialLabel = useCallback(
+    (code: string) => getBlock(materialsContent, code, 'title'),
+    [materialsContent],
+  );
+
   return (
     <div className="planning-page">
       <div className="planning-main">
@@ -116,7 +172,23 @@ export function InflowPage() {
         </PageHeader>
 
         <div className="planning-content">
-          <div className="planning-viewer">
+          <div className="inflow-content">
+            <div className="inflow-col-header">{getBlock(uiLabels, 'schedule', 'title')}</div>
+            <MaterialCarousel
+              items={orderedCodes}
+              currentIndex={currentIndex >= 0 ? currentIndex : 0}
+              getLabel={getMaterialLabel}
+              onSelect={handleSelectMaterial}
+            />
+            <div className="inflow-schedule-dates">
+              {productionDates.map(date => (
+                <div key={date} className="inflow-date-item">
+                  {new Date(date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
+                </div>
+              ))}
+            </div>
+            <div className="inflow-material-body">
+            </div>
           </div>
         </div>
 

@@ -1188,6 +1188,99 @@ body {
   color: #fff;
 }
 
+/* ---- Inflow Layout ---- */
+
+.inflow-content {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+  min-height: 0;
+  width: 100%;
+}
+
+.inflow-col-header {
+  padding: 8px 12px;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+}
+
+.inflow-schedule-dates {
+  overflow-y: auto;
+  padding: 4px 0;
+  border-right: 1px solid var(--border);
+}
+
+.inflow-date-item {
+  padding: 4px 12px;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.inflow-material-body {
+  min-height: 0;
+  overflow: auto;
+}
+
+/* ---- Material Carousel ---- */
+
+.carousel-header {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  height: 36px;
+}
+
+.carousel-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+  padding: 0 10px;
+  height: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: color 0.1s;
+}
+
+.carousel-nav:hover {
+  color: var(--text);
+}
+
+.carousel-nav-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.carousel-nav-prev {
+  justify-content: flex-start;
+}
+
+.carousel-nav-next {
+  justify-content: flex-end;
+}
+
+.carousel-center {
+  flex: 1;
+  min-width: 0;
+  text-align: center;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 8px;
+}
+
 /* OEE Sidebar */
 .planning-sidebar {
   width: 320px;

@@ -52,6 +52,19 @@
     }
   },
   {
+    "code": "schedule",
+    "block": {
+      "title": "Schedule",
+      "i18n": {
+        "en": { "title": "Schedule" },
+        "nl": { "title": "Planning" },
+        "de": { "title": "Zeitplan" },
+        "fr": { "title": "Calendrier" },
+        "uk": { "title": "Розклад" }
+      }
+    }
+  },
+  {
     "code": "production_schedule",
     "block": {
       "title": "Production Schedule",
