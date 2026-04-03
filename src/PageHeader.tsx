@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
+import { DropdownMenu } from './widgets/DropdownMenu';
 import type { LineConfig, UiLabel } from './types';
 
 type PageHeaderProps = {
@@ -15,25 +16,39 @@ type PageHeaderProps = {
 export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLanguageChange, children, actions }: PageHeaderProps) {
   const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
   const [lang, setLang] = useState(() => getLanguage());
+  const [modelOpen, setModelOpen] = useState(false);
+
+  const handleSwitchLine = useCallback((id: string) => {
+    switchLine(id);
+    setModelOpen(false);
+  }, [switchLine]);
+
+  const modelLabel = getBlock(allLines, activeLineId, 'title');
 
   return (
     <header className="planning-header">
       <div className="planning-header-left">
-        <a href="/" className="planning-icon-btn planning-home-btn" title="Home">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M3 10l7-7 7 7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M5 8.5V16a1 1 0 001 1h3v-4h2v4h3a1 1 0 001-1V8.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
+        <a href="/" className="planning-home-btn" title="Home">
+          <img src="/img/probo.svg" alt="Home" className="planning-home-logo" />
         </a>
-        <select
-          className="planning-select planning-model-select"
-          value={activeLineId}
-          onChange={e => switchLine(e.target.value)}
+        <DropdownMenu
+          label={modelLabel}
+          open={modelOpen}
+          onToggle={() => setModelOpen(o => !o)}
+          onClose={() => setModelOpen(false)}
         >
-          {allLines.map(line => (
-            <option key={line.code} value={line.code}>{getBlock(allLines, line.code, 'title')}</option>
-          ))}
-        </select>
+          <div className="dropdown-menu-list">
+            {allLines.map(line => (
+              <button
+                key={line.code}
+                className={`dropdown-menu-item${line.code === activeLineId ? ' active' : ''}`}
+                onClick={() => handleSwitchLine(line.code)}
+              >
+                {getBlock(allLines, line.code, 'title')}
+              </button>
+            ))}
+          </div>
+        </DropdownMenu>
         {children}
       </div>
       <div className="planning-header-actions">

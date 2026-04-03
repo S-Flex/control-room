@@ -52,6 +52,45 @@
     }
   },
   {
+    "code": "production_schedule",
+    "block": {
+      "title": "Production Schedule",
+      "i18n": {
+        "en": { "title": "Production Schedule" },
+        "nl": { "title": "Productieschema" },
+        "de": { "title": "Produktionsplan" },
+        "fr": { "title": "Calendrier de production" },
+        "uk": { "title": "Графік виробництва" }
+      }
+    }
+  },
+  {
+    "code": "every_day",
+    "block": {
+      "title": "Every day",
+      "i18n": {
+        "en": { "title": "Every day" },
+        "nl": { "title": "Elke dag" },
+        "de": { "title": "Jeden Tag" },
+        "fr": { "title": "Chaque jour" },
+        "uk": { "title": "Щодня" }
+      }
+    }
+  },
+  {
+    "code": "every_n_days",
+    "block": {
+      "title": "Every {n} days",
+      "i18n": {
+        "en": { "title": "Every {n} days" },
+        "nl": { "title": "Elke {n} dagen" },
+        "de": { "title": "Alle {n} Tage" },
+        "fr": { "title": "Tous les {n} jours" },
+        "uk": { "title": "Кожні {n} днів" }
+      }
+    }
+  },
+  {
     "code": "now",
     "block": {
       "title": "Now",

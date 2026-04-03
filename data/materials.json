@@ -1,0 +1,5174 @@
+{
+  "materials": [
+    {
+      "code": "backlit-cloth",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 144,
+      "interval_workdays": 5,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-14",
+        "2026-04-21",
+        "2026-04-29",
+        "2026-05-07",
+        "2026-05-18",
+        "2026-05-26",
+        "2026-06-02",
+        "2026-06-09",
+        "2026-06-16"
+      ]
+    },
+    {
+      "code": "stitched-fr",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 168,
+      "interval_workdays": 1
+    },
+    {
+      "code": "dibond-budget-3mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "forex-3mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "banner-510",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "dekostof",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "airtex-pvc",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "mesh-cloth",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "orajet-3651-ra-white-gloss",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "forex-5mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "polypropylene-3.5mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 18,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "label-white-pp-film-perm-thick-paper-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "label-white-pp-film-permanent-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "longlife",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "orajet-3162-white-gloss",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "quapro-permanent",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "quapro-promotional",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "samba-backlit",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "hv-satin-mc-135",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-satin-mc-170",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-satin-mc-250",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-satin-mc-300",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-satin-mc-400",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-semi-matte-mc-135",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-semi-matte-mc-170",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-semi-matte-mc-250",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-semi-matte-mc-300",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hv-semi-matte-mc-400",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hvo-white-170",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "hvo-white-90",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "natural-cardboard-350",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "natuurkarton-300",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "poster-paper-150",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "sulphate-board-260",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "sulphate-board-300",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "synaps-om-300",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 24,
+      "interval_workdays": 1
+    },
+    {
+      "code": "acrylic-clear-5mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "dibond-dilite-3mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "blackback",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "blackback-soft",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "forex-3mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "foil-dot-white-out",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "ij40-10c-white-gloss",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "banner-610-ds",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "banner-610-ss",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "dibond-butler-finish-3mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "forex-10mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "forex-1mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "magnet-foil-0.85mm",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 30,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "blueback-paper",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "canvas",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "dibond-digital-3mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "display-cardboard-2mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "re-board-10mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "re-board-16mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "flag-direct",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "ij20-10r-white",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "erfurt-variovlies",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "propes",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "roughmark",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "magnet-foil-0.5mm",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "poster-paper-250",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "provlies-matte",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 48,
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16",
+        "2026-04-17"
+      ]
+    },
+    {
+      "code": "basic-wall",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "blueback-wallcovering",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "avery-mpi-1104-white",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "avery-mpi-1105-white",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "budget-banner",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "decotex",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "acrylic-clear-3mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "akylite-single-sided",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "dibond-budget-4mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "dibond-budget-6mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "dibond-digital-3mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "floor-vinyl",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "foil-ij280-white",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "dibond-dilite-3mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "dibond-xl-3mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "display-cardboard-2mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "forex-10mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "forex-5mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "polypropylene-3.5mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "polypropylene-8mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "polystyrene-1mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "polystyrene-2mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "poplar-plywood-9mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 1
+    },
+    {
+      "code": "one-way-vision",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "one-way-vision-permanent",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "re-board-10mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "re-board-16mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "vikunyl",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "quapro-permanent-pvc-free",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "flag-ciclo",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "lumitex",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-09",
+        "2026-04-13",
+        "2026-04-15",
+        "2026-04-17",
+        "2026-04-21",
+        "2026-04-23",
+        "2026-04-28",
+        "2026-04-30",
+        "2026-05-04"
+      ]
+    },
+    {
+      "code": "synaps-polyester-paper",
+      "category": {
+        "code": "paper"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "walltex-pro",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 72,
+      "interval_workdays": 2,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-08",
+        "2026-04-10",
+        "2026-04-14",
+        "2026-04-16",
+        "2026-04-20",
+        "2026-04-22",
+        "2026-04-24",
+        "2026-04-29",
+        "2026-05-01"
+      ]
+    },
+    {
+      "code": "kely",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "black-and-white-banner",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "clearview",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "diamond-backlit-sg",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "foil-ij20-114r-gloss",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "multitexpro",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "foil-ij40-114-gloss",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "foil-orajet-3651-transparent-gloss",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "foil-static-adhesive-transp.",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "foil-static-adhesive-white",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "gekkotex",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "lintec",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "lochfilet",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "pro-cotton-percale",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "motomark-235",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "outdoor-floor-foil-aluminum",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "provinyl-fine",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "provinyl-textile",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "acrylic-clear-10mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "acrylic-opal-3mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "acrylic-opal-5mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "easy-print-10mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "propes-fr",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "evacast-0.8mm-white",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "forex-re-3mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "forex-re-3mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "forex-re-5mm-ss",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "sandblast-foil",
+      "category": {
+        "code": "foil-and-stickers"
+      },
+      "model": {
+        "code": "foil"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-08",
+        "2026-04-13",
+        "2026-04-16",
+        "2026-04-21",
+        "2026-04-24",
+        "2026-04-30",
+        "2026-05-06",
+        "2026-05-11",
+        "2026-05-18",
+        "2026-05-21"
+      ]
+    },
+    {
+      "code": "polystyrene-2mm-ds",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "signagain-2mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    },
+    {
+      "code": "sound-mesh",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "spinaker",
+      "category": {
+        "code": "cloth-flag-banner-and-floor"
+      },
+      "model": {
+        "code": "non-adhesive"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "structex",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-09",
+        "2026-04-14",
+        "2026-04-17",
+        "2026-04-22",
+        "2026-04-28",
+        "2026-05-01",
+        "2026-05-07",
+        "2026-05-12",
+        "2026-05-19"
+      ]
+    },
+    {
+      "code": "velour",
+      "category": {
+        "code": "wallpaper-wall-coverings-and-textiles"
+      },
+      "model": {
+        "code": "textile"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 1
+    },
+    {
+      "code": "signagain-4mm",
+      "category": {
+        "code": "sheet"
+      },
+      "model": {
+        "code": "sheet"
+      },
+      "rush_time_hours": 96,
+      "interval_workdays": 3,
+      "production_dates": [
+        "2026-04-07",
+        "2026-04-10",
+        "2026-04-15",
+        "2026-04-20",
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-04",
+        "2026-05-08",
+        "2026-05-13",
+        "2026-05-20"
+      ]
+    }
+  ],
+  "content": [
+    {
+      "code": "backlit-cloth",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Backlitdoek"
+          },
+          "en": {
+            "title": "Backlit Plane"
+          },
+          "de": {
+            "title": "Backlit Plane"
+          }
+        }
+      }
+    },
+    {
+      "code": "cloth-flag-banner-and-floor",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Doek, vlag, banner en vloer"
+          },
+          "en": {
+            "title": "Cloth, flag, banner and floor"
+          },
+          "de": {
+            "title": "Tuch, Fahne, Banner und Boden"
+          }
+        }
+      }
+    },
+    {
+      "code": "stitched-fr",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Akoestisch materiaal"
+          },
+          "en": {
+            "title": "Acoustic material"
+          },
+          "de": {
+            "title": "Akustisches Material"
+          }
+        }
+      }
+    },
+    {
+      "code": "wallpaper-wall-coverings-and-textiles",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Behang, wandbekleding en textiel"
+          },
+          "en": {
+            "title": "Wallpaper, wall coverings and textiles"
+          },
+          "de": {
+            "title": "Tapeten, Wandverkleidungen und Textilien"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-budget-3mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond Budget 3 mm"
+          },
+          "en": {
+            "title": "Dibond Budget 3 mm"
+          },
+          "de": {
+            "title": "Dibond Budget 3 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "sheet",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Plaat"
+          },
+          "en": {
+            "title": "Sheet"
+          },
+          "de": {
+            "title": "Platte"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-3mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 3mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Forex 3mm - Single-sided"
+          },
+          "de": {
+            "title": "Forex 3mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "banner-510",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Banner 510"
+          },
+          "en": {
+            "title": "Banner 510"
+          },
+          "de": {
+            "title": "Banner 510"
+          }
+        }
+      }
+    },
+    {
+      "code": "dekostof",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dekostof"
+          },
+          "en": {
+            "title": "Decotex"
+          },
+          "de": {
+            "title": "Dekostoff"
+          }
+        }
+      }
+    },
+    {
+      "code": "airtex-pvc",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Airtex"
+          },
+          "en": {
+            "title": "Airtex®"
+          },
+          "de": {
+            "title": "Airtex®"
+          }
+        }
+      }
+    },
+    {
+      "code": "mesh-cloth",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Meshdoek"
+          },
+          "en": {
+            "title": "Mesh Fabric"
+          },
+          "de": {
+            "title": "Mesh-Gewebe"
+          }
+        }
+      }
+    },
+    {
+      "code": "orajet-3651-ra-white-gloss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Orajet 3651 - wit"
+          },
+          "en": {
+            "title": "Orajet 3651 - White"
+          },
+          "de": {
+            "title": "Orajet 3651 - weiß"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-and-stickers",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Folie, stickers en etiketten"
+          },
+          "en": {
+            "title": "Foil and stickers"
+          },
+          "de": {
+            "title": "Folie, Etiketten und Aufkleber"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-5mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 5mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Forex 5mm - Single-sided"
+          },
+          "de": {
+            "title": "Forex 5mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "polypropylene-3.5mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polyprop 3.5mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Polyprop 3.5mm - Single-sided"
+          },
+          "de": {
+            "title": "Polyprop 3.5mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-white-pp-film-perm-thick-paper-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Witte folie - permanent"
+          },
+          "en": {
+            "title": "White film - permanent"
+          },
+          "de": {
+            "title": "Weiße Folie - Permanent"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-white-pp-film-permanent-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Witte folie - permanent"
+          },
+          "en": {
+            "title": "White film - permanent"
+          },
+          "de": {
+            "title": "Weiße Folie - Permanent"
+          }
+        }
+      }
+    },
+    {
+      "code": "longlife",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Flag Longlife"
+          },
+          "en": {
+            "title": "Flag Longlife"
+          },
+          "de": {
+            "title": "Flag Longlife"
+          }
+        }
+      }
+    },
+    {
+      "code": "orajet-3162-white-gloss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Orajet 3162 - wit"
+          },
+          "en": {
+            "title": "Orajet 3162 - White"
+          },
+          "de": {
+            "title": "Orajet 3162 - weiß"
+          }
+        }
+      }
+    },
+    {
+      "code": "quapro-permanent",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "QuaPro Permanent"
+          },
+          "en": {
+            "title": "QuaPro Permanent"
+          },
+          "de": {
+            "title": "QuaPro Permanent"
+          }
+        }
+      }
+    },
+    {
+      "code": "quapro-promotional",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "QuaPro Promotioneel"
+          },
+          "en": {
+            "title": "QuaPro Promotional"
+          },
+          "de": {
+            "title": "QuaPro Temporär"
+          }
+        }
+      }
+    },
+    {
+      "code": "samba-backlit",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Samba Backlit"
+          },
+          "en": {
+            "title": "Samba Backlit"
+          },
+          "de": {
+            "title": "Samba Backlit"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-satin-mc-135",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV gesatineerd MC 135 g/m²"
+          },
+          "en": {
+            "title": "HV Satin MC 135"
+          },
+          "de": {
+            "title": "HV satiniert MC 135 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "paper",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Drukwerk"
+          },
+          "en": {
+            "title": "Paper"
+          },
+          "de": {
+            "title": "Drucksachen"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-satin-mc-170",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV gesatineerd MC 170 g/m²"
+          },
+          "en": {
+            "title": "HV Satin MC 170"
+          },
+          "de": {
+            "title": "HV satiniert MC 170 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-satin-mc-250",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV gesatineerd MC 250 g/m²"
+          },
+          "en": {
+            "title": "HV Satin MC 250"
+          },
+          "de": {
+            "title": "HV satiniert MC 250 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-satin-mc-300",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV gesatineerd MC 300 g/m²"
+          },
+          "en": {
+            "title": "HV Satin MC 300"
+          },
+          "de": {
+            "title": "HV satiniert MC 300 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-satin-mc-400",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV gesatineerd MC 400 g/m²"
+          },
+          "en": {
+            "title": "HV Satin MC 400"
+          },
+          "de": {
+            "title": "HV satiniert MC 400 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-semi-matte-mc-135",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV halfmat MC 135 g/m²"
+          },
+          "en": {
+            "title": "HV Semi-Matte MC 135"
+          },
+          "de": {
+            "title": "HV halbmat MC 135 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-semi-matte-mc-170",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV halfmat MC 170 g/m²"
+          },
+          "en": {
+            "title": "HV Semi-Matte MC 170"
+          },
+          "de": {
+            "title": "HV halbmat MC 170 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-semi-matte-mc-250",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV halfmat MC 250 g/m²"
+          },
+          "en": {
+            "title": "HV Semi-Matte MC 250"
+          },
+          "de": {
+            "title": "HV halbmat MC 250 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-semi-matte-mc-300",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV halfmat MC 300 g/m²"
+          },
+          "en": {
+            "title": "HV Semi-Matte MC 300"
+          },
+          "de": {
+            "title": "HV halbmat MC 300 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hv-semi-matte-mc-400",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HV halfmat MC 400 g/m²"
+          },
+          "en": {
+            "title": "HV Semi-Matte MC 400"
+          },
+          "de": {
+            "title": "HV halbmat MC 400 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hvo-white-170",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HVO wit 170 g/m²"
+          },
+          "en": {
+            "title": "HVO White 170"
+          },
+          "de": {
+            "title": "HVO weiß 170 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "hvo-white-90",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "HVO wit 90 g/m²"
+          },
+          "en": {
+            "title": "HVO White 90"
+          },
+          "de": {
+            "title": "HVO weiß 90 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "natural-cardboard-350",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Natuurkarton 350 g/m²"
+          },
+          "en": {
+            "title": "Natural Cardboard 350"
+          },
+          "de": {
+            "title": "Naturkarton 350 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "natuurkarton-300",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Natuurkarton 300 g/m²"
+          },
+          "en": {
+            "title": "Natural Cardboard 300"
+          },
+          "de": {
+            "title": "Naturkarton 300 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "poster-paper-150",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Posterpapier 150 g/m²"
+          },
+          "en": {
+            "title": "Poster Paper 150"
+          },
+          "de": {
+            "title": "Posterpapier 150 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "sulphate-board-260",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Sulfaatkarton 260 g/m²"
+          },
+          "en": {
+            "title": "Sulphate Board 260"
+          },
+          "de": {
+            "title": "Sulfatkarton 260 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "sulphate-board-300",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Sulfaatkarton 300 g/m²"
+          },
+          "en": {
+            "title": "Sulphate Board 300"
+          },
+          "de": {
+            "title": "Sulfatkarton 300 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "synaps-om-300",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Synaps 300 g/m²"
+          },
+          "en": {
+            "title": "Synaps 300"
+          },
+          "de": {
+            "title": "Synaps 300 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "acrylic-clear-5mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Plexiglas helder 5 mm"
+          },
+          "en": {
+            "title": "Plexiglass Clear 5 mm"
+          },
+          "de": {
+            "title": "Plexiglas klar 5 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-dilite-3mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond® 3 mm"
+          },
+          "en": {
+            "title": "Dibond® 3 mm"
+          },
+          "de": {
+            "title": "Dibond® 3 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "blackback",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Blackback XL"
+          },
+          "en": {
+            "title": "Blackback XL"
+          },
+          "de": {
+            "title": "Blackback XL"
+          }
+        }
+      }
+    },
+    {
+      "code": "blackback-soft",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Blackback Soft"
+          },
+          "en": {
+            "title": "Blackback Soft"
+          },
+          "de": {
+            "title": "Blackback Soft"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-3mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 3mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Forex 3mm - Double-sided"
+          },
+          "de": {
+            "title": "Forex 3mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-dot-white-out",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Foil Dot - Wit "
+          },
+          "en": {
+            "title": "Foil Dot - White"
+          },
+          "de": {
+            "title": "Folie Dot - Weiß"
+          }
+        }
+      }
+    },
+    {
+      "code": "ij40-10c-white-gloss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "3M IJ40 - wit"
+          },
+          "en": {
+            "title": "3M IJ40 - White"
+          },
+          "de": {
+            "title": "3M IJ40 - weiß"
+          }
+        }
+      }
+    },
+    {
+      "code": "banner-610-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Banner 610 - dubbelzijdig"
+          },
+          "en": {
+            "title": "Banner 610"
+          },
+          "de": {
+            "title": "Banner 610"
+          }
+        }
+      }
+    },
+    {
+      "code": "banner-610-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Banner 610 - enkelzijdig"
+          },
+          "en": {
+            "title": "Banner 610"
+          },
+          "de": {
+            "title": "Banner 610"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-butler-finish-3mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond Butler Finish 3 mm"
+          },
+          "en": {
+            "title": "Dibond Butler Finish 3 mm"
+          },
+          "de": {
+            "title": "Dibond Butler Finish 3 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-10mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 10mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Forex 10mm - Single-sided"
+          },
+          "de": {
+            "title": "Forex 10mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-1mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 1mm"
+          },
+          "en": {
+            "title": "Forex 1mm"
+          },
+          "de": {
+            "title": "Forex 1mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "magnet-foil-0.85mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Magneetfolie 0.85mm"
+          },
+          "en": {
+            "title": "Magnetic Foil 0.85mm"
+          },
+          "de": {
+            "title": "Magnetfolie 0.85mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "blueback-paper",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Bluebackpapier 115 g/m²"
+          },
+          "en": {
+            "title": "Blueback Paper 115"
+          },
+          "de": {
+            "title": "Bluebackpapier 115 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "canvas",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Canvas"
+          },
+          "en": {
+            "title": "Canvas"
+          },
+          "de": {
+            "title": "Leinwandstoff"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-digital-3mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond Digitaal 3mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Dibond Digital 3mm - Single-sided"
+          },
+          "de": {
+            "title": "Dibond Digital 3mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "display-cardboard-2mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Displaykarton 2 mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Display Cardboard 2 mm - Single-sided"
+          },
+          "de": {
+            "title": "Displaykarton 2 mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "re-board-10mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Re-board 10mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Re-board 10mm - Single-sided"
+          },
+          "de": {
+            "title": "Re-board 10mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "re-board-16mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Re-board 16mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Re-board 16mm - Single-sided"
+          },
+          "de": {
+            "title": "Re-board 16mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "flag-direct",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Flag"
+          },
+          "en": {
+            "title": "Flag"
+          },
+          "de": {
+            "title": "Flag"
+          }
+        }
+      }
+    },
+    {
+      "code": "ij20-10r-white",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "3M IJ20 - wit"
+          },
+          "en": {
+            "title": "3M IJ20 - White"
+          },
+          "de": {
+            "title": "3M IJ20 - weiß"
+          }
+        }
+      }
+    },
+    {
+      "code": "erfurt-variovlies",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Erfurt Variovlies"
+          },
+          "en": {
+            "title": "Erfurt Variovlies"
+          },
+          "de": {
+            "title": "Erfurt Variovlies"
+          }
+        }
+      }
+    },
+    {
+      "code": "propes",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Propes Outdoor"
+          },
+          "en": {
+            "title": "Propes Outdoor"
+          },
+          "de": {
+            "title": "Propes Outdoor"
+          }
+        }
+      }
+    },
+    {
+      "code": "roughmark",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Roughmark"
+          },
+          "en": {
+            "title": "Roughmark"
+          },
+          "de": {
+            "title": "Roughmark"
+          }
+        }
+      }
+    },
+    {
+      "code": "magnet-foil-0.5mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Magneetfolie 0.5mm"
+          },
+          "en": {
+            "title": "Magnetic Foil 0.5mm"
+          },
+          "de": {
+            "title": "Magnetfolie 0.5mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "poster-paper-250",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Posterpapier 250 g/m²"
+          },
+          "en": {
+            "title": "Poster Paper 250"
+          },
+          "de": {
+            "title": "Posterpapier 250 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "provlies-matte",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Provlies Mat"
+          },
+          "en": {
+            "title": "Provlies Matte"
+          },
+          "de": {
+            "title": "Provlies Matt"
+          }
+        }
+      }
+    },
+    {
+      "code": "basic-wall",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Basicwall"
+          },
+          "en": {
+            "title": "Basicwall"
+          },
+          "de": {
+            "title": "Basicwall"
+          }
+        }
+      }
+    },
+    {
+      "code": "blueback-wallcovering",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Sanotex"
+          },
+          "en": {
+            "title": "SanoTex"
+          },
+          "de": {
+            "title": "SanoTex"
+          }
+        }
+      }
+    },
+    {
+      "code": "avery-mpi-1104-white",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Avery 1104"
+          },
+          "en": {
+            "title": "Avery 1104"
+          },
+          "de": {
+            "title": "Avery 1104"
+          }
+        }
+      }
+    },
+    {
+      "code": "avery-mpi-1105-white",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Avery 1105"
+          },
+          "en": {
+            "title": "Avery 1105"
+          },
+          "de": {
+            "title": "Avery 1105"
+          }
+        }
+      }
+    },
+    {
+      "code": "budget-banner",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Budget Banner"
+          },
+          "en": {
+            "title": "Budget Banner"
+          },
+          "de": {
+            "title": "Budget-Banner"
+          }
+        }
+      }
+    },
+    {
+      "code": "decotex",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Decotex UV"
+          },
+          "en": {
+            "title": "Decotex UV"
+          },
+          "de": {
+            "title": "Decotex UV"
+          }
+        }
+      }
+    },
+    {
+      "code": "acrylic-clear-3mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Plexiglas helder 3 mm"
+          },
+          "en": {
+            "title": "Plexiglass Clear 3 mm"
+          },
+          "de": {
+            "title": "Plexiglas klar 3 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "akylite-single-sided",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Akylite"
+          },
+          "en": {
+            "title": "Akylite®"
+          },
+          "de": {
+            "title": "Akylite®"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-budget-4mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond® 4 mm"
+          },
+          "en": {
+            "title": "Dibond® 4 mm"
+          },
+          "de": {
+            "title": "Dibond® 4 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-budget-6mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond® 6 mm"
+          },
+          "en": {
+            "title": "Dibond® 6 mm"
+          },
+          "de": {
+            "title": "Dibond® 6 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-digital-3mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond Digitaal 3mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Dibond Digital 3mm - Double-sided"
+          },
+          "de": {
+            "title": "Dibond Digital 3mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "floor-vinyl",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Vloerzeil"
+          },
+          "en": {
+            "title": "Floor Vinyl"
+          },
+          "de": {
+            "title": "Bodenbelag"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-ij280-white",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "3M IJ280 "
+          },
+          "en": {
+            "title": "3M IJ280 - White"
+          },
+          "de": {
+            "title": "3M IJ280 "
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-dilite-3mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond® 3 mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Dibond® 3 mm - Double-sided"
+          },
+          "de": {
+            "title": "Dibond® 3 mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "dibond-xl-3mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Dibond XL 3 mm"
+          },
+          "en": {
+            "title": "Dibond XL 3 mm"
+          },
+          "de": {
+            "title": "Dibond XL 3 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "display-cardboard-2mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Displaykarton 2 mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Display Cardboard 2 mm - Double-sided"
+          },
+          "de": {
+            "title": "Displaykarton 2 mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-10mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 10mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Forex 10mm - Double-sided"
+          },
+          "de": {
+            "title": "Forex 10mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-5mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex 5mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Forex 5mm - Double-sided"
+          },
+          "de": {
+            "title": "Forex 5mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "polypropylene-3.5mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polyprop 3.5mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Polyprop 3.5mm - Double-sided"
+          },
+          "de": {
+            "title": "Polyprop 3.5mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "polypropylene-8mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polyprop 8mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Polyprop 8mm - Single-sided"
+          },
+          "de": {
+            "title": "Polyprop 8mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "polystyrene-1mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polystyreen 1mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Polystyrene 1mm - Single-sided"
+          },
+          "de": {
+            "title": "Polystyrol 1mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "polystyrene-2mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polystyreen 2mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Polystyrene 2mm - Single-sided"
+          },
+          "de": {
+            "title": "Polystyrol 2mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "poplar-plywood-9mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Multiplex 9mm"
+          },
+          "en": {
+            "title": "Multiplex 9mm"
+          },
+          "de": {
+            "title": "Sperrholz 9mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-gloss-paper-permanent-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Papier glans"
+          },
+          "en": {
+            "title": "Glossy paper"
+          },
+          "de": {
+            "title": "Glanzpapier"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-matte-paper-permanent-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Papier mat"
+          },
+          "en": {
+            "title": "Matte paper"
+          },
+          "de": {
+            "title": "Mattpapier"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-white-pp-film-promo-thick-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Witte folie - promotioneel"
+          },
+          "en": {
+            "title": "White film - promotional"
+          },
+          "de": {
+            "title": "Weiße Folie - Temporär"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-white-pp-film-promo-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Witte folie - promotioneel"
+          },
+          "en": {
+            "title": "White film - promotional"
+          },
+          "de": {
+            "title": "Weiße Folie - Temporär"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thick-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Witte folie - sterkhechtend"
+          },
+          "en": {
+            "title": "White film - strong adhesive"
+          },
+          "de": {
+            "title": "Weiße Folie - Aggressiver Haftung"
+          }
+        }
+      }
+    },
+    {
+      "code": "one-way-vision",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "One Way Vision - promotioneel"
+          },
+          "en": {
+            "title": "One Way Vision - Promotional"
+          },
+          "de": {
+            "title": "One Way Vision - Promotion"
+          }
+        }
+      }
+    },
+    {
+      "code": "one-way-vision-permanent",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "One Way Vision - permanent"
+          },
+          "en": {
+            "title": "One Way Vision - Permanent"
+          },
+          "de": {
+            "title": "One Way Vision - permanent"
+          }
+        }
+      }
+    },
+    {
+      "code": "re-board-10mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Re-board 10mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Re-board 10mm - Double-sided"
+          },
+          "de": {
+            "title": "Re-board 10mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "re-board-16mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Re-board 16mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Re-board 16mm - Double-sided"
+          },
+          "de": {
+            "title": "Re-board 16mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "vikunyl",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Flexibel PVC"
+          },
+          "en": {
+            "title": "Flexible PVC"
+          },
+          "de": {
+            "title": "Flexibles PVC"
+          }
+        }
+      }
+    },
+    {
+      "code": "quapro-permanent-pvc-free",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Quapro Permanent PVC vrij"
+          },
+          "en": {
+            "title": "Quapro Permanent PVC-free"
+          },
+          "de": {
+            "title": "Quapro Permanent PVC-frei"
+          }
+        }
+      }
+    },
+    {
+      "code": "flag-ciclo",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Flag CiClo"
+          },
+          "en": {
+            "title": "Flag CiClo"
+          },
+          "de": {
+            "title": "Flag CiClo"
+          }
+        }
+      }
+    },
+    {
+      "code": "lumitex",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Lumitex"
+          },
+          "en": {
+            "title": "Lumitex"
+          },
+          "de": {
+            "title": "Lumitex"
+          }
+        }
+      }
+    },
+    {
+      "code": "synaps-polyester-paper",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Synthetisch papier 170 g/m²"
+          },
+          "en": {
+            "title": "Synthetic Paper 170"
+          },
+          "de": {
+            "title": "Synthetisches Papier 170 g/m²"
+          }
+        }
+      }
+    },
+    {
+      "code": "walltex-pro",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "WalltexPro"
+          },
+          "en": {
+            "title": "WalltexPro"
+          },
+          "de": {
+            "title": "WalltexPro"
+          }
+        }
+      }
+    },
+    {
+      "code": "kely",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Kendal"
+          },
+          "en": {
+            "title": "Kendal"
+          },
+          "de": {
+            "title": "Kendal"
+          }
+        }
+      }
+    },
+    {
+      "code": "black-and-white-banner",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Zwart-wit banner"
+          },
+          "en": {
+            "title": "Black and White Banner"
+          },
+          "de": {
+            "title": "Schwarz-Weiß-Banner"
+          }
+        }
+      }
+    },
+    {
+      "code": "clearview",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Clearview"
+          },
+          "en": {
+            "title": "Clearview"
+          },
+          "de": {
+            "title": "Clearview"
+          }
+        }
+      }
+    },
+    {
+      "code": "diamond-backlit-sg",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Backlit polyester"
+          },
+          "en": {
+            "title": "Backlit Polyester"
+          },
+          "de": {
+            "title": "Backlit-Polyester"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-ij20-114r-gloss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "3M IJ20 - transparant"
+          },
+          "en": {
+            "title": "3M IJ20 - Transparent"
+          },
+          "de": {
+            "title": "3M IJ20 - Transparent"
+          }
+        }
+      }
+    },
+    {
+      "code": "multitexpro",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "MultiTexPro"
+          },
+          "en": {
+            "title": "MultiTexPro"
+          },
+          "de": {
+            "title": "MultiTexPro"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-ij40-114-gloss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "3M IJ40 - transparant"
+          },
+          "en": {
+            "title": "3M IJ40 - Transparent"
+          },
+          "de": {
+            "title": "3M IJ40 - Transparent"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-orajet-3651-transparent-gloss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Orajet 3651 - transparent"
+          },
+          "en": {
+            "title": "Orajet 3651 - Transparent"
+          },
+          "de": {
+            "title": "Orajet 3651 - transparent"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-static-adhesive-transp.",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Statisch hechtende folie - Transparant"
+          },
+          "en": {
+            "title": "Static Cling Foil - Transparent"
+          },
+          "de": {
+            "title": "Statisch haftende Folie - Transparent"
+          }
+        }
+      }
+    },
+    {
+      "code": "foil-static-adhesive-white",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Statisch hechtende folie - Wit"
+          },
+          "en": {
+            "title": "Static Cling Foil - White"
+          },
+          "de": {
+            "title": "Statisch haftende Folie - Weiß"
+          }
+        }
+      }
+    },
+    {
+      "code": "gekkotex",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Gekkotex"
+          },
+          "en": {
+            "title": "Gekkotex"
+          },
+          "de": {
+            "title": "Gekkotex"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-silver-pp-film-permanent-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Zilverfolie"
+          },
+          "en": {
+            "title": "Silver foil"
+          },
+          "de": {
+            "title": "Silberfolie"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thick-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Transparante folie - permanent"
+          },
+          "en": {
+            "title": "Transparent film - permanent"
+          },
+          "de": {
+            "title": "Transparente Folie - Permanent"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-transparent-pp-film-perm-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Transparante folie - permanent"
+          },
+          "en": {
+            "title": "Transparent film - permanent"
+          },
+          "de": {
+            "title": "Transparente Folie - Permanent"
+          }
+        }
+      }
+    },
+    {
+      "code": "label-white-pp-film-strong-adhesive-thin-backing",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Witte folie - sterkhechtend"
+          },
+          "en": {
+            "title": "White film - strong adhesive"
+          },
+          "de": {
+            "title": "Weiße Folie - Aggressiver Haftung"
+          }
+        }
+      }
+    },
+    {
+      "code": "lintec",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Lintec"
+          },
+          "en": {
+            "title": "Lintec"
+          },
+          "de": {
+            "title": "Lintec"
+          }
+        }
+      }
+    },
+    {
+      "code": "lochfilet",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polymesh"
+          },
+          "en": {
+            "title": "Polymesh"
+          },
+          "de": {
+            "title": "Polymesh"
+          }
+        }
+      }
+    },
+    {
+      "code": "pro-cotton-percale",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Percal"
+          },
+          "en": {
+            "title": "Percal"
+          },
+          "de": {
+            "title": "Percal"
+          }
+        }
+      }
+    },
+    {
+      "code": "motomark-235",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Slagvaste sticker"
+          },
+          "en": {
+            "title": "Impact-resistant Sticker"
+          },
+          "de": {
+            "title": "Schlagfester Aufkleber"
+          }
+        }
+      }
+    },
+    {
+      "code": "outdoor-floor-foil-aluminum",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Asfaltsticker"
+          },
+          "en": {
+            "title": "Asphalt Sticker"
+          },
+          "de": {
+            "title": "Asphaltfolie"
+          }
+        }
+      }
+    },
+    {
+      "code": "provinyl-fine",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Provinyl Fijn"
+          },
+          "en": {
+            "title": "Provinyl Fine"
+          },
+          "de": {
+            "title": "Provinyl Fein"
+          }
+        }
+      }
+    },
+    {
+      "code": "provinyl-textile",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Provinyl Textiel"
+          },
+          "en": {
+            "title": "Provinyl Textile"
+          },
+          "de": {
+            "title": "Provinyl Textil"
+          }
+        }
+      }
+    },
+    {
+      "code": "acrylic-clear-10mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Plexiglas helder 10 mm"
+          },
+          "en": {
+            "title": "Plexiglass Clear 10 mm"
+          },
+          "de": {
+            "title": "Plexiglas klar 10 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "acrylic-opal-3mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Plexiglas opaal 3 mm"
+          },
+          "en": {
+            "title": "Plexiglass Opal 3 mm"
+          },
+          "de": {
+            "title": "Plexiglas opal 3 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "acrylic-opal-5mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Plexiglas opaal 5 mm"
+          },
+          "en": {
+            "title": "Plexiglass Opal 5 mm"
+          },
+          "de": {
+            "title": "Plexiglas opal 5 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "easy-print-10mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Easyprint 10 mm"
+          },
+          "en": {
+            "title": "Easyprint 10 mm"
+          },
+          "de": {
+            "title": "Easyprint 10 mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "propes-fr",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Propes FR"
+          },
+          "en": {
+            "title": "Propes FR"
+          },
+          "de": {
+            "title": "Propes FR"
+          }
+        }
+      }
+    },
+    {
+      "code": "evacast-0.8mm-white",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Evacast 0.8mm"
+          },
+          "en": {
+            "title": "Evacast 0.8mm"
+          },
+          "de": {
+            "title": "Evacast 0.8mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-re-3mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex-re 3mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Forex-re 3mm - Double-sided"
+          },
+          "de": {
+            "title": "Forex-re 3mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-re-3mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex-re 3mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Forex-re 3mm - Single-sided"
+          },
+          "de": {
+            "title": "Forex-re 3mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "forex-re-5mm-ss",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Forex-re 5mm - enkelzijdig"
+          },
+          "en": {
+            "title": "Forex-re 5mm - Single-sided"
+          },
+          "de": {
+            "title": "Forex-re 5mm - einseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "sandblast-foil",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Zandstraalfolie"
+          },
+          "en": {
+            "title": "Sandblast Foil"
+          },
+          "de": {
+            "title": "Sandstrahlfolie"
+          }
+        }
+      }
+    },
+    {
+      "code": "polystyrene-2mm-ds",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Polystyreen 2mm - dubbelzijdig"
+          },
+          "en": {
+            "title": "Polystyrene 2mm - Double-sided"
+          },
+          "de": {
+            "title": "Polystyrol 2mm - doppelseitig"
+          }
+        }
+      }
+    },
+    {
+      "code": "signagain-2mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "SignAgain 2mm"
+          },
+          "en": {
+            "title": "SignAgain® 2mm"
+          },
+          "de": {
+            "title": "SignAgain® 2mm"
+          }
+        }
+      }
+    },
+    {
+      "code": "sound-mesh",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Sound Mesh"
+          },
+          "en": {
+            "title": "Sound Mesh"
+          },
+          "de": {
+            "title": "Sound Mesh"
+          }
+        }
+      }
+    },
+    {
+      "code": "spinaker",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Spinaker"
+          },
+          "en": {
+            "title": "Skytube"
+          },
+          "de": {
+            "title": "Luftsäule"
+          }
+        }
+      }
+    },
+    {
+      "code": "structex",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Structex"
+          },
+          "en": {
+            "title": "Structex"
+          },
+          "de": {
+            "title": "Structex"
+          }
+        }
+      }
+    },
+    {
+      "code": "velour",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "Velours"
+          },
+          "en": {
+            "title": "Velours"
+          },
+          "de": {
+            "title": "Velours"
+          }
+        }
+      }
+    },
+    {
+      "code": "signagain-4mm",
+      "block": {
+        "i18n": {
+          "nl": {
+            "title": "SignAgain 4mm"
+          },
+          "en": {
+            "title": "SignAgain® 4mm"
+          },
+          "de": {
+            "title": "SignAgain® 4mm"
+          }
+        }
+      }
+    }
+  ]
+}
