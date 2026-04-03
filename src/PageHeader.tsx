@@ -17,11 +17,19 @@ export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLan
   const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
   const [lang, setLang] = useState(() => getLanguage());
   const [modelOpen, setModelOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
 
   const handleSwitchLine = useCallback((id: string) => {
     switchLine(id);
     setModelOpen(false);
   }, [switchLine]);
+
+  const handleSwitchLang = useCallback((l: string) => {
+    setLanguage(l);
+    setLang(l);
+    setLangOpen(false);
+    onLanguageChange?.();
+  }, [onLanguageChange]);
 
   const modelLabel = getBlock(allLines, activeLineId, 'title');
 
@@ -36,6 +44,7 @@ export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLan
           open={modelOpen}
           onToggle={() => setModelOpen(o => !o)}
           onClose={() => setModelOpen(false)}
+          fullWidth={false}
         >
           <div className="dropdown-menu-list">
             {allLines.map(line => (
@@ -53,15 +62,25 @@ export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLan
       </div>
       <div className="planning-header-actions">
         {actions}
-        <select
-          className="planning-select"
-          value={lang}
-          onChange={e => { setLanguage(e.target.value); setLang(e.target.value); onLanguageChange?.(); }}
+        <DropdownMenu
+          label={lang.toUpperCase()}
+          open={langOpen}
+          onToggle={() => setLangOpen(o => !o)}
+          onClose={() => setLangOpen(false)}
+          fullWidth={false}
         >
-          {languages.map(l => (
-            <option key={l} value={l}>{l.toUpperCase()}</option>
-          ))}
-        </select>
+          <div className="dropdown-menu-list">
+            {languages.map(l => (
+              <button
+                key={l}
+                className={`dropdown-menu-item${l === lang ? ' active' : ''}`}
+                onClick={() => handleSwitchLang(l)}
+              >
+                {l.toUpperCase()}
+              </button>
+            ))}
+          </div>
+        </DropdownMenu>
         <button
           className="planning-icon-btn"
           title={dark ? 'Light mode' : 'Dark mode'}

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
@@ -9,8 +9,9 @@ import { ProductionScheduleMenu, type Material, type ContentEntry } from './Prod
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 import './app.css';
 
-/** Build a flat ordered list of material codes matching menu order:
- *  by interval_workdays (asc), then category, then rush_time_hours (asc) */
+const STORAGE_KEY = 'inflow-production-dates';
+
+/** Build a flat ordered list of material codes matching menu order */
 function buildOrderedCodes(materials: Material[], modelCode: string): string[] {
   const filtered = materials.filter(m => m.model.code === modelCode);
   const intervals = [...new Set(filtered.map(m => m.interval_workdays))].sort((a, b) => a - b);
@@ -32,6 +33,42 @@ function buildOrderedCodes(materials: Material[], modelCode: string): string[] {
   return codes;
 }
 
+/** Read stored dates map, clear if saved before today */
+function readStorage(): Record<string, string[]> {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw);
+    const today = new Date().toISOString().slice(0, 10);
+    if (parsed._savedDate !== today) {
+      localStorage.removeItem(STORAGE_KEY);
+      return {};
+    }
+    const { _savedDate, ...rest } = parsed;
+    return rest as Record<string, string[]>;
+  } catch {
+    return {};
+  }
+}
+
+function writeStorage(data: Record<string, string[]>) {
+  const today = new Date().toISOString().slice(0, 10);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ _savedDate: today, ...data }));
+}
+
+/** Read production_dates from URL query param */
+function readUrlDates(): string[] {
+  const params = new URLSearchParams(window.location.search);
+  const raw = params.get('production_dates');
+  if (!raw) return [];
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
 export function InflowPage() {
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
@@ -50,6 +87,9 @@ export function InflowPage() {
     const params = new URLSearchParams(window.location.search);
     return params.get('model') || 'sheet';
   });
+
+  // Checked production dates (multi-select)
+  const [checkedDates, setCheckedDates] = useState<Set<string>>(() => new Set(readUrlDates()));
 
   useEffect(() => {
     Promise.all([
@@ -88,9 +128,14 @@ export function InflowPage() {
     if (!selectedMaterial || !orderedCodes.includes(selectedMaterial)) {
       const first = orderedCodes[0];
       setSelectedMaterial(first);
-      const params = new URLSearchParams(window.location.search);
-      params.set('material', first);
-      window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}${window.location.hash}`);
+      // Restore dates from localStorage for this material
+      const stored = readStorage();
+      const dates = stored[first];
+      if (dates && dates.length > 0) {
+        setCheckedDates(new Set(dates));
+      } else {
+        setCheckedDates(new Set());
+      }
     }
   }, [orderedCodes, selectedMaterial]);
 
@@ -100,30 +145,64 @@ export function InflowPage() {
     if (id === activeLineId) return;
     setActiveLineId(id);
     setSelectedMaterial(null);
+    setCheckedDates(new Set());
     const params = new URLSearchParams(window.location.search);
     params.set('model', id);
     params.delete('material');
+    params.delete('production_dates');
     window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
   }, [activeLineId]);
 
   const handleSelectMaterial = useCallback((code: string) => {
+    // Save current checked dates for current material before switching
+    if (selectedMaterial && checkedDates.size > 0) {
+      const stored = readStorage();
+      stored[selectedMaterial] = [...checkedDates];
+      writeStorage(stored);
+    }
+
     setSelectedMaterial(code);
     setScheduleOpen(false);
-    const params = new URLSearchParams(window.location.search);
-    params.set('material', code);
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState(null, '', newUrl);
-  }, []);
 
-  // Sync model to URL
+    // Restore dates from localStorage for the new material
+    const stored = readStorage();
+    const dates = stored[code];
+    const newDates = dates && dates.length > 0 ? new Set(dates) : new Set<string>();
+    setCheckedDates(newDates);
+  }, [selectedMaterial, checkedDates]);
+
+  // Sync URL whenever model, material, or checked dates change
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
     if (selectedMaterial) params.set('material', selectedMaterial);
     else params.delete('material');
+    if (checkedDates.size > 0) {
+      params.set('production_dates', JSON.stringify([...checkedDates]));
+    } else {
+      params.delete('production_dates');
+    }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, selectedMaterial]);
+  }, [activeLineId, selectedMaterial, checkedDates]);
+
+  // Toggle a date checkbox
+  const toggleDate = useCallback((date: string) => {
+    setCheckedDates(prev => {
+      const next = new Set(prev);
+      if (next.has(date)) next.delete(date);
+      else next.add(date);
+
+      // Persist to localStorage
+      if (selectedMaterial) {
+        const stored = readStorage();
+        stored[selectedMaterial] = [...next];
+        writeStorage(stored);
+      }
+
+      return next;
+    });
+  }, [selectedMaterial]);
 
   const scheduleLabel = getBlock(uiLabels, 'production_schedule', 'title');
   const materialLabel = selectedMaterial
@@ -136,6 +215,13 @@ export function InflowPage() {
     const mat = materials.find(m => m.code === selectedMaterial);
     return mat?.production_dates ?? [];
   }, [materials, selectedMaterial]);
+
+  const formatDate = useCallback((iso: string) => {
+    return new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
+  }, []);
+
+  const singlePieceLabel = getBlock(uiLabels, 'single_piece', 'title');
+  const multiPieceLabel = getBlock(uiLabels, 'multi_piece', 'title');
 
   const getMaterialLabel = useCallback(
     (code: string) => getBlock(materialsContent, code, 'title'),
@@ -157,6 +243,7 @@ export function InflowPage() {
             open={scheduleOpen}
             onToggle={() => setScheduleOpen(o => !o)}
             onClose={() => setScheduleOpen(false)}
+            fullWidth={false}
           >
             {materials.length > 0 && (
               <ProductionScheduleMenu
@@ -181,10 +268,52 @@ export function InflowPage() {
               onSelect={handleSelectMaterial}
             />
             <div className="inflow-schedule-dates">
-              {productionDates.map(date => (
-                <div key={date} className="inflow-date-item">
-                  {new Date(date + 'T00:00:00').toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}
-                </div>
+              {productionDates.map((date, i) => (
+                i === 0 ? (
+                  <label key={date} className={`inflow-date-item${checkedDates.has(date) ? ' checked' : ''}`}>
+                    <input
+                      type="checkbox"
+                      className="inflow-date-checkbox"
+                      checked={checkedDates.has(date)}
+                      onChange={() => toggleDate(date)}
+                    />
+                    <span className="inflow-date-label">{formatDate(date)}</span>
+                  </label>
+                ) : (
+                  <Fragment key={date}>
+                    <label className={`inflow-date-item${checkedDates.has(date + ':sp') ? ' checked' : ''}`}>
+                      <input
+                        type="checkbox"
+                        className="inflow-date-checkbox"
+                        checked={checkedDates.has(date + ':sp')}
+                        onChange={() => toggleDate(date + ':sp')}
+                      />
+                      <span className="inflow-date-label">{formatDate(date)}</span>
+                      <span className="inflow-date-type" title={singlePieceLabel}>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                          <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                        </svg>
+                      </span>
+                    </label>
+                    <label className={`inflow-date-item${checkedDates.has(date + ':mp') ? ' checked' : ''}`}>
+                      <input
+                        type="checkbox"
+                        className="inflow-date-checkbox"
+                        checked={checkedDates.has(date + ':mp')}
+                        onChange={() => toggleDate(date + ':mp')}
+                      />
+                      <span className="inflow-date-label">{formatDate(date)}</span>
+                      <span className="inflow-date-type" title={multiPieceLabel}>
+                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                          <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                          <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                          <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                          <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                        </svg>
+                      </span>
+                    </label>
+                  </Fragment>
+                )
               ))}
             </div>
             <div className="inflow-material-body">

@@ -52,6 +52,32 @@
     }
   },
   {
+    "code": "single_piece",
+    "block": {
+      "title": "Single piece",
+      "i18n": {
+        "en": { "title": "Single piece" },
+        "nl": { "title": "Enkelvoudig" },
+        "de": { "title": "Einzelstück" },
+        "fr": { "title": "Pièce unique" },
+        "uk": { "title": "Одинична деталь" }
+      }
+    }
+  },
+  {
+    "code": "multi_piece",
+    "block": {
+      "title": "Multi piece",
+      "i18n": {
+        "en": { "title": "Multi piece" },
+        "nl": { "title": "Meervoudig" },
+        "de": { "title": "Mehrfach" },
+        "fr": { "title": "Multi pièces" },
+        "uk": { "title": "Багатодетальний" }
+      }
+    }
+  },
+  {
     "code": "schedule",
     "block": {
       "title": "Schedule",

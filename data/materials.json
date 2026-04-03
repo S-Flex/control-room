@@ -21,6 +21,20 @@
         "2026-06-02",
         "2026-06-09",
         "2026-06-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -32,7 +46,33 @@
         "code": "textile"
       },
       "rush_time_hours": 168,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "dibond-budget-3mm",
@@ -55,6 +95,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -78,6 +132,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -101,6 +169,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -124,6 +206,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -147,6 +243,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -170,6 +280,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -193,6 +317,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -216,6 +354,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -239,6 +391,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -262,6 +428,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -285,6 +465,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -308,6 +502,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -331,6 +539,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -354,6 +576,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -377,6 +613,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -400,6 +650,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -411,7 +675,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-satin-mc-170",
@@ -422,7 +712,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-satin-mc-250",
@@ -433,7 +749,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-satin-mc-300",
@@ -444,7 +786,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-satin-mc-400",
@@ -455,7 +823,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-semi-matte-mc-135",
@@ -466,7 +860,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-semi-matte-mc-170",
@@ -477,7 +897,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-semi-matte-mc-250",
@@ -488,7 +934,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-semi-matte-mc-300",
@@ -499,7 +971,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hv-semi-matte-mc-400",
@@ -510,7 +1008,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hvo-white-170",
@@ -521,7 +1045,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "hvo-white-90",
@@ -532,7 +1082,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "natural-cardboard-350",
@@ -543,7 +1119,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "natuurkarton-300",
@@ -554,7 +1156,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "poster-paper-150",
@@ -577,6 +1205,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -588,7 +1230,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "sulphate-board-300",
@@ -599,7 +1267,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "synaps-om-300",
@@ -610,7 +1304,33 @@
         "code": "foil"
       },
       "rush_time_hours": 24,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "acrylic-clear-5mm",
@@ -633,6 +1353,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -656,6 +1390,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -679,6 +1427,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -702,6 +1464,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -725,6 +1501,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -748,6 +1538,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -771,6 +1575,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -794,6 +1612,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -817,6 +1649,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -840,6 +1686,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -863,6 +1723,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -886,6 +1760,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -909,6 +1797,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -932,6 +1834,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -955,6 +1871,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -978,6 +1908,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1001,6 +1945,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1024,6 +1982,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1047,6 +2019,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1070,6 +2056,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1093,6 +2093,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1116,6 +2130,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1139,6 +2167,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1162,6 +2204,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1185,6 +2241,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1208,6 +2278,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1231,6 +2315,20 @@
         "2026-04-15",
         "2026-04-16",
         "2026-04-17"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1254,6 +2352,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1277,6 +2389,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1300,6 +2426,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1323,6 +2463,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1346,6 +2500,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1369,6 +2537,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1392,6 +2574,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1415,6 +2611,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1438,6 +2648,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1461,6 +2685,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1484,6 +2722,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1507,6 +2759,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1530,6 +2796,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1553,6 +2833,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1576,6 +2870,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1599,6 +2907,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1622,6 +2944,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1645,6 +2981,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1668,6 +3018,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1691,6 +3055,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1714,6 +3092,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1737,6 +3129,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1760,6 +3166,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1771,7 +3191,33 @@
         "code": "foil"
       },
       "rush_time_hours": 72,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-matte-paper-permanent-thin-backing",
@@ -1782,7 +3228,33 @@
         "code": "foil"
       },
       "rush_time_hours": 72,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-white-pp-film-promo-thick-backing",
@@ -1793,7 +3265,33 @@
         "code": "foil"
       },
       "rush_time_hours": 72,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-white-pp-film-promo-thin-backing",
@@ -1804,7 +3302,33 @@
         "code": "foil"
       },
       "rush_time_hours": 72,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-white-pp-film-strong-adhesive-thick-backing",
@@ -1815,7 +3339,33 @@
         "code": "foil"
       },
       "rush_time_hours": 72,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "one-way-vision",
@@ -1838,6 +3388,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1861,6 +3425,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1884,6 +3462,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1907,6 +3499,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1930,6 +3536,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1953,6 +3573,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1976,6 +3610,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -1999,6 +3647,20 @@
         "2026-04-28",
         "2026-04-30",
         "2026-05-04"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2022,6 +3684,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2045,6 +3721,20 @@
         "2026-04-24",
         "2026-04-29",
         "2026-05-01"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2056,7 +3746,33 @@
         "code": "textile"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "black-and-white-banner",
@@ -2079,6 +3795,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2102,6 +3832,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2125,6 +3869,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2148,6 +3906,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2171,6 +3943,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2194,6 +3980,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2217,6 +4017,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2240,6 +4054,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2263,6 +4091,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2286,6 +4128,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2297,7 +4153,33 @@
         "code": "foil"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-transparent-pp-film-perm-thick-backing",
@@ -2308,7 +4190,33 @@
         "code": "foil"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-transparent-pp-film-perm-thin-backing",
@@ -2319,7 +4227,33 @@
         "code": "foil"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "label-white-pp-film-strong-adhesive-thin-backing",
@@ -2330,7 +4264,33 @@
         "code": "foil"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "lintec",
@@ -2353,6 +4313,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2376,6 +4350,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2387,7 +4375,33 @@
         "code": "textile"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "motomark-235",
@@ -2410,6 +4424,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2433,6 +4461,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2456,6 +4498,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2479,6 +4535,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2502,6 +4572,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2525,6 +4609,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2548,6 +4646,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2571,6 +4683,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2594,6 +4720,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2617,6 +4757,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2640,6 +4794,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2663,6 +4831,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2686,6 +4868,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2709,6 +4905,20 @@
         "2026-05-11",
         "2026-05-18",
         "2026-05-21"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2732,6 +4942,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2755,6 +4979,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2778,6 +5016,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2789,7 +5041,33 @@
         "code": "non-adhesive"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "structex",
@@ -2812,6 +5090,20 @@
         "2026-05-07",
         "2026-05-12",
         "2026-05-19"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     },
     {
@@ -2823,7 +5115,33 @@
         "code": "textile"
       },
       "rush_time_hours": 96,
-      "interval_workdays": 1
+      "interval_workdays": 1,
+      "production_dates": [
+        "2026-04-03",
+        "2026-04-06",
+        "2026-04-07",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-10",
+        "2026-04-13",
+        "2026-04-14",
+        "2026-04-15",
+        "2026-04-16"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
+      ]
     },
     {
       "code": "signagain-4mm",
@@ -2846,6 +5164,20 @@
         "2026-05-08",
         "2026-05-13",
         "2026-05-20"
+      ],
+      "cutoff_times": [
+        {
+          "rush_time": 18,
+          "cutoff_time": "21:30"
+        },
+        {
+          "rush_time": 24,
+          "cutoff_time": "16:30"
+        },
+        {
+          "rush_time": 30,
+          "cutoff_time": "11:30"
+        }
       ]
     }
   ],
