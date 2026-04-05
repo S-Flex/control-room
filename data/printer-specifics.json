@@ -1,0 +1,384 @@
+[
+  {
+    "layout_name": "sheet-printer-1",
+    "name": "Dürst P5-350-HS",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "sheet-printer-2",
+    "name": "Dürst P5-350-HS Automat",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "sheet-printer-3",
+    "name": "Dürst P5-210 1",
+    "code": "full-width-210",
+    "width": 210
+  },
+  {
+    "layout_name": "sheet-printer-4",
+    "name": "Dürst P5-210 2",
+    "code": "full-width-210",
+    "width": 210
+  },
+  {
+    "layout_name": "sheet-printer-5",
+    "name": "Dürst P5-210-HS",
+    "code": "full-width-210",
+    "width": 210
+  },
+  {
+    "layout_name": "sheet-printer-6",
+    "name": "SwissQ Kudu",
+    "code": "media-width",
+    "width": 320,
+    "height": 210
+  },
+  {
+    "layout_name": "textile-printer-1",
+    "name": "Dürst P5-350 ISub 1",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "textile-printer-2",
+    "name": "Dürst P5-350 ISub 2",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "textile-printer-3",
+    "name": "Dürst P5-350 ISub 3",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "textile-printer-4",
+    "name": "Dürst P5-500 ISub",
+    "code": "full-width-500",
+    "width": 500
+  },
+  {
+    "layout_name": "textile-printer-5",
+    "name": "HP Stitch S1000",
+    "code": "media-width",
+    "width": 320,
+    "height": 5000
+  },
+  {
+    "layout_name": "textile-printer-6",
+    "name": "HP Stitch S1000 (2)",
+    "code": "media-width",
+    "width": 320,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-1",
+    "name": "Dürst P5-350",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "foil-printer-2",
+    "name": "HP Latex 3600 (2)",
+    "code": "media-width",
+    "width": 320,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-3",
+    "name": "HP Latex 3600 (3)",
+    "code": "media-width",
+    "width": 320,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-4",
+    "name": "Epson SC-S9100 (4)",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-5",
+    "name": "Epson SC-S9100 (5)",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-6",
+    "name": "HP Latex 800W (6)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-7",
+    "name": "HP Latex 800W (7)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-8",
+    "name": "HP Latex 800W (8)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-9",
+    "name": "HP Latex 800W (9)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-10",
+    "name": "HP Latex 800W (10)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-11",
+    "name": "HP Latex 800W (11)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-12",
+    "name": "HP Latex 800W (12)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-13",
+    "name": "HP Latex 800W (13)",
+    "code": "media-width",
+    "width": 160,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-14",
+    "name": "Epson SC-S80600 (14)",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-15",
+    "name": "Epson SC-S80600 (15)",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-16",
+    "name": "Epson SC-G6000 (16)",
+    "code": "media-width",
+    "width": 110,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-17",
+    "name": "Epson SC-G6000 (17)",
+    "code": "media-width",
+    "width": 110,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-18",
+    "name": "SwissQ Karibu 2",
+    "code": "media-width",
+    "width": 320,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-19",
+    "name": "Dürst Rho 312R Plus",
+    "code": "media-width",
+    "width": 312,
+    "height": 5000
+  },
+  {
+    "layout_name": "foil-printer-20",
+    "name": "HP Latex 2700W",
+    "code": "media-width",
+    "width": 270,
+    "height": 5000
+  },
+  {
+    "layout_name": "label-printer-2",
+    "name": "Dürst Tau 330 RSC",
+    "code": "media-width",
+    "width": 33,
+    "height": 5000
+  },
+  {
+    "layout_name": "label-printer-2_1",
+    "name": "Dürst Tau 330 RSC (2)",
+    "code": "media-width",
+    "width": 33,
+    "height": 5000
+  },
+  {
+    "layout_name": "label-printer-concept",
+    "name": "Dürst Tau RSCi LED",
+    "code": "media-width",
+    "width": 33,
+    "height": 5000
+  },
+  {
+    "layout_name": "paper-printer-1",
+    "name": "HP 12000 Digital Press (1)",
+    "code": "media-width",
+    "width": 120,
+    "height": 5000
+  },
+  {
+    "layout_name": "paper-printer-2",
+    "name": "HP 12000 Digital Press (2)",
+    "code": "media-width",
+    "width": 120,
+    "height": 5000
+  },
+  {
+    "layout_name": "na-printer-1",
+    "name": "Dürst P5-500",
+    "code": "full-width-500",
+    "width": 500
+  },
+  {
+    "layout_name": "na-printer-2",
+    "name": "Dürst Rho 512R (2)",
+    "code": "full-width-500",
+    "width": 500
+  },
+  {
+    "layout_name": "na-printer-3",
+    "name": "Dürst Rho 512R (3)",
+    "code": "full-width-500",
+    "width": 500
+  },
+  {
+    "layout_name": "na-printer-4",
+    "name": "Dürst Rho 512R (4)",
+    "code": "full-width-500",
+    "width": 500
+  },
+  {
+    "layout_name": "na-printer-5",
+    "name": "Dürst P5-350 (5)",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "na-printer-6",
+    "name": "Dürst P5-350 (6)",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "bhfoil-printer-1",
+    "name": "Epson S9100 - 1 - BH",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "bhfoil-printer-2",
+    "name": "Epson S9100 - 2 - BH",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "bhfoil-printer-3",
+    "name": "Epson S9100 - 3 - BH",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "bhfoil-printer-4",
+    "name": "Epson S9100 - 4 - BH",
+    "code": "media-width",
+    "width": 162,
+    "height": 5000
+  },
+  {
+    "layout_name": "bhtextile-printer-1",
+    "name": "Dürst P5 iSUB 1 BH",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "bhsheet-printer-2",
+    "name": "Durst P5 210 - 2 - BH",
+    "code": "full-width-210",
+    "width": 210
+  },
+  {
+    "layout_name": "bhsheet-printer-1",
+    "name": "Durst P5 210 - 1 - BH",
+    "code": "full-width-210",
+    "width": 210
+  },
+  {
+    "layout_name": "bhna-printer-5",
+    "name": "Dürst P5-350 HS - 2 BH",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "bhna-printer-3",
+    "name": "Dürst P5 350 HS-1 BH",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "bhna-printer-1",
+    "name": "Dürst 312-1 BH",
+    "code": "media-width",
+    "width": 312,
+    "height": 5000
+  },
+  {
+    "layout_name": "bhna-printer-2",
+    "name": "Dürst 312-2 BH",
+    "code": "media-width",
+    "width": 312,
+    "height": 5000
+  },
+  {
+    "layout_name": "bhna-printer-4",
+    "name": "Dürst P5-350 HS D4 - 1 BH",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "na-printer-7",
+    "name": "Dürst P5 350 HSRI",
+    "code": "full-width-350",
+    "width": 350
+  },
+  {
+    "layout_name": "na-printer-8",
+    "name": "Dürst 512 - 4",
+    "code": "full-width-500",
+    "width": 500
+  },
+  {
+    "layout_name": "label-printer-1",
+    "name": "DK_LA_Tau-1_330 RSC  5C",
+    "code": "media-width",
+    "width": 33,
+    "height": 5000
+  }
+]

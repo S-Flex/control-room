@@ -39,6 +39,19 @@
     }
   },
   {
+    "code": "nester",
+    "block": {
+      "title": "Nester",
+      "i18n": {
+        "en": { "title": "Nester" },
+        "nl": { "title": "Nester" },
+        "de": { "title": "Nester" },
+        "fr": { "title": "Nester" },
+        "uk": { "title": "Нестер" }
+      }
+    }
+  },
+  {
     "code": "locations",
     "block": {
       "title": "Locations",

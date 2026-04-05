@@ -1,13 +1,20 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+type MaterialSpec = {
+  width: number;
+  height: number;
+  supply_unit_amount: number;
+};
 
 type MaterialCarouselProps = {
   items: string[];
   currentIndex: number;
   getLabel: (code: string) => string;
+  getSpecs?: (code: string) => MaterialSpec[];
   onSelect: (code: string) => void;
 };
 
-export function MaterialCarousel({ items, currentIndex, getLabel, onSelect }: MaterialCarouselProps) {
+export function MaterialCarousel({ items, currentIndex, getLabel, getSpecs, onSelect }: MaterialCarouselProps) {
   const len = items.length;
   if (len === 0) return null;
 
@@ -15,8 +22,23 @@ export function MaterialCarousel({ items, currentIndex, getLabel, onSelect }: Ma
   const curr = items[currentIndex];
   const next = items[(currentIndex + 1) % len];
 
-  const goPrev = useCallback(() => onSelect(prev), [onSelect, prev]);
-  const goNext = useCallback(() => onSelect(next), [onSelect, next]);
+  const [slideDir, setSlideDir] = useState<'left' | 'right' | null>(null);
+  const centerRef = useRef<HTMLDivElement>(null);
+
+  const goPrev = useCallback(() => { setSlideDir('right'); onSelect(prev); }, [onSelect, prev]);
+  const goNext = useCallback(() => { setSlideDir('left'); onSelect(next); }, [onSelect, next]);
+
+  useEffect(() => {
+    if (!slideDir || !centerRef.current) return;
+    const el = centerRef.current;
+    el.classList.remove('slide-left', 'slide-right');
+    // Force reflow to restart animation
+    void el.offsetWidth;
+    el.classList.add(slideDir === 'left' ? 'slide-left' : 'slide-right');
+    const onEnd = () => el.classList.remove('slide-left', 'slide-right');
+    el.addEventListener('animationend', onEnd, { once: true });
+    setSlideDir(null);
+  }, [curr]);
 
   // Keyboard navigation
   useEffect(() => {
@@ -36,7 +58,18 @@ export function MaterialCarousel({ items, currentIndex, getLabel, onSelect }: Ma
         </svg>
         <span className="carousel-nav-label">{getLabel(prev)}</span>
       </button>
-      <div className="carousel-center">{getLabel(curr)}</div>
+      <div className="carousel-center" ref={centerRef}>
+        <span className="carousel-title">{getLabel(curr)}</span>
+        {getSpecs && (() => {
+          const specs = getSpecs(curr);
+          if (!specs.length) return null;
+          return <span className="carousel-specs">
+            {specs.map((s, i) => (
+              <span key={i}>{i > 0 && ' | '}{s.supply_unit_amount}× {s.width}×{s.height} cm</span>
+            ))}
+          </span>;
+        })()}
+      </div>
       <button className="carousel-nav carousel-nav-next" onClick={goNext}>
         <span className="carousel-nav-label">{getLabel(next)}</span>
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">

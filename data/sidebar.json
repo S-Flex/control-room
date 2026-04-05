@@ -168,6 +168,23 @@
     ]
   },
   {
+    "code": "nester",
+    "data_groups": [
+      {
+        "code": "nesting_queue",
+        "block": {
+          "title": "Nesting queue",
+          "i18n": {
+            "en": { "title": "Nesting queue" },
+            "nl": { "title": "Nestwachtrij" },
+            "de": { "title": "Nesting-Warteschlange" },
+            "uk": { "title": "Черга нестингу" }
+          }
+        }
+      }
+    ]
+  },
+  {
     "code": "queued-jobs",
     "data_groups": [
       {

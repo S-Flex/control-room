@@ -45,7 +45,11 @@
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm • W",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "sheet",
@@ -89,7 +93,11 @@
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "sheet",
@@ -136,7 +144,11 @@
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm • W",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-210",
+        "width": 210
+      }
     },
     {
       "line": "sheet",
@@ -183,7 +195,11 @@
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-210",
+        "width": 210
+      }
     },
     {
       "line": "sheet",
@@ -229,7 +245,11 @@
       "ink": "Aturion",
       "inkset": "CMYK • CMYKLcLm",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-210",
+        "width": 210
+      }
     },
     {
       "line": "sheet",
@@ -274,7 +294,12 @@
       "inkset": "CMYK • NEON • W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 320,
+        "height": 210
+      }
     },
     {
       "line": "sheet",
@@ -440,7 +465,11 @@
       "ink": "DyeSub",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "textile",
@@ -479,7 +508,11 @@
       "ink": "DyeSub",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "textile",
@@ -518,7 +551,11 @@
       "ink": "DyeSub",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "textile",
@@ -557,7 +594,11 @@
       "ink": "DyeSub",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-500",
+        "width": 500
+      }
     },
     {
       "line": "textile",
@@ -596,7 +637,12 @@
       "inkset": "CMYK",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 320,
+        "height": 5000
+      }
     },
     {
       "line": "textile",
@@ -635,7 +681,12 @@
       "inkset": "CMYK",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 320,
+        "height": 5000
+      }
     },
     {
       "line": "textile",
@@ -908,7 +959,11 @@
       "ink": "Latex 800",
       "inkset": "CMYKLcLm W",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "foil",
@@ -947,7 +1002,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 320,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -986,7 +1046,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 320,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1025,7 +1090,12 @@
       "inkset": "CMYKLcLmLk R OR GR",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1064,7 +1134,12 @@
       "inkset": "CMYKLcLmLk R OR GR",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1103,7 +1178,12 @@
       "ink": "Latex 800",
       "inkset": "CMYKLcLm",
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1142,7 +1222,12 @@
       "inkset": "CMYKLcLm W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1181,7 +1266,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1220,7 +1310,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1259,7 +1354,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1298,7 +1398,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1337,7 +1442,12 @@
       "inkset": "CMYKLcLm W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1376,7 +1486,12 @@
       "inkset": "CMYKLcLm W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 160,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1415,7 +1530,12 @@
       "inkset": "CMYKLcLmLk R OR",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1454,7 +1574,12 @@
       "inkset": "CMYKLcLmLk R OR",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1493,7 +1618,12 @@
       "inkset": "CMYK+W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 110,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1532,7 +1662,12 @@
       "inkset": "CMYK+W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 110,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1571,7 +1706,12 @@
       "inkset": "CMYK • NEON • W",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 320,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1610,7 +1750,12 @@
       "ink": "FLT",
       "inkset": "CMYK • CMYKLcLm W",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 312,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1649,7 +1794,12 @@
       "inkset": "CMYKLcLm",
       "eam": null,
       "driver": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 270,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1768,7 +1918,12 @@
       "driver": null,
       "pv2_id": null,
       "pv2_code": null,
-      "pv2_name": null
+      "pv2_name": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 33,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1793,6 +1948,11 @@
           "amount": 53,
           "expires": "2026-04-17"
         }
+      },
+      "specifics": {
+        "code": "media-width",
+        "width": 33,
+        "height": 5000
       }
     },
     {
@@ -1818,6 +1978,11 @@
           "amount": 79,
           "expires": "2026-04-21"
         }
+      },
+      "specifics": {
+        "code": "media-width",
+        "width": 33,
+        "height": 5000
       }
     },
     {
@@ -1887,7 +2052,12 @@
       "pv2_id": null,
       "pv2_code": null,
       "pv2_name": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 120,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -1926,7 +2096,12 @@
       "pv2_id": null,
       "pv2_code": null,
       "pv2_name": null,
-      "machine_nr": null
+      "machine_nr": null,
+      "specifics": {
+        "code": "media-width",
+        "width": 120,
+        "height": 5000
+      }
     },
     {
       "line": "foil",
@@ -2073,7 +2248,11 @@
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-500",
+        "width": 500
+      }
     },
     {
       "line": "non-adhesive",
@@ -2112,7 +2291,11 @@
       "ink": "Pop-Flex",
       "inkset": "CMYK • CMYKLcLm",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-500",
+        "width": 500
+      }
     },
     {
       "line": "non-adhesive",
@@ -2151,7 +2334,11 @@
       "ink": "FLT",
       "inkset": "CMYK • CMYKLcLm",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-500",
+        "width": 500
+      }
     },
     {
       "line": "non-adhesive",
@@ -2190,7 +2377,11 @@
       "ink": "Pop-Flex",
       "inkset": "CMYK • CMYKLcLm",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-500",
+        "width": 500
+      }
     },
     {
       "line": "non-adhesive",
@@ -2229,7 +2420,11 @@
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "non-adhesive",
@@ -2268,7 +2463,11 @@
       "ink": "Roll-Led M+",
       "inkset": "CMYK",
       "eam": null,
-      "driver": null
+      "driver": null,
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "non-adhesive",
@@ -2472,7 +2671,12 @@
       "serial_nr": "XD3S000328",
       "machine_nr": null,
       "ink": "UltraChrome GS3",
-      "inkset": "CMYKLcLmLk R OR GR"
+      "inkset": "CMYKLcLmLk R OR GR",
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "bh",
@@ -2492,7 +2696,12 @@
       "serial_nr": "XD3S000229",
       "machine_nr": null,
       "ink": "UltraChrome GS3",
-      "inkset": "CMYKLcLmLk R OR GR"
+      "inkset": "CMYKLcLmLk R OR GR",
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "bh",
@@ -2512,7 +2721,12 @@
       "serial_nr": "XD3S000236",
       "machine_nr": null,
       "ink": "UltraChrome GS3",
-      "inkset": "CMYKLcLmLk R OR GR"
+      "inkset": "CMYKLcLmLk R OR GR",
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "bh",
@@ -2532,7 +2746,12 @@
       "serial_nr": "XD3S000060",
       "machine_nr": null,
       "ink": "UltraChrome GS3",
-      "inkset": "CMYKLcLmLk R OR GR"
+      "inkset": "CMYKLcLmLk R OR GR",
+      "specifics": {
+        "code": "media-width",
+        "width": 162,
+        "height": 5000
+      }
     },
     {
       "line": "bh",
@@ -2552,7 +2771,11 @@
       "serial_nr": "465302",
       "machine_nr": "AE28-112",
       "ink": "DyeSub",
-      "inkset": "CMYK"
+      "inkset": "CMYK",
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "bh",
@@ -2572,7 +2795,11 @@
       "serial_nr": "206029",
       "machine_nr": "AK25-007",
       "ink": "Aturion",
-      "inkset": "CMYK • CMYKLcLm"
+      "inkset": "CMYK • CMYKLcLm",
+      "specifics": {
+        "code": "full-width-210",
+        "width": 210
+      }
     },
     {
       "line": "bh",
@@ -2592,7 +2819,11 @@
       "serial_nr": "202430",
       "machine_nr": "AK25-001",
       "ink": "Aturion",
-      "inkset": "CMYK • CMYKLcLm • W"
+      "inkset": "CMYK • CMYKLcLm • W",
+      "specifics": {
+        "code": "full-width-210",
+        "width": 210
+      }
     },
     {
       "line": "bh",
@@ -2612,7 +2843,11 @@
       "serial_nr": "379338",
       "machine_nr": "LM72-009",
       "ink": "Aturion",
-      "inkset": "CMYK • CMYKLcLm • W"
+      "inkset": "CMYK • CMYKLcLm • W",
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "bh",
@@ -2632,7 +2867,11 @@
       "serial_nr": "469973",
       "machine_nr": "LM72-115",
       "ink": "Aturion",
-      "inkset": "CMYK • CMYKLcLm"
+      "inkset": "CMYK • CMYKLcLm",
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "bh",
@@ -2652,7 +2891,12 @@
       "serial_nr": "57186",
       "machine_nr": "B26014VD",
       "ink": "Pop-Flex",
-      "inkset": "CMYK"
+      "inkset": "CMYK",
+      "specifics": {
+        "code": "media-width",
+        "width": 312,
+        "height": 5000
+      }
     },
     {
       "line": "bh",
@@ -2672,7 +2916,12 @@
       "serial_nr": "62548",
       "machine_nr": "B26025VD",
       "ink": "Pop-Flex",
-      "inkset": "CMYK"
+      "inkset": "CMYK",
+      "specifics": {
+        "code": "media-width",
+        "width": 312,
+        "height": 5000
+      }
     },
     {
       "line": "bh",
@@ -2692,7 +2941,11 @@
       "serial_nr": "376790",
       "machine_nr": "LM72-006",
       "ink": "Aturion",
-      "inkset": "CMYK"
+      "inkset": "CMYK",
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "non-adhesive",
@@ -2712,7 +2965,11 @@
       "serial_nr": "471337",
       "machine_nr": "XXXXXX",
       "ink": "Roll-Led M+",
-      "inkset": "CMYK"
+      "inkset": "CMYK",
+      "specifics": {
+        "code": "full-width-350",
+        "width": 350
+      }
     },
     {
       "line": "non-adhesive",
@@ -2732,7 +2989,11 @@
       "serial_nr": "154428",
       "machine_nr": "B27078VD",
       "ink": "Pop-Flex",
-      "inkset": "CMYK • CMYKLcLm"
+      "inkset": "CMYK • CMYKLcLm",
+      "specifics": {
+        "code": "full-width-500",
+        "width": 500
+      }
     },
     {
       "line": "label",
@@ -2752,7 +3013,12 @@
       "serial_nr": "319540",
       "machine_nr": "AI42-041",
       "ink": "TAU",
-      "inkset": "CMYK W"
+      "inkset": "CMYK W",
+      "specifics": {
+        "code": "media-width",
+        "width": 33,
+        "height": 5000
+      }
     },
     {
       "line": "bh",

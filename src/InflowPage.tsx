@@ -1,11 +1,13 @@
-import { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
+import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useNavigate } from 'xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import { MaterialCarousel } from './widgets/MaterialCarousel';
-import { ProductionScheduleMenu, type Material, type ContentEntry } from './ProductionScheduleMenu';
+import { TimeSlider } from './widgets/TimeSlider';
+import { ProductionScheduleMenu, type Material, type ContentEntry, type CutoffTime, type Printer, type PrintMode } from './ProductionScheduleMenu';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 import './app.css';
 
@@ -70,6 +72,7 @@ function readUrlDates(): string[] {
 }
 
 export function InflowPage() {
+  const navigate = useNavigate();
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
 
@@ -78,10 +81,16 @@ export function InflowPage() {
   const [menuContent, setMenuContent] = useState<Map<string, MenuContentEntry>>(new Map());
   const [materials, setMaterials] = useState<Material[]>([]);
   const [materialsContent, setMaterialsContent] = useState<ContentEntry[]>([]);
+  const [cutoffTimes, setCutoffTimes] = useState<CutoffTime[]>([]);
+  const [rootProductionDates, setRootProductionDates] = useState<{ interval_workdays: number; dates: string[] }[]>([]);
+  const [printers, setPrinters] = useState<Printer[]>([]);
+  const [printModes, setPrintModes] = useState<PrintMode[]>([]);
   const [scheduleOpen, setScheduleOpen] = useState(false);
-  const [selectedMaterial, setSelectedMaterial] = useState<string | null>(() => {
+  const [selectedMaterial, setSelectedMaterial] = useState<string | null>(null);
+  const [initialMaterialId] = useState<number | null>(() => {
     const params = new URLSearchParams(window.location.search);
-    return params.get('material');
+    const raw = params.get('material_id');
+    return raw ? Number(raw) : null;
   });
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
@@ -90,6 +99,14 @@ export function InflowPage() {
 
   // Checked production dates (multi-select)
   const [checkedDates, setCheckedDates] = useState<Set<string>>(() => new Set(readUrlDates()));
+
+  // from query param
+  const handleTimeChange = useCallback((currentTime: string) => {
+    const params = new URLSearchParams(window.location.search);
+    params.set('from', currentTime);
+    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+    window.history.replaceState(null, '', newUrl);
+  }, []);
 
   // Mode (manual / auto)
   const [mode, setMode] = useState<string>(() => {
@@ -131,9 +148,15 @@ export function InflowPage() {
           mc.set(item.code, { code: item.code, block: item.block });
         }
       }
+      // Add nester sidebar title
+      mc.set('nester', { code: 'nester', block: { title: 'Nester', i18n: { en: { title: 'Nester' }, nl: { title: 'Nester' }, de: { title: 'Nester' } } } });
       setMenuContent(mc);
       setMaterials(materialsData.materials);
       setMaterialsContent(materialsData.content);
+      setCutoffTimes(materialsData.cutoff_times ?? []);
+      setRootProductionDates(materialsData.production_dates ?? []);
+      setPrinters(materialsData.printers ?? []);
+      setPrintModes(materialsData.print_modes ?? []);
       setLocations(locationsData.locations);
       setLocationsContent(locationsData.content);
       // Auto-select enabled locations if none selected
@@ -155,6 +178,22 @@ export function InflowPage() {
     () => buildOrderedCodes(materials, activeLineId),
     [materials, activeLineId],
   );
+
+  // Resolve initial material_id from URL to code once materials load
+  const resolvedInitial = useRef(false);
+  useEffect(() => {
+    if (resolvedInitial.current || materials.length === 0) return;
+    resolvedInitial.current = true;
+    if (initialMaterialId != null) {
+      const mat = materials.find(m => m.material_id === initialMaterialId);
+      if (mat) {
+        setSelectedMaterial(mat.code);
+        const stored = readStorage();
+        const dates = stored[mat.code];
+        if (dates && dates.length > 0) setCheckedDates(new Set(dates));
+      }
+    }
+  }, [materials, initialMaterialId]);
 
   // Auto-select first material when none selected or current not in list
   useEffect(() => {
@@ -182,7 +221,7 @@ export function InflowPage() {
     setCheckedDates(new Set());
     const params = new URLSearchParams(window.location.search);
     params.set('model', id);
-    params.delete('material');
+    params.delete('material_id');
     params.delete('production_dates');
     window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
   }, [activeLineId]);
@@ -210,8 +249,9 @@ export function InflowPage() {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
     params.set('mode', mode);
-    if (selectedMaterial) params.set('material', selectedMaterial);
-    else params.delete('material');
+    const selectedMatObj = selectedMaterial ? materials.find(m => m.code === selectedMaterial) : undefined;
+    if (selectedMatObj) params.set('material_id', String(selectedMatObj.material_id));
+    else params.delete('material_id');
     if (checkedDates.size > 0) {
       params.set('production_dates', JSON.stringify([...checkedDates]));
     } else {
@@ -224,7 +264,7 @@ export function InflowPage() {
     }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, selectedMaterial, checkedDates, mode, selectedLocations]);
+  }, [activeLineId, selectedMaterial, checkedDates, mode, selectedLocations, materials]);
 
   const handleSetMode = useCallback((m: string) => {
     setMode(m);
@@ -267,8 +307,10 @@ export function InflowPage() {
   const productionDates = useMemo(() => {
     if (!selectedMaterial) return [];
     const mat = materials.find(m => m.code === selectedMaterial);
-    return mat?.production_dates ?? [];
-  }, [materials, selectedMaterial]);
+    if (!mat) return [];
+    const entry = rootProductionDates.find(pd => pd.interval_workdays === mat.interval_workdays);
+    return entry?.dates ?? [];
+  }, [materials, selectedMaterial, rootProductionDates]);
 
   const formatDate = useCallback((iso: string) => {
     return new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
@@ -280,6 +322,14 @@ export function InflowPage() {
   const getMaterialLabel = useCallback(
     (code: string) => getBlock(materialsContent, code, 'title'),
     [materialsContent],
+  );
+
+  const getMaterialSpecs = useCallback(
+    (code: string) => {
+      const mat = materials.find(m => m.code === code);
+      return mat?.specs ?? [];
+    },
+    [materials],
   );
 
   return (
@@ -328,7 +378,6 @@ export function InflowPage() {
                       type="checkbox"
                       className="dropdown-menu-checkbox"
                       checked={selectedLocations.has(loc.code)}
-                      disabled={!loc.enabled}
                       onChange={() => toggleLocation(loc.code)}
                     />
                     {getBlock(locationsContent, loc.code, 'title')}
@@ -336,8 +385,22 @@ export function InflowPage() {
                 ))}
               </div>
             </DropdownMenu>
+            <button
+              className="planning-icon-btn"
+              title={getBlock(uiLabels, 'nester', 'title')}
+              onClick={() => navigate('(sidebar:nester)')}
+            >
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <rect x="2" y="3" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                <rect x="11" y="3" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                <rect x="2" y="12" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                <rect x="11" y="12" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                <path d="M6 8v4M14 8v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+              </svg>
+            </button>
           </>}
         >
+          <TimeSlider uiLabels={uiLabels} onChange={handleTimeChange} />
           <DropdownMenu
             label={materialLabel}
             open={scheduleOpen}
@@ -349,6 +412,7 @@ export function InflowPage() {
               <ProductionScheduleMenu
                 materials={materials}
                 content={materialsContent}
+                cutoffTimes={cutoffTimes}
                 modelCode={activeLineId}
                 uiLabels={uiLabels}
                 selectedMaterial={selectedMaterial}
@@ -365,43 +429,26 @@ export function InflowPage() {
               items={orderedCodes}
               currentIndex={currentIndex >= 0 ? currentIndex : 0}
               getLabel={getMaterialLabel}
+              getSpecs={getMaterialSpecs}
               onSelect={handleSelectMaterial}
             />
             <div className="inflow-schedule-dates">
               {productionDates.map((date, i) => (
                 i === 0 ? (
-                  <label key={date} className={`inflow-date-item${checkedDates.has(date) ? ' checked' : ''}`}>
-                    <input
-                      type="checkbox"
-                      className="inflow-date-checkbox"
-                      checked={checkedDates.has(date)}
-                      onChange={() => toggleDate(date)}
-                    />
+                  <div key={date} className={`inflow-date-item${checkedDates.has(date) ? ' checked' : ''}`} onClick={() => toggleDate(date)}>
                     <span className="inflow-date-label">{formatDate(date)}</span>
-                  </label>
+                  </div>
                 ) : (
                   <Fragment key={date}>
-                    <label className={`inflow-date-item${checkedDates.has(date + ':sp') ? ' checked' : ''}`}>
-                      <input
-                        type="checkbox"
-                        className="inflow-date-checkbox"
-                        checked={checkedDates.has(date + ':sp')}
-                        onChange={() => toggleDate(date + ':sp')}
-                      />
+                    <div className={`inflow-date-item${checkedDates.has(date + ':sp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':sp')}>
                       <span className="inflow-date-label">{formatDate(date)}</span>
                       <span className="inflow-date-type" title={singlePieceLabel}>
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                           <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
                         </svg>
                       </span>
-                    </label>
-                    <label className={`inflow-date-item${checkedDates.has(date + ':mp') ? ' checked' : ''}`}>
-                      <input
-                        type="checkbox"
-                        className="inflow-date-checkbox"
-                        checked={checkedDates.has(date + ':mp')}
-                        onChange={() => toggleDate(date + ':mp')}
-                      />
+                    </div>
+                    <div className={`inflow-date-item${checkedDates.has(date + ':mp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':mp')}>
                       <span className="inflow-date-label">{formatDate(date)}</span>
                       <span className="inflow-date-type" title={multiPieceLabel}>
                         <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
@@ -411,12 +458,29 @@ export function InflowPage() {
                           <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
                         </svg>
                       </span>
-                    </label>
+                    </div>
                   </Fragment>
                 )
               ))}
             </div>
             <div className="inflow-material-body">
+              <div
+                className="inflow-locations"
+                style={{ gridTemplateColumns: `repeat(${selectedLocations.size}, 1fr)` }}
+              >
+                {[...selectedLocations].map(locCode => {
+                  const loc = locations.find(l => l.code === locCode);
+                  return (
+                    <div key={locCode} className={`inflow-location-col${loc && !loc.enabled ? ' grayed' : ''}`}>
+                      <div className="inflow-location-header">
+                        {getBlock(locationsContent, locCode, 'title')}
+                      </div>
+                      <div className="inflow-location-body">
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

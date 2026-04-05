@@ -1143,7 +1143,6 @@ body {
 
 .dropdown-menu-item.disabled {
   opacity: 0.4;
-  pointer-events: none;
 }
 
 
@@ -1271,7 +1270,7 @@ body {
   flex-direction: column;
   gap: 2px;
   overflow-y: auto;
-  padding: 4px 0;
+  padding: 4px 2px;
   border-right: 1px solid var(--border);
 }
 
@@ -1335,6 +1334,38 @@ body {
 .inflow-material-body {
   min-height: 0;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.inflow-locations {
+  display: grid;
+  flex: 1;
+  min-height: 0;
+}
+
+.inflow-location-col {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  padding: 0 12px;
+}
+
+.inflow-location-col.grayed {
+  opacity: 0.4;
+}
+
+.inflow-location-header {
+  padding: 8px 0;
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--text);
+}
+
+.inflow-location-body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* ---- Material Carousel ---- */
@@ -1384,13 +1415,39 @@ body {
   flex: 1;
   min-width: 0;
   text-align: center;
+  padding: 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.carousel-title {
   font-weight: 700;
   font-size: 13px;
   color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0 8px;
+  max-width: 100%;
+}
+.carousel-specs {
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.6;
+  white-space: nowrap;
+}
+.carousel-center.slide-left {
+  animation: carousel-slide-left 0.25s ease-out;
+}
+.carousel-center.slide-right {
+  animation: carousel-slide-right 0.25s ease-out;
+}
+@keyframes carousel-slide-left {
+  from { transform: translateX(40px); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes carousel-slide-right {
+  from { transform: translateX(-40px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
 }
 
 /* OEE Sidebar */

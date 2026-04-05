@@ -15,7 +15,9 @@ export function PageSidebar({ menuContent }: PageSidebarProps) {
 
   const sidebarCode = sidebarOutlet.replace(/^\//, '');
   const menuCode = 'resource.' + sidebarCode;
-  const title = getBlock(menuContent, menuCode, 'title');
+  let title = getBlock(menuContent, menuCode, 'title');
+  // Fallback: try the code directly (for sidebars not tied to resource menu items)
+  if (title === menuCode) title = getBlock(menuContent, sidebarCode, 'title');
 
   return (
     <SidebarPanel

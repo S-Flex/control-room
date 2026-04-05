@@ -6,14 +6,41 @@ type CutoffTime = {
   cutoff_time: string;
 };
 
+type MaterialSpec = {
+  article_code?: string;
+  width: number;
+  height: number;
+  company_id?: number;
+  thickness: number;
+  weight: number;
+  supply_unit_amount: number;
+  variant?: string;
+};
+
+type Printer = {
+  code: string;
+  width: number;
+  height?: number;
+  count: number;
+};
+
+type PrintMode = {
+  code: string;
+  speed_factor: number;
+};
+
 type Material = {
   code: string;
+  material_id: number;
   category: { code: string };
   model: { code: string };
   rush_time_hours: number;
   interval_workdays: number;
-  production_dates?: string[];
-  cutoff_times?: CutoffTime[];
+  production_line_id: number;
+  reruns: number;
+  check?: boolean;
+  specs?: MaterialSpec[];
+  printers: string[];
 };
 
 type ContentEntry = {
@@ -24,17 +51,19 @@ type ContentEntry = {
 type ProductionScheduleMenuProps = {
   materials: Material[];
   content: ContentEntry[];
+  cutoffTimes: CutoffTime[];
   modelCode: string;
   uiLabels: UiLabel[];
   selectedMaterial: string | null;
   onSelect: (code: string) => void;
 };
 
-export type { Material, ContentEntry };
+export type { Material, ContentEntry, CutoffTime, Printer, PrintMode };
 
 export function ProductionScheduleMenu({
   materials,
   content,
+  cutoffTimes,
   modelCode,
   uiLabels,
   selectedMaterial,
@@ -69,11 +98,11 @@ export function ProductionScheduleMenu({
   }
 
   function getCutoffTime(item: Material): string | null {
-    if (!item.cutoff_times) return null;
-    const match = item.cutoff_times.find(c => c.rush_time === item.rush_time_hours);
+    if (!cutoffTimes.length) return null;
+    const match = cutoffTimes.find(c => c.rush_time === item.rush_time_hours);
     if (match) return match.cutoff_time;
     // Fallback: find the closest cutoff with rush_time >= material's rush_time
-    const sorted = [...item.cutoff_times].sort((a, b) => a.rush_time - b.rush_time);
+    const sorted = [...cutoffTimes].sort((a, b) => a.rush_time - b.rush_time);
     const fallback = sorted.find(c => c.rush_time >= item.rush_time_hours);
     return fallback?.cutoff_time ?? sorted[sorted.length - 1]?.cutoff_time ?? null;
   }
