@@ -324,7 +324,6 @@ All navigational and selection state lives in the URL. No `useState` for these c
 |---|---|---|
 | `expanded` | `string[]` | Encoded list of expanded instance keys |
 | `selected` | `string[]` | Selected row primary keys |
-| `filter[n]` | `FilterRule` | Active runtime filter overrides per level |
 
 `FlowBoard` reads these on mount and writes them on change via the router. Components read from context, not directly from URL.
 

@@ -5,8 +5,10 @@ import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
 import { DropdownMenu } from './widgets/DropdownMenu';
-import { MaterialCarousel } from './widgets/MaterialCarousel';
+import { Carousel } from './widgets/Carousel';
 import { TimeSlider } from './widgets/TimeSlider';
+import { DataGroupWidget } from './widgets/DataGroup';
+import { usePage } from './hooks/usePages';
 import { ProductionScheduleMenu, type Material, type ContentEntry, type CutoffTime, type Printer, type PrintMode } from './ProductionScheduleMenu';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 import './app.css';
@@ -75,6 +77,9 @@ export function InflowPage() {
   const navigate = useNavigate();
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
+  const { config: pageConfig } = usePage('inflow');
+  const leftDataGroup = pageConfig?.cols?.[0]?.data_group;
+  const rightDataGroup = pageConfig?.cols?.[1]?.data_group;
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
   const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
@@ -424,64 +429,50 @@ export function InflowPage() {
 
         <div className="planning-content">
           <div className="inflow-content">
-            <div className="inflow-col-header">{getBlock(uiLabels, 'schedule', 'title')}</div>
-            <MaterialCarousel
+            <div className="inflow-left">
+              <div className="inflow-col-header">{getBlock(uiLabels, 'schedule', 'title')}</div>
+              <div className="inflow-schedule-dates">
+                {productionDates.map((date, i) => (
+                  i === 0 ? (
+                    <div key={date} className={`inflow-date-item${checkedDates.has(date) ? ' checked' : ''}`} onClick={() => toggleDate(date)}>
+                      <span className="inflow-date-label">{formatDate(date)}</span>
+                    </div>
+                  ) : (
+                    <Fragment key={date}>
+                      <div className={`inflow-date-item${checkedDates.has(date + ':sp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':sp')}>
+                        <span className="inflow-date-label">{formatDate(date)}</span>
+                        <span className="inflow-date-type" title={singlePieceLabel}>
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div className={`inflow-date-item${checkedDates.has(date + ':mp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':mp')}>
+                        <span className="inflow-date-label">{formatDate(date)}</span>
+                        <span className="inflow-date-type" title={multiPieceLabel}>
+                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                            <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                            <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                            <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                            <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
+                          </svg>
+                        </span>
+                      </div>
+                    </Fragment>
+                  )
+                ))}
+              </div>
+              {leftDataGroup && <DataGroupWidget code={leftDataGroup} />}
+            </div>
+            <Carousel
               items={orderedCodes}
               currentIndex={currentIndex >= 0 ? currentIndex : 0}
               getLabel={getMaterialLabel}
               getSpecs={getMaterialSpecs}
               onSelect={handleSelectMaterial}
-            />
-            <div className="inflow-schedule-dates">
-              {productionDates.map((date, i) => (
-                i === 0 ? (
-                  <div key={date} className={`inflow-date-item${checkedDates.has(date) ? ' checked' : ''}`} onClick={() => toggleDate(date)}>
-                    <span className="inflow-date-label">{formatDate(date)}</span>
-                  </div>
-                ) : (
-                  <Fragment key={date}>
-                    <div className={`inflow-date-item${checkedDates.has(date + ':sp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':sp')}>
-                      <span className="inflow-date-label">{formatDate(date)}</span>
-                      <span className="inflow-date-type" title={singlePieceLabel}>
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                          <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                        </svg>
-                      </span>
-                    </div>
-                    <div className={`inflow-date-item${checkedDates.has(date + ':mp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':mp')}>
-                      <span className="inflow-date-label">{formatDate(date)}</span>
-                      <span className="inflow-date-type" title={multiPieceLabel}>
-                        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                          <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                          <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                          <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                          <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                        </svg>
-                      </span>
-                    </div>
-                  </Fragment>
-                )
-              ))}
-            </div>
-            <div className="inflow-material-body">
-              <div
-                className="inflow-locations"
-                style={{ gridTemplateColumns: `repeat(${selectedLocations.size}, 1fr)` }}
-              >
-                {[...selectedLocations].map(locCode => {
-                  const loc = locations.find(l => l.code === locCode);
-                  return (
-                    <div key={locCode} className={`inflow-location-col${loc && !loc.enabled ? ' grayed' : ''}`}>
-                      <div className="inflow-location-header">
-                        {getBlock(locationsContent, locCode, 'title')}
-                      </div>
-                      <div className="inflow-location-body">
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+            >
+              {rightDataGroup && <DataGroupWidget code={rightDataGroup} />}
+            </Carousel>
           </div>
         </div>
 

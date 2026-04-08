@@ -1,29 +1,17 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { Ink } from './widgets/Ink';
-import { DataGroupWidget, type DataGroupEntry } from './widgets/DataGroup';
-
-type SidebarConfig = {
-  code: string;
-  data_groups: DataGroupEntry[];
-};
+import { SectionRenderer } from './widgets/SectionRenderer';
+import { usePage } from './hooks/usePages';
 
 export function SidebarPanel({ code, title, onClose }: {
   code: string;
   title: string;
   onClose: () => void;
 }) {
-  const [sidebarConfigs, setSidebarConfigs] = useState<SidebarConfig[]>([]);
+  const { config, content, isLoading } = usePage(code);
   const [width, setWidth] = useState(20); // percentage
   const dragging = useRef(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    fetch('/data/page.json')
-      .then(r => r.json())
-      .then(data => setSidebarConfigs(data));
-  }, []);
-
-  const config = sidebarConfigs.find(s => s.code === code);
 
   const handleResizeStart = useCallback((e: React.PointerEvent) => {
     e.preventDefault();
@@ -47,6 +35,14 @@ export function SidebarPanel({ code, title, onClose }: {
     window.addEventListener('pointerup', onUp);
   }, [width]);
 
+  // Build a root section from the PageConfig
+  const rootSection = config ? {
+    class_name: config.class_name,
+    grid: config.grid,
+    cols: config.cols,
+    sections: config.sections,
+  } : undefined;
+
   return (
     <div className="sidebar" ref={sidebarRef} style={{ width: `${width}%` }}>
       <div className="sidebar-resize-handle" onPointerDown={handleResizeStart} />
@@ -59,13 +55,11 @@ export function SidebarPanel({ code, title, onClose }: {
         </button>
       </div>
       <div className="sidebar-body">
-        {!config && <p className="datagroup-loading">Loading...</p>}
+        {isLoading && <p className="datagroup-loading">Loading...</p>}
         {code === 'ink-heads' ? (
           <Ink />
         ) : (
-          config?.data_groups.map(entry => (
-            <DataGroupWidget key={entry.code} entry={entry} />
-          ))
+          rootSection && <SectionRenderer section={rootSection} content={content} />
         )}
       </div>
     </div>

@@ -1,23 +1,17 @@
 import { useState } from 'react';
 import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from 'xfw-data';
-import { getBlock } from 'xfw-get-block';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';
 
-export type DataGroupEntry = {
-  code: string;
-  block: { title: string; i18n?: Record<string, { title: string }> };
-};
-
-export function DataGroupWidget({ entry }: { entry: DataGroupEntry }) {
-  const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(entry.code);
+export function DataGroupWidget({ code, title }: { code: string; title?: string }) {
+  const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(code);
   const dataGroup = dataGroups?.[0];
 
   if (isLoadingGroups || !dataGroup) return <p className="datagroup-loading">Loading...</p>;
 
-  return <DataGroupContent dataGroup={dataGroup} entry={entry} />;
+  return <DataGroupContent dataGroup={dataGroup} title={title} />;
 }
 
-function DataGroupContent({ dataGroup, entry }: { dataGroup: DataGroup; entry: DataGroupEntry }) {
+function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: string }) {
   const [collapsed, setCollapsed] = useState(false);
   const {
     dataTable,
@@ -33,7 +27,7 @@ function DataGroupContent({ dataGroup, entry }: { dataGroup: DataGroup; entry: D
   const layout = dataGroup.layout ?? '';
   const dg = dataGroup as Record<string, unknown>;
   const widgetConfig = dg.widget_config as Record<string, unknown> | undefined;
-  const sectionTitle = getBlock([entry], entry.code, 'title');
+  const sectionTitle = title ?? (dataGroup.title?.text);
 
   return (
     <div className="datagroup-container">

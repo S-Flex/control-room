@@ -1,0 +1,89 @@
+[
+  {
+    "code": "info",
+    "sections": [
+      { "data_group": "resource_info" }
+    ]
+  },
+  {
+    "code": "oee",
+    "sections": [
+      { "data_group": "resource_oee_timeline" },
+      { "data_group": "resource_oee_chart" }
+    ]
+  },
+  {
+    "code": "tco",
+    "sections": [
+      { "data_group": "resource_tco" }
+    ]
+  },
+  {
+    "code": "production",
+    "sections": [
+      { "data_group": "resource_production" }
+    ]
+  },
+  {
+    "code": "ink-heads",
+    "sections": [
+      { "data_group": "resource_ink" },
+      { "data_group": "resource_ink_heads" }
+    ]
+  },
+  {
+    "code": "quality-management",
+    "sections": [
+      { "data_group": "resource_quality_management" }
+    ]
+  },
+  {
+    "code": "maintenance-tickets",
+    "sections": [
+      { "data_group": "resource_maintenance_tickets" }
+    ]
+  },
+  {
+    "code": "tooling-wear",
+    "sections": [
+      { "data_group": "resource_tooling_wear" }
+    ]
+  },
+  {
+    "code": "consumption-waste",
+    "sections": [
+      { "data_group": "resource_consumption_waste" }
+    ]
+  },
+  {
+    "code": "material-specs",
+    "sections": [
+      { "data_group": "resource_material_specs" }
+    ]
+  },
+  {
+    "code": "nester",
+    "sections": [
+      { "data_group": "nesting_queue" }
+    ]
+  },
+  {
+    "code": "queued-jobs",
+    "sections": [
+      { "data_group": "resource_queue" }
+    ]
+  },
+  {
+    "code": "inflow",
+    "grid": {
+      "columns": "180px 1fr",
+      "areas": [
+        "dates flow-board"
+      ]
+    },
+    "cols": [
+      { "area": "dates", "data_group": "inflow_dates" },
+      { "area": "flow-board", "data_group": "components_flow" }
+    ]
+  }
+]

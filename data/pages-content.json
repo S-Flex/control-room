@@ -1,0 +1,158 @@
+[
+  {
+    "code": "resource_info",
+    "block": {
+      "title": "Info"
+    }
+  },
+  {
+    "code": "resource_oee_timeline",
+    "block": {
+      "title": "Productivity",
+      "i18n": {
+        "en": { "title": "Productivity" },
+        "nl": { "title": "Productiviteit" },
+        "de": { "title": "Produktivität" },
+        "uk": { "title": "Продуктивність" }
+      }
+    }
+  },
+  {
+    "code": "resource_oee_chart",
+    "block": {
+      "title": "OEE",
+      "i18n": {
+        "en": { "title": "OEE" },
+        "nl": { "title": "OEE" },
+        "de": { "title": "OEE" },
+        "uk": { "title": "OEE" }
+      }
+    }
+  },
+  {
+    "code": "resource_tco",
+    "block": {
+      "title": "TCO"
+    }
+  },
+  {
+    "code": "resource_production",
+    "block": {
+      "title": "Production",
+      "i18n": {
+        "en": { "title": "Production" },
+        "nl": { "title": "Productie" },
+        "de": { "title": "Produktion" },
+        "uk": { "title": "Виробництво" }
+      }
+    }
+  },
+  {
+    "code": "resource_ink",
+    "block": {
+      "title": "Ink",
+      "i18n": {
+        "en": { "title": "Ink" },
+        "nl": { "title": "Inkt" },
+        "de": { "title": "Tinte" },
+        "uk": { "title": "Чорнила" }
+      }
+    }
+  },
+  {
+    "code": "resource_ink_heads",
+    "block": {
+      "title": "Heads",
+      "i18n": {
+        "en": { "title": "Heads" },
+        "nl": { "title": "Koppen" },
+        "de": { "title": "Köpfe" },
+        "uk": { "title": "Головки" }
+      }
+    }
+  },
+  {
+    "code": "resource_quality_management",
+    "block": {
+      "title": "Quality management",
+      "i18n": {
+        "en": { "title": "Quality management" },
+        "nl": { "title": "Kwaliteitsbeheer" },
+        "de": { "title": "Qualitätsmanagement" },
+        "uk": { "title": "Управління якістю" }
+      }
+    }
+  },
+  {
+    "code": "resource_maintenance_tickets",
+    "block": {
+      "title": "Overview",
+      "i18n": {
+        "en": { "title": "Overview" },
+        "nl": { "title": "Overzicht" },
+        "de": { "title": "Übersicht" },
+        "uk": { "title": "Огляд" }
+      }
+    }
+  },
+  {
+    "code": "resource_tooling_wear",
+    "block": {
+      "title": "Tooling & wear",
+      "i18n": {
+        "en": { "title": "Tooling & wear" },
+        "nl": { "title": "Gereedschap & slijtage" },
+        "de": { "title": "Werkzeug & Verschleiß" },
+        "uk": { "title": "Інструмент та знос" }
+      }
+    }
+  },
+  {
+    "code": "resource_consumption_waste",
+    "block": {
+      "title": "Consumption & waste",
+      "i18n": {
+        "en": { "title": "Consumption & waste" },
+        "nl": { "title": "Verbruik & afval" },
+        "de": { "title": "Verbrauch & Abfall" },
+        "uk": { "title": "Споживання та відходи" }
+      }
+    }
+  },
+  {
+    "code": "resource_material_specs",
+    "block": {
+      "title": "Material specifications",
+      "i18n": {
+        "en": { "title": "Material specifications" },
+        "nl": { "title": "Materiaalspecificaties" },
+        "de": { "title": "Materialspezifikationen" },
+        "uk": { "title": "Специфікації матеріалів" }
+      }
+    }
+  },
+  {
+    "code": "nesting_queue",
+    "block": {
+      "title": "Nesting queue",
+      "i18n": {
+        "en": { "title": "Nesting queue" },
+        "nl": { "title": "Nestwachtrij" },
+        "de": { "title": "Nesting-Warteschlange" },
+        "uk": { "title": "Черга нестингу" }
+      }
+    }
+  },
+  {
+    "code": "resource_queue",
+    "block": {
+      "title": "Overview",
+      "i18n": {
+        "en": { "title": "Overview" },
+        "nl": { "title": "Overzicht" },
+        "de": { "title": "Übersicht" },
+        "uk": { "title": "Огляд" }
+      }
+    }
+  }
+]

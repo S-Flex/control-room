@@ -43,9 +43,30 @@ export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup) => {
         () => dataTable?.params.filter(p => !p.is_ident_only && !p.is_optional) ?? null,
         [dataTable]
     );
-    const allMandatoryParamsAvailable = useMemo(() => {
+    const dataTableParamsOk = useMemo(() => {
         return mandatoryParams?.every(mp => params.some(p => p.key === mp.key && p.val !== undefined && p.val !== null)) ?? false;
     }, [mandatoryParams, params]);
+
+    // 4.2 Check mandatory params using dataGroup.params (if a param is listed without is_optional, its value must be non-null).
+    const dataGroupMandatory = useMemo(
+        () => dataGroup.params.filter(p => !p.is_optional && !p.is_ident_only),
+        [dataGroup.params]
+    );
+    const dataGroupParamsOk = useMemo(() => {
+        return dataGroupMandatory.every(mp => params.some(p => p.key === mp.key && p.val !== undefined && p.val !== null));
+    }, [dataGroupMandatory, params]);
+
+    const allMandatoryParamsAvailable = dataTableParamsOk && dataGroupParamsOk;
+
+    console.log(`[useDataGeneric] src=${primarySrc}`, {
+        dataTableLoaded: !!dataTable,
+        dataTableMandatory: mandatoryParams?.map(p => p.key),
+        dataGroupMandatory: dataGroupMandatory.map(p => p.key),
+        resolvedParams: params.map(p => ({ key: p.key, val: p.val })),
+        dataTableParamsOk,
+        dataGroupParamsOk,
+        allMandatoryParamsAvailable,
+    });
 
     // primaryIdKey defaults to "id" until the datatable resolves — acceptable for the initial fetch.
     const primaryIdKey = useMemo(() => dataTable?.primary_keys?.[0] ?? "id", [dataTable]);
