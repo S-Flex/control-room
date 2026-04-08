@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useMemo } from "react";
 import type { ReactNode } from "react";
-import type { ParamValue, ParamDefinition } from "../xfw-data/types";
+import type { ParamValue, ParamDefinition } from "../@s-flex/xfw-data/types";
 
 // Context type
 type OverrideParamsContextType = ParamValue[];

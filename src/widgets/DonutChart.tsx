@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { JSONRecord, JSONValue } from 'xfw-data';
+import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { getBlock } from 'xfw-get-block';
 import { resolve } from './resolve';
 
@@ -66,7 +66,7 @@ function buildGroups(data: JSONRecord[], widgetConfig: DonutChartConfig): Group[
     if (!buckets.has(code)) {
       buckets.set(code, {
         key: code,
-        title: getBlock(row.state ? [row.state as { code: string; block: Record<string, unknown> }] : [], code, 'title'),
+        title: getBlock(row.state ? [row.state as { code: string; block: Record<string, unknown>; }] : [], code, 'title'),
         color: String(resolve(row, widgetConfig.color_field) ?? '#888'),
         values: [],
       });
@@ -92,7 +92,7 @@ function buildGroups(data: JSONRecord[], widgetConfig: DonutChartConfig): Group[
   return groups;
 }
 
-function DonutRing({ groups }: { groups: Group[] }) {
+function DonutRing({ groups }: { groups: Group[]; }) {
   const size = 200;
   const cx = size / 2;
   const cy = size / 2;
@@ -139,10 +139,10 @@ function DonutRing({ groups }: { groups: Group[] }) {
   );
 }
 
-export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartConfig; data: JSONRecord[] }) {
+export function DonutChart({ widgetConfig, data }: { widgetConfig: DonutChartConfig; data: JSONRecord[]; }) {
   // Build filter options from filter_field
   const filterField = widgetConfig.filter_field;
-  const filterOptions: { key: string; label: string }[] = [];
+  const filterOptions: { key: string; label: string; }[] = [];
   if (filterField && data) {
     const seen = new Set<string>();
     for (const row of data) {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import type { JSONRecord } from 'xfw-data';
+import type { JSONRecord } from '@s-flex/xfw-data';
 import { resolve } from './resolve';
 
 export type TimelineBarConfig = {
@@ -172,7 +172,7 @@ function EnlargedTimelineOverlay({
   onClose: () => void;
 }) {
   const [container, setContainer] = useState<Element | null>(null);
-  const [hover, setHover] = useState<{ seg: Segment; x: number; y: number } | null>(null);
+  const [hover, setHover] = useState<{ seg: Segment; x: number; y: number; } | null>(null);
 
   useEffect(() => {
     setContainer(document.querySelector('.planning-viewer'));
@@ -220,7 +220,7 @@ function EnlargedTimelineOverlay({
   );
 }
 
-export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarConfig; data: JSONRecord[] }) {
+export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarConfig; data: JSONRecord[]; }) {
   const [enlargedGroup, setEnlargedGroup] = useState<string | null>(null);
 
   if (!data || data.length === 0) return null;
@@ -240,12 +240,12 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
 
   // Group data by group_field if specified
   const groupField = widgetConfig.group_field;
-  const groups: { key: string; label: string; rows: JSONRecord[] }[] = [];
+  const groups: { key: string; label: string; rows: JSONRecord[]; }[] = [];
 
   const titleField = widgetConfig.title_field;
 
   if (groupField) {
-    const map = new Map<string, { rows: JSONRecord[]; label: string }>();
+    const map = new Map<string, { rows: JSONRecord[]; label: string; }>();
     for (const row of data) {
       const val = String(resolve(row, groupField) ?? 'unknown');
       if (!map.has(val)) {
