@@ -14,10 +14,6 @@
         "paths": {
             "xfw-three": ["./packages/xfw-three"],
             "xfw-three/*": ["./packages/xfw-three/*"],
-            "xfw-nav": ["./packages/xfw-nav"],
-            "xfw-nav/*": ["./packages/xfw-nav/*"],
-            "xfw-button-group": ["./packages/xfw-button-group"],
-            "xfw-button-group/*": ["./packages/xfw-button-group/*"],
             "xfw-get-block": ["./packages/xfw-get-block"],
             "xfw-get-block/*": ["./packages/xfw-get-block/*"]
         }
@@ -25,8 +21,6 @@
     "include": [
         "src",
         "packages/xfw-three",
-        "packages/xfw-nav",
-        "packages/xfw-button-group",
         "packages/xfw-get-block"
     ]
 }

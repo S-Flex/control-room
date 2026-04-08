@@ -30,13 +30,9 @@ src/                     — Application source code (React + TypeScript)
   ControlRoomPage.tsx    — Dashboard overview page
   DataGroupPage.tsx      — Debug page for inspecting data groups
   app.css                — All application styles
-packages/                — Internal shared packages
-  xfw-data/              — Data fetching, API client, hooks (useDataGeneric, useDataRows, useDatatable)
-  xfw-url/               — URL-driven state: routing, query params, aux routes, sidebar system
+packages/                — Internal shared packages (local, aliased via vite + tsconfig)
   xfw-three/             — Three.js 3D model viewer
   xfw-get-block/         — Localization (getBlock, setLanguage)
-  xfw-button-group/      — Button group component
-  providers/             — Shared providers (loading-boundary, override-params, query-param, sidebar-context)
 data/                    — JSON data files served by vite dev server
 ```
 
@@ -75,8 +71,8 @@ The application follows a data-driven pattern where UI is dynamically generated 
    - Mandatory param validation gates data fetching
 
 3. **Parameter System** (params flow through three sources):
-   - **URL query params** (`useQueryParams` from `xfw-url`): For params with `is_query_param: true` on the `DataTable`
-   - **Override params** (`useOverrideParams` from `packages/providers/`): Context-inherited params
+   - **URL query params** (`useQueryParams` from `@s-flex/xfw-url`): For params with `is_query_param: true` on the `DataTable`
+   - **Override params** (`useOverrideParams` from `@s-flex/xfw-url`): Context-inherited params
    - **Default values**: From `ParamDefinition.default_value` or `ParamDefinition.val`
 
 ### Routing System
@@ -102,22 +98,16 @@ The `SidebarPanel` loads sidebar config, fetches data groups, and dispatches to 
 Packages are aliased in `tsconfig.json` and `vite.config.ts`:
 
 ```typescript
-// From src/ files — use package aliases
-import { useDataGeneric } from 'xfw-data';
-import { useQueryParams, useNavigate } from 'xfw-url';
+// npm packages (migrated from local packages/)
+import { useDataGeneric, type DataGroup } from '@s-flex/xfw-data';
+import { useQueryParams, useNavigate } from '@s-flex/xfw-url';
+
+// Local packages (aliased in tsconfig.json + vite.config.ts)
 import { getBlock } from 'xfw-get-block';
-
-// From within packages/ — use relative paths
-import type { DataGroup } from "../types";       // within xfw-data
-import { apiRequest } from "./client";            // within xfw-data/lib
-import { useQueryParams } from "xfw-url";         // cross-package via alias
-
-// Shared providers (packages/providers/) — use relative paths from packages/
-import { useLoadingSubscription } from "../../providers/loading-boundary-provider";
-import { useOverrideParams } from "../../providers/override-params-provider";
+import { ThreeModelView } from 'xfw-three';
 ```
 
-### Key Types (from `packages/xfw-data/types/index.ts`)
+### Key Types (from `@s-flex/xfw-data`)
 
 - `DataGroup` — Widget configuration: src, params, layout, widget_config
 - `DataTable` — Schema from API: primary_keys, params (with `is_query_param`), schema

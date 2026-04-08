@@ -29,12 +29,13 @@ Adapted from the XFW Portal React coding standards. Defines the architectural pa
 - **TanStack Query v5** — Data fetching and caching
 - **React Router** — Routing with auxiliary route support via `xfw-url`
 
-**Internal Packages:**
-- `xfw-data` — API client, data hooks (`useDataGeneric`, `useDataRows`, `useDatatable`)
-- `xfw-url` — URL-driven state management (query params, aux routes, sidebar system)
+**npm Packages (migrated from local):**
+- `@s-flex/xfw-data` — API client, data hooks (`useDataGeneric`, `useDataRows`, `useDatatable`)
+- `@s-flex/xfw-url` — URL-driven state management (query params, aux routes, sidebar system)
+
+**Local Packages (aliased via vite + tsconfig):**
 - `xfw-three` — Three.js 3D model viewer
 - `xfw-get-block` — Localization (`getBlock()`)
-- `xfw-button-group` — Button group component
 
 ---
 
@@ -47,19 +48,13 @@ Adapted from the XFW Portal React coding standards. Defines the architectural pa
 **Import Patterns:**
 
 ```typescript
-// From src/ files — use package aliases
-import { useDataGeneric, type DataGroup } from 'xfw-data';
-import { useQueryParams } from 'xfw-url';
+// npm packages
+import { useDataGeneric, type DataGroup } from '@s-flex/xfw-data';
+import { useQueryParams, useNavigate } from '@s-flex/xfw-url';
 
-// From within a package — use relative paths
-import type { DataGroup } from "../types";
-import { apiRequest } from "./client";
-
-// Cross-package — use alias
-import { useQueryParams } from "xfw-url";
-
-// Shared providers — relative from packages/
-import { useLoadingSubscription } from "../../providers/loading-boundary-provider";
+// Local packages (aliased)
+import { getBlock } from 'xfw-get-block';
+import { ThreeModelView } from 'xfw-three';
 ```
 
 ---
@@ -217,21 +212,8 @@ src/
   app.css              — All styles
 
 packages/
-  xfw-data/
-    types/index.ts     — All type definitions
-    lib/client.ts      — API request wrapper
-    lib/data.ts        — Data fetching functions
-    hooks/             — React hooks (use-data-generic, use-datarows, use-datatable)
-    index.ts           — Barrel exports
-  xfw-url/
-    hooks/             — Query params, navigation, aux routes
-    providers/         — Aux route, query param cleanup, sidebar, navigation
-    lib/url.ts         — URL parse/compose utilities
-    types/index.ts     — ParamDefinition, ParamValue, etc.
-  providers/
-    loading-boundary-provider.tsx
-    override-params-provider.tsx
-    query-param-provider.tsx
+  xfw-three/           — Three.js 3D model viewer (local)
+  xfw-get-block/       — Localization (local)
 ```
 
 ---

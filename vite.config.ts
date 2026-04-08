@@ -65,8 +65,6 @@ export default defineConfig({
   resolve: {
     alias: {
       'xfw-three': path.resolve(__dirname, 'packages/xfw-three'),
-      'xfw-nav': path.resolve(__dirname, 'packages/xfw-nav'),
-      'xfw-button-group': path.resolve(__dirname, 'packages/xfw-button-group'),
       'xfw-get-block': path.resolve(__dirname, 'packages/xfw-get-block')
     },
   },
