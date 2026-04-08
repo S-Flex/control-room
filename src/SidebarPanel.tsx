@@ -18,7 +18,7 @@ export function SidebarPanel({ code, title, onClose }: {
   const sidebarRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    fetch('/data/sidebar.json')
+    fetch('/data/page.json')
       .then(r => r.json())
       .then(data => setSidebarConfigs(data));
   }, []);
