@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { useDataGroups, useDataGeneric, type DataGroup, type JSONRecord } from 'xfw-data';
+import { useDataGroups, type DataGroup, type JSONRecord } from '@s-flex/xfw-data';
+import { useDataGeneric } from '@s-flex/xfw-ui';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';
 
-export function DataGroupWidget({ code, title }: { code: string; title?: string }) {
+export function DataGroupWidget({ code, title }: { code: string; title?: string; }) {
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(code);
   const dataGroup = dataGroups?.[0];
 
@@ -11,7 +12,7 @@ export function DataGroupWidget({ code, title }: { code: string; title?: string 
   return <DataGroupContent dataGroup={dataGroup} title={title} />;
 }
 
-function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: string }) {
+function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: string; }) {
   const [collapsed, setCollapsed] = useState(false);
   const {
     dataTable,

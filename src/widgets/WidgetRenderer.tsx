@@ -1,4 +1,4 @@
-import type { DataGroup, JSONRecord } from 'xfw-data';
+import type { DataGroup, JSONRecord } from '@s-flex/xfw-data';
 import { TimelineBar, type TimelineBarConfig } from './TimelineBar';
 import { DonutChart, type DonutChartConfig } from './DonutChart';
 import { InkGauge, type InkGaugeConfig } from './InkGauge';

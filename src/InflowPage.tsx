@@ -1,5 +1,5 @@
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from 'xfw-url';
+import { useNavigate } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';

@@ -1,5 +1,5 @@
 import { getBlock } from 'xfw-get-block';
-import { useNavigate } from 'xfw-url';
+import { useNavigate } from '@s-flex/xfw-url';
 import { DataGroupWidget } from './DataGroup';
 import type { Section, GridConfig } from '../types';
 

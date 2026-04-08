@@ -1,4 +1,4 @@
-import { useNavigate, useAuxOutlet } from 'xfw-url';
+import { useNavigate, useAuxOutlet } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { SidebarPanel } from './SidebarPanel';
 import type { MenuContentEntry } from './types';
