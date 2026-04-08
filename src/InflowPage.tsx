@@ -1,4 +1,4 @@
-import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
@@ -78,7 +78,6 @@ export function InflowPage() {
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
   const { config: pageConfig } = usePage('inflow');
-  const leftDataGroup = pageConfig?.cols?.[0]?.data_group;
   const rightDataGroup = pageConfig?.cols?.[1]?.data_group;
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
@@ -285,44 +284,10 @@ export function InflowPage() {
     });
   }, []);
 
-  // Toggle a date checkbox
-  const toggleDate = useCallback((date: string) => {
-    setCheckedDates(prev => {
-      const next = new Set(prev);
-      if (next.has(date)) next.delete(date);
-      else next.add(date);
-
-      // Persist to localStorage
-      if (selectedMaterial) {
-        const stored = readStorage();
-        stored[selectedMaterial] = [...next];
-        writeStorage(stored);
-      }
-
-      return next;
-    });
-  }, [selectedMaterial]);
-
   const scheduleLabel = getBlock(uiLabels, 'production_schedule', 'title');
   const materialLabel = selectedMaterial
     ? getBlock(materialsContent, selectedMaterial, 'title')
     : scheduleLabel;
-
-  // Production dates for the selected material
-  const productionDates = useMemo(() => {
-    if (!selectedMaterial) return [];
-    const mat = materials.find(m => m.code === selectedMaterial);
-    if (!mat) return [];
-    const entry = rootProductionDates.find(pd => pd.interval_workdays === mat.interval_workdays);
-    return entry?.dates ?? [];
-  }, [materials, selectedMaterial, rootProductionDates]);
-
-  const formatDate = useCallback((iso: string) => {
-    return new Date(iso + 'T00:00:00').toLocaleDateString(undefined, { month: 'long', day: 'numeric' });
-  }, []);
-
-  const singlePieceLabel = getBlock(uiLabels, 'single_piece', 'title');
-  const multiPieceLabel = getBlock(uiLabels, 'multi_piece', 'title');
 
   const getMaterialLabel = useCallback(
     (code: string) => getBlock(materialsContent, code, 'title'),
@@ -429,41 +394,6 @@ export function InflowPage() {
 
         <div className="planning-content">
           <div className="inflow-content">
-            <div className="inflow-left">
-              <div className="inflow-col-header">{getBlock(uiLabels, 'schedule', 'title')}</div>
-              <div className="inflow-schedule-dates">
-                {productionDates.map((date, i) => (
-                  i === 0 ? (
-                    <div key={date} className={`inflow-date-item${checkedDates.has(date) ? ' checked' : ''}`} onClick={() => toggleDate(date)}>
-                      <span className="inflow-date-label">{formatDate(date)}</span>
-                    </div>
-                  ) : (
-                    <Fragment key={date}>
-                      <div className={`inflow-date-item${checkedDates.has(date + ':sp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':sp')}>
-                        <span className="inflow-date-label">{formatDate(date)}</span>
-                        <span className="inflow-date-type" title={singlePieceLabel}>
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <rect x="4" y="4" width="8" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
-                          </svg>
-                        </span>
-                      </div>
-                      <div className={`inflow-date-item${checkedDates.has(date + ':mp') ? ' checked' : ''}`} onClick={() => toggleDate(date + ':mp')}>
-                        <span className="inflow-date-label">{formatDate(date)}</span>
-                        <span className="inflow-date-type" title={multiPieceLabel}>
-                          <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
-                            <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                            <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                            <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                            <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                          </svg>
-                        </span>
-                      </div>
-                    </Fragment>
-                  )
-                ))}
-              </div>
-              {leftDataGroup && <DataGroupWidget code={leftDataGroup} />}
-            </div>
             <Carousel
               items={orderedCodes}
               currentIndex={currentIndex >= 0 ? currentIndex : 0}

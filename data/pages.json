@@ -82,8 +82,7 @@
       ]
     },
     "cols": [
-      { "area": "dates", "data_group": "inflow_dates" },
-      { "area": "flow-board", "data_group": "components_flow" }
+      { "area": "flow-board", "data_group": "components_inflow" }
     ]
   }
 ]

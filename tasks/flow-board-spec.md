@@ -8,7 +8,7 @@ A recursive, data-driven board. The root is `FlowBoard.tsx`. Each level renders 
 
 **Principle**: Semantics in data, not in code. Layout components (`flow-grid`, `flow-container`, `flow-cards`, `flow-table`) have no semantic meaning — they are interchangeable visual wrappers. Any level can be skipped or replaced by another layout. Other layouts can be added without changing the data model.
 
-**State**: All navigational UI state (selection, expanded instances, active filters) is managed through URL parameters via `xfw-url` (`useQueryParams`, `useNavigate`). Local transient state (e.g. drag preview) uses `useState`.
+**State**: All navigational UI state (selection, expanded instances, active filters) is managed through URL parameters via `@s-flex/xfw-url` (`useQueryParams`, `useNavigate`). Local transient state (e.g. drag preview) uses `useState`.
 
 ---
 
@@ -18,71 +18,172 @@ A recursive, data-driven board. The root is `FlowBoard.tsx`. Each level renders 
 
 ```json
 {
-  "widget_id": "production_job_flow",
-  "src": "get_production_jobs",
-  "params": [],
+  "widget_id": "components_inflow",
+  "src": "get_components_inflow",
+  "params": [
+    { "key": "reference_date", "val": "" },
+    { "key": "from", "val": "" },
+    { "key": "material_id", "val": "" },
+    { "key": "domain_id", "val": "" },
+    { "key": "look_ahead_days", "val": "10" },
+    { "key": "threshold", "val": "5" }
+  ],
   "layout": "flow-board",
   "field_config": {
-    "job_id": {
-      "aggregate": "count",
+    "production_date": {
       "ui": {
-        "i18n": { "nl": { "title": "Jobs" }, "en": { "title": "Jobs" } },
+        "control": "date",
+        "i18n": { "nl": { "title": "Productiedatum" }, "en": { "title": "Production date" } },
         "order": 1
       }
     },
-    "quantity": {
-      "aggregate": "sum",
+    "direction": {
       "ui": {
-        "i18n": { "nl": { "title": "Aantal" }, "en": { "title": "Qty" } },
+        "control": "badge",
+        "i18n": { "nl": { "title": "Richting" }, "en": { "title": "Direction" } },
         "order": 2
       }
     },
-    "state_json.state": {
+    "order_location": {
       "ui": {
-        "control": "badge",
-        "i18n": { "nl": { "title": "Status" }, "en": { "title": "State" } },
+        "i18n": { "nl": { "title": "Locatie" }, "en": { "title": "Location" } },
         "order": 3
       }
     },
-    "customer":  { "ui": { "i18n": { "nl": { "title": "Klant"     }, "en": { "title": "Customer" } }, "order": 4 } },
-    "location":  { "ui": { "i18n": { "nl": { "title": "Locatie"   }, "en": { "title": "Location" } }, "order": 5 } },
-    "label":     { "ui": { "i18n": { "nl": { "title": "Omschrijving" }, "en": { "title": "Label"  } }, "order": 6 } },
-    "priority":  { "ui": { "i18n": { "nl": { "title": "Prioriteit" }, "en": { "title": "Priority" } }, "order": 7 } }
+    "state": {
+      "ui": {
+        "control": "badge",
+        "i18n": { "nl": { "title": "Status" }, "en": { "title": "State" } },
+        "order": 4
+      }
+    },
+    "order_id": {
+      "ui": {
+        "i18n": { "nl": { "title": "Order" }, "en": { "title": "Order" } },
+        "order": 5
+      }
+    },
+    "material_id": {
+      "ui": {
+        "i18n": { "nl": { "title": "Materiaal" }, "en": { "title": "Material" } },
+        "order": 6
+      }
+    },
+    "order_line_count": {
+      "ui": {
+        "i18n": { "nl": { "title": "Orderregels" }, "en": { "title": "Order lines" } },
+        "order": 7
+      }
+    },
+    "product_amount": {
+      "ui": {
+        "i18n": { "nl": { "title": "Aantal" }, "en": { "title": "Qty" } },
+        "order": 8
+      }
+    },
+    "total_product_amount": {
+      "ui": {
+        "i18n": { "nl": { "title": "Totaal aantal" }, "en": { "title": "Total qty" } },
+        "order": 9
+      }
+    },
+    "sqm": {
+      "ui": {
+        "i18n": { "nl": { "title": "m\u00b2" }, "en": { "title": "m\u00b2" } },
+        "order": 10
+      }
+    },
+    "threshold": {
+      "ui": {
+        "i18n": { "nl": { "title": "Drempel" }, "en": { "title": "Threshold" } },
+        "order": 11
+      }
+    }
   },
   "flow_board_config": {
     "layout": "flow-grid",
-    "group_by": "state_json.state",
-    "order": ["start", "pending", "done"],
-    "filter": [],
-    "fields": {
-      "state_json.state": {}
-    },
+    "group_by": [
+      [
+        { "field": "order_location", "op": "eq", "value": "NL" },
+        { "field": "state", "op": "eq", "value": "pending-release" }
+      ],
+      [
+        { "field": "order_location", "op": "eq", "value": "DE" },
+        { "field": "state", "op": "eq", "value": "pending-release" }
+      ],
+      [
+        { "field": "order_location", "op": "eq", "value": "NL" },
+        { "field": "state", "op": "eq", "value": "staging" }
+      ],
+      [
+        { "field": "order_location", "op": "eq", "value": "DE" },
+        { "field": "state", "op": "eq", "value": "staging" }
+      ]
+    ],
     "children": {
       "layout": "flow-container",
-      "group_by": "customer",
-      "filter": [],
-      "fields": {
-        "customer": {},
-        "quantity": {},
-        "job_id":   {}
+      "group_by": ["production_date", "direction"],
+      "field_config": {
+        "production_date": {
+          "ui": {
+            "control": "date",
+            "i18n": { "nl": { "title": "Productiedatum" }, "en": { "title": "Production date" } }
+          }
+        },
+        "direction": {
+          "ui": {
+            "control": "badge",
+            "i18n": { "nl": { "title": "Richting" }, "en": { "title": "Direction" } }
+          }
+        },
+        "order_id": {
+          "aggregate": "count",
+          "ui": {
+            "i18n": { "nl": { "title": "Orders" }, "en": { "title": "Orders" } }
+          }
+        },
+        "total_product_amount": {
+          "aggregate": "sum",
+          "ui": {
+            "i18n": { "nl": { "title": "Totaal aantal" }, "en": { "title": "Total qty" } }
+          }
+        },
+        "sqm": {
+          "aggregate": "sum",
+          "ui": {
+            "i18n": { "nl": { "title": "m\u00b2" }, "en": { "title": "m\u00b2" } }
+          }
+        }
       },
       "children": {
         "layout": "flow-cards",
-        "group_by": "location",
-        "filter": [],
-        "fields": {
-          "location": {},
-          "quantity": {},
-          "job_id":   {}
+        "group_by": ["order_id"],
+        "field_config": {
+          "order_id": {
+            "ui": {
+              "i18n": { "nl": { "title": "Order" }, "en": { "title": "Order" } }
+            }
+          },
+          "order_line_count": {
+            "ui": {
+              "i18n": { "nl": { "title": "Orderregels" }, "en": { "title": "Order lines" } }
+            }
+          },
+          "total_product_amount": {
+            "aggregate": "sum",
+            "ui": {
+              "i18n": { "nl": { "title": "Totaal aantal" }, "en": { "title": "Total qty" } }
+            }
+          },
+          "sqm": {
+            "aggregate": "sum",
+            "ui": {
+              "i18n": { "nl": { "title": "m\u00b2" }, "en": { "title": "m\u00b2" } }
+            }
+          }
         },
         "children": {
-          "layout": "flow-table",
-          "filter": [],
-          "fields": {
-            "label":    {},
-            "priority": {},
-            "quantity": {}
-          }
+          "layout": "flow-table"
         }
       }
     }
@@ -95,28 +196,53 @@ A recursive, data-driven board. The root is `FlowBoard.tsx`. Each level renders 
 ### 1.2 Configuration rules
 
 **`data_group.field_config`**
-- Only fields listed here are displayed anywhere in the board.
-- `aggregate` — function applied to this field at every level where it appears: `sum`, `count`, `avg`, `min`, `max`.
-- `ui.i18n` — localized display label used in headers and aggregate chips. Resolved using `getBlock()` from `xfw-get-block` where possible, or `ui.i18n[locale].title` for inline labels.
-- `ui.control` — rendering hint (`"badge"`, `"date"`, etc.). `"badge"` reads `row[parent].class_name` as CSS classes.
+- Master field registry. Only fields listed here are displayed anywhere in the board.
+- `aggregate` — function applied to this field at levels where it appears: `sum`, `count`, `avg`, `min`, `max`.
+- `ui.i18n` — localized display label. Resolved using `getBlock()` from `xfw-get-block` where possible, or `ui.i18n[locale].title` for inline labels.
+- `ui.control` — rendering hint (`"badge"`, `"date"`, etc.).
 - `ui.order` — default display order.
 
 **`flow_board_config`**
 - Always starts with `layout: "flow-grid"`.
-- `group_by` — field key that partitions rows into child instances. Any field in `field_config` can be used.
-- `order` — explicit list of `group_by` values to show and in what sequence. Values absent from `order` are hidden.
-- `filter` — `FilterRule[]` applied before grouping at this level.
-- `fields` — map of `{ [field_key]: FieldConfig }`. Keys must exist in `data_group.field_config`. The per-level `FieldConfig` may override `ui` properties from the parent `field_config`. Only fields listed here are shown at this level.
-- `children` — next level config. Absent on `flow-table`.
+- `group_by` — determines how rows are partitioned into child instances. Two forms:
+  1. **Compound filter arrays** (root level): `FilterRule[][]` — each sub-array is a set of conditions that define one group. Rows matching all conditions in a sub-array belong to that group. This allows groups defined by combinations of field values (e.g. location + state).
+  2. **Field name array** (child levels): `string[]` — rows are grouped by the composite key of these field values. E.g. `["production_date", "direction"]` groups by unique combinations of date and direction.
+- `field_config` — per-level field configuration. Keys must exist in `data_group.field_config`. Declares which fields are shown at this level and may add `aggregate` functions or override `ui` properties. Only fields listed here are shown at this level.
+- `children` — next level config. Absent on `flow-table` (leaf level). `flow-table` inherits all fields from `data_group.field_config` that are not used as grouping or aggregate fields at ancestor levels.
 - Layout types are purely visual. They carry no business meaning and are interchangeable. New layout types can be added without changing the data model.
 
 **No `editable_fields`.** Editability is derived from the field and context, not declared separately.
 
 ---
 
-### 1.3 Data structures
+### 1.3 `group_by` — compound filters vs field grouping
 
-**Dot-notation keys** — `state_json.state` resolves by walking `row` field-by-field: `row["state_json"]["state"]`. The `class_name` sibling is always at `row["state_json"]["class_name"]` — fixed convention, no config needed.
+**Compound filter `group_by`** (used at flow-grid level):
+
+Each element is a `FilterRule[]` — all rules must match (AND). The array index determines column order.
+
+```typescript
+// Group 0: NL + pending-release
+[{ field: "order_location", op: "eq", value: "NL" }, { field: "state", op: "eq", value: "pending-release" }]
+
+// Group 1: DE + pending-release
+[{ field: "order_location", op: "eq", value: "DE" }, { field: "state", op: "eq", value: "pending-release" }]
+```
+
+The column header is derived from the filter values + their `field_config` i18n labels.
+
+**Field name `group_by`** (used at child levels):
+
+```typescript
+// Group by composite key: production_date + direction
+["production_date", "direction"]
+```
+
+Rows are grouped by the concatenation of their values for these fields. The group header shows each field's value rendered according to its `field_config`.
+
+---
+
+### 1.4 Data structures
 
 **Data traversal pattern** — the renderer walks data as:
 ```typescript
@@ -146,13 +272,17 @@ Aggregates recompute over `selected_rows` when a row selection is active; otherw
 **Example data row:**
 ```json
 {
-  "job_id": "j1",
-  "customer": "Acme",
-  "state_json": { "state": "pending", "class_name": "flow-badge-amber" },
-  "location": "nl",
-  "quantity": 100,
-  "label": "Banner A",
-  "priority": 1
+  "order_id": "ORD-001",
+  "material_id": 42,
+  "order_location": "NL",
+  "state": "pending-release",
+  "production_date": "2026-04-10",
+  "direction": "inbound",
+  "order_line_count": 3,
+  "product_amount": 150,
+  "total_product_amount": 450,
+  "sqm": 12.5,
+  "threshold": 5
 }
 ```
 
@@ -177,13 +307,19 @@ Each level component is a standalone file. `FlowBoard` holds all shared state an
 
 ## 3. Types
 
-### 3.1 Generic (extend `packages/xfw-data/types/index.ts`)
+### 3.1 Generic types (from `@s-flex/xfw-data`)
 
-> **Note**: `packages/` is a protected directory. These changes require explicit permission before editing.
-
-Add to the existing types file:
+Types used from the npm package:
 
 ```typescript
+import type { DataGroup, DataTable, FieldConfig, JSONValue, JSONRecord, PgField } from '@s-flex/xfw-data';
+```
+
+### 3.2 Flow-specific (`src/widgets/flow/types.ts`)
+
+```typescript
+import type { FieldConfig, JSONValue, DataGroup, DataTable, PgField } from '@s-flex/xfw-data';
+
 export type AggregateFn = 'sum' | 'count' | 'avg' | 'min' | 'max';
 
 export type FilterOp = 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'in' | 'like';
@@ -193,47 +329,25 @@ export type FilterRule = {
     op:    FilterOp;
     value: JSONValue;
 };
-```
-
-### 3.2 Extend existing `FieldConfig` and `DataGroup`
-
-Add `aggregate` to the existing `FieldConfig`:
-
-```typescript
-export type FieldConfig = {
-    type?: string;
-    field_type?: string;
-    input_data?: InputData;
-    ui?: Partial<UI>;
-    aggregate?: AggregateFn;   // NEW — aggregation function for flow-board levels
-};
-```
-
-Add `flow_board_config` to the existing `DataGroup`:
-
-```typescript
-// Add to existing DataGroup type:
-flow_board_config?: FlowBoardLevelConfig;
-```
-
-The `layout` field already accepts `string`, so `"flow-board"` works without changes.
-
-### 3.3 Flow-specific (`src/widgets/flow/types.ts`)
-
-```typescript
-import type { FilterRule, AggregateFn, FieldConfig, JSONValue, DataGroup, DataTable, PgField } from 'xfw-data';
 
 export type FlowLayoutType = 'flow-grid' | 'flow-container' | 'flow-cards' | 'flow-table' | string;
 
 export type DragKind = 'instance' | 'selection';
 
+/**
+ * group_by has two forms:
+ * - FilterRule[][] — compound filter groups (each sub-array defines one group via AND conditions)
+ * - string[]       — field name grouping (rows grouped by composite key of field values)
+ */
+export type FlowGroupBy = FilterRule[][] | string[];
+
+export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn }>;
+
 export type FlowBoardLevelConfig = {
-    layout:    FlowLayoutType;
-    group_by?: string;
-    order?:    string[];
-    filter?:   FilterRule[];
-    fields:    Record<string, FieldConfig>;   // key → per-level field config override
-    children?: FlowBoardLevelConfig;
+    layout:       FlowLayoutType;
+    group_by?:    FlowGroupBy;
+    field_config?: FlowLevelFieldConfig;
+    children?:    FlowBoardLevelConfig;
 };
 
 export type ResolvedField = {
@@ -287,17 +401,23 @@ export type FlowContextValue = {
 };
 ```
 
+### 3.3 Determining `group_by` form
+
+```typescript
+function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FilterRule[][] {
+    return groupBy.length > 0 && Array.isArray(groupBy[0]);
+}
+```
+
+When `isFilterGroupBy` returns `true`, each element is a `FilterRule[]` (compound filter defining one group). Otherwise, each element is a field name string.
+
 ### 3.4 Config resolution
 
 ```typescript
 function resolveFlowBoardConfig(dataGroup: DataGroup, dataTable: DataTable): ResolvedFlowConfig {
     const fieldMap: FieldMap = Object.fromEntries(
         Object.entries(dataGroup.field_config ?? {}).map(([key, fc]) => {
-            const parts = key.split('.');
-            const pgField = parts.reduce(
-                (pf: PgField | undefined, part) => pf?.fields?.[part] ?? dataTable.schema[part],
-                undefined
-            ) ?? dataTable.schema[key];
+            const pgField = dataTable.schema[key];
             return [key, {
                 key,
                 pg_field:  pgField!,
@@ -366,11 +486,12 @@ interface FlowLevelProps {
 ```
 
 Each component:
-1. Applies `level_config.filter` to `rows`.
-2. Groups filtered rows by `level_config.group_by` in `level_config.order` sequence.
-3. Computes `LevelAggregated` per group from `level_config.fields` + `field_map`.
-4. Renders each group using its visual structure.
-5. For each group, renders the child level by switching on `level_config.children.layout`:
+1. Groups rows using `level_config.group_by`:
+   - **Compound filter** (`FilterRule[][]`): For each filter set, select rows where all conditions match. Column order follows array index.
+   - **Field name array** (`string[]`): Group rows by composite key of field values. E.g. `["production_date", "direction"]` produces a group for each unique `(date, direction)` pair.
+2. Computes `LevelAggregated` per group from `level_config.field_config` + `field_map`.
+3. Renders each group using its visual structure.
+4. For each group, renders the child level by switching on `level_config.children.layout`:
    ```typescript
    const child_map: Record<string, ComponentType<FlowLevelProps>> = {
        'flow-grid':      FlowGrid,
@@ -380,21 +501,21 @@ Each component:
    }
    const ChildComponent = child_map[level_config.children.layout]
    ```
-6. Passes child `rows` (the group's subset) and `level_config.children` to the child component.
+5. Passes child `rows` (the group's subset) and `level_config.children` to the child component.
 
 **No level component knows what it is in the hierarchy.** The `child_map` lookup is the only dispatch logic.
 
 ### `<FlowGrid>` — `FlowGrid.tsx`
-Horizontal grid of equal-width columns. Each column = one group. Column header shows `fields` + aggregate chips. Column body = child component. Sticky column headers. Horizontal scroll on overflow. Columns are `useDroppable` targets.
+Horizontal grid of equal-width columns. Each column = one group defined by its compound filter or field value. Column header shows the filter field values (e.g. "NL — pending-release") using i18n labels from `field_config`. Column body = child component. Sticky column headers. Horizontal scroll on overflow. Columns are `useDroppable` targets.
 
 ### `<FlowContainer>` — `FlowContainer.tsx`
-Vertical stack of full-width collapsible sections. Header + aggregate chips + expand toggle + drag handle ⠿. `useDraggable` on header, `useDroppable` on body.
+Vertical stack of full-width collapsible sections. Header shows group field values (e.g. production date + direction badge) + aggregate chips + expand toggle + drag handle. `useDraggable` on header, `useDroppable` on body.
 
 ### `<FlowCards>` — `FlowCards.tsx`
-Wrapping flex row of card tiles. Each card has header + aggregate chips + expand toggle + drag handle ⠿. `useDraggable` + `useDroppable`.
+Wrapping flex row of card tiles. Each card shows the group field values (e.g. order_id) + aggregate chips + expand toggle + drag handle. `useDraggable` + `useDroppable`.
 
 ### `<FlowTable>` — `FlowTable.tsx`
-Leaf. No `group_by`, no children. Renders a `<table>` with columns from `level_config.fields`. One `<FlowRow>` per row. `<FlowActionBar>` when rows are selected.
+Leaf. No `group_by`, no children, no `field_config`. Renders a `<table>` with columns from all remaining fields in the root `data_group.field_config` that are not grouping keys at ancestor levels. One `<FlowRow>` per row. `<FlowActionBar>` when rows are selected.
 
 ---
 
@@ -402,18 +523,16 @@ Leaf. No `group_by`, no children. Renders a `<table>` with columns from `level_c
 
 **File:** `FlowRow.tsx`
 
-Renders one data row. For each field in `level_config.fields`:
+Renders one data row. For each field in the resolved field set:
 
 ```typescript
-Object.entries(level_config.fields).forEach(([key, level_fc]) => {
-    const resolved = field_map[key]        // from context
-    const value    = getNestedValue(row, key)  // walk dot-notation path
-    const merged   = mergeFieldConfig(resolved, level_fc)
-    // render based on merged.control, merged.pg_field.pg_type
+resolvedFields.forEach(field => {
+    const value = row[field.key];
+    // render based on field.control, field.pg_field.pg_type
 })
 ```
 
-`getNestedValue(row, key)` splits `key` on `.` and walks the row object. For `"badge"` control, it also reads the `class_name` sibling.
+For `"badge"` control, reads `row[field_key]` as the value and applies CSS class from a `class_name` sibling if present.
 
 Checkbox on the left — toggles row into URL `selected` param.
 
@@ -426,9 +545,9 @@ Checkbox on the left — toggles row into URL `selected` param.
 Appears inside any level instance when descendant rows are selected (read from URL `selected` param).
 
 - Label: `{n} geselecteerd`
-- One setter per field in `level_config.fields` that is not an aggregate field. Shows shared value across selected rows or `—` if mixed.
+- One setter per field in `level_config.field_config` that is not an aggregate field. Shows shared value across selected rows or `—` if mixed.
 - On change: `handleAction` via context.
-- ⠿ drag handle: `kind: 'selection'`.
+- Drag handle: `kind: 'selection'`.
 - Style: `.flow-action-bar` class in `app.css` (amber-tinted background, bottom border, slide-in transition).
 
 ---
@@ -441,7 +560,7 @@ Appears inside any level instance when descendant rows are selected (read from U
 |---|---|
 | Selected count | From URL `selected`. Clear button resets URL param. |
 | Undo | Calls `handleAction` with reversed changes. Count from URL or server. |
-| Vastleggen | Confirm dialog → commits pending changes. |
+| Vastleggen | Confirm dialog — commits pending changes. |
 
 ---
 
@@ -453,11 +572,11 @@ Two drag kinds:
 
 | Kind | Handle | Rows moved |
 |---|---|---|
-| `instance` | Level component header ⠿ | All rows in this group instance |
-| `selection` | Action bar ⠿ | Only URL-selected rows |
+| `instance` | Level component header | All rows in this group instance |
+| `selection` | Action bar | Only URL-selected rows |
 
 On drop:
-1. Identify target instance's `group_by` value.
+1. Identify target instance's group values.
 2. Build `ActionChange[]` — one entry per affected field per row (skip no-ops).
 3. Call `handleAction`.
 
@@ -471,7 +590,8 @@ Auto-grouping requires no special logic. After `handleAction` updates `rows`, ea
 
 | `control` / `pg_type` | Rendered as |
 |---|---|
-| `control: "badge"` | Badge — value from key, CSS from `class_name` sibling |
+| `control: "badge"` | Badge — value from key, CSS from `class_name` sibling if present |
+| `control: "date"` | Locale-formatted date |
 | `aggregate` set | Stat chip: `{i18n[locale].title}: {value}` |
 | `pg_type: int4/int8/numeric` | Number, right-aligned |
 | `pg_type: date/timestamptz` | Locale-formatted |
@@ -480,14 +600,15 @@ Auto-grouping requires no special logic. After `handleAction` updates `rows`, ea
 
 Only fields in `data_group.field_config` are ever rendered. Fields not in `field_config` are invisible throughout the board.
 
-Level-config `fields` may provide per-level `ui` overrides merged on top of the parent `field_config`:
+Level-config `field_config` may provide per-level `ui` and `aggregate` overrides merged on top of the parent `data_group.field_config`:
 ```typescript
-function mergeFieldConfig(resolved: ResolvedField, level_fc: FieldConfig): ResolvedField {
+function mergeFieldConfig(resolved: ResolvedField, levelFc: FieldConfig & { aggregate?: AggregateFn }): ResolvedField {
     return {
         ...resolved,
-        control: level_fc.ui?.control ?? resolved.control,
-        order:   level_fc.ui?.order   ?? resolved.order,
-        i18n:    level_fc.ui?.i18n    ?? resolved.i18n,
+        aggregate: levelFc.aggregate ?? resolved.aggregate,
+        control:   levelFc.ui?.control ?? resolved.control,
+        order:     levelFc.ui?.order   ?? resolved.order,
+        i18n:      levelFc.ui?.i18n    ?? resolved.i18n,
     }
 }
 ```
@@ -540,20 +661,19 @@ src/
 
 ## 14. Build order
 
-1. Extend `packages/xfw-data/types/index.ts` — add `AggregateFn`, `FilterOp`, `FilterRule`, `FieldConfig.aggregate`, `DataGroup.flow_board_config` (**requires permission to edit packages/**)
-2. `src/widgets/flow/types.ts` — all flow-specific types
-3. `src/widgets/flow/utils.ts` — `resolveFlowBoardConfig`, `getNestedValue`, `applyFilter`, `groupRowsBy`, `computeAggregates`, `mergeFieldConfig`
-4. `FlowContext.ts`
-5. `FlowRow.tsx`
-6. `FlowActionBar.tsx`
-7. `FlowTable.tsx`
-8. `FlowCards.tsx`, `FlowContainer.tsx`, `FlowGrid.tsx` — each uses `child_map` dispatch
-9. `FlowToolbar.tsx`, `FlowDragLayer.tsx`
-10. `FlowBoard.tsx` — resolution, context, URL state, DndContext
-11. Register `'flow-board'` in `src/widgets/WidgetRenderer.tsx` switch statement
-12. Wire drag handles + drop targets
-13. Add `flow-*` CSS classes to `src/app.css`
-14. Integration test (§15)
+1. `src/widgets/flow/types.ts` — all flow-specific types (`AggregateFn`, `FilterRule`, `FlowGroupBy`, `FlowBoardLevelConfig`, etc.)
+2. `src/widgets/flow/utils.ts` — `resolveFlowBoardConfig`, `isFilterGroupBy`, `applyFilterGroup`, `groupRowsBy`, `computeAggregates`, `mergeFieldConfig`
+3. `FlowContext.ts`
+4. `FlowRow.tsx`
+5. `FlowActionBar.tsx`
+6. `FlowTable.tsx`
+7. `FlowCards.tsx`, `FlowContainer.tsx`, `FlowGrid.tsx` — each uses `child_map` dispatch
+8. `FlowToolbar.tsx`, `FlowDragLayer.tsx`
+9. `FlowBoard.tsx` — resolution, context, URL state, DndContext
+10. Register `'flow-board'` in `src/widgets/WidgetRenderer.tsx` switch statement
+11. Wire drag handles + drop targets
+12. Add `flow-*` CSS classes to `src/app.css`
+13. Integration test (§15)
 
 ---
 
@@ -562,42 +682,42 @@ src/
 **Sample data:**
 ```typescript
 const rows = [
-  { job_id: 'j1', customer: 'Acme', state_json: { state: 'start',   class_name: 'flow-badge-blue'  }, location: 'nl', quantity: 100, label: 'Banner A', priority: 1 },
-  { job_id: 'j2', customer: 'Acme', state_json: { state: 'start',   class_name: 'flow-badge-blue'  }, location: 'nl', quantity:  50, label: 'Banner B', priority: 2 },
-  { job_id: 'j3', customer: 'Acme', state_json: { state: 'start',   class_name: 'flow-badge-blue'  }, location: 'be', quantity:  75, label: 'Poster A', priority: 3 },
-  { job_id: 'j4', customer: 'Beta', state_json: { state: 'start',   class_name: 'flow-badge-blue'  }, location: 'nl', quantity: 200, label: 'Roll-up',  priority: 1 },
-  { job_id: 'j5', customer: 'Acme', state_json: { state: 'pending', class_name: 'flow-badge-amber' }, location: 'nl', quantity: 120, label: 'Banner C', priority: 1 },
-  { job_id: 'j6', customer: 'Beta', state_json: { state: 'pending', class_name: 'flow-badge-amber' }, location: 'nl', quantity:  80, label: 'Sign A',   priority: 2 },
+  { order_id: 'ORD-001', material_id: 42, order_location: 'NL', state: 'pending-release', production_date: '2026-04-10', direction: 'inbound',  order_line_count: 3, product_amount: 150, total_product_amount: 450, sqm: 12.5, threshold: 5 },
+  { order_id: 'ORD-002', material_id: 42, order_location: 'NL', state: 'pending-release', production_date: '2026-04-10', direction: 'outbound', order_line_count: 2, product_amount: 80,  total_product_amount: 160, sqm: 6.0,  threshold: 5 },
+  { order_id: 'ORD-003', material_id: 42, order_location: 'DE', state: 'pending-release', production_date: '2026-04-11', direction: 'inbound',  order_line_count: 5, product_amount: 200, total_product_amount: 1000, sqm: 30.0, threshold: 5 },
+  { order_id: 'ORD-004', material_id: 42, order_location: 'NL', state: 'staging',         production_date: '2026-04-10', direction: 'inbound',  order_line_count: 1, product_amount: 50,  total_product_amount: 50,  sqm: 2.0,  threshold: 5 },
+  { order_id: 'ORD-005', material_id: 42, order_location: 'DE', state: 'staging',         production_date: '2026-04-10', direction: 'inbound',  order_line_count: 4, product_amount: 120, total_product_amount: 480, sqm: 15.0, threshold: 5 },
+  { order_id: 'ORD-006', material_id: 42, order_location: 'NL', state: 'pending-release', production_date: '2026-04-11', direction: 'inbound',  order_line_count: 2, product_amount: 90,  total_product_amount: 180, sqm: 7.5,  threshold: 5 },
 ]
 ```
 
-> `class_name` values are CSS classes defined in `app.css`, not Tailwind utilities. Badge classes (e.g. `.flow-badge-blue`, `.flow-badge-amber`) set background + text color.
-
 **Expected hierarchy:**
 ```
-flow-grid: state_json.state → ["start", "pending", "done"]
-├── start
-│   ├── flow-container: customer = Acme
-│   │   ├── flow-cards: location = nl → flow-table: j1, j2
-│   │   └── flow-cards: location = be → flow-table: j3
-│   └── flow-container: customer = Beta
-│       └── flow-cards: location = nl → flow-table: j4
-└── pending
-    ├── flow-container: customer = Acme
-    │   └── flow-cards: location = nl → flow-table: j5
-    └── flow-container: customer = Beta
-        └── flow-cards: location = nl → flow-table: j6
+flow-grid: compound filter groups
+├── NL + pending-release (ORD-001, ORD-002, ORD-006)
+│   ├── flow-container: 2026-04-10 + inbound
+│   │   └── flow-cards: ORD-001 → flow-table (3 lines, 450 qty, 12.5 m²)
+│   ├── flow-container: 2026-04-10 + outbound
+│   │   └── flow-cards: ORD-002 → flow-table (2 lines, 160 qty, 6.0 m²)
+│   └── flow-container: 2026-04-11 + inbound
+│       └── flow-cards: ORD-006 → flow-table (2 lines, 180 qty, 7.5 m²)
+├── DE + pending-release (ORD-003)
+│   └── flow-container: 2026-04-11 + inbound
+│       └── flow-cards: ORD-003 → flow-table (5 lines, 1000 qty, 30.0 m²)
+├── NL + staging (ORD-004)
+│   └── flow-container: 2026-04-10 + inbound
+│       └── flow-cards: ORD-004 → flow-table (1 line, 50 qty, 2.0 m²)
+└── DE + staging (ORD-005)
+    └── flow-container: 2026-04-10 + inbound
+        └── flow-cards: ORD-005 → flow-table (4 lines, 480 qty, 15.0 m²)
 ```
 
-**Aggregate — start/Acme:**
-- Jobs: 3 · Qty: 225
-- Select j1 + j2 → Jobs: 2 / 3 · Qty: 150 (recomputed at all ancestor levels)
+**Aggregate — NL + pending-release:**
+- Orders: 3 · Total qty: 790 · m²: 26.0
 
-**Drag — Beta/start → pending column:**
-- `state_json.state: start → pending` on j4
+**Aggregate — NL + pending-release / 2026-04-10 + inbound:**
+- Orders: 1 · Total qty: 450 · m²: 12.5
+
+**Drag — ORD-004 from NL + staging → NL + pending-release:**
+- `state: staging → pending-release` on ORD-004
 - One `ActionChange`, one log entry, one undo step
-
-**Badge — j1 state:**
-- `getNestedValue(j1, 'state_json.state')` → `"start"`
-- `getNestedValue(j1, 'state_json.class_name')` → `"flow-badge-blue"`
-- Applied directly as CSS class to badge element, no mapping needed

@@ -1249,96 +1249,15 @@ body {
 
 .inflow-content {
   display: grid;
-  grid-template-columns: 180px 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: 1fr;
   height: 100%;
   min-height: 0;
   width: 100%;
 }
-.inflow-left {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  overflow: hidden;
-}
 .inflow-right {
   min-height: 0;
   overflow: auto;
-}
-
-.inflow-col-header {
-  padding: 8px 12px;
-  font-weight: 700;
-  font-size: 13px;
-  color: var(--text);
-  border-bottom: 1px solid var(--border);
-  border-right: 1px solid var(--border);
-}
-
-.inflow-schedule-dates {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  overflow-y: auto;
-  padding: 4px 2px;
-  border-right: 1px solid var(--border);
-}
-
-
-.inflow-date-item {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  width: 100%;
-  padding: 4px 10px;
-  border-radius: 4px;
-  background: transparent;
-  font-size: 13px;
-  color: var(--text);
-  cursor: pointer;
-  transition: background 0.1s;
-}
-
-.inflow-date-item:hover {
-  background: var(--bar-bg);
-}
-
-.inflow-date-item.checked {
-  background: var(--brand);
-  color: #fff;
-}
-
-
-.inflow-date-checkbox {
-  flex-shrink: 0;
-  width: 14px;
-  height: 14px;
-  margin: 0;
-  accent-color: var(--brand);
-  cursor: pointer;
-}
-
-.inflow-date-item.checked .inflow-date-checkbox {
-  accent-color: #fff;
-}
-
-.inflow-date-label {
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.inflow-date-type {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  color: var(--text-muted);
-}
-
-.inflow-date-item.checked .inflow-date-type {
-  color: rgba(255, 255, 255, 0.7);
 }
 
 .inflow-material-body {
