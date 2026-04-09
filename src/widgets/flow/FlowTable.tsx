@@ -1,9 +1,24 @@
 import type { JSONValue } from '@s-flex/xfw-data';
-import type { FlowTableProps } from './types';
+import type { FlowTableProps, FlowResolvedField } from './types';
 import { Field } from '../../controls/Field';
-import { resolveLabel } from './utils';
+import { toDisplayLabel } from '@s-flex/xfw-ui';
+import { getLanguage } from 'xfw-get-block';
 
-export function FlowTable({ rows, fields, fieldMap }: FlowTableProps) {
+function resolveColumnLabel(field: FlowResolvedField): string {
+  if (field.i18n) {
+    const lang = getLanguage();
+    const entry = (field.i18n as Record<string, Record<string, string> | undefined>)[lang];
+    if (entry?.title) return entry.title;
+    if (entry?.label) return entry.label;
+    for (const v of Object.values(field.i18n as Record<string, Record<string, string> | undefined>)) {
+      if (v?.title) return v.title;
+      if (v?.label) return v.label;
+    }
+  }
+  return toDisplayLabel(field.key);
+}
+
+export function FlowTable({ rows, fields }: FlowTableProps) {
   if (rows.length === 0) return null;
 
   return (
@@ -11,7 +26,7 @@ export function FlowTable({ rows, fields, fieldMap }: FlowTableProps) {
       <thead>
         <tr>
           {fields.map(f => (
-            <th key={f.key}>{fieldMap ? resolveLabel(fieldMap, f.key) : f.key}</th>
+            <th key={f.key}>{resolveColumnLabel(f)}</th>
           ))}
         </tr>
       </thead>
@@ -23,13 +38,7 @@ export function FlowTable({ rows, fields, fieldMap }: FlowTableProps) {
               const isNum = typeof val === 'number';
               return (
                 <td key={f.key} className={isNum ? 'flow-table-num' : undefined}>
-                  <Field
-                    value={val}
-                    label={f.key}
-                    control={f.control}
-                    aggregate={f.aggregate}
-                    inputData={f.input_data}
-                  />
+                  <Field field={f} value={val} />
                 </td>
               );
             })}

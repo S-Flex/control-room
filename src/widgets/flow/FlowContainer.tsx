@@ -5,8 +5,6 @@ import { Field } from '../../controls/Field';
 export function FlowContainer({ groups }: FlowLayoutProps) {
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
 
-  console.log('FlowContainer render', groups);   
-
   return (
     <div className="flow-container">
       {groups.map(g => {
@@ -25,13 +23,7 @@ export function FlowContainer({ groups }: FlowLayoutProps) {
               <div className={g.class_name || undefined}>
                 {g.data.map(d => (
                   <div key={d.label} className={d.class_name || undefined}>
-                    <Field
-                      value={d.value}
-                      label={d.label}
-                      control={d.field?.control}
-                      aggregate={d.field?.aggregate}
-                      inputData={d.field?.input_data}
-                    />
+                    <Field field={d.field} value={d.value} />
                   </div>
                 ))}
               </div>

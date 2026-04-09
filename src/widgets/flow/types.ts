@@ -51,5 +51,4 @@ export type FlowLayoutProps = {
 export type FlowTableProps = {
   rows: Record<string, JSONValue>[];
   fields: FlowResolvedField[];
-  fieldMap?: FieldMap;
 };

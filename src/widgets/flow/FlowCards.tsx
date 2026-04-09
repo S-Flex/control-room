@@ -9,13 +9,7 @@ export function FlowCards({ groups }: FlowLayoutProps) {
           <div className="flow-card-header">
             {g.data.map(d => (
               <span key={d.label} className={d.class_name ? `flow-card-header-value ${d.class_name}` : 'flow-card-header-value'}>
-                <Field
-                  value={d.value}
-                  label={d.label}
-                  control={d.field?.control}
-                  aggregate={d.field?.aggregate}
-                  inputData={d.field?.input_data}
-                />
+                <Field field={d.field} value={d.value} />
               </span>
             ))}
           </div>

@@ -9,13 +9,7 @@ export function FlowGrid({ groups }: FlowLayoutProps) {
           <div className="flow-grid-column-header">
             {g.data.map(d => (
               <span key={d.label} className="flow-grid-header-value">
-                <Field
-                  value={d.value}
-                  label={d.label}
-                  control={d.field?.control}
-                  aggregate={d.field?.aggregate}
-                  inputData={d.field?.input_data}
-                />
+                <Field field={d.field} value={d.value} />
               </span>
             ))}
           </div>

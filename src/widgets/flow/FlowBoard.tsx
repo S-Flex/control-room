@@ -47,7 +47,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     // Leaf level: no group_by → render table
     if (!groupBy || groupBy.length === 0) {
       const leafFields = getLeafFields(fieldMap, consumedFields);
-      return <FlowTable rows={rows} fields={leafFields} fieldMap={fieldMap} />;
+      return <FlowTable rows={rows} fields={leafFields} />;
     }
 
     // Merge level field_config overrides on top of root fieldMap
