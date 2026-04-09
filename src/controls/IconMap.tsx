@@ -38,8 +38,8 @@ const svgIcons: Record<string, React.ReactNode> = {
   ),
   batch: (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-      <rect x="4" y="1" width="10" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.1" opacity="0.4" />
-      <rect x="2" y="4" width="10" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.1" opacity="0.65" />
+      <rect x="4" y="1" width="10" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.1" opacity="0.55" />
+      <rect x="2" y="4" width="10" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.1" opacity="0.8" />
       <rect x="0.5" y="7" width="10" height="8" rx="1.5" stroke="currentColor" strokeWidth="1.3" />
     </svg>
   ),
@@ -51,12 +51,13 @@ export function IconMap({ value, inputData }: { value: JSONValue; inputData: Inp
   return (
     <span className="icon-map">
       {entries.map((e, i) => {
-        if (e.img_url) return <img key={i} src={e.img_url} className="icon-map-img" alt={e.title ?? e.text ?? ''} />;
+        const tooltip = e.title ?? e.text ?? e.class_name ?? '';
+        if (e.img_url) return <img key={i} src={e.img_url} className="icon-map-img" alt={tooltip} title={tooltip} />;
         if (e.class_name && svgIcons[e.class_name]) {
-          return <span key={i} className="icon-map-icon" title={e.title ?? e.text}>{svgIcons[e.class_name]}</span>;
+          return <span key={i} className="icon-map-icon" title={tooltip}>{svgIcons[e.class_name]}</span>;
         }
-        if (e.class_name) return <span key={i} className={`icon-map-icon ${e.class_name}`} title={e.title ?? e.text} />;
-        return <span key={i}>{e.text ?? e.title ?? ''}</span>;
+        if (e.class_name) return <span key={i} className={`icon-map-icon ${e.class_name}`} title={tooltip} />;
+        return <span key={i} title={tooltip}>{e.text ?? e.title ?? ''}</span>;
       })}
     </span>
   );

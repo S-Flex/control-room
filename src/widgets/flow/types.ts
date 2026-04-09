@@ -11,7 +11,24 @@ export type FilterRule = {
   value: JSONValue;
 };
 
-export type FlowGroupBy = FilterRule[][] | string[];
+export type FlowNavData = {
+  field: string;
+  value: JSONValue;
+};
+
+export type FlowNavItem = {
+  nav_item_id: string;
+  type: string;
+  i18n?: Record<string, Record<string, string>>;
+  data?: FlowNavData[];
+};
+
+export type FlowFilterGroup = {
+  filter: FilterRule[][];
+  navs?: FlowNavItem[];
+};
+
+export type FlowGroupBy = FlowFilterGroup[] | string[];
 
 export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn }>;
 
@@ -41,6 +58,8 @@ export type FlowGroupData = {
   key: string;
   class_name?: string;
   data: FlowFieldEntry[];
+  rows: Record<string, JSONValue>[];
+  navs?: FlowNavItem[];
   children: React.ReactNode;
 };
 
@@ -61,12 +80,10 @@ export type ActionChange = {
 };
 
 export type FlowContextValue = {
-  primaryKeys: string[];
-  selected: Set<string>;
-  toggleSelected: (pk: string) => void;
-  selectAll: (pks: string[]) => void;
-  clearSelected: () => void;
-  handleAction: (changes: ActionChange[]) => void;
+  toggleChecked: (row: Record<string, JSONValue>) => void;
+  toggleCheckedAll: (rows: Record<string, JSONValue>[]) => void;
+  clearChecked: () => void;
+  mergeData: (rows: Record<string, JSONValue>[], data: FlowNavData[]) => void;
   undo: () => void;
   undoCount: number;
 };

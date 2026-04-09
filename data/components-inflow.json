@@ -1,0 +1,677 @@
+[
+  {
+    "src": "get_components_inflow",
+    "layout": "flow-board",
+    "params": [
+      {
+        "key": "reference_date",
+        "default_value": "2026-01-06"
+      },
+      {
+        "key": "from",
+        "is_query_param": true
+      },
+      {
+        "key": "material_id",
+        "is_query_param": true
+      },
+      {
+        "key": "look_ahead_days",
+        "default_value": 10
+      },
+      {
+        "key": "threshold",
+        "default_value": 2
+      },
+      {
+        "key": "domain_id",
+        "default_value": 1
+      }
+    ],
+    "children": [],
+    "widget_id": "job_components_inflow",
+    "field_config": {
+      "sqm": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "m²"
+            },
+            "nl": {
+              "title": "m²"
+            }
+          },
+          "order": 10
+        },
+        "scale": 0
+      },
+      "state": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "State"
+            },
+            "nl": {
+              "title": "Status"
+            }
+          },
+          "order": 4,
+          "control": "badge"
+        }
+      },
+      "order_id": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Order"
+            },
+            "nl": {
+              "title": "Order"
+            }
+          },
+          "order": 5
+        }
+      },
+      "direction": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Direction"
+            },
+            "nl": {
+              "title": "Richting"
+            }
+          },
+          "order": 2,
+          "control": "badge"
+        }
+      },
+      "threshold": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Threshold"
+            },
+            "nl": {
+              "title": "Drempel"
+            }
+          },
+          "order": 11
+        }
+      },
+      "material_id": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Material"
+            },
+            "nl": {
+              "title": "Materiaal"
+            }
+          },
+          "order": 6
+        }
+      },
+      "order_location": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Location"
+            },
+            "nl": {
+              "title": "Locatie"
+            }
+          },
+          "order": 3
+        }
+      },
+      "product_amount": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Qty"
+            },
+            "nl": {
+              "title": "Aantal"
+            }
+          },
+          "order": 8
+        }
+      },
+      "production_date": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Production date"
+            },
+            "nl": {
+              "title": "Productiedatum"
+            }
+          },
+          "order": 1,
+          "control": "date"
+        }
+      },
+      "order_line_count": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Order lines"
+            },
+            "nl": {
+              "title": "Orderregels"
+            }
+          },
+          "order": 7
+        }
+      },
+      "production_hours": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Production hours"
+            },
+            "nl": {
+              "title": "Productie tijd"
+            }
+          },
+          "order": 10
+        }
+      },
+      "total_product_amount": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Total qty"
+            },
+            "nl": {
+              "title": "Totaal aantal"
+            }
+          },
+          "order": 9
+        }
+      }
+    },
+    "flow_board_config": {
+      "layout": "flow-grid",
+      "children": {
+        "layout": "flow-container",
+        "children": {
+          "layout": "flow-cards",
+          "group_by": [
+            "order_id",
+            "production_hours"
+          ],
+          "field_config": {
+            "sqm": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "m²"
+                  },
+                  "nl": {
+                    "title": "m²"
+                  }
+                },
+                "order": 3,
+                "class_name": "col-span-2"
+              },
+              "aggregate": "sum"
+            },
+            "order_id": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Order"
+                  },
+                  "nl": {
+                    "title": "Order"
+                  }
+                },
+                "order": 0,
+                "class_name": "col-span-5"
+              }
+            },
+            "class_name": "grid grid-cols-6 gap-1",
+            "order_line_count": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Order lines"
+                  },
+                  "nl": {
+                    "title": "Orderregels"
+                  }
+                },
+                "order": 2,
+                "class_name": "col-span-2"
+              },
+              "aggregate": "sum"
+            },
+            "production_hours": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Production hours"
+                  },
+                  "nl": {
+                    "title": "Productie tijd"
+                  }
+                },
+                "order": 1,
+                "control": "badge",
+                "class_name": "col-span-1 justify-self-end"
+              }
+            },
+            "total_product_amount": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Total qty"
+                  },
+                  "nl": {
+                    "title": "Totaal aantal"
+                  }
+                },
+                "order": 4,
+                "class_name": "col-span-2"
+              },
+              "aggregate": "sum"
+            }
+          }
+        },
+        "group_by": [
+          "production_date",
+          "direction"
+        ],
+        "field_config": {
+          "sqm": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "m²"
+                },
+                "nl": {
+                  "title": "m²"
+                }
+              },
+              "order": 3,
+              "control": "chip",
+              "class_name": "col-span-2"
+            },
+            "aggregate": "sum"
+          },
+          "order_id": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Orders"
+                },
+                "nl": {
+                  "title": "Orders"
+                }
+              },
+              "order": 2,
+              "control": "chip",
+              "class_name": "col-span-2"
+            },
+            "aggregate": "count"
+          },
+          "direction": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Direction"
+                },
+                "nl": {
+                  "title": "Richting"
+                }
+              },
+              "order": 1,
+              "control": "icon-map",
+              "class_name": "col-span-1 justify-self-end"
+            },
+            "input_data": {
+              "options": [
+                {
+                  "id": "lt",
+                  "content": {
+                    "i18n": {
+                      "en": "Single piece",
+                      "nl": "Enkelvoudig"
+                    },
+                    "class_name": "single"
+                  }
+                },
+                {
+                  "id": "gte",
+                  "content": {
+                    "i18n": {
+                      "en": "Multi piece",
+                      "nl": "Meervoudig"
+                    },
+                    "class_name": "batch"
+                  }
+                }
+              ],
+              "label_key": "content",
+              "value_key": "id"
+            }
+          },
+          "class_name": "grid grid-cols-6 gap-1",
+          "production_date": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Production date"
+                },
+                "nl": {
+                  "title": "Productiedatum"
+                }
+              },
+              "order": 0,
+              "control": "date"
+            },
+            "class_name": "col-span-5"
+          },
+          "total_product_amount": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Total qty"
+                },
+                "nl": {
+                  "title": "Totaal aantal"
+                }
+              },
+              "order": 4,
+              "control": "chip",
+              "class_name": "col-span-2"
+            },
+            "aggregate": "sum"
+          }
+        }
+      },
+      "group_by": [
+        {
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "order_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "NL Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl-staging"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "order_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "DE Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de-staging"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "eq",
+                "field": "order_location",
+                "value": "NL"
+              },
+              {
+                "op": "eq",
+                "field": "state",
+                "value": "pending-release"
+              }
+            ]
+          ]
+        },
+        {
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "order_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "NL Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl-staging"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "order_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "DE Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de-staging"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "eq",
+                "field": "order_location",
+                "value": "DE"
+              },
+              {
+                "op": "eq",
+                "field": "state",
+                "value": "pending-release"
+              }
+            ]
+          ]
+        },
+        {
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "pending-release"
+                },
+                {
+                  "field": "order_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "NL Pending-release"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl_pending-release"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "pending-release"
+                },
+                {
+                  "field": "order_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "DE Pending-release"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de_pending-release"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "pre-nesting"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "Pre-nesting"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "pre-nesting"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "eq",
+                "field": "order_location",
+                "value": "NL"
+              },
+              {
+                "op": "eq",
+                "field": "state",
+                "value": "staging"
+              }
+            ],
+            [
+              {
+                "op": "eq",
+                "field": "order_location",
+                "value": "NL"
+              },
+              {
+                "op": "eq",
+                "field": "state",
+                "value": "pre-nesting"
+              }
+            ]
+          ]
+        },
+        {
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "pending-release"
+                },
+                {
+                  "field": "order_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "NL Pending-release"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl_pending-release"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "pending-release"
+                },
+                {
+                  "field": "order_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "DE Pending-release"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de_pending-release"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "pre-nesting"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "Pre-nesting"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "pre-nesting"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "eq",
+                "field": "order_location",
+                "value": "DE"
+              },
+              {
+                "op": "eq",
+                "field": "state",
+                "value": "staging"
+              }
+            ],
+            [
+              {
+                "op": "eq",
+                "field": "order_location",
+                "value": "DE"
+              },
+              {
+                "op": "eq",
+                "field": "state",
+                "value": "pre-nesting"
+              }
+            ]
+          ]
+        }
+      ]
+    }
+  }
+]

@@ -1,10 +1,38 @@
 import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import { resolveField } from '@s-flex/xfw-ui';
+import { resolveField, toDisplayLabel } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
-import type { AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
+import type { ActionChange, AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowFilterGroup, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
 
-export function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FilterRule[][] {
-  return groupBy.length > 0 && Array.isArray(groupBy[0]);
+export function getRowPk(row: JSONRecord, primaryKeys: string[]): string {
+  return primaryKeys.map(k => String(row[k] ?? '')).join('||');
+}
+
+export function getRowPks(rows: JSONRecord[], primaryKeys: string[]): string[] {
+  return rows.map(r => getRowPk(r, primaryKeys));
+}
+
+export function applyChanges(rows: JSONRecord[], changes: ActionChange[], primaryKeys: string[]): JSONRecord[] {
+  const changeMap = new Map<string, Map<string, JSONValue>>();
+  for (const c of changes) {
+    if (!changeMap.has(c.primary_key)) changeMap.set(c.primary_key, new Map());
+    changeMap.get(c.primary_key)!.set(c.field, c.value_after);
+  }
+  return rows.map(row => {
+    const pk = getRowPk(row, primaryKeys);
+    const fieldChanges = changeMap.get(pk);
+    if (!fieldChanges) return row;
+    const updated = { ...row };
+    for (const [field, value] of fieldChanges) {
+      updated[field] = value;
+    }
+    return updated;
+  });
+}
+
+export function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FlowFilterGroup[] {
+  if (groupBy.length === 0) return false;
+  const first = groupBy[0];
+  return typeof first === 'object' && !Array.isArray(first) && 'filter' in first;
 }
 
 function matchFilter(row: JSONRecord, rule: FilterRule): boolean {
@@ -22,8 +50,11 @@ function matchFilter(row: JSONRecord, rule: FilterRule): boolean {
   }
 }
 
-export function applyFilterGroup(rows: JSONRecord[], filters: FilterRule[]): JSONRecord[] {
-  return rows.filter(row => filters.every(f => matchFilter(row, f)));
+/** Apply OR-of-ANDs filter: each sub-array is ANDed, sub-arrays are ORed. */
+export function applyFilterGroup(rows: JSONRecord[], filter: FilterRule[][]): JSONRecord[] {
+  return rows.filter(row =>
+    filter.some(andGroup => andGroup.every(f => matchFilter(row, f)))
+  );
 }
 
 export function groupRowsByFields(rows: JSONRecord[], fields: string[]): Map<string, JSONRecord[]> {
@@ -54,42 +85,31 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
   );
 }
 
-export function resolveLabel(fieldMap: FieldMap, key: string): string {
-  const field = fieldMap[key];
-  if (field?.i18n) {
+/** Resolve label from an i18n object, checking text, title, and label keys. */
+export function resolveI18nLabel(i18n: unknown, key: string): string {
+  if (i18n && typeof i18n === 'object') {
     const lang = getLanguage();
-    const i18n = field.i18n as Record<string, Record<string, string> | undefined>;
-    const byLang = i18n[lang];
+    const map = i18n as Record<string, Record<string, string> | undefined>;
+    const byLang = map[lang];
+    if (byLang?.text) return byLang.text;
     if (byLang?.label) return byLang.label;
     if (byLang?.title) return byLang.title;
-    for (const v of Object.values(i18n)) {
+    for (const v of Object.values(map)) {
+      if (v?.text) return v.text;
       if (v?.label) return v.label;
       if (v?.title) return v.title;
     }
   }
-  // fallback: camelCase/snake_case to Title Case
-  const segment = key.includes('.') ? key.slice(key.lastIndexOf('.') + 1) : key;
-  return segment
-    .replace(/([a-z])([A-Z])/g, '$1 $2')
-    .replace(/_/g, ' ')
-    .toLowerCase()
-    .trim()
-    .replace(/\b\w/g, c => c.toUpperCase());
+  return toDisplayLabel(key);
+}
+
+export function resolveLabel(fieldMap: FieldMap, key: string): string {
+  return resolveI18nLabel(fieldMap[key]?.i18n, key);
 }
 
 function resolveLevelLabel(levelFieldConfig: FlowLevelFieldConfig | undefined, fieldMap: FieldMap, key: string): string {
   const levelFc = levelFieldConfig?.[key];
-  if (levelFc?.ui?.i18n) {
-    const lang = getLanguage();
-    const i18n = levelFc.ui.i18n as Record<string, Record<string, string>>;
-    const byLang = i18n[lang];
-    if (byLang?.title) return byLang.title;
-    if (byLang?.label) return byLang.label;
-    for (const v of Object.values(i18n)) {
-      if (v?.title) return v.title;
-      if (v?.label) return v.label;
-    }
-  }
+  if (levelFc?.ui?.i18n) return resolveI18nLabel(levelFc.ui.i18n, key);
   return resolveLabel(fieldMap, key);
 }
 
@@ -126,7 +146,9 @@ export function getGroupByKeys(levelConfig: FlowBoardLevelConfig): string[] {
   if (isFilterGroupBy(gb)) {
     const keys = new Set<string>();
     for (const group of gb) {
-      for (const rule of group) keys.add(rule.field);
+      for (const andGroup of group.filter) {
+        for (const rule of andGroup) keys.add(rule.field);
+      }
     }
     return [...keys];
   }
@@ -186,6 +208,7 @@ export function buildGroupFields(
   fieldMap: FieldMap,
   levelFieldConfig?: FlowLevelFieldConfig,
   filterValues?: { field: string; value: JSONValue }[],
+  aggregateRows?: JSONRecord[],
 ): FlowFieldEntry[] {
   const entries: FlowFieldEntry[] = [];
   const seen = new Set<string>();
@@ -226,7 +249,7 @@ export function buildGroupFields(
       if (!resolved) continue;
       entries.push({
         label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
-        value: computeAggregate(rows, key, agg),
+        value: computeAggregate(aggregateRows ?? rows, key, agg),
         field: { ...resolved, aggregate: agg },
         class_name: fieldClassName(levelFieldConfig[key]),
       });
