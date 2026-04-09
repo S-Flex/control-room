@@ -1,0 +1,1 @@
+import{d as r}from"./index-DXABFrc4.js";var a=(u,t)=>{const e=r.useRef(null),c=r.useRef(u);return r.useEffect(()=>{c.current=u},[u]),r.useEffect(()=>()=>{e.current&&clearTimeout(e.current)},[]),r.useCallback((...n)=>{e.current&&clearTimeout(e.current),e.current=setTimeout(()=>{c.current(...n),e.current=null},t)},[t])};export{a as u};

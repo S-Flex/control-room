@@ -1,0 +1,237 @@
+import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
+import { resolveField } from '@s-flex/xfw-ui';
+import { getLanguage } from 'xfw-get-block';
+import type { AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
+
+export function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FilterRule[][] {
+  return groupBy.length > 0 && Array.isArray(groupBy[0]);
+}
+
+function matchFilter(row: JSONRecord, rule: FilterRule): boolean {
+  const val = row[rule.field];
+  switch (rule.op) {
+    case 'eq': return val === rule.value;
+    case 'neq': return val !== rule.value;
+    case 'gt': return (val as number) > (rule.value as number);
+    case 'lt': return (val as number) < (rule.value as number);
+    case 'gte': return (val as number) >= (rule.value as number);
+    case 'lte': return (val as number) <= (rule.value as number);
+    case 'in': return Array.isArray(rule.value) && (rule.value as JSONValue[]).includes(val);
+    case 'like': return typeof val === 'string' && typeof rule.value === 'string' && val.includes(rule.value);
+    default: return false;
+  }
+}
+
+export function applyFilterGroup(rows: JSONRecord[], filters: FilterRule[]): JSONRecord[] {
+  return rows.filter(row => filters.every(f => matchFilter(row, f)));
+}
+
+export function groupRowsByFields(rows: JSONRecord[], fields: string[]): Map<string, JSONRecord[]> {
+  const groups = new Map<string, JSONRecord[]>();
+  for (const row of rows) {
+    const key = fields.map(f => String(row[f] ?? '')).join('||');
+    const list = groups.get(key);
+    if (list) list.push(row);
+    else groups.set(key, [row]);
+  }
+  return groups;
+}
+
+export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): FieldMap {
+  const fc = dataGroup.field_config ?? {};
+  return Object.fromEntries(
+    Object.entries(fc).map(([key, config]) => {
+      const pgField = dataTable.schema[key];
+      const resolved = pgField
+        ? resolveField(key, pgField, config, fc)
+        : { key, i18n: config.ui?.i18n, control: config.ui?.control, input_data: config.input_data };
+      return [key, {
+        ...resolved,
+        aggregate: (config as Record<string, unknown>).aggregate as AggregateFn | undefined,
+        order: config.ui?.order,
+      }];
+    })
+  );
+}
+
+export function resolveLabel(fieldMap: FieldMap, key: string): string {
+  const field = fieldMap[key];
+  if (field?.i18n) {
+    const lang = getLanguage();
+    const i18n = field.i18n as Record<string, Record<string, string> | undefined>;
+    const byLang = i18n[lang];
+    if (byLang?.label) return byLang.label;
+    if (byLang?.title) return byLang.title;
+    for (const v of Object.values(i18n)) {
+      if (v?.label) return v.label;
+      if (v?.title) return v.title;
+    }
+  }
+  // fallback: camelCase/snake_case to Title Case
+  const segment = key.includes('.') ? key.slice(key.lastIndexOf('.') + 1) : key;
+  return segment
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/_/g, ' ')
+    .toLowerCase()
+    .trim()
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function resolveLevelLabel(levelFieldConfig: FlowLevelFieldConfig | undefined, fieldMap: FieldMap, key: string): string {
+  const levelFc = levelFieldConfig?.[key];
+  if (levelFc?.ui?.i18n) {
+    const lang = getLanguage();
+    const i18n = levelFc.ui.i18n as Record<string, Record<string, string>>;
+    const byLang = i18n[lang];
+    if (byLang?.title) return byLang.title;
+    if (byLang?.label) return byLang.label;
+    for (const v of Object.values(i18n)) {
+      if (v?.title) return v.title;
+      if (v?.label) return v.label;
+    }
+  }
+  return resolveLabel(fieldMap, key);
+}
+
+export function formatValue(val: JSONValue, control?: string): string {
+  if (val === null || val === undefined) return '—';
+  if (control === 'date') {
+    const d = new Date(val as string | number);
+    if (!isNaN(d.getTime())) return d.toLocaleDateString();
+  }
+  if (typeof val === 'object') return JSON.stringify(val);
+  return String(val);
+}
+
+function computeAggregate(rows: JSONRecord[], key: string, fn: AggregateFn): number {
+  const vals = rows.map(r => Number(r[key] ?? 0)).filter(n => !isNaN(n));
+  switch (fn) {
+    case 'sum': return vals.reduce((a, b) => a + b, 0);
+    case 'count': return rows.length;
+    case 'avg': return vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+    case 'min': return vals.length ? Math.min(...vals) : 0;
+    case 'max': return vals.length ? Math.max(...vals) : 0;
+  }
+}
+
+export function getLeafFields(fieldMap: FieldMap, consumedFields: Set<string>): FlowResolvedField[] {
+  return Object.values(fieldMap)
+    .filter(f => !consumedFields.has(f.key))
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+}
+
+export function getGroupByKeys(levelConfig: FlowBoardLevelConfig): string[] {
+  const gb = levelConfig.group_by;
+  if (!gb) return [];
+  if (isFilterGroupBy(gb)) {
+    const keys = new Set<string>();
+    for (const group of gb) {
+      for (const rule of group) keys.add(rule.field);
+    }
+    return [...keys];
+  }
+  return gb;
+}
+
+export function getAggregateKeys(levelFieldConfig: FlowLevelFieldConfig | undefined): string[] {
+  if (!levelFieldConfig) return [];
+  return Object.entries(levelFieldConfig)
+    .filter(([key, fc]) => key !== 'class_name' && fc.aggregate)
+    .map(([key]) => key);
+}
+
+/** Merge level field_config overrides on top of the root fieldMap. */
+export function mergeFieldMap(fieldMap: FieldMap, levelFieldConfig: FlowLevelFieldConfig | undefined): FieldMap {
+  if (!levelFieldConfig) return fieldMap;
+  const merged = { ...fieldMap };
+  for (const [key, fc] of Object.entries(levelFieldConfig)) {
+    if (key === 'class_name') continue;
+    const base = fieldMap[key];
+    if (!base) continue;
+    merged[key] = {
+      ...base,
+      aggregate: fc.aggregate ?? base.aggregate,
+      control: fc.ui?.control ?? base.control,
+      i18n: fc.ui?.i18n ?? base.i18n,
+      input_data: fc.input_data ?? base.input_data,
+      order: fc.ui?.order ?? base.order,
+    };
+  }
+  return merged;
+}
+
+/** Read class_name from a level field_config entry (fc.class_name or fc.ui.class_name). */
+function fieldClassName(fc: FlowLevelFieldConfig[string] | undefined): string | undefined {
+  if (!fc) return undefined;
+  const raw = fc as Record<string, unknown>;
+  const ui = fc.ui as Record<string, unknown> | undefined;
+  return (raw.class_name as string) ?? (ui?.class_name as string) ?? undefined;
+}
+
+/** Read the group-level class_name from field_config (a top-level "class_name" key). */
+export function groupClassName(levelFieldConfig: FlowLevelFieldConfig | undefined): string | undefined {
+  if (!levelFieldConfig) return undefined;
+  const raw = levelFieldConfig as Record<string, unknown>;
+  const val = raw.class_name;
+  return typeof val === 'string' ? val : undefined;
+}
+
+/**
+ * Build all fields for a group: group-by values + aggregates, sorted by order.
+ * Aggregate fields get their computed value; non-aggregate fields get the row value.
+ */
+export function buildGroupFields(
+  rows: JSONRecord[],
+  groupByFields: string[],
+  fieldMap: FieldMap,
+  levelFieldConfig?: FlowLevelFieldConfig,
+  filterValues?: { field: string; value: JSONValue }[],
+): FlowFieldEntry[] {
+  const entries: FlowFieldEntry[] = [];
+  const seen = new Set<string>();
+
+  // Group-by fields: use first row value (or filter value)
+  if (filterValues) {
+    for (const f of filterValues) {
+      seen.add(f.field);
+      entries.push({
+        label: resolveLabel(fieldMap, f.field),
+        value: f.value,
+        field: fieldMap[f.field],
+        class_name: fieldClassName(levelFieldConfig?.[f.field]),
+      });
+    }
+  } else {
+    const firstRow = rows[0];
+    if (firstRow) {
+      for (const key of groupByFields) {
+        seen.add(key);
+        entries.push({
+          label: resolveLabel(fieldMap, key),
+          value: firstRow[key],
+          field: fieldMap[key],
+          class_name: fieldClassName(levelFieldConfig?.[key]),
+        });
+      }
+    }
+  }
+
+  // Aggregate fields from level field_config
+  if (levelFieldConfig) {
+    for (const [key, fc] of Object.entries(levelFieldConfig)) {
+      if (key === 'class_name' || seen.has(key)) continue;
+      const agg = fc.aggregate;
+      if (!agg) continue;
+      const resolved = fieldMap[key];
+      if (!resolved) continue;
+      entries.push({
+        label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
+        value: computeAggregate(rows, key, agg),
+        field: { ...resolved, aggregate: agg },
+        class_name: fieldClassName(levelFieldConfig[key]),
+      });
+    }
+  }
+
+  return entries.sort((a, b) => (a.field?.order ?? 999) - (b.field?.order ?? 999));
+}

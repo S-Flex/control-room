@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import tailwindcss from '@tailwindcss/vite';
 import path from 'path';
 import fs from 'fs';
 
@@ -60,7 +61,7 @@ function dataServerPlugin() {
 }
 
 export default defineConfig({
-  plugins: [react(), dataServerPlugin()],
+  plugins: [tailwindcss(), react(), dataServerPlugin()],
   root: '.',
   resolve: {
     alias: {

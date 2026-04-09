@@ -25,18 +25,21 @@ export function Carousel({ items, currentIndex, getLabel, getSpecs, onSelect, ch
 
   const [slideDir, setSlideDir] = useState<'left' | 'right' | null>(null);
   const centerRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   const goPrev = useCallback(() => { setSlideDir('right'); onSelect(prev); }, [onSelect, prev]);
   const goNext = useCallback(() => { setSlideDir('left'); onSelect(next); }, [onSelect, next]);
 
   useEffect(() => {
-    if (!slideDir || !centerRef.current) return;
-    const el = centerRef.current;
-    el.classList.remove('slide-left', 'slide-right');
-    void el.offsetWidth;
-    el.classList.add(slideDir === 'left' ? 'slide-left' : 'slide-right');
-    const onEnd = () => el.classList.remove('slide-left', 'slide-right');
-    el.addEventListener('animationend', onEnd, { once: true });
+    if (!slideDir) return;
+    const cls = slideDir === 'left' ? 'slide-left' : 'slide-right';
+    for (const el of [centerRef.current, bodyRef.current]) {
+      if (!el) continue;
+      el.classList.remove('slide-left', 'slide-right');
+      void el.offsetWidth;
+      el.classList.add(cls);
+      el.addEventListener('animationend', () => el.classList.remove('slide-left', 'slide-right'), { once: true });
+    }
     setSlideDir(null);
   }, [curr]);
 
@@ -77,7 +80,7 @@ export function Carousel({ items, currentIndex, getLabel, getSpecs, onSelect, ch
           </svg>
         </button>
       </div>
-      {children && <div className="carousel-body">{children}</div>}
+      {children && <div className="carousel-body" ref={bodyRef}>{children}</div>}
     </div>
   );
 }

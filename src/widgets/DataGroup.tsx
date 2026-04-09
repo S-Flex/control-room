@@ -41,8 +41,8 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
         </button>
       )}
       {!collapsed && (
-        widgetConfig || layout === 'cards' ? (
-          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={dataGroup} data={dataRows} />
+        widgetConfig || layout === 'cards' || layout === 'flow-board' ? (
+          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={dataGroup} data={dataRows} dataTable={dataTable} />
         ) : (
           <FallbackDataRows data={dataRows} />
         )

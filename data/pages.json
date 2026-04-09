@@ -76,9 +76,9 @@
   {
     "code": "inflow",
     "grid": {
-      "columns": "180px 1fr",
+      "columns": "1fr",
       "areas": [
-        "dates flow-board"
+        "flow-board"
       ]
     },
     "cols": [

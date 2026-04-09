@@ -1,8 +1,9 @@
-import type { DataGroup, JSONRecord } from '@s-flex/xfw-data';
+import type { DataGroup, DataTable, JSONRecord } from '@s-flex/xfw-data';
 import { TimelineBar, type TimelineBarConfig } from './TimelineBar';
 import { DonutChart, type DonutChartConfig } from './DonutChart';
 import { InkGauge, type InkGaugeConfig } from './InkGauge';
 import { Cards } from './Cards';
+import { FlowBoard } from './flow';
 
 export function FallbackDataRows({ data }: { data: JSONRecord[] }) {
   return (
@@ -21,11 +22,12 @@ export function FallbackDataRows({ data }: { data: JSONRecord[] }) {
   );
 }
 
-export function WidgetRenderer({ layout, widgetConfig, dataGroup, data }: {
+export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTable }: {
   layout: string;
   widgetConfig: Record<string, unknown>;
   dataGroup: DataGroup;
   data: JSONRecord[];
+  dataTable?: DataTable;
 }) {
   const key = layout.replace(/_/g, '-');
   switch (key) {
@@ -37,6 +39,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data }: {
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
     case 'cards':
       return <Cards dataGroup={dataGroup} data={data} />;
+    case 'flow-board':
+      return <FlowBoard dataGroup={dataGroup} dataTable={dataTable!} data={data} />;
     default:
       console.warn(`Unknown widget layout: "${layout}"`);
       return <FallbackDataRows data={data} />;

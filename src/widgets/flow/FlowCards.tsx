@@ -1,0 +1,27 @@
+import type { FlowLayoutProps } from './types';
+import { Field } from '../../controls/Field';
+
+export function FlowCards({ groups }: FlowLayoutProps) {
+  return (
+    <div className="flow-cards">
+      {groups.map(g => (
+        <div key={g.key} className="flow-card">
+          <div className="flow-card-header">
+            {g.data.map(d => (
+              <span key={d.label} className={d.class_name ? `flow-card-header-value ${d.class_name}` : 'flow-card-header-value'}>
+                <Field
+                  value={d.value}
+                  label={d.label}
+                  control={d.field?.control}
+                  aggregate={d.field?.aggregate}
+                  inputData={d.field?.input_data}
+                />
+              </span>
+            ))}
+          </div>
+          {g.children}
+        </div>
+      ))}
+    </div>
+  );
+}

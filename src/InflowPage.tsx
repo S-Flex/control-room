@@ -78,7 +78,7 @@ export function InflowPage() {
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
   const { config: pageConfig } = usePage('inflow');
-  const rightDataGroup = pageConfig?.cols?.[1]?.data_group;
+  const flowBoardDataGroup = pageConfig?.cols?.[0]?.data_group;
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
   const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
@@ -401,7 +401,7 @@ export function InflowPage() {
               getSpecs={getMaterialSpecs}
               onSelect={handleSelectMaterial}
             >
-              {rightDataGroup && <DataGroupWidget code={rightDataGroup} />}
+              {flowBoardDataGroup && <DataGroupWidget code={flowBoardDataGroup} />}
             </Carousel>
           </div>
         </div>
