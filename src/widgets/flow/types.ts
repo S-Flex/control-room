@@ -52,3 +52,21 @@ export type FlowTableProps = {
   rows: Record<string, JSONValue>[];
   fields: FlowResolvedField[];
 };
+
+export type ActionChange = {
+  primary_key: string;
+  field: string;
+  value_before: JSONValue;
+  value_after: JSONValue;
+};
+
+export type FlowContextValue = {
+  primaryKeys: string[];
+  selected: Set<string>;
+  toggleSelected: (pk: string) => void;
+  selectAll: (pks: string[]) => void;
+  clearSelected: () => void;
+  handleAction: (changes: ActionChange[]) => void;
+  undo: () => void;
+  undoCount: number;
+};
