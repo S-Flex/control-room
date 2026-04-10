@@ -68,6 +68,18 @@
     ]
   },
   {
+    "code": "orderlines",
+    "sections": [
+      { "data_group": "orderline_list" }
+    ]
+  },
+  {
+    "code": "uploader-data",
+    "sections": [
+      { "data_group": "uploader_data_list" }
+    ]
+  },
+  {
     "code": "queued-jobs",
     "sections": [
       { "data_group": "resource_queue" }
