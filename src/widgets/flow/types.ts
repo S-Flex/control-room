@@ -37,6 +37,9 @@ export type FlowBoardLevelConfig = {
   group_by?: FlowGroupBy;
   field_config?: FlowLevelFieldConfig;
   class_name?: string;
+  colexp?: boolean;
+  checkable?: boolean;
+  selectable?: boolean;
   children?: FlowBoardLevelConfig;
 };
 
@@ -57,6 +60,9 @@ export type FlowFieldEntry = {
 export type FlowGroupData = {
   key: string;
   class_name?: string;
+  colexp?: boolean;
+  checkable?: boolean;
+  selectable?: boolean;
   data: FlowFieldEntry[];
   rows: Record<string, JSONValue>[];
   navs?: FlowNavItem[];
@@ -64,13 +70,10 @@ export type FlowGroupData = {
 };
 
 export type FlowLayoutProps = {
+  layout: string;
   groups: FlowGroupData[];
 };
 
-export type FlowTableProps = {
-  rows: Record<string, JSONValue>[];
-  fields: FlowResolvedField[];
-};
 
 export type ActionChange = {
   primary_key: string;
@@ -80,10 +83,12 @@ export type ActionChange = {
 };
 
 export type FlowContextValue = {
+  primaryKeys: string[];
   toggleChecked: (row: Record<string, JSONValue>) => void;
   toggleCheckedAll: (rows: Record<string, JSONValue>[]) => void;
   clearChecked: () => void;
   mergeData: (rows: Record<string, JSONValue>[], data: FlowNavData[]) => void;
+  selectItem: (row: Record<string, JSONValue>) => void;
   undo: () => void;
   undoCount: number;
 };

@@ -1,13 +1,12 @@
-import { useState, useCallback, useEffect, useMemo, type ReactNode, type ComponentType } from 'react';
+import { useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';
 import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import type { FlowBoardLevelConfig, FlowGroupData, FlowLayoutProps, FlowNavData, FlowContextValue } from './types';
+import type { FlowBoardLevelConfig, FlowGroupData, FlowNavData, FlowContextValue } from './types';
 import {
   resolveFieldMap,
   mergeFieldMap,
   isFilterGroupBy,
   applyFilterGroup,
   groupRowsByFields,
-  getLeafFields,
   getGroupByKeys,
   getAggregateKeys,
   buildGroupFields,
@@ -15,15 +14,7 @@ import {
 } from './utils';
 import { FlowProvider } from './FlowContext';
 import { useFieldOptions } from './useFieldOptions';
-import { FlowGrid } from './FlowGrid';
-import { FlowCard } from './FlowCard';
-import { FlowTable } from './FlowTable';
-
-const layoutMap: Record<string, ComponentType<FlowLayoutProps>> = {
-  'flow-grid': FlowGrid,
-  'flow-container': FlowCard,
-  'flow-cards': FlowCard,
-};
+import { FlowBox } from './FlowBox';
 
 export function FlowBoard({ dataGroup, dataTable, data }: {
   dataGroup: DataGroup;
@@ -82,18 +73,31 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   }, []);
 
   const undo = useCallback(() => {
-    // TODO: undo with row-reference approach needs rethinking
     setUndoStack(prev => prev.slice(0, -1));
   }, []);
 
+  const selectItem = useCallback((row: Record<string, unknown>) => {
+    const params = new URLSearchParams(window.location.search);
+    for (const pk of primaryKeys) {
+      const val = row[pk];
+      if (val !== undefined && val !== null) {
+        params.set(pk, String(val));
+      }
+    }
+    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+    window.history.replaceState(null, '', newUrl);
+  }, [primaryKeys]);
+
   const ctx: FlowContextValue = useMemo(() => ({
+    primaryKeys,
     toggleChecked,
     toggleCheckedAll,
     clearChecked,
     mergeData,
+    selectItem,
     undo,
     undoCount: undoStack.length,
-  }), [toggleChecked, toggleCheckedAll, clearChecked, mergeData, undo, undoStack.length]);
+  }), [primaryKeys, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem, undo, undoStack.length]);
 
   if (!flowBoardConfig) {
     return <p className="datagroup-error">Missing flow_board_config</p>;
@@ -107,8 +111,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     const groupBy = levelConfig.group_by;
 
     if (!groupBy || groupBy.length === 0) {
-      const leafFields = getLeafFields(fieldMap, consumedFields);
-      return <FlowTable rows={levelRows} fields={leafFields} />;
+      return null;
     }
 
     const levelFieldMap = mergeFieldMap(fieldMap, levelConfig.field_config, optionsMap);
@@ -138,11 +141,10 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
           filterValues.push({ field: rule.field, value: rule.value });
         }
         const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, filterValues, getCheckedRows(groupRows));
-        console.log(`group ${i} data`, { filterValues, dataLength: data.length, data: data.map(d => ({ key: d.field?.key, label: d.label, value: d.value })), fieldMapKeys: Object.keys(levelFieldMap) });
         const children = levelConfig.children
           ? renderLevel(levelConfig.children, groupRows, newConsumed)
           : null;
-        return { key: `filter-${i}`, class_name: grpClassName, data, rows: groupRows, navs: filterGroup.navs, children };
+        return { key: `filter-${i}`, class_name: grpClassName, colexp: levelConfig.colexp, checkable: levelConfig.checkable, selectable: levelConfig.selectable, data, rows: groupRows, navs: filterGroup.navs, children };
       });
     } else {
       const grouped = groupRowsByFields(levelRows, groupBy);
@@ -151,17 +153,11 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
         const children = levelConfig.children
           ? renderLevel(levelConfig.children, groupRows, newConsumed)
           : null;
-        return { key, class_name: grpClassName, data, rows: groupRows, children };
+        return { key, class_name: grpClassName, colexp: levelConfig.colexp, checkable: levelConfig.checkable, selectable: levelConfig.selectable, data, rows: groupRows, children };
       });
     }
 
-    const Template = layoutMap[levelConfig.layout];
-    if (!Template) {
-      console.warn(`Unknown flow layout: "${levelConfig.layout}"`);
-      return null;
-    }
-
-    return <Template groups={groups} />;
+    return <FlowBox layout={levelConfig.layout} groups={groups} />;
   }
 
   return (
