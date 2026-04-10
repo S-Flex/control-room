@@ -16,14 +16,13 @@ import {
 import { FlowProvider } from './FlowContext';
 import { useFieldOptions } from './useFieldOptions';
 import { FlowGrid } from './FlowGrid';
-import { FlowContainer } from './FlowContainer';
-import { FlowCards } from './FlowCards';
+import { FlowCard } from './FlowCard';
 import { FlowTable } from './FlowTable';
 
 const layoutMap: Record<string, ComponentType<FlowLayoutProps>> = {
   'flow-grid': FlowGrid,
-  'flow-container': FlowContainer,
-  'flow-cards': FlowCards,
+  'flow-container': FlowCard,
+  'flow-cards': FlowCard,
 };
 
 export function FlowBoard({ dataGroup, dataTable, data }: {
@@ -139,6 +138,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
           filterValues.push({ field: rule.field, value: rule.value });
         }
         const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, filterValues, getCheckedRows(groupRows));
+        console.log(`group ${i} data`, { filterValues, dataLength: data.length, data: data.map(d => ({ key: d.field?.key, label: d.label, value: d.value })), fieldMapKeys: Object.keys(levelFieldMap) });
         const children = levelConfig.children
           ? renderLevel(levelConfig.children, groupRows, newConsumed)
           : null;

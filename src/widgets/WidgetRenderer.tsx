@@ -4,6 +4,7 @@ import { DonutChart, type DonutChartConfig } from './DonutChart';
 import { InkGauge, type InkGaugeConfig } from './InkGauge';
 import { Cards } from './Cards';
 import { FlowBoard } from './flow';
+import { Content } from './Content';
 
 export function FallbackDataRows({ data }: { data: JSONRecord[] }) {
   return (
@@ -41,6 +42,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
       return <Cards dataGroup={dataGroup} data={data} />;
     case 'flow-board':
       return <FlowBoard dataGroup={dataGroup} dataTable={dataTable!} data={data} />;
+    case 'content':
+      return <Content data={data} />;
     default:
       console.warn(`Unknown widget layout: "${layout}"`);
       return <FallbackDataRows data={data} />;

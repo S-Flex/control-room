@@ -11,11 +11,12 @@ type CarouselProps = {
   currentIndex: number;
   getLabel: (code: string) => string;
   getSpecs?: (code: string) => CarouselSpec[];
+  getInfo?: (code: string) => { cutoff?: string; rushHours?: number } | null;
   onSelect: (code: string) => void;
   children?: React.ReactNode;
 };
 
-export function Carousel({ items, currentIndex, getLabel, getSpecs, onSelect, children }: CarouselProps) {
+export function Carousel({ items, currentIndex, getLabel, getSpecs, getInfo, onSelect, children }: CarouselProps) {
   const len = items.length;
   if (len === 0) return null;
 
@@ -62,7 +63,17 @@ export function Carousel({ items, currentIndex, getLabel, getSpecs, onSelect, ch
           <span className="carousel-nav-label">{getLabel(prev)}</span>
         </button>
         <div className="carousel-center" ref={centerRef}>
-          <span className="carousel-title">{getLabel(curr)}</span>
+          <span className="carousel-title">
+            {getLabel(curr)}
+            {getInfo && (() => {
+              const info = getInfo(curr);
+              if (!info) return null;
+              return <>
+                {info.cutoff && <span className="carousel-info"> · {info.cutoff}</span>}
+                {info.rushHours != null && <span className="schedule-rush-badge" style={{ marginLeft: 6 }}>{info.rushHours}</span>}
+              </>;
+            })()}
+          </span>
           {getSpecs && (() => {
             const specs = getSpecs(curr);
             if (!specs.length) return null;

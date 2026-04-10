@@ -15,8 +15,8 @@
       "specs": [
         {
           "article_code": "IN-BACKL450-320X50M",
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "company_id": 82,
           "thickness": 0.3,
           "weight": 0.45,
@@ -24,8 +24,8 @@
         },
         {
           "article_code": "IN-BACKL450-500X50M",
-          "width": 500.0,
-          "height": 5000.0,
+          "width": 500,
+          "height": 5000,
           "company_id": 82,
           "thickness": 0.3,
           "weight": 0.45,
@@ -49,24 +49,24 @@
         "code": "textile"
       },
       "rush_time_hours": 168,
-      "interval_workdays": 1,
+      "interval_workdays": 3,
       "production_line_id": 10,
       "specs": [
         {
           "article_code": "IN-NONWOVEN-200-120X100M",
-          "width": 120.0,
-          "height": 10000.0,
+          "width": 120,
+          "height": 10000,
           "company_id": 33,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.28,
           "supply_unit_amount": 1
         },
         {
           "article_code": "IN-NONWOVEN-200-240X65M",
-          "width": 240.0,
-          "height": 6500.0,
+          "width": 240,
+          "height": 6500,
           "company_id": 33,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.28,
           "supply_unit_amount": 1
         }
@@ -150,8 +150,8 @@
       "specs": [
         {
           "article_code": "IN-BA510-320X100M",
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "company_id": 1,
           "thickness": 0.05,
           "weight": 0.75,
@@ -159,8 +159,8 @@
         },
         {
           "article_code": "IN-BA510-500X70M",
-          "width": 500.0,
-          "height": 7000.0,
+          "width": 500,
+          "height": 7000,
           "thickness": 0.05,
           "weight": 0.75,
           "supply_unit_amount": 1
@@ -168,7 +168,7 @@
         {
           "article_code": "IN-BA510-183X100M",
           "width": 183.1,
-          "height": 10000.0,
+          "height": 10000,
           "thickness": 0.05,
           "weight": 0.75,
           "supply_unit_amount": 1
@@ -176,7 +176,7 @@
         {
           "article_code": "IN-BA510-108X100M",
           "width": 108.1,
-          "height": 10000.0,
+          "height": 10000,
           "thickness": 0.05,
           "weight": 0.75,
           "supply_unit_amount": 1
@@ -184,7 +184,7 @@
         {
           "article_code": "IN-BA510-158X100M",
           "width": 158.1,
-          "height": 10000.0,
+          "height": 10000,
           "thickness": 0.05,
           "weight": 0.75,
           "supply_unit_amount": 1
@@ -192,7 +192,7 @@
         {
           "article_code": "IN-BA510-208X100M",
           "width": 208.2,
-          "height": 10000.0,
+          "height": 10000,
           "thickness": 0.05,
           "weight": 0.75,
           "supply_unit_amount": 1
@@ -220,16 +220,16 @@
       "specs": [
         {
           "article_code": "IN-DEKO-320X200M",
-          "width": 320.0,
-          "height": 20000.0,
+          "width": 320,
+          "height": 20000,
           "company_id": 86,
           "thickness": 0.05,
           "weight": 0.315,
           "supply_unit_amount": 1
         },
         {
-          "width": 320.0,
-          "height": 26000.0,
+          "width": 320,
+          "height": 26000,
           "company_id": 86,
           "thickness": 0.05,
           "weight": 0.315,
@@ -257,8 +257,8 @@
       "specs": [
         {
           "article_code": "IN-AIR330-320X75M",
-          "width": 320.0,
-          "height": 7500.0,
+          "width": 320,
+          "height": 7500,
           "company_id": 79,
           "thickness": 0.04,
           "weight": 0.354,
@@ -266,8 +266,8 @@
         },
         {
           "article_code": "IN-AIR330-500X75M",
-          "width": 500.0,
-          "height": 7500.0,
+          "width": 500,
+          "height": 7500,
           "company_id": 79,
           "thickness": 0.04,
           "weight": 0.354,
@@ -296,8 +296,8 @@
       "specs": [
         {
           "article_code": "IN-MESH270-320X60M",
-          "width": 320.0,
-          "height": 6000.0,
+          "width": 320,
+          "height": 6000,
           "company_id": 31,
           "thickness": 0.04,
           "weight": 0.266,
@@ -305,8 +305,8 @@
         },
         {
           "article_code": "IN-MESH270-500X60M",
-          "width": 500.0,
-          "height": 6000.0,
+          "width": 500,
+          "height": 6000,
           "company_id": 31,
           "thickness": 0.04,
           "weight": 0.266,
@@ -314,8 +314,8 @@
         },
         {
           "article_code": "IN-MESH270-500X100M",
-          "width": 500.0,
-          "height": 10000.0,
+          "width": 500,
+          "height": 10000,
           "company_id": 31,
           "thickness": 0.04,
           "weight": 0.266,
@@ -324,7 +324,7 @@
         {
           "article_code": "IN-MESH270-108X100M",
           "width": 108.1,
-          "height": 10000.0,
+          "height": 10000,
           "company_id": 14,
           "thickness": 0.04,
           "weight": 0.266,
@@ -333,7 +333,7 @@
         {
           "article_code": "IN-MESH270-158X100M",
           "width": 158.1,
-          "height": 10000.0,
+          "height": 10000,
           "thickness": 0.04,
           "weight": 0.266,
           "supply_unit_amount": 1
@@ -341,7 +341,7 @@
         {
           "article_code": "IN-MESH270-208X100M",
           "width": 208.1,
-          "height": 10000.0,
+          "height": 10000,
           "thickness": 0.04,
           "weight": 0.266,
           "supply_unit_amount": 1
@@ -369,8 +369,8 @@
       "specs": [
         {
           "article_code": "IN-ORA3651RA-WG-105X50M",
-          "width": 105.0,
-          "height": 5000.0,
+          "width": 105,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.15,
@@ -378,8 +378,8 @@
         },
         {
           "article_code": "IN-ORA3651RA-WG-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.15,
@@ -387,8 +387,8 @@
         },
         {
           "article_code": "IN-ORA3651RA-WG-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.15,
@@ -482,8 +482,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 100000.0,
+          "width": 33,
+          "height": 100000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -509,8 +509,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 200000.0,
+          "width": 33,
+          "height": 200000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -537,16 +537,16 @@
       "specs": [
         {
           "article_code": "IN-LONG115-FR-310X200M",
-          "width": 310.0,
-          "height": 20000.0,
+          "width": 310,
+          "height": 20000,
           "company_id": 86,
           "thickness": 0.02,
           "weight": 0.111,
           "supply_unit_amount": 1
         },
         {
-          "width": 310.0,
-          "height": 26000.0,
+          "width": 310,
+          "height": 26000,
           "company_id": 86,
           "thickness": 0.02,
           "weight": 0.111,
@@ -574,8 +574,8 @@
       "specs": [
         {
           "article_code": "IN-ORA3162-WG-105X50M",
-          "width": 105.0,
-          "height": 5000.0,
+          "width": 105,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.275,
@@ -583,8 +583,8 @@
         },
         {
           "article_code": "IN-ORA3162-WG-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.275,
@@ -592,8 +592,8 @@
         },
         {
           "article_code": "IN-ORA3162-WG-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 72,
           "thickness": 0.02,
           "weight": 0.275,
@@ -620,8 +620,8 @@
       "production_line_id": 4,
       "specs": [
         {
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "thickness": 0.01,
           "weight": 0.2,
           "supply_unit_amount": 1
@@ -646,8 +646,8 @@
       "production_line_id": 4,
       "specs": [
         {
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "thickness": 0.01,
           "weight": 0.2,
           "supply_unit_amount": 1
@@ -673,8 +673,8 @@
       "specs": [
         {
           "article_code": "IN-SAM-320X100M",
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "company_id": 83,
           "thickness": 0.03,
           "weight": 0.195,
@@ -682,8 +682,8 @@
         },
         {
           "article_code": "IN-SAM-320X60M",
-          "width": 320.0,
-          "height": 6000.0,
+          "width": 320,
+          "height": 6000,
           "company_id": 31,
           "thickness": 0.03,
           "weight": 0.195,
@@ -691,8 +691,8 @@
         },
         {
           "article_code": "IN-SAM-500X50M",
-          "width": 503.0,
-          "height": 5000.0,
+          "width": 503,
+          "height": 5000,
           "company_id": 83,
           "thickness": 0.03,
           "weight": 0.195,
@@ -700,8 +700,8 @@
         },
         {
           "article_code": "IN-SAM-500X60M",
-          "width": 500.0,
-          "height": 6000.0,
+          "width": 500,
+          "height": 6000,
           "company_id": 31,
           "thickness": 0.03,
           "weight": 0.195,
@@ -730,8 +730,8 @@
       "specs": [
         {
           "article_code": "01-0000-4201",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.135,
@@ -759,8 +759,8 @@
       "specs": [
         {
           "article_code": "01-0000-4203",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.17,
@@ -788,8 +788,8 @@
       "specs": [
         {
           "article_code": "01-0000-4195",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.25,
@@ -817,8 +817,8 @@
       "specs": [
         {
           "article_code": "01-0000-4204",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.3,
@@ -846,8 +846,8 @@
       "specs": [
         {
           "article_code": "01-0000-4205",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.35,
@@ -875,8 +875,8 @@
       "specs": [
         {
           "article_code": "01-0000-4199",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.135,
@@ -903,8 +903,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.17,
@@ -931,8 +931,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.25,
@@ -959,8 +959,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.3,
@@ -987,8 +987,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.4,
@@ -1016,8 +1016,8 @@
       "specs": [
         {
           "article_code": "07-0400-0434",
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.17,
@@ -1044,8 +1044,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.09,
@@ -1072,8 +1072,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.35,
@@ -1100,8 +1100,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.3,
@@ -1129,8 +1129,8 @@
       "specs": [
         {
           "article_code": "IN-POS150-120X100M",
-          "width": 120.0,
-          "height": 10000.0,
+          "width": 120,
+          "height": 10000,
           "company_id": 88,
           "thickness": 0.02,
           "weight": 0.175,
@@ -1138,8 +1138,8 @@
         },
         {
           "article_code": "IN-POS150-142X100M",
-          "width": 142.0,
-          "height": 10000.0,
+          "width": 142,
+          "height": 10000,
           "company_id": 72,
           "thickness": 0.02,
           "weight": 0.175,
@@ -1147,8 +1147,8 @@
         },
         {
           "article_code": "IN-POS150-152X100M",
-          "width": 152.0,
-          "height": 10000.0,
+          "width": 152,
+          "height": 10000,
           "company_id": 88,
           "thickness": 0.02,
           "weight": 0.175,
@@ -1156,8 +1156,8 @@
         },
         {
           "article_code": "IN-POS-150-160X100M",
-          "width": 160.0,
-          "height": 10000.0,
+          "width": 160,
+          "height": 10000,
           "company_id": 81,
           "thickness": 0.02,
           "weight": 0.175,
@@ -1184,8 +1184,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.26,
@@ -1212,8 +1212,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.3,
@@ -1240,8 +1240,8 @@
       "production_line_id": 12,
       "specs": [
         {
-          "width": 53.0,
-          "height": 75.0,
+          "width": 53,
+          "height": 75,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.3,
@@ -1270,7 +1270,7 @@
         {
           "article_code": "IN-ACRYL-HE-5-205X305",
           "width": 205.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 77,
           "thickness": 0.5,
           "weight": 5.82,
@@ -1300,7 +1300,7 @@
           "width": 150.1,
           "height": 305.1,
           "company_id": 78,
-          "thickness": 3.0,
+          "thickness": 3,
           "weight": 3.56,
           "supply_unit_amount": 60
         }
@@ -1326,8 +1326,8 @@
       "specs": [
         {
           "article_code": "IN-BLACKB230-320X100M",
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "company_id": 33,
           "thickness": 0.02,
           "weight": 0.23,
@@ -1335,8 +1335,8 @@
         },
         {
           "article_code": "IN-BLACKB230-505X100M",
-          "width": 505.0,
-          "height": 10000.0,
+          "width": 505,
+          "height": 10000,
           "company_id": 33,
           "thickness": 0.02,
           "weight": 0.23,
@@ -1365,8 +1365,8 @@
       "specs": [
         {
           "article_code": "IN-SU-BLACKB-SOFT-320X120",
-          "width": 320.0,
-          "height": 12000.0,
+          "width": 320,
+          "height": 12000,
           "company_id": 33,
           "thickness": 0.01,
           "weight": 0.26,
@@ -1374,8 +1374,8 @@
         },
         {
           "article_code": "IN-SU-BLACKB-SOFT-320X60",
-          "width": 320.0,
-          "height": 6000.0,
+          "width": 320,
+          "height": 6000,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.26,
@@ -1383,8 +1383,8 @@
         },
         {
           "article_code": "IN-SU-BLACKB-SOFT-320X75",
-          "width": 320.0,
-          "height": 7500.0,
+          "width": 320,
+          "height": 7500,
           "company_id": 33,
           "thickness": 0.01,
           "weight": 0.26,
@@ -1441,8 +1441,8 @@
       "specs": [
         {
           "article_code": "IN-DOT-WW-107X50M",
-          "width": 107.0,
-          "height": 5000.0,
+          "width": 107,
+          "height": 5000,
           "company_id": 13,
           "thickness": 0.02,
           "weight": 0.26,
@@ -1450,8 +1450,8 @@
         },
         {
           "article_code": "IN-DOT-WW-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 13,
           "thickness": 0.02,
           "weight": 0.26,
@@ -1459,8 +1459,8 @@
         },
         {
           "article_code": "IN-DOT-WW-160X50M",
-          "width": 160.0,
-          "height": 5000.0,
+          "width": 160,
+          "height": 5000,
           "company_id": 13,
           "thickness": 0.02,
           "weight": 0.26,
@@ -1488,8 +1488,8 @@
       "specs": [
         {
           "article_code": "IN-4010C-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.03,
           "weight": 0.275,
@@ -1497,8 +1497,8 @@
         },
         {
           "article_code": "IN-4010C-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.03,
           "weight": 0.275,
@@ -1526,8 +1526,8 @@
       "specs": [
         {
           "article_code": "IN-BA610-250X50M",
-          "width": 250.0,
-          "height": 5000.0,
+          "width": 250,
+          "height": 5000,
           "company_id": 14,
           "thickness": 0.05,
           "weight": 0.85,
@@ -1535,8 +1535,8 @@
         },
         {
           "article_code": "IN-BA610-320X50M",
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "company_id": 14,
           "thickness": 0.05,
           "weight": 0.85,
@@ -1564,8 +1564,8 @@
       "specs": [
         {
           "article_code": "IN-BA610-250X50M",
-          "width": 250.0,
-          "height": 5000.0,
+          "width": 250,
+          "height": 5000,
           "company_id": 14,
           "thickness": 0.05,
           "weight": 0.85,
@@ -1573,8 +1573,8 @@
         },
         {
           "article_code": "IN-BA610-320X50M",
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "company_id": 14,
           "thickness": 0.05,
           "weight": 0.85,
@@ -1634,7 +1634,7 @@
           "width": 203.1,
           "height": 305.1,
           "company_id": 14,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 4.73,
           "supply_unit_amount": 35
         }
@@ -1689,29 +1689,29 @@
       "specs": [
         {
           "article_code": "IN-MAGNN-85-100X10M",
-          "width": 100.0,
-          "height": 1000.0,
+          "width": 100,
+          "height": 1000,
           "company_id": 31,
           "thickness": 0.09,
-          "weight": 3.0,
+          "weight": 3,
           "supply_unit_amount": 1
         },
         {
           "article_code": "IN-MAGNN-85-100X15M",
-          "width": 103.0,
-          "height": 1500.0,
+          "width": 103,
+          "height": 1500,
           "company_id": 112,
           "thickness": 0.09,
-          "weight": 3.0,
+          "weight": 3,
           "supply_unit_amount": 1
         },
         {
           "article_code": "IN-MAGNN-85-100X20M",
-          "width": 103.0,
-          "height": 2000.0,
+          "width": 103,
+          "height": 2000,
           "company_id": 70,
           "thickness": 0.09,
-          "weight": 3.0,
+          "weight": 3,
           "supply_unit_amount": 1
         }
       ],
@@ -1736,8 +1736,8 @@
       "specs": [
         {
           "article_code": "IN-BLUE115-127X200M",
-          "width": 127.0,
-          "height": 20000.0,
+          "width": 127,
+          "height": 20000,
           "company_id": 14,
           "thickness": 0.02,
           "weight": 0.12,
@@ -1765,8 +1765,8 @@
       "specs": [
         {
           "article_code": "IN-CA260-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 33,
           "thickness": 0.04,
           "weight": 0.3,
@@ -1795,7 +1795,7 @@
         {
           "article_code": "IN-DIBDIG-3-150X305",
           "width": 150.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 78,
           "thickness": 0.3,
           "weight": 3.15,
@@ -1823,7 +1823,7 @@
       "specs": [
         {
           "width": 160.1,
-          "height": 215.0,
+          "height": 215,
           "thickness": 0.2,
           "weight": 0.5,
           "supply_unit_amount": 1
@@ -1851,27 +1851,27 @@
         {
           "article_code": "IN-REBOARD-10-122X244",
           "width": 122.1,
-          "height": 244.0,
+          "height": 244,
           "company_id": 31,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.78,
           "supply_unit_amount": 110
         },
         {
           "article_code": "IN-REBOARD-10-160X320",
           "width": 160.1,
-          "height": 320.0,
+          "height": 320,
           "company_id": 31,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.78,
           "supply_unit_amount": 90
         },
         {
           "article_code": "06-0200-0178",
           "width": 160.1,
-          "height": 240.0,
+          "height": 240,
           "company_id": 31,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.78,
           "supply_unit_amount": 1
         }
@@ -1898,7 +1898,7 @@
         {
           "article_code": "IN-REBOARD-16-122X244",
           "width": 122.1,
-          "height": 244.0,
+          "height": 244,
           "company_id": 31,
           "thickness": 1.6,
           "weight": 1.95,
@@ -1907,7 +1907,7 @@
         {
           "article_code": "IN-REBOARD-16-160X314",
           "width": 160.1,
-          "height": 314.0,
+          "height": 314,
           "company_id": 31,
           "thickness": 1.6,
           "weight": 1.95,
@@ -1935,8 +1935,8 @@
       "specs": [
         {
           "article_code": "IN-FLAG110-N-320X200M",
-          "width": 320.0,
-          "height": 20000.0,
+          "width": 320,
+          "height": 20000,
           "company_id": 86,
           "thickness": 0.03,
           "weight": 0.111,
@@ -1944,8 +1944,8 @@
         },
         {
           "article_code": "IN-FLAG110-PET-320X100M",
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "company_id": 86,
           "thickness": 0.03,
           "weight": 0.111,
@@ -1973,8 +1973,8 @@
       "reruns": 1,
       "specs": [
         {
-          "width": 320.0,
-          "height": 20000.0,
+          "width": 320,
+          "height": 20000,
           "thickness": 0.03,
           "weight": 0.111,
           "supply_unit_amount": 1
@@ -2000,8 +2000,8 @@
       "specs": [
         {
           "article_code": "IN-2010R-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.02,
           "weight": 0.3,
@@ -2029,8 +2029,8 @@
       "specs": [
         {
           "article_code": "IN-ERFU-58CMX100M",
-          "width": 58.0,
-          "height": 10000.0,
+          "width": 58,
+          "height": 10000,
           "company_id": 14,
           "thickness": 0.35,
           "weight": 0.35,
@@ -2038,16 +2038,16 @@
         },
         {
           "article_code": "IN-ERFU-75CMX100M",
-          "width": 75.0,
-          "height": 10000.0,
+          "width": 75,
+          "height": 10000,
           "company_id": 14,
           "thickness": 0.35,
           "weight": 0.35,
           "supply_unit_amount": 1
         },
         {
-          "width": 75.0,
-          "height": 10000.0,
+          "width": 75,
+          "height": 10000,
           "company_id": 31,
           "thickness": 0.35,
           "weight": 0.35,
@@ -2074,8 +2074,8 @@
       "production_line_id": 2,
       "specs": [
         {
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "thickness": 0.05,
           "weight": 0.225,
           "supply_unit_amount": 1
@@ -2102,8 +2102,8 @@
       "specs": [
         {
           "article_code": "IN-RGHMRK-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.35,
           "weight": 0.3,
@@ -2111,8 +2111,8 @@
         },
         {
           "article_code": "IN-RGHMRK-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 70,
           "thickness": 0.35,
           "weight": 0.3,
@@ -2140,8 +2140,8 @@
       "specs": [
         {
           "article_code": "PM2500",
-          "width": 127.0,
-          "height": 5000.0,
+          "width": 127,
+          "height": 5000,
           "company_id": 70,
           "thickness": 0.05,
           "weight": 1.75,
@@ -2169,8 +2169,8 @@
       "specs": [
         {
           "article_code": "IN-POS250-152X100M",
-          "width": 152.0,
-          "height": 10000.0,
+          "width": 152,
+          "height": 10000,
           "company_id": 31,
           "thickness": 0.03,
           "weight": 0.275,
@@ -2198,8 +2198,8 @@
       "specs": [
         {
           "article_code": "IN-DIGIF16601-115X50M",
-          "width": 115.0,
-          "height": 5000.0,
+          "width": 115,
+          "height": 5000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.2,
@@ -2207,8 +2207,8 @@
         },
         {
           "article_code": "IN-DIGIF16601-58X100M",
-          "width": 58.0,
-          "height": 10000.0,
+          "width": 58,
+          "height": 10000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.2,
@@ -2216,8 +2216,8 @@
         },
         {
           "article_code": "IN-DIGIF16601-58X50M",
-          "width": 58.0,
-          "height": 5000.0,
+          "width": 58,
+          "height": 5000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.2,
@@ -2225,8 +2225,8 @@
         },
         {
           "article_code": "IN-DIGIF16601-75X100M",
-          "width": 75.0,
-          "height": 10000.0,
+          "width": 75,
+          "height": 10000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.2,
@@ -2234,8 +2234,8 @@
         },
         {
           "article_code": "IN-DIGIF16601-75X50M",
-          "width": 75.0,
-          "height": 5000.0,
+          "width": 75,
+          "height": 5000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.2,
@@ -2243,8 +2243,8 @@
         },
         {
           "article_code": "IN-DIGIF16601-80X50M",
-          "width": 80.0,
-          "height": 5000.0,
+          "width": 80,
+          "height": 5000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.2,
@@ -2272,8 +2272,8 @@
       "specs": [
         {
           "article_code": "IN-BUDAIR370-320X75M",
-          "width": 320.0,
-          "height": 7500.0,
+          "width": 320,
+          "height": 7500,
           "thickness": 0.1,
           "weight": 0.37,
           "supply_unit_amount": 1
@@ -2298,15 +2298,15 @@
       "production_line_id": 2,
       "specs": [
         {
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "thickness": 0.03,
           "weight": 0.31,
           "supply_unit_amount": 1
         },
         {
-          "width": 500.0,
-          "height": 5000.0,
+          "width": 500,
+          "height": 5000,
           "thickness": 0.03,
           "weight": 0.31,
           "supply_unit_amount": 1
@@ -2334,8 +2334,8 @@
       "specs": [
         {
           "article_code": "IN-1104-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 76,
           "thickness": 0.8,
           "weight": 0.155,
@@ -2363,8 +2363,8 @@
       "specs": [
         {
           "article_code": "IN-1105-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 76,
           "thickness": 0.8,
           "weight": 0.16,
@@ -2391,15 +2391,15 @@
       "production_line_id": 2,
       "specs": [
         {
-          "width": 320.0,
-          "height": 6000.0,
+          "width": 320,
+          "height": 6000,
           "thickness": 0.03,
           "weight": 0.34,
           "supply_unit_amount": 1
         },
         {
-          "width": 500.0,
-          "height": 6000.0,
+          "width": 500,
+          "height": 6000,
           "thickness": 0.03,
           "weight": 0.34,
           "supply_unit_amount": 1
@@ -2427,8 +2427,8 @@
       "specs": [
         {
           "article_code": "IN-DECOT200-505X50M",
-          "width": 505.0,
-          "height": 5000.0,
+          "width": 505,
+          "height": 5000,
           "company_id": 33,
           "thickness": 0.04,
           "weight": 0.29,
@@ -2452,13 +2452,13 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
           "article_code": "IN-ACRYL-HE-3-205X305",
           "width": 205.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 77,
           "thickness": 0.3,
           "weight": 3.399,
@@ -2480,13 +2480,13 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
           "article_code": "IN-AKYPRINT-3-205X305",
           "width": 205.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 14,
           "thickness": 0.33,
           "weight": 0.6,
@@ -2509,7 +2509,7 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
@@ -2538,13 +2538,13 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
           "article_code": "IN-DIBBUD-6-100X305",
           "width": 100.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 14,
           "thickness": 0.6,
           "weight": 6.6,
@@ -2553,7 +2553,7 @@
         {
           "article_code": "IN-DIBBUD-6-125X255",
           "width": 125.1,
-          "height": 255.0,
+          "height": 255,
           "company_id": 14,
           "thickness": 0.6,
           "weight": 6.6,
@@ -2562,7 +2562,7 @@
         {
           "article_code": "IN-DIBBUD-6-125X305",
           "width": 125.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 14,
           "thickness": 0.6,
           "weight": 6.6,
@@ -2623,13 +2623,13 @@
         "code": "non-adhesive"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 4,
       "specs": [
         {
           "article_code": "IN-VLOER1880-200X30M",
-          "width": 205.0,
-          "height": 3000.0,
+          "width": 205,
+          "height": 3000,
           "company_id": 109,
           "thickness": 0.5,
           "weight": 1.88,
@@ -2637,8 +2637,8 @@
         },
         {
           "article_code": "IN-VLOER-320X20M",
-          "width": 320.0,
-          "height": 3000.0,
+          "width": 320,
+          "height": 3000,
           "company_id": 81,
           "thickness": 0.5,
           "weight": 1.88,
@@ -2665,8 +2665,8 @@
       "production_line_id": 4,
       "specs": [
         {
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.05,
           "weight": 0.2,
@@ -2696,7 +2696,7 @@
           "article_code": "IN-DIBDI-3-150X305",
           "width": 305,
           "height": 150,
-          "thickness": 3.0,
+          "thickness": 3,
           "weight": 3.56,
           "supply_unit_amount": 60
         }
@@ -2717,7 +2717,7 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
@@ -2746,12 +2746,12 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
           "width": 160.1,
-          "height": 215.0,
+          "height": 215,
           "thickness": 0.2,
           "weight": 0.5,
           "supply_unit_amount": 1
@@ -2781,7 +2781,7 @@
           "width": 154.1,
           "height": 303.1,
           "company_id": 14,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 4.73,
           "supply_unit_amount": 45
         }
@@ -2837,7 +2837,7 @@
         {
           "article_code": "IN-POLYPR-35-203X290-VK",
           "width": 203.1,
-          "height": 290.0,
+          "height": 290,
           "company_id": 31,
           "thickness": 0.35,
           "weight": 0.4,
@@ -2846,7 +2846,7 @@
         {
           "article_code": "IN-POLYPR-35-205X290-HK",
           "width": 205.1,
-          "height": 290.0,
+          "height": 290,
           "company_id": 31,
           "thickness": 0.35,
           "weight": 0.4,
@@ -2874,7 +2874,7 @@
       "specs": [
         {
           "article_code": "IN-AKY-8-200X300",
-          "width": 200.0,
+          "width": 200,
           "height": 300.1,
           "company_id": 31,
           "thickness": 0.8,
@@ -2898,13 +2898,13 @@
         "code": "sheet"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 5,
       "specs": [
         {
           "article_code": "IN-POLYST-1-200X120",
-          "width": 200.0,
-          "height": 120.0,
+          "width": 200,
+          "height": 120,
           "company_id": 101,
           "thickness": 0.1,
           "weight": 1.03,
@@ -2932,8 +2932,8 @@
       "specs": [
         {
           "article_code": "IN-POLYST-2-200x120",
-          "width": 200.0,
-          "height": 120.0,
+          "width": 200,
+          "height": 120,
           "company_id": 101,
           "thickness": 0.2,
           "weight": 1.98,
@@ -2998,8 +2998,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 200000.0,
+          "width": 33,
+          "height": 200000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3026,8 +3026,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 100000.0,
+          "width": 33,
+          "height": 100000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3054,8 +3054,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 100000.0,
+          "width": 33,
+          "height": 100000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3082,8 +3082,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 200000.0,
+          "width": 33,
+          "height": 200000,
           "company_id": 90,
           "thickness": 0.01,
           "weight": 0.02,
@@ -3111,8 +3111,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 100000.0,
+          "width": 33,
+          "height": 100000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3140,8 +3140,8 @@
       "specs": [
         {
           "article_code": "IN-OWV-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.275,
@@ -3149,8 +3149,8 @@
         },
         {
           "article_code": "IN-OWV-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 110,
           "thickness": 0.02,
           "weight": 0.275,
@@ -3177,8 +3177,8 @@
       "production_line_id": 4,
       "specs": [
         {
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "thickness": 0.02,
           "weight": 0.275,
           "supply_unit_amount": 1
@@ -3206,18 +3206,18 @@
         {
           "article_code": "IN-REBOARD-10-122X244",
           "width": 122.1,
-          "height": 244.0,
+          "height": 244,
           "company_id": 31,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.78,
           "supply_unit_amount": 110
         },
         {
           "article_code": "IN-REBOARD-10-160X320",
           "width": 160.1,
-          "height": 320.0,
+          "height": 320,
           "company_id": 31,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 1.78,
           "supply_unit_amount": 90
         }
@@ -3244,7 +3244,7 @@
         {
           "article_code": "IN-REBOARD-16-122X244",
           "width": 122.1,
-          "height": 244.0,
+          "height": 244,
           "company_id": 31,
           "thickness": 1.6,
           "weight": 1.95,
@@ -3253,7 +3253,7 @@
         {
           "article_code": "IN-REBOARD-16-160X314",
           "width": 160.1,
-          "height": 314.0,
+          "height": 314,
           "company_id": 31,
           "thickness": 1.6,
           "weight": 1.95,
@@ -3281,8 +3281,8 @@
       "specs": [
         {
           "article_code": "IN-VIKUN-4-100X75M",
-          "width": 100.0,
-          "height": 7500.0,
+          "width": 100,
+          "height": 7500,
           "company_id": 76,
           "thickness": 0.03,
           "weight": 0.58,
@@ -3309,8 +3309,8 @@
       "production_line_id": 4,
       "specs": [
         {
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3335,8 +3335,8 @@
       "production_line_id": 3,
       "specs": [
         {
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "company_id": 1,
           "thickness": 0.02,
           "weight": 0.11,
@@ -3363,8 +3363,8 @@
       "specs": [
         {
           "article_code": "IN-SU-LUMITEX-315X90",
-          "width": 315.0,
-          "height": 9000.0,
+          "width": 315,
+          "height": 9000,
           "thickness": 0.1,
           "weight": 0.24,
           "supply_unit_amount": 1
@@ -3386,13 +3386,13 @@
         "code": "foil"
       },
       "rush_time_hours": 48,
-      "interval_workdays": 2,
+      "interval_workdays": 1,
       "production_line_id": 4,
       "specs": [
         {
           "article_code": "IN-SYNPOS-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.28,
@@ -3420,8 +3420,8 @@
       "specs": [
         {
           "article_code": "IN-WALLPRO-320X50M",
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "thickness": 0.05,
           "weight": 0.34,
           "supply_unit_amount": 1
@@ -3448,8 +3448,8 @@
       "specs": [
         {
           "article_code": "IN-TE-KEL-300x200M",
-          "width": 300.0,
-          "height": 20000.0,
+          "width": 300,
+          "height": 20000,
           "company_id": 106,
           "thickness": 0.03,
           "weight": 0.215,
@@ -3478,8 +3478,8 @@
       "specs": [
         {
           "article_code": "IN-BAZW450-320X60M",
-          "width": 320.0,
-          "height": 6000.0,
+          "width": 320,
+          "height": 6000,
           "company_id": 14,
           "thickness": 0.1,
           "weight": 0.45,
@@ -3507,8 +3507,8 @@
       "specs": [
         {
           "article_code": "IN-CV8150-122X50M",
-          "width": 122.0,
-          "height": 5000.0,
+          "width": 122,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.02,
           "weight": 0.225,
@@ -3516,8 +3516,8 @@
         },
         {
           "article_code": "IN-CV8150-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.02,
           "weight": 0.225,
@@ -3545,8 +3545,8 @@
       "specs": [
         {
           "article_code": "IN-BACKL-152X30M",
-          "width": 152.0,
-          "height": 3000.0,
+          "width": 152,
+          "height": 3000,
           "company_id": 31,
           "thickness": 0.3,
           "weight": 0.28,
@@ -3554,23 +3554,23 @@
         },
         {
           "article_code": "IN-BACKL275-152X100M",
-          "width": 152.0,
-          "height": 10000.0,
+          "width": 152,
+          "height": 10000,
           "thickness": 0.3,
           "weight": 0.28,
           "supply_unit_amount": 1
         },
         {
-          "width": 152.0,
-          "height": 3000.0,
+          "width": 152,
+          "height": 3000,
           "company_id": 72,
           "thickness": 0.3,
           "weight": 0.28,
           "supply_unit_amount": 1
         },
         {
-          "width": 152.0,
-          "height": 10000.0,
+          "width": 152,
+          "height": 10000,
           "company_id": 72,
           "thickness": 0.3,
           "weight": 0.28,
@@ -3598,8 +3598,8 @@
       "specs": [
         {
           "article_code": "IN-20114R-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.02,
           "weight": 0.275,
@@ -3627,8 +3627,8 @@
       "specs": [
         {
           "article_code": "IN-MULPRO-320X50M",
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "company_id": 1,
           "thickness": 0.5,
           "weight": 0.17,
@@ -3656,8 +3656,8 @@
       "specs": [
         {
           "article_code": "IN-40114-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.02,
           "weight": 0.25,
@@ -3665,8 +3665,8 @@
         },
         {
           "article_code": "IN-40114-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 57,
           "thickness": 0.02,
           "weight": 0.25,
@@ -3694,8 +3694,8 @@
       "specs": [
         {
           "article_code": "IN-ORA3651-TG-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.02,
           "weight": 0.275,
@@ -3723,8 +3723,8 @@
       "specs": [
         {
           "article_code": "IN-STATIS-TR-140X100M",
-          "width": 140.0,
-          "height": 10000.0,
+          "width": 140,
+          "height": 10000,
           "company_id": 31,
           "thickness": 0.03,
           "weight": 0.325,
@@ -3752,16 +3752,16 @@
       "specs": [
         {
           "article_code": "IN-STATIS-WI-137X25M",
-          "width": 137.0,
-          "height": 2500.0,
+          "width": 137,
+          "height": 2500,
           "company_id": 31,
           "thickness": 0.03,
           "weight": 0.325,
           "supply_unit_amount": 1
         },
         {
-          "width": 137.0,
-          "height": 10000.0,
+          "width": 137,
+          "height": 10000,
           "company_id": 31,
           "thickness": 0.03,
           "weight": 0.325,
@@ -3789,8 +3789,8 @@
       "specs": [
         {
           "article_code": "IN-GEKKO125-137X30M",
-          "width": 137.0,
-          "height": 3000.0,
+          "width": 137,
+          "height": 3000,
           "company_id": 88,
           "thickness": 0.2,
           "weight": 0.29,
@@ -3798,8 +3798,8 @@
         },
         {
           "article_code": "IN-GEKKO125-152X30M",
-          "width": 152.0,
-          "height": 3000.0,
+          "width": 152,
+          "height": 3000,
           "company_id": 88,
           "thickness": 0.2,
           "weight": 0.29,
@@ -3826,8 +3826,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 200000.0,
+          "width": 33,
+          "height": 200000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3854,8 +3854,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 100000.0,
+          "width": 33,
+          "height": 100000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3882,8 +3882,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 200000.0,
+          "width": 33,
+          "height": 200000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3910,8 +3910,8 @@
       "production_line_id": 9,
       "specs": [
         {
-          "width": 33.0,
-          "height": 200000.0,
+          "width": 33,
+          "height": 200000,
           "thickness": 0.01,
           "weight": 0.02,
           "supply_unit_amount": 1
@@ -3939,8 +3939,8 @@
       "specs": [
         {
           "article_code": "IN-LIN-UC-100X50M",
-          "width": 100.0,
-          "height": 5000.0,
+          "width": 100,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.21,
@@ -3948,8 +3948,8 @@
         },
         {
           "article_code": "IN-LIN-UC-122X50M",
-          "width": 122.0,
-          "height": 5000.0,
+          "width": 122,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.21,
@@ -3957,8 +3957,8 @@
         },
         {
           "article_code": "IN-LIN-UC-156X50M",
-          "width": 156.0,
-          "height": 5000.0,
+          "width": 156,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.01,
           "weight": 0.21,
@@ -3986,8 +3986,8 @@
       "specs": [
         {
           "article_code": "IN-LOCH110-320X200M",
-          "width": 320.0,
-          "height": 20000.0,
+          "width": 320,
+          "height": 20000,
           "company_id": 86,
           "thickness": 0.03,
           "weight": 0.11,
@@ -3995,8 +3995,8 @@
         },
         {
           "article_code": "IN-LOCH110-230X400M",
-          "width": 230.0,
-          "height": 20000.0,
+          "width": 230,
+          "height": 20000,
           "company_id": 86,
           "thickness": 0.03,
           "weight": 0.11,
@@ -4024,8 +4024,8 @@
       "specs": [
         {
           "article_code": "IN-PERCAL-290X250M",
-          "width": 290.0,
-          "height": 25000.0,
+          "width": 290,
+          "height": 25000,
           "company_id": 85,
           "thickness": 0.5,
           "weight": 0.15,
@@ -4033,8 +4033,8 @@
         },
         {
           "article_code": "IN-PERCAL-305X200M",
-          "width": 305.0,
-          "height": 20000.0,
+          "width": 305,
+          "height": 20000,
           "company_id": 85,
           "thickness": 0.5,
           "weight": 0.15,
@@ -4063,8 +4063,8 @@
       "specs": [
         {
           "article_code": "IN-MOTMA-235-152X25M",
-          "width": 152.0,
-          "height": 2500.0,
+          "width": 152,
+          "height": 2500,
           "company_id": 31,
           "thickness": 0.04,
           "weight": 0.1,
@@ -4072,8 +4072,8 @@
         },
         {
           "article_code": "IN-MOTMA-235-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 31,
           "thickness": 0.04,
           "weight": 0.1,
@@ -4100,8 +4100,8 @@
       "production_line_id": 4,
       "specs": [
         {
-          "width": 137.0,
-          "height": 3000.0,
+          "width": 137,
+          "height": 3000,
           "company_id": 81,
           "thickness": 0.03,
           "weight": 0.3,
@@ -4129,8 +4129,8 @@
       "specs": [
         {
           "article_code": "IN-DIGIF15303-75X100M",
-          "width": 75.0,
-          "height": 10000.0,
+          "width": 75,
+          "height": 10000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.3,
@@ -4138,8 +4138,8 @@
         },
         {
           "article_code": "IN-DIGIF15303-60X100M",
-          "width": 58.0,
-          "height": 10000.0,
+          "width": 58,
+          "height": 10000,
           "thickness": 0.35,
           "weight": 0.3,
           "supply_unit_amount": 1
@@ -4166,8 +4166,8 @@
       "specs": [
         {
           "article_code": "IN-DIGIF15305-130X100M",
-          "width": 130.0,
-          "height": 10000.0,
+          "width": 130,
+          "height": 10000,
           "company_id": 87,
           "thickness": 0.35,
           "weight": 0.3,
@@ -4176,7 +4176,7 @@
         {
           "article_code": "IN-DIGIF15305-1372X100M",
           "width": 137.2,
-          "height": 10000.0,
+          "height": 10000,
           "company_id": 87,
           "thickness": 0.35,
           "weight": 0.3,
@@ -4184,8 +4184,8 @@
         },
         {
           "article_code": "IN-DIGIF15305-58CMX100M",
-          "width": 58.0,
-          "height": 10000.0,
+          "width": 58,
+          "height": 10000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.3,
@@ -4193,8 +4193,8 @@
         },
         {
           "article_code": "IN-DIGIF15305-77X100M",
-          "width": 75.0,
-          "height": 10000.0,
+          "width": 75,
+          "height": 10000,
           "company_id": 81,
           "thickness": 0.35,
           "weight": 0.3,
@@ -4202,8 +4202,8 @@
         },
         {
           "article_code": "IN-DIGIF15305-85CMX100M",
-          "width": 85.0,
-          "height": 10000.0,
+          "width": 85,
+          "height": 10000,
           "company_id": 87,
           "thickness": 0.35,
           "weight": 0.3,
@@ -4232,19 +4232,19 @@
         {
           "article_code": "IN-ACRYL-HE-10-205X152",
           "width": 205.1,
-          "height": 152.0,
+          "height": 152,
           "company_id": 77,
-          "thickness": 1.0,
-          "weight": 12.0,
+          "thickness": 1,
+          "weight": 12,
           "supply_unit_amount": 28
         },
         {
           "article_code": "IN-ACRYL-HE-10-205x305",
           "width": 205.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 77,
-          "thickness": 1.0,
-          "weight": 12.0,
+          "thickness": 1,
+          "weight": 12,
           "supply_unit_amount": 12
         }
       ],
@@ -4269,7 +4269,7 @@
         {
           "article_code": "IN-ACRYL-OP-3-205X152",
           "width": 205.1,
-          "height": 152.0,
+          "height": 152,
           "company_id": 77,
           "thickness": 0.3,
           "weight": 3.4,
@@ -4278,7 +4278,7 @@
         {
           "article_code": "IN-ACRYL-OP-3-205X305",
           "width": 205.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 77,
           "thickness": 0.3,
           "weight": 3.4,
@@ -4306,7 +4306,7 @@
         {
           "article_code": "IN-ACRYL-OP-5-205X152",
           "width": 205.1,
-          "height": 152.0,
+          "height": 152,
           "company_id": 77,
           "thickness": 0.5,
           "weight": 5.82,
@@ -4315,7 +4315,7 @@
         {
           "article_code": "IN-ACRYL-OP-5-205X305",
           "width": 205.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 77,
           "thickness": 0.5,
           "weight": 5.82,
@@ -4343,9 +4343,9 @@
         {
           "article_code": "06-0207-0036",
           "width": 203.1,
-          "height": 305.0,
+          "height": 305,
           "company_id": 14,
-          "thickness": 1.0,
+          "thickness": 1,
           "weight": 2.13,
           "supply_unit_amount": 1
         }
@@ -4370,8 +4370,8 @@
       "production_line_id": 2,
       "specs": [
         {
-          "width": 320.0,
-          "height": 10000.0,
+          "width": 320,
+          "height": 10000,
           "thickness": 0.05,
           "weight": 0.225,
           "supply_unit_amount": 1
@@ -4398,8 +4398,8 @@
       "specs": [
         {
           "article_code": "IN-EVAC-WI-8-205X140",
-          "width": 205.0,
-          "height": 140.0,
+          "width": 205,
+          "height": 140,
           "company_id": 76,
           "thickness": 0.8,
           "weight": 0.73,
@@ -4407,8 +4407,8 @@
         },
         {
           "article_code": "IN-EVAC-WI-8-240X140",
-          "width": 240.0,
-          "height": 140.0,
+          "width": 240,
+          "height": 140,
           "company_id": 76,
           "thickness": 0.8,
           "weight": 0.73,
@@ -4416,7 +4416,7 @@
         },
         {
           "width": 140.1,
-          "height": 205.0,
+          "height": 205,
           "company_id": 76,
           "thickness": 0.8,
           "weight": 0.73,
@@ -4443,8 +4443,8 @@
       "production_line_id": 5,
       "specs": [
         {
-          "width": 156.0,
-          "height": 305.0,
+          "width": 156,
+          "height": 305,
           "company_id": 31,
           "thickness": 0.3,
           "weight": 1.53,
@@ -4470,8 +4470,8 @@
       "production_line_id": 5,
       "specs": [
         {
-          "width": 156.0,
-          "height": 305.0,
+          "width": 156,
+          "height": 305,
           "company_id": 31,
           "thickness": 0.3,
           "weight": 1.53,
@@ -4498,8 +4498,8 @@
       "production_line_id": 5,
       "specs": [
         {
-          "width": 156.0,
-          "height": 305.0,
+          "width": 156,
+          "height": 305,
           "company_id": 31,
           "thickness": 0.5,
           "weight": 2.48,
@@ -4527,8 +4527,8 @@
       "specs": [
         {
           "article_code": "IN-ZAND-137X50M",
-          "width": 137.0,
-          "height": 5000.0,
+          "width": 137,
+          "height": 5000,
           "company_id": 72,
           "thickness": 0.02,
           "weight": 0.228,
@@ -4536,8 +4536,8 @@
         },
         {
           "article_code": "IN-ZAND-152X50M",
-          "width": 152.0,
-          "height": 5000.0,
+          "width": 152,
+          "height": 5000,
           "company_id": 72,
           "thickness": 0.02,
           "weight": 0.228,
@@ -4597,7 +4597,7 @@
           "width": 140,
           "height": 120,
           "thickness": 0.2,
-          "weight": 3.0,
+          "weight": 3,
           "supply_unit_amount": 50
         },
         {
@@ -4606,7 +4606,7 @@
           "width": 140,
           "height": 120,
           "thickness": 0.2,
-          "weight": 3.0,
+          "weight": 3,
           "supply_unit_amount": 50
         }
       ],
@@ -4629,16 +4629,16 @@
       "specs": [
         {
           "article_code": "IN-SOMESH250-500X50M",
-          "width": 500.0,
-          "height": 5000.0,
+          "width": 500,
+          "height": 5000,
           "company_id": 102,
           "thickness": 0.05,
           "weight": 0.18,
           "supply_unit_amount": 1
         },
         {
-          "width": 320.0,
-          "height": 5000.0,
+          "width": 320,
+          "height": 5000,
           "company_id": 102,
           "thickness": 0.05,
           "weight": 0.18,
@@ -4667,8 +4667,8 @@
       "specs": [
         {
           "article_code": "IN-SPIN134-UC-155X120M",
-          "width": 155.0,
-          "height": 12000.0,
+          "width": 155,
+          "height": 12000,
           "company_id": 17,
           "thickness": 0.03,
           "weight": 0.134,
@@ -4697,8 +4697,8 @@
       "specs": [
         {
           "article_code": "IN-STRUCT250-260X150M",
-          "width": 260.0,
-          "height": 15000.0,
+          "width": 260,
+          "height": 15000,
           "company_id": 86,
           "thickness": 0.5,
           "weight": 0.253,
@@ -4706,8 +4706,8 @@
         },
         {
           "article_code": "IN-STRUCT250-310X150M",
-          "width": 310.0,
-          "height": 15000.0,
+          "width": 310,
+          "height": 15000,
           "company_id": 86,
           "thickness": 0.5,
           "weight": 0.253,
@@ -4734,8 +4734,8 @@
       "production_line_id": 3,
       "specs": [
         {
-          "width": 320.0,
-          "height": 3800.0,
+          "width": 320,
+          "height": 3800,
           "company_id": 23,
           "thickness": 0.05,
           "weight": 0.32,
@@ -7152,6 +7152,30 @@
     }
   ],
   "cutoff_times": [
+    {
+      "rush_time": 168,
+      "cutoff_time": "21:30"
+    },
+    {
+      "rush_time": 144,
+      "cutoff_time": "21:30"
+    },
+    {
+      "rush_time": 120,
+      "cutoff_time": "21:30"
+    },
+    {
+      "rush_time": 96,
+      "cutoff_time": "21:30"
+    },
+    {
+      "rush_time": 72,
+      "cutoff_time": "21:30"
+    },
+    {
+      "rush_time": 48,
+      "cutoff_time": "21:30"
+    },
     {
       "rush_time": 18,
       "cutoff_time": "21:30"

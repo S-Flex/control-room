@@ -831,6 +831,23 @@ body {
   transition: background 0.15s;
 }
 .planning-icon-btn:hover { background: var(--bar-bg); }
+.planning-mode-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.planning-mode-link:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
 .planning-icon-btn.active { background: var(--brand); color: #fff; padding-left: 8px; padding-right: 8px; }
 .planning-icon-btn.active:hover { background: var(--brand-light); }
 
@@ -1376,6 +1393,11 @@ body {
   font-weight: 700;
   font-size: 13px;
   color: var(--text);
+}
+.carousel-info {
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--text-muted);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2516,15 +2538,15 @@ body {
 .content-list {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   width: 100%;
 }
-.content-block {
+.content-group {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
 }
-.content-block-header {
+.content-group-header {
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2540,9 +2562,16 @@ body {
   text-align: left;
   transition: background 0.1s;
 }
-.content-block-header:hover {
+.content-group-header:hover {
   background: var(--bg-hover, rgba(255, 255, 255, 0.08));
 }
+.content-group-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+}
+.content-block {}
 .content-collapse-icon {
   transition: transform 0.15s;
   flex-shrink: 0;
@@ -2819,18 +2848,18 @@ body {
   white-space: nowrap;
 }
 
-.flow-container {
+.flow-card-list {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
-.flow-container-section {
+.flow-card-section {
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
   background: var(--bg);
 }
-.flow-container-header {
+.flow-card-header {
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: start;
@@ -2839,7 +2868,7 @@ body {
   color: var(--text-primary);
   font-size: 13px;
 }
-.flow-container-controls {
+.flow-card-controls {
   display: grid;
   justify-items: center;
   gap: 2px;
@@ -2855,15 +2884,6 @@ body {
   color: inherit;
   flex-shrink: 0;
 }
-.flow-container-header-labels {
-  font-weight: 600;
-  font-size: 13px;
-  flex: 1;
-}
-.flow-container-body {
-  padding: 8px 12px 12px;
-}
-
 .flow-collapse-icon {
   transition: transform 0.15s;
   flex-shrink: 0;
@@ -2871,32 +2891,8 @@ body {
 .flow-collapse-icon.collapsed {
   transform: rotate(-90deg);
 }
-
-.flow-cards {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.flow-card {
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 12px 16px;
-  background: var(--bg-card);
-  box-shadow: var(--shadow-xs);
-  min-width: 200px;
-  flex: 1 1 200px;
-}
-.flow-card-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--text-primary);
-}
-.flow-card-header-value {
-  white-space: nowrap;
+.flow-card-body {
+  padding: 8px 12px 12px;
 }
 
 .chip {
@@ -2954,12 +2950,6 @@ body {
 }
 .flow-table-row-selected {
   background: var(--brand-pale) !important;
-}
-
-.flow-card-header {
-  display: flex;
-  align-items: start;
-  gap: 8px;
 }
 
 .flow-action-bar {
@@ -3034,6 +3024,7 @@ body {
 }
 .badge.preflight { color: #e01829; }
 .badge.file_in_gangrun { color: #14bf53; }
+.badge.dtp { color: #e49309; }
 
 .check-dot {
   display: inline-flex;

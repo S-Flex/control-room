@@ -35,19 +35,47 @@ export function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FlowFilterGrou
   return typeof first === 'object' && !Array.isArray(first) && 'filter' in first;
 }
 
-function matchFilter(row: JSONRecord, rule: FilterRule): boolean {
-  const val = row[rule.field];
-  switch (rule.op) {
-    case 'eq': return val === rule.value;
-    case 'neq': return val !== rule.value;
-    case 'gt': return (val as number) > (rule.value as number);
-    case 'lt': return (val as number) < (rule.value as number);
-    case 'gte': return (val as number) >= (rule.value as number);
-    case 'lte': return (val as number) <= (rule.value as number);
-    case 'in': return Array.isArray(rule.value) && (rule.value as JSONValue[]).includes(val);
-    case 'like': return typeof val === 'string' && typeof rule.value === 'string' && val.includes(rule.value);
-    default: return false;
+/** Resolve a dot-notation path with optional [index] and [*] wildcard. */
+function resolvePath(obj: unknown, path: string): JSONValue[] {
+  const segments = path.replace(/\[(\*|\d+)\]/g, '.$1').split('.');
+  let current: unknown[] = [obj];
+  for (const seg of segments) {
+    const next: unknown[] = [];
+    for (const node of current) {
+      if (node === null || node === undefined || typeof node !== 'object') continue;
+      if (seg === '*' && Array.isArray(node)) {
+        next.push(...node);
+      } else if (Array.isArray(node) && /^\d+$/.test(seg)) {
+        const item = node[Number(seg)];
+        if (item !== undefined) next.push(item);
+      } else {
+        const val = (node as Record<string, unknown>)[seg];
+        if (val !== undefined) next.push(val);
+      }
+    }
+    current = next;
+    if (current.length === 0) return [null];
   }
+  return current as JSONValue[];
+}
+
+/** Match a single filter rule against a row. Supports dot paths and [*] wildcards. */
+export function matchFilter(row: JSONRecord, rule: FilterRule): boolean {
+  const values = resolvePath(row, rule.field);
+  const op = rule.op ?? '==';
+  return values.some(val => {
+    switch (op) {
+      case '==': return val === rule.value;
+      case '!=': return val !== rule.value;
+      case '>': return typeof val === 'number' && typeof rule.value === 'number' && val > rule.value;
+      case '>=': return typeof val === 'number' && typeof rule.value === 'number' && val >= rule.value;
+      case '<': return typeof val === 'number' && typeof rule.value === 'number' && val < rule.value;
+      case '<=': return typeof val === 'number' && typeof rule.value === 'number' && val <= rule.value;
+      case 'in': return Array.isArray(rule.value) && rule.value.includes(val);
+      case 'not_in': return Array.isArray(rule.value) && !rule.value.includes(val);
+      default: return false;
+    }
+  });
 }
 
 /** Apply OR-of-ANDs filter: each sub-array is ANDed, sub-arrays are ORed. */

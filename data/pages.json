@@ -74,7 +74,7 @@
     ]
   },
   {
-    "code": "inflow",
+    "code": "inflow-manual",
     "grid": {
       "columns": "1fr",
       "areas": [
@@ -82,7 +82,19 @@
       ]
     },
     "cols": [
-      { "area": "flow-board", "data_group": "components_inflow" }
+      { "area": "flow-board", "data_group": "components_inflow-manual" }
+    ]
+  },
+  {
+    "code": "inflow-auto",
+    "grid": {
+      "columns": "1fr",
+      "areas": [
+        "flow-board"
+      ]
+    },
+    "cols": [
+      { "area": "flow-board", "data_group": "components_inflow-auto" }
     ]
   }
 ]

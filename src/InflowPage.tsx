@@ -16,14 +16,27 @@ import './app.css';
 const STORAGE_KEY = 'inflow-production-dates';
 
 /** Build a flat ordered list of material codes matching menu order */
-function buildOrderedCodes(materials: Material[], modelCode: string): string[] {
+function buildOrderedCodes(materials: Material[], modelCode: string, cutoffTimes: CutoffTime[]): string[] {
+  function getCutoff(m: Material): string {
+    const match = cutoffTimes.find(c => c.rush_time === m.rush_time_hours);
+    if (match) return match.cutoff_time;
+    const sorted = [...cutoffTimes].sort((a, b) => a.rush_time - b.rush_time);
+    const fallback = sorted.find(c => c.rush_time >= m.rush_time_hours);
+    return fallback?.cutoff_time ?? sorted[sorted.length - 1]?.cutoff_time ?? '';
+  }
+
   const filtered = materials.filter(m => m.model.code === modelCode);
   const intervals = [...new Set(filtered.map(m => m.interval_workdays))].sort((a, b) => a - b);
   const codes: string[] = [];
   for (const interval of intervals) {
     const items = filtered
       .filter(m => m.interval_workdays === interval)
-      .sort((a, b) => a.rush_time_hours - b.rush_time_hours);
+      .sort((a, b) => {
+        const cutA = getCutoff(a);
+        const cutB = getCutoff(b);
+        if (cutA !== cutB) return cutA.localeCompare(cutB);
+        return a.code.localeCompare(b.code);
+      });
     const categoryMap = new Map<string, Material[]>();
     for (const item of items) {
       const cat = item.category.code;
@@ -77,7 +90,8 @@ export function InflowPage() {
   const navigate = useNavigate();
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
-  const { config: pageConfig } = usePage('inflow');
+  const isAuto = window.location.pathname === '/inflow-auto';
+  const { config: pageConfig } = usePage(isAuto ? 'inflow-auto' : 'inflow-manual');
   const flowBoardDataGroup = pageConfig?.cols?.[0]?.data_group;
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
@@ -112,12 +126,8 @@ export function InflowPage() {
     window.history.replaceState(null, '', newUrl);
   }, []);
 
-  // Mode (manual / auto)
-  const [mode, setMode] = useState<string>(() => {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('mode') || 'manual';
-  });
-  const [modeOpen, setModeOpen] = useState(false);
+  const otherMode = isAuto ? 'manual' : 'auto';
+  const otherModeUrl = isAuto ? '/inflow-manual' : '/inflow-auto';
 
   // Locations (multi-select)
   type LocationEntry = { code: string; enabled: boolean };
@@ -179,8 +189,8 @@ export function InflowPage() {
 
   // Ordered material codes for the current model
   const orderedCodes = useMemo(
-    () => buildOrderedCodes(materials, activeLineId),
-    [materials, activeLineId],
+    () => buildOrderedCodes(materials, activeLineId, cutoffTimes),
+    [materials, activeLineId, cutoffTimes],
   );
 
   // Resolve initial material_id from URL to code once materials load
@@ -252,7 +262,6 @@ export function InflowPage() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
-    params.set('mode', mode);
     const selectedMatObj = selectedMaterial ? materials.find(m => m.code === selectedMaterial) : undefined;
     if (selectedMatObj) params.set('material_id', String(selectedMatObj.material_id));
     else params.delete('material_id');
@@ -268,12 +277,8 @@ export function InflowPage() {
     }
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, selectedMaterial, checkedDates, mode, selectedLocations, materials]);
+  }, [activeLineId, selectedMaterial, checkedDates, selectedLocations, materials]);
 
-  const handleSetMode = useCallback((m: string) => {
-    setMode(m);
-    setModeOpen(false);
-  }, []);
 
   const toggleLocation = useCallback((code: string) => {
     setSelectedLocations(prev => {
@@ -302,6 +307,16 @@ export function InflowPage() {
     [materials],
   );
 
+  const getMaterialInfo = useCallback(
+    (code: string) => {
+      const mat = materials.find(m => m.code === code);
+      if (!mat) return null;
+      const match = cutoffTimes.find(c => c.rush_time === mat.rush_time_hours);
+      return { cutoff: match?.cutoff_time, rushHours: mat.rush_time_hours };
+    },
+    [materials, cutoffTimes],
+  );
+
   return (
     <div className="planning-page">
       <div className="planning-main">
@@ -312,25 +327,9 @@ export function InflowPage() {
           uiLabels={uiLabels}
           onLanguageChange={handleLanguageChange}
           actions={<>
-            <DropdownMenu
-              label={getBlock(uiLabels, mode, 'title')}
-              open={modeOpen}
-              onToggle={() => setModeOpen(o => !o)}
-              onClose={() => setModeOpen(false)}
-              fullWidth={false}
-            >
-              <div className="dropdown-menu-list">
-                {['manual', 'auto'].map(m => (
-                  <button
-                    key={m}
-                    className={`dropdown-menu-item${m === mode ? ' active' : ''}`}
-                    onClick={() => handleSetMode(m)}
-                  >
-                    {getBlock(uiLabels, m, 'title')}
-                  </button>
-                ))}
-              </div>
-            </DropdownMenu>
+            <a href={otherModeUrl} className="planning-mode-link">
+              {getBlock(uiLabels, otherMode, 'title')}
+            </a>
             <DropdownMenu
               label={getBlock(uiLabels, 'locations', 'title')}
               open={locationsOpen}
@@ -398,6 +397,7 @@ export function InflowPage() {
               items={orderedCodes}
               currentIndex={currentIndex >= 0 ? currentIndex : 0}
               getLabel={getMaterialLabel}
+              getInfo={getMaterialInfo}
               getSpecs={getMaterialSpecs}
               onSelect={handleSelectMaterial}
             >

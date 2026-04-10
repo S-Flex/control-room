@@ -69,17 +69,28 @@ export function ProductionScheduleMenu({
   selectedMaterial,
   onSelect,
 }: ProductionScheduleMenuProps) {
-  // Filter materials by selected model
-  const filtered = materials.filter(m => m.model.code === modelCode);
+  function getCutoffTime(item: Material): string | null {
+    if (!cutoffTimes.length) return null;
+    const match = cutoffTimes.find(c => c.rush_time === item.rush_time_hours);
+    if (match) return match.cutoff_time;
+    // Fallback: find the closest cutoff with rush_time >= material's rush_time
+    const sorted = [...cutoffTimes].sort((a, b) => a.rush_time - b.rush_time);
+    const fallback = sorted.find(c => c.rush_time >= item.rush_time_hours);
+    return fallback?.cutoff_time ?? sorted[sorted.length - 1]?.cutoff_time ?? null;
+  }
 
-  // Get distinct intervals, sorted
+  const filtered = materials.filter(m => m.model.code === modelCode);
   const intervals = [...new Set(filtered.map(m => m.interval_workdays))].sort((a, b) => a - b);
 
-  // Group by interval, then by category, sorted by rush_time_hours
   const columns = intervals.map(interval => {
     const items = filtered
       .filter(m => m.interval_workdays === interval)
-      .sort((a, b) => a.rush_time_hours - b.rush_time_hours);
+      .sort((a, b) => {
+        const cutA = getCutoffTime(a) ?? '';
+        const cutB = getCutoffTime(b) ?? '';
+        if (cutA !== cutB) return cutA.localeCompare(cutB);
+        return a.code.localeCompare(b.code);
+      });
 
     const categoryMap = new Map<string, Material[]>();
     for (const item of items) {
@@ -95,16 +106,6 @@ export function ProductionScheduleMenu({
     if (interval === 1) return getBlock(uiLabels, 'every_day', 'title');
     const template = getBlock(uiLabels, 'every_n_days', 'title');
     return template.replace('{n}', String(interval));
-  }
-
-  function getCutoffTime(item: Material): string | null {
-    if (!cutoffTimes.length) return null;
-    const match = cutoffTimes.find(c => c.rush_time === item.rush_time_hours);
-    if (match) return match.cutoff_time;
-    // Fallback: find the closest cutoff with rush_time >= material's rush_time
-    const sorted = [...cutoffTimes].sort((a, b) => a.rush_time - b.rush_time);
-    const fallback = sorted.find(c => c.rush_time >= item.rush_time_hours);
-    return fallback?.cutoff_time ?? sorted[sorted.length - 1]?.cutoff_time ?? null;
   }
 
   // Collect distinct rush_time badges per interval for the header

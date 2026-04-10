@@ -3,7 +3,7 @@ import type { ResolvedField as LibResolvedField } from '@s-flex/xfw-ui';
 
 export type AggregateFn = 'sum' | 'count' | 'avg' | 'min' | 'max';
 
-export type FilterOp = 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'in' | 'like';
+export type FilterOp = '==' | '!=' | '>' | '>=' | '<' | '<=' | 'in' | 'not_in';
 
 export type FilterRule = {
   field: string;
