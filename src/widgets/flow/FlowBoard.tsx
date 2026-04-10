@@ -8,13 +8,38 @@ import {
   applyFilterGroup,
   groupRowsByFields,
   getGroupByKeys,
-  getAggregateKeys,
   buildGroupFields,
   groupClassName,
 } from './utils';
 import { FlowProvider } from './FlowContext';
 import { useFieldOptions } from './useFieldOptions';
 import { FlowBox } from './FlowBox';
+
+function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
+  return primaryKeys.map(k => String(row[k] ?? '')).join('||');
+}
+
+function readSelectedFromUrl(primaryKeys: string[]): string | null {
+  if (primaryKeys.length === 0) return null;
+  const params = new URLSearchParams(window.location.search);
+  const values = primaryKeys.map(k => params.get(k));
+  if (values.some(v => v === null)) return null;
+  return values.join('||');
+}
+
+function writeSelectedToUrl(row: Record<string, unknown> | null, primaryKeys: string[]) {
+  const params = new URLSearchParams(window.location.search);
+  if (row) {
+    for (const pk of primaryKeys) {
+      const val = row[pk];
+      if (val !== undefined && val !== null) params.set(pk, String(val));
+    }
+  } else {
+    for (const pk of primaryKeys) params.delete(pk);
+  }
+  const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
+  window.history.replaceState(null, '', newUrl);
+}
 
 export function FlowBoard({ dataGroup, dataTable, data }: {
   dataGroup: DataGroup;
@@ -28,12 +53,21 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   const primaryKeys = dataTable.primary_keys ?? [];
 
   const [rows, setRows] = useState<JSONRecord[]>(() => data.map(r => ({ ...r, checked: false })));
-  const [undoStack, setUndoStack] = useState<{ field: string; value_before: unknown; value_after: unknown }[][]>([]);
+  const [selectedKey, setSelectedKey] = useState<string | null>(() => readSelectedFromUrl(primaryKeys));
 
   useEffect(() => {
     setRows(data.map(r => ({ ...r, checked: false })));
-    setUndoStack([]);
   }, [data]);
+
+  // Validate selectedKey against current data — remove from URL if not found
+  useEffect(() => {
+    if (!selectedKey || primaryKeys.length === 0) return;
+    const exists = rows.some(r => buildRowKey(r, primaryKeys) === selectedKey);
+    if (!exists) {
+      setSelectedKey(null);
+      writeSelectedToUrl(null, primaryKeys);
+    }
+  }, [rows, selectedKey, primaryKeys]);
 
   const toggleChecked = useCallback((row: Record<string, unknown>) => {
     setRows(prev => prev.map(r => r === row ? { ...r, checked: !r.checked } : r));
@@ -51,76 +85,72 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     setRows(prev => prev.map(r => r.checked ? { ...r, checked: false } : r));
   }, []);
 
-  const MAX_UNDO = 50;
-
   const mergeData = useCallback((columnRows: Record<string, unknown>[], navData: FlowNavData[]) => {
     if (columnRows.length === 0 || navData.length === 0) return;
     const columnSet = new Set(columnRows);
-    setRows(prev => {
-      const next = prev.map(r => {
-        if (!columnSet.has(r)) return r;
-        // If none were checked, apply to all in this column; otherwise only checked
-        const hasChecked = columnRows.some(cr => cr.checked);
-        if (hasChecked && !r.checked) return r;
-        const updated: JSONRecord = { ...r, checked: true };
-        for (const d of navData) {
-          updated[d.field] = d.value;
-        }
-        return updated;
-      });
-      return next;
-    });
-  }, []);
-
-  const undo = useCallback(() => {
-    setUndoStack(prev => prev.slice(0, -1));
+    const hasChecked = columnRows.some(cr => cr.checked);
+    setRows(prev => prev.map(r => {
+      if (!columnSet.has(r)) return r;
+      if (hasChecked && !r.checked) return r;
+      const updated: JSONRecord = { ...r, checked: true };
+      for (const d of navData) {
+        updated[d.field] = d.value;
+      }
+      return updated;
+    }));
   }, []);
 
   const selectItem = useCallback((row: Record<string, unknown>) => {
-    const params = new URLSearchParams(window.location.search);
-    for (const pk of primaryKeys) {
-      const val = row[pk];
-      if (val !== undefined && val !== null) {
-        params.set(pk, String(val));
-      }
-    }
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState(null, '', newUrl);
-  }, [primaryKeys]);
+    const key = buildRowKey(row, primaryKeys);
+    const newKey = key === selectedKey ? null : key;
+    setSelectedKey(newKey);
+    writeSelectedToUrl(newKey ? row : null, primaryKeys);
+  }, [primaryKeys, selectedKey]);
 
   const ctx: FlowContextValue = useMemo(() => ({
     primaryKeys,
+    selectedKey,
     toggleChecked,
     toggleCheckedAll,
     clearChecked,
     mergeData,
     selectItem,
-    undo,
-    undoCount: undoStack.length,
-  }), [primaryKeys, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem, undo, undoStack.length]);
+  }), [primaryKeys, selectedKey, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem]);
 
   if (!flowBoardConfig) {
     return <p className="datagroup-error">Missing flow_board_config</p>;
   }
 
-  function renderLevel(
+  function buildGroup(
     levelConfig: FlowBoardLevelConfig,
-    levelRows: JSONRecord[],
-    consumedFields: Set<string>,
-  ): ReactNode {
-    const groupBy = levelConfig.group_by;
+    key: string,
+    groupRows: JSONRecord[],
+    data: FlowGroupData['data'],
+    grpClassName: string | undefined,
+    children: ReactNode,
+    navs?: FlowGroupData['navs'],
+    i18n?: FlowGroupData['i18n'],
+  ): FlowGroupData {
+    return {
+      key,
+      class_name: grpClassName,
+      colexp: levelConfig.colexp,
+      checkable: levelConfig.checkable,
+      selectable: levelConfig.selectable,
+      i18n,
+      data,
+      rows: groupRows,
+      navs,
+      children,
+    };
+  }
 
-    if (!groupBy || groupBy.length === 0) {
-      return null;
-    }
+  function renderLevel(levelConfig: FlowBoardLevelConfig, levelRows: JSONRecord[]): ReactNode {
+    const groupBy = levelConfig.group_by;
+    if (!groupBy || groupBy.length === 0) return null;
 
     const levelFieldMap = mergeFieldMap(fieldMap, levelConfig.field_config, optionsMap);
     const gbKeys = getGroupByKeys(levelConfig);
-    const aggKeys = getAggregateKeys(levelConfig.field_config);
-    const newConsumed = new Set([...consumedFields, ...gbKeys, ...aggKeys]);
-
-    let groups: FlowGroupData[];
-
     const levelFc = levelConfig.field_config;
     const grpClassName = groupClassName(levelFc) ?? levelConfig.class_name;
 
@@ -129,31 +159,21 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       return checked.length > 0 ? checked : undefined;
     };
 
+    let groups: FlowGroupData[];
+
     if (isFilterGroupBy(groupBy)) {
       groups = groupBy.map((filterGroup, i) => {
         const groupRows = applyFilterGroup(levelRows, filterGroup.filter);
-        const seen = new Set<string>();
-        const filterValues: { field: string; value: JSONValue }[] = [];
-        for (const rule of filterGroup.filter.flat()) {
-          const key = `${rule.field}=${String(rule.value)}`;
-          if (seen.has(key)) continue;
-          seen.add(key);
-          filterValues.push({ field: rule.field, value: rule.value });
-        }
-        const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, filterValues, getCheckedRows(groupRows));
-        const children = levelConfig.children
-          ? renderLevel(levelConfig.children, groupRows, newConsumed)
-          : null;
-        return { key: `filter-${i}`, class_name: grpClassName, colexp: levelConfig.colexp, checkable: levelConfig.checkable, selectable: levelConfig.selectable, data, rows: groupRows, navs: filterGroup.navs, children };
+        const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
+        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows) : null;
+        return buildGroup(levelConfig, `filter-${i}`, groupRows, data, grpClassName, children, filterGroup.navs, filterGroup.i18n);
       });
     } else {
       const grouped = groupRowsByFields(levelRows, groupBy);
       groups = [...grouped.entries()].map(([key, groupRows]) => {
         const data = buildGroupFields(groupRows, groupBy as string[], levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
-        const children = levelConfig.children
-          ? renderLevel(levelConfig.children, groupRows, newConsumed)
-          : null;
-        return { key, class_name: grpClassName, colexp: levelConfig.colexp, checkable: levelConfig.checkable, selectable: levelConfig.selectable, data, rows: groupRows, children };
+        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows) : null;
+        return buildGroup(levelConfig, key, groupRows, data, grpClassName, children);
       });
     }
 
@@ -163,7 +183,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   return (
     <FlowProvider value={ctx}>
       <div className="flow-board">
-        {renderLevel(flowBoardConfig, rows, new Set())}
+        {renderLevel(flowBoardConfig, rows)}
       </div>
     </FlowProvider>
   );

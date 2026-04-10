@@ -26,6 +26,7 @@ export type FlowNavItem = {
 export type FlowFilterGroup = {
   filter: FilterRule[][];
   navs?: FlowNavItem[];
+  i18n?: Record<string, Record<string, string>>;
 };
 
 export type FlowGroupBy = FlowFilterGroup[] | string[];
@@ -63,6 +64,7 @@ export type FlowGroupData = {
   colexp?: boolean;
   checkable?: boolean;
   selectable?: boolean;
+  i18n?: Record<string, Record<string, string>>;
   data: FlowFieldEntry[];
   rows: Record<string, JSONValue>[];
   navs?: FlowNavItem[];
@@ -75,20 +77,12 @@ export type FlowLayoutProps = {
 };
 
 
-export type ActionChange = {
-  primary_key: string;
-  field: string;
-  value_before: JSONValue;
-  value_after: JSONValue;
-};
-
 export type FlowContextValue = {
   primaryKeys: string[];
+  selectedKey: string | null;
   toggleChecked: (row: Record<string, JSONValue>) => void;
   toggleCheckedAll: (rows: Record<string, JSONValue>[]) => void;
   clearChecked: () => void;
   mergeData: (rows: Record<string, JSONValue>[], data: FlowNavData[]) => void;
   selectItem: (row: Record<string, JSONValue>) => void;
-  undo: () => void;
-  undoCount: number;
 };

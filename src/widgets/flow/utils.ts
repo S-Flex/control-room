@@ -1,33 +1,7 @@
 import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { resolveField, toDisplayLabel } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
-import type { ActionChange, AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowFilterGroup, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
-
-export function getRowPk(row: JSONRecord, primaryKeys: string[]): string {
-  return primaryKeys.map(k => String(row[k] ?? '')).join('||');
-}
-
-export function getRowPks(rows: JSONRecord[], primaryKeys: string[]): string[] {
-  return rows.map(r => getRowPk(r, primaryKeys));
-}
-
-export function applyChanges(rows: JSONRecord[], changes: ActionChange[], primaryKeys: string[]): JSONRecord[] {
-  const changeMap = new Map<string, Map<string, JSONValue>>();
-  for (const c of changes) {
-    if (!changeMap.has(c.primary_key)) changeMap.set(c.primary_key, new Map());
-    changeMap.get(c.primary_key)!.set(c.field, c.value_after);
-  }
-  return rows.map(row => {
-    const pk = getRowPk(row, primaryKeys);
-    const fieldChanges = changeMap.get(pk);
-    if (!fieldChanges) return row;
-    const updated = { ...row };
-    for (const [field, value] of fieldChanges) {
-      updated[field] = value;
-    }
-    return updated;
-  });
-}
+import type { AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowFilterGroup, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
 
 export function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FlowFilterGroup[] {
   if (groupBy.length === 0) return false;
@@ -104,8 +78,8 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
       const resolved = pgField
         ? resolveField(key, pgField, config, fc)
         : { key, i18n: config.ui?.i18n, control: config.ui?.control, input_data: config.input_data };
-      // Ensure input_data from field_config is preserved (resolveField may miss it)
-      const input_data = resolved.input_data ?? config.input_data ?? pgField?.ref;
+      const uiInputData = (config.ui as Record<string, unknown> | undefined)?.input_data as typeof resolved.input_data | undefined;
+      const input_data = resolved.input_data ?? config.input_data ?? uiInputData ?? pgField?.ref;
       return [key, {
         ...resolved,
         input_data,
@@ -164,12 +138,6 @@ function computeAggregate(rows: JSONRecord[], key: string, fn: AggregateFn): num
     case 'min': return vals.length ? Math.min(...vals) : 0;
     case 'max': return vals.length ? Math.max(...vals) : 0;
   }
-}
-
-export function getLeafFields(fieldMap: FieldMap, consumedFields: Set<string>): FlowResolvedField[] {
-  return Object.values(fieldMap)
-    .filter(f => !consumedFields.has(f.key))
-    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
 }
 
 export function getGroupByKeys(levelConfig: FlowBoardLevelConfig): string[] {
