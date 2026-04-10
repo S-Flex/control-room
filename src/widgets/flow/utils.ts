@@ -70,19 +70,23 @@ export function groupRowsByFields(rows: JSONRecord[], fields: string[]): Map<str
 
 export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): FieldMap {
   const fc = dataGroup.field_config ?? {};
-  return Object.fromEntries(
+  const result = Object.fromEntries(
     Object.entries(fc).map(([key, config]) => {
       const pgField = dataTable.schema[key];
       const resolved = pgField
         ? resolveField(key, pgField, config, fc)
         : { key, i18n: config.ui?.i18n, control: config.ui?.control, input_data: config.input_data };
+      // Ensure input_data from field_config is preserved (resolveField may miss it)
+      const input_data = resolved.input_data ?? config.input_data ?? pgField?.ref;
       return [key, {
         ...resolved,
+        input_data,
         aggregate: (config as Record<string, unknown>).aggregate as AggregateFn | undefined,
         order: config.ui?.order,
       }];
     })
   );
+  return result;
 }
 
 /** Resolve label from an i18n object, checking text, title, and label keys. */
@@ -163,19 +167,33 @@ export function getAggregateKeys(levelFieldConfig: FlowLevelFieldConfig | undefi
 }
 
 /** Merge level field_config overrides on top of the root fieldMap. */
-export function mergeFieldMap(fieldMap: FieldMap, levelFieldConfig: FlowLevelFieldConfig | undefined): FieldMap {
+export function mergeFieldMap(
+  fieldMap: FieldMap,
+  levelFieldConfig: FlowLevelFieldConfig | undefined,
+  optionsMap?: Record<string, JSONRecord[]>,
+): FieldMap {
   if (!levelFieldConfig) return fieldMap;
   const merged = { ...fieldMap };
   for (const [key, fc] of Object.entries(levelFieldConfig)) {
     if (key === 'class_name') continue;
     const base = fieldMap[key];
     if (!base) continue;
+    // Resolve input_data: check fc.input_data, fc.ui.input_data, or base
+    const uiInputData = (fc.ui as Record<string, unknown> | undefined)?.input_data as typeof base.input_data | undefined;
+    let input_data = fc.input_data ?? uiInputData ?? base.input_data;
+    if (input_data?.src && optionsMap?.[input_data.src]) {
+      input_data = {
+        options: optionsMap[input_data.src],
+        value_key: input_data.value_key,
+        label_key: input_data.label_key,
+      };
+    }
     merged[key] = {
       ...base,
       aggregate: fc.aggregate ?? base.aggregate,
       control: fc.ui?.control ?? base.control,
       i18n: fc.ui?.i18n ?? base.i18n,
-      input_data: fc.input_data ?? base.input_data,
+      input_data,
       order: fc.ui?.order ?? base.order,
     };
   }
@@ -217,6 +235,7 @@ export function buildGroupFields(
   if (filterValues) {
     for (const f of filterValues) {
       seen.add(f.field);
+      if (!fieldMap[f.field]) continue;
       entries.push({
         label: resolveLabel(fieldMap, f.field),
         value: f.value,
@@ -229,6 +248,7 @@ export function buildGroupFields(
     if (firstRow) {
       for (const key of groupByFields) {
         seen.add(key);
+        if (!fieldMap[key]) continue;
         entries.push({
           label: resolveLabel(fieldMap, key),
           value: firstRow[key],

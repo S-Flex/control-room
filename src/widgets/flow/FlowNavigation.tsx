@@ -10,7 +10,6 @@ export function FlowNavigation({ navs, rows }: {
   const { mergeData } = useFlowContext();
 
   const handleClick = (nav: FlowNavItem) => {
-    console.log('FlowNavigation click', JSON.parse(JSON.stringify(nav)));
     if (!nav.data || nav.data.length === 0) return;
     mergeData(rows, nav.data);
   };

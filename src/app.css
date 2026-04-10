@@ -2773,23 +2773,20 @@ body {
 }
 
 .flow-grid {
-  display: flex;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
   overflow-x: auto;
-  gap: 16px;
+  gap: 0 8px;
   padding: 4px 0;
   flex: 1;
   min-height: 0;
 }
 .flow-grid-column {
-  flex: 1 0 250px;
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3;
   min-width: 250px;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  container-type: inline-size;
-}
-@container (max-width: 400px) {
-  .chip-label { display: none !important; }
 }
 .flow-grid-column-body {
   flex: 1;
@@ -2840,6 +2837,7 @@ body {
   gap: 8px;
   padding: 8px 12px;
   color: var(--text-primary);
+  font-size: 13px;
 }
 .flow-container-controls {
   display: grid;
@@ -2902,7 +2900,7 @@ body {
 }
 
 .chip {
-  display: inline-block;
+  display: inline-flex;
   font-size: 11px;
   font-weight: 500;
   color: var(--text-muted);
@@ -2910,6 +2908,14 @@ body {
   border-radius: 4px;
   padding: 2px 8px;
   white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+}
+.chip-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .flow-table {
@@ -3026,6 +3032,8 @@ body {
   background: var(--brand-pale);
   color: var(--brand);
 }
+.badge.preflight { color: #e01829; }
+.badge.file_in_gangrun { color: #14bf53; }
 
 .check-dot {
   display: inline-flex;

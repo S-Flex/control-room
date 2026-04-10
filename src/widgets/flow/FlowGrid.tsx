@@ -4,7 +4,7 @@ import { FlowNavigation } from './FlowNavigation';
 
 export function FlowGrid({ groups }: FlowLayoutProps) {
   return (
-    <div className="flow-grid">
+    <div className="flow-grid" style={{ gridTemplateColumns: `repeat(${groups.length}, 1fr)` }}>
       {groups.map(g => (
         <div key={g.key} className="flow-grid-column">
           <div className="flow-grid-column-header">

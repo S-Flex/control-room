@@ -3,6 +3,7 @@ import type { ResolvedField } from '@s-flex/xfw-ui';
 import { resolveI18nLabel, formatValue } from '../widgets/flow/utils';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
+import { Badge } from './Badge';
 
 type FieldProps = {
   field: ResolvedField & { aggregate?: string };
@@ -16,11 +17,12 @@ export function Field({ field, value }: FieldProps) {
   if (control === 'icon-map' && input_data) {
     return <IconMap value={value} inputData={input_data} />;
   }
+  if (control === 'badge') {
+    return <Badge value={value} inputData={input_data} />;
+  }
   if (aggregate) {
     return <Chip label={label} value={value as string | number} />;
   }
-  if (control === 'badge') {
-    return <span className="badge">{formatValue(value, control)}</span>;
-  }
+  
   return <>{formatValue(value, control)}</>;
 }

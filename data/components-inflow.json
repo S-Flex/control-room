@@ -198,10 +198,7 @@
         "layout": "flow-container",
         "children": {
           "layout": "flow-cards",
-          "group_by": [
-            "order_id",
-            "production_hours"
-          ],
+          "group_by": ["order_id", "production_hours"],
           "field_config": {
             "sqm": {
               "ui": {
@@ -280,10 +277,7 @@
             }
           }
         },
-        "group_by": [
-          "production_date",
-          "direction"
-        ],
+        "group_by": ["production_date", "direction"],
         "field_config": {
           "sqm": {
             "ui": {
@@ -295,7 +289,7 @@
                   "title": "m²"
                 }
               },
-              "order": 3,
+              "order": 4,
               "control": "chip",
               "class_name": "col-span-2"
             },
@@ -311,7 +305,7 @@
                   "title": "Orders"
                 }
               },
-              "order": 2,
+              "order": 3,
               "control": "chip",
               "class_name": "col-span-2"
             },
@@ -327,7 +321,7 @@
                   "title": "Richting"
                 }
               },
-              "order": 1,
+              "order": 2,
               "control": "icon-map",
               "class_name": "col-span-1 justify-self-end"
             },
@@ -372,7 +366,7 @@
               "order": 0,
               "control": "date"
             },
-            "class_name": "col-span-5"
+            "class_name": "col-span-3"
           },
           "total_product_amount": {
             "ui": {
@@ -389,6 +383,27 @@
               "class_name": "col-span-2"
             },
             "aggregate": "sum"
+          },
+          "sequence": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Status"
+                },
+                "nl": {
+                  "title": "Status"
+                }
+              },
+              "order": 1,
+              "class_name": "col-span-2",
+              "control": "badge",
+              "input_data": {
+                "src": "get_internal_status_codes",
+                "value_key": "sequence",
+                "label_key": "code"
+              }
+            },
+            "aggregate": "min"
           }
         }
       },

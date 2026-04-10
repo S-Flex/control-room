@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useMemo, type ReactNode, type ComponentType } from 'react';
-import type { DataGroup, DataTable, JSONRecord } from '@s-flex/xfw-data';
+import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { FlowBoardLevelConfig, FlowGroupData, FlowLayoutProps, FlowNavData, FlowContextValue } from './types';
 import {
   resolveFieldMap,
@@ -14,6 +14,7 @@ import {
   groupClassName,
 } from './utils';
 import { FlowProvider } from './FlowContext';
+import { useFieldOptions } from './useFieldOptions';
 import { FlowGrid } from './FlowGrid';
 import { FlowContainer } from './FlowContainer';
 import { FlowCards } from './FlowCards';
@@ -30,9 +31,10 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   dataTable: DataTable;
   data: JSONRecord[];
 }) {
-  const fieldMap = resolveFieldMap(dataGroup, dataTable);
+  const rawFieldMap = resolveFieldMap(dataGroup, dataTable);
   const dg = dataGroup as Record<string, unknown>;
   const flowBoardConfig = dg.flow_board_config as FlowBoardLevelConfig | undefined;
+  const { fieldMap, optionsMap } = useFieldOptions(rawFieldMap, flowBoardConfig);
   const primaryKeys = dataTable.primary_keys ?? [];
 
   const [rows, setRows] = useState<JSONRecord[]>(() => data.map(r => ({ ...r, checked: false })));
@@ -49,7 +51,6 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
 
   const toggleCheckedAll = useCallback((targetRows: Record<string, unknown>[]) => {
     const allChecked = targetRows.every(r => r.checked);
-    console.log('toggleCheckedAll', { count: targetRows.length, allChecked, willSet: !allChecked });
     setRows(prev => {
       const targetSet = new Set(targetRows);
       return prev.map(r => targetSet.has(r) ? { ...r, checked: !allChecked } : r);
@@ -77,7 +78,6 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
         }
         return updated;
       });
-      console.log('mergeData applied', { columnCount: columnRows.length, changed: next.filter((r, i) => r !== prev[i]).length });
       return next;
     });
   }, []);
@@ -112,7 +112,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       return <FlowTable rows={levelRows} fields={leafFields} />;
     }
 
-    const levelFieldMap = mergeFieldMap(fieldMap, levelConfig.field_config);
+    const levelFieldMap = mergeFieldMap(fieldMap, levelConfig.field_config, optionsMap);
     const gbKeys = getGroupByKeys(levelConfig);
     const aggKeys = getAggregateKeys(levelConfig.field_config);
     const newConsumed = new Set([...consumedFields, ...gbKeys, ...aggKeys]);
@@ -131,7 +131,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       groups = groupBy.map((filterGroup, i) => {
         const groupRows = applyFilterGroup(levelRows, filterGroup.filter);
         const seen = new Set<string>();
-        const filterValues: { field: string; value: unknown }[] = [];
+        const filterValues: { field: string; value: JSONValue }[] = [];
         for (const rule of filterGroup.filter.flat()) {
           const key = `${rule.field}=${String(rule.value)}`;
           if (seen.has(key)) continue;
