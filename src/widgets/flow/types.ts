@@ -41,6 +41,11 @@ export type FlowBoardLevelConfig = {
   colexp?: boolean;
   checkable?: boolean;
   selectable?: boolean;
+  row_options?: {
+    nav?: {
+      on_select?: Record<string, unknown>;
+    };
+  };
   children?: FlowBoardLevelConfig;
 };
 
@@ -64,6 +69,7 @@ export type FlowGroupData = {
   colexp?: boolean;
   checkable?: boolean;
   selectable?: boolean;
+  on_select?: Record<string, unknown>;
   i18n?: Record<string, Record<string, string>>;
   data: FlowFieldEntry[];
   rows: Record<string, JSONValue>[];
@@ -84,5 +90,5 @@ export type FlowContextValue = {
   toggleCheckedAll: (rows: Record<string, JSONValue>[]) => void;
   clearChecked: () => void;
   mergeData: (rows: Record<string, JSONValue>[], data: FlowNavData[]) => void;
-  selectItem: (row: Record<string, JSONValue>) => void;
+  selectItem: (row: Record<string, JSONValue>, onSelect?: Record<string, unknown>) => void;
 };

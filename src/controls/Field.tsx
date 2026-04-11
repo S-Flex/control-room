@@ -8,9 +8,10 @@ import { Badge } from './Badge';
 type FieldProps = {
   field: ResolvedField & { aggregate?: string };
   value: JSONValue;
+  showLabel?: boolean;
 };
 
-export function Field({ field, value }: FieldProps) {
+export function Field({ field, value, showLabel }: FieldProps) {
   const { control, input_data, aggregate } = field;
   const label = resolveI18nLabel(field.i18n, field.key);
 
@@ -23,6 +24,17 @@ export function Field({ field, value }: FieldProps) {
   if (aggregate) {
     return <Chip label={label} value={value as string | number} />;
   }
-  
-  return <>{formatValue(value, control)}</>;
+
+  const formatted = formatValue(value, control);
+
+  if (showLabel) {
+    return (
+      <div className="field-with-label">
+        <span className="field-label">{label}</span>
+        <span className="field-value">{formatted}</span>
+      </div>
+    );
+  }
+
+  return <span title={label}>{formatted}</span>;
 }

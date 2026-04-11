@@ -121,9 +121,9 @@ function resolveLevelLabel(levelFieldConfig: FlowLevelFieldConfig | undefined, f
 
 export function formatValue(val: JSONValue, control?: string): string {
   if (val === null || val === undefined) return '—';
-  if (control === 'date') {
+  if (control === 'date' || control === 'datetime') {
     const d = new Date(val as string | number);
-    if (!isNaN(d.getTime())) return d.toLocaleDateString();
+    if (!isNaN(d.getTime())) return control === 'date' ? d.toLocaleDateString() : `${d.toLocaleDateString()} ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
   }
   if (typeof val === 'object') return JSON.stringify(val);
   return String(val);

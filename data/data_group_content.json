@@ -1,0 +1,99 @@
+[
+  {
+    "src": "get_resource_maintenance_tickets",
+    "layout": "content",
+    "params": [
+      {
+        "key": "resource_uids",
+        "is_optional": true,
+        "is_query_param": true
+      }
+    ],
+    "widget_id": "resource_maintenance_tickets",
+    "field_config": {
+      "content": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "label": "Inhalt"
+            },
+            "en": {
+              "title": "Content"
+            },
+            "fr": {
+              "title": "Contenu"
+            },
+            "nl": {
+              "title": "Inhoud"
+            },
+            "uk": {
+              "title": "Зміст"
+            }
+          },
+          "order": 2,
+          "table": {
+            "hidden": false
+          },
+          "class_name": "col-span-12",
+          "field_type": "content"
+        },
+        "type": "content"
+      },
+      "start_at": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Datum"
+            },
+            "en": {
+              "title": "Date"
+            },
+            "fr": {
+              "title": "Date"
+            },
+            "nl": {
+              "title": "Datum"
+            },
+            "uk": {
+              "title": "Дата"
+            }
+          },
+          "order": 1,
+          "table": {
+            "hidden": false
+          },
+          "class_name": "col-span-6",
+          "field_type": "datetime"
+        },
+        "type": "date"
+      },
+      "action_id": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "ID"
+            },
+            "en": {
+              "title": "ID"
+            },
+            "fr": {
+              "title": "ID"
+            },
+            "nl": {
+              "title": "ID"
+            },
+            "uk": {
+              "title": "ID"
+            }
+          },
+          "order": 0,
+          "table": {
+            "hidden": false
+          },
+          "class_name": "col-span-6",
+          "field_type": "text"
+        }
+      }
+    }
+  }
+]

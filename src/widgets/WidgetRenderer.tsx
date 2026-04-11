@@ -39,7 +39,7 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
     case 'ink-gauge':
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
     case 'cards':
-      return <Cards dataGroup={dataGroup} data={data} />;
+      return <Cards dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'flow-board':
       return <FlowBoard dataGroup={dataGroup} dataTable={dataTable!} data={data} />;
     case 'content':

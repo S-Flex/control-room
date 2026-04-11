@@ -28,9 +28,9 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
   return (
     <div
       className={`${isGrid ? 'flow-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
-      onClick={g.selectable ? () => selectItem(g.rows[0]) : undefined}
+      onClick={g.selectable ? () => selectItem(g.rows[0], g.on_select) : undefined}
     >
-      <div className={isGrid ? 'flow-grid-column-header' : 'flow-card-header'}>
+      <div className={`${isGrid ? 'flow-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
         {(showCheckbox || showColexp) && (
           <div className="flow-card-controls">
             {showCheckbox && (

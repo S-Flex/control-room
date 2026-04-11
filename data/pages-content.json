@@ -1,11 +1,5 @@
 [
   {
-    "code": "resource_info",
-    "block": {
-      "title": "Info"
-    }
-  },
-  {
     "code": "resource_oee_timeline",
     "block": {
       "title": "Productivity",
@@ -27,12 +21,6 @@
         "de": { "title": "OEE" },
         "uk": { "title": "OEE" }
       }
-    }
-  },
-  {
-    "code": "resource_tco",
-    "block": {
-      "title": "TCO"
     }
   },
   {
@@ -152,6 +140,78 @@
         "nl": { "title": "Overzicht" },
         "de": { "title": "Übersicht" },
         "uk": { "title": "Огляд" }
+      }
+    }
+  },
+  {
+    "code": "resource_info",
+    "block": {
+      "title": "Info",
+      "i18n": {
+        "en": { "title": "Info" },
+        "nl": { "title": "Info" },
+        "de": { "title": "Info" },
+        "uk": { "title": "Інфо" }
+      }
+    }
+  },
+  {
+    "code": "resource_tco",
+    "block": {
+      "title": "TCO",
+      "i18n": {
+        "en": { "title": "TCO" },
+        "nl": { "title": "TCO" },
+        "de": { "title": "TCO" },
+        "uk": { "title": "TCO" }
+      }
+    }
+  },
+  {
+    "code": "orderlines",
+    "block": {
+      "title": "Order lines",
+      "i18n": {
+        "en": { "title": "Order lines" },
+        "nl": { "title": "Orderregels" },
+        "de": { "title": "Auftragszeilen" },
+        "uk": { "title": "Рядки замовлення" }
+      }
+    }
+  },
+  {
+    "code": "uploader-data",
+    "block": {
+      "title": "Uploader data",
+      "i18n": {
+        "en": { "title": "Uploader data" },
+        "nl": { "title": "Uploader data" },
+        "de": { "title": "Uploader-Daten" },
+        "uk": { "title": "Дані завантажувача" }
+      }
+    }
+  },
+  {
+    "code": "inflow-manual",
+    "block": {
+      "title": "Inflow Manual",
+      "i18n": {
+        "en": { "title": "Inflow Manual" },
+        "nl": { "title": "Inflow Handmatig" },
+        "de": { "title": "Eingang Manuell" },
+        "uk": { "title": "Вхідний потік ручний" }
+      }
+    }
+  },
+  {
+    "code": "inflow-auto",
+    "block": {
+      "title": "Inflow Auto",
+      "i18n": {
+        "en": { "title": "Inflow Auto" },
+        "nl": { "title": "Inflow Auto" },
+        "de": { "title": "Eingang Auto" },
+        "uk": { "title": "Вхідний потік авто" }
       }
     }
   }
