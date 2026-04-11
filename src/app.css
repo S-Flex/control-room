@@ -27,7 +27,7 @@
 .dark {
   --bg: #0c111d;           /* Gray 950 */
   --bg-card: #1f242f;      /* Gray 900 */
-  --border: #333741;       /* Gray 700 */
+  --border: #4a4f5a;       /* Gray 600 */
   --text-primary: #f5f5f6; /* Gray 50 */
   --text-secondary: #cecfd2; /* Gray 300 */
   --text-tertiary: #94969c; /* Gray 400 */
@@ -2906,6 +2906,12 @@ body {
   flex-direction: column;
   gap: 1px;
   min-width: 0;
+}
+.field-img {
+  border-radius: var(--radius-md);
+  max-width: 100%;
+  height: auto;
+  padding-top: 4px;
 }
 .field-label {
   font-size: 10px;

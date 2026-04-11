@@ -21,6 +21,14 @@ export function Field({ field, value, showLabel }: FieldProps) {
   if (control === 'badge') {
     return <Badge value={value} inputData={input_data} />;
   }
+  if (control === 'img') {
+    return value ? (
+      <div className="field-with-label">
+        <span className="field-label">{label}</span>
+        <img src={String(value)} alt={label} className="field-img" />
+      </div>
+    ) : null;
+  }
   if (aggregate) {
     return <Chip label={label} value={value as string | number} />;
   }

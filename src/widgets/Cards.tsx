@@ -115,7 +115,6 @@ export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; da
   });
 
   const handleSelect = useCallback((row: JSONRecord) => {
-    console.log('Cards handleSelect', { selectable, onSelectNavItem, primaryKeys, row: Object.fromEntries(primaryKeys.map(k => [k, row[k]])) });
     const key = buildRowKey(row, primaryKeys);
     const newKey = key === selectedKey ? null : key;
     setSelectedKey(newKey);
