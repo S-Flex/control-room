@@ -74,9 +74,11 @@ jobs:
       run: |
         set -e
 
+        # Remove any leftover new container from previous failed deploy
+        docker rm -f control-room-new 2>/dev/null || true
+
         # Start new container alongside the old one
         echo "Starting new container..."
-        docker-compose up -d --no-recreate
         docker run -d \
           --name control-room-new \
           --network xfw \
