@@ -42,4 +42,4 @@ networks:
 
 secrets:
   gh_token:
-    environment: GH_PAT_PACKAGES
+    file: /tmp/gh_token.txt
