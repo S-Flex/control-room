@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: s-flex/control-room
 
 jobs:
   build:
@@ -17,9 +17,6 @@ jobs:
     permissions:
       contents: read
       packages: write
-
-    outputs:
-      image_tag: ${{ steps.meta.outputs.tags }}
 
     steps:
     - name: Checkout code
@@ -71,7 +68,7 @@ jobs:
       run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
     - name: Pull latest image
-      run: docker pull ghcr.io/${{ github.repository }}:latest
+      run: docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
     - name: Stop existing containers
       run: docker-compose down || true
