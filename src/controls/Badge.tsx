@@ -22,6 +22,20 @@ function resolveBadge(value: JSONValue, inputData?: InputData): BadgeResolved {
 }
 
 export function Badge({ value, inputData }: { value: JSONValue; inputData?: InputData }) {
+  if (Array.isArray(value)) {
+    return (
+      <span className="badge-list">
+        {value.map((v, i) => {
+          const { text, class_name } = resolveBadge(v, inputData);
+          return (
+            <span key={i} className={class_name ? `badge ${class_name}` : 'badge'} title={text}>
+              {text}
+            </span>
+          );
+        })}
+      </span>
+    );
+  }
   const { text, class_name } = resolveBadge(value, inputData);
   return (
     <span className={class_name ? `badge ${class_name}` : 'badge'} title={text}>

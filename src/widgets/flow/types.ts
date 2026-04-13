@@ -49,9 +49,14 @@ export type FlowBoardLevelConfig = {
   children?: FlowBoardLevelConfig;
 };
 
+export type FieldNav = {
+  path: string;
+};
+
 export type FlowResolvedField = LibResolvedField & {
   aggregate?: AggregateFn;
   order?: number;
+  nav?: FieldNav;
 };
 
 export type FieldMap = Record<string, FlowResolvedField>;

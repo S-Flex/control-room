@@ -85,6 +85,7 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
         input_data,
         aggregate: (config as Record<string, unknown>).aggregate as AggregateFn | undefined,
         order: config.ui?.order,
+        nav: (config as Record<string, unknown>).nav as FlowResolvedField['nav'],
       }];
     })
   );
@@ -191,6 +192,7 @@ export function mergeFieldMap(
       i18n: fc.ui?.i18n ?? base.i18n,
       input_data,
       order: fc.ui?.order ?? base.order,
+      nav: (fc as Record<string, unknown>).nav as FlowResolvedField['nav'] ?? base.nav,
     };
   }
   return merged;

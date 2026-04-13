@@ -54,7 +54,7 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
             ? <span className="flow-box-title">{resolveI18nLabel(g.i18n, g.key)}</span>
             : g.data.map((d, i) => (
               <div key={d.field?.key ? `${d.field.key}-${i}` : i} className={d.class_name || undefined}>
-                <Field field={d.field} value={d.value} />
+                <Field field={d.field} value={d.value} row={g.rows.length === 1 ? g.rows[0] : undefined} />
               </div>
             ))
           }

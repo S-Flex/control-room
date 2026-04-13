@@ -7,7 +7,9 @@ import { resolve } from './resolve';
 import { Content } from './Content';
 import { Field } from '../controls/Field';
 
-type CardField = ResolvedField & { order?: number; class_name?: string };
+import type { FieldNav } from './flow/types';
+
+type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav };
 
 function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?: string } {
   const fc = dataGroup.field_config;
@@ -30,6 +32,7 @@ function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?
         class_name: (config as Record<string, unknown>).class_name as string | undefined
           ?? ui?.class_name as string | undefined
           ?? config.ui?.group?.class_name,
+        nav: (config as Record<string, unknown>).nav as FieldNav | undefined,
       } as CardField;
     })
     .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
@@ -85,7 +88,7 @@ function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
             const noLabel = f.control === 'badge' || f.control === 'icon-map' || (f as any).aggregate;
             return (
               <div key={`${f.key}-${i}`} className={`${f.class_name || ''}${noLabel ? ' field-no-label' : ''}`.trim() || undefined}>
-                <Field field={f} value={val} showLabel />
+                <Field field={f} value={val} showLabel row={row} />
               </div>
             );
           })}

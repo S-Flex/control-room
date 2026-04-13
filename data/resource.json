@@ -13,7 +13,7 @@
         "grote durst"
       ],
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -61,7 +61,7 @@
         "automaat"
       ],
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -112,7 +112,7 @@
         "210 een"
       ],
       "type": "printer",
-      "ink_expiration": true,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -163,7 +163,7 @@
         "210 twee"
       ],
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -213,7 +213,7 @@
         "snelle 210"
       ],
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -262,7 +262,7 @@
         "koedu"
       ],
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -433,7 +433,7 @@
       "layout_name": "textile-printer-1",
       "name": "Dürst P5-350 ISub 1",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -476,7 +476,7 @@
       "layout_name": "textile-printer-2",
       "name": "Dürst P5-350 ISub 2",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -519,7 +519,7 @@
       "layout_name": "textile-printer-3",
       "name": "Dürst P5-350 ISub 3",
       "type": "printer",
-      "ink_expiration": true,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -562,7 +562,7 @@
       "layout_name": "textile-printer-4",
       "name": "Dürst P5-500 ISub",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -605,7 +605,7 @@
       "layout_name": "textile-printer-5",
       "name": "HP Stitch S1000",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -649,7 +649,7 @@
       "layout_name": "textile-printer-6",
       "name": "HP Stitch S1000 (2)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -927,7 +927,7 @@
       "layout_name": "foil-printer-1",
       "name": "Dürst P5-350",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -970,7 +970,7 @@
       "layout_name": "foil-printer-2",
       "name": "HP Latex 3600 (2)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1014,7 +1014,7 @@
       "layout_name": "foil-printer-3",
       "name": "HP Latex 3600 (3)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1058,7 +1058,7 @@
       "layout_name": "foil-printer-4",
       "name": "Epson SC-S9100 (4)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1102,7 +1102,7 @@
       "layout_name": "foil-printer-5",
       "name": "Epson SC-S9100 (5)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1146,7 +1146,7 @@
       "layout_name": "foil-printer-6",
       "name": "HP Latex 800W (6)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1190,7 +1190,7 @@
       "layout_name": "foil-printer-7",
       "name": "HP Latex 800W (7)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1234,7 +1234,7 @@
       "layout_name": "foil-printer-8",
       "name": "HP Latex 800W (8)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1278,7 +1278,7 @@
       "layout_name": "foil-printer-9",
       "name": "HP Latex 800W (9)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 22,
@@ -1322,7 +1322,7 @@
       "layout_name": "foil-printer-10",
       "name": "HP Latex 800W (10)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1366,7 +1366,7 @@
       "layout_name": "foil-printer-11",
       "name": "HP Latex 800W (11)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1410,7 +1410,7 @@
       "layout_name": "foil-printer-12",
       "name": "HP Latex 800W (12)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1454,7 +1454,7 @@
       "layout_name": "foil-printer-13",
       "name": "HP Latex 800W (13)",
       "type": "printer",
-      "ink_expiration": true,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1498,7 +1498,7 @@
       "layout_name": "foil-printer-14",
       "name": "Epson SC-S80600 (14)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1542,7 +1542,7 @@
       "layout_name": "foil-printer-15",
       "name": "Epson SC-S80600 (15)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1586,7 +1586,7 @@
       "layout_name": "foil-printer-16",
       "name": "Epson SC-G6000 (16)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1630,7 +1630,7 @@
       "layout_name": "foil-printer-17",
       "name": "Epson SC-G6000 (17)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1674,7 +1674,7 @@
       "layout_name": "foil-printer-18",
       "name": "SwissQ Karibu 2",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1718,7 +1718,7 @@
       "layout_name": "foil-printer-19",
       "name": "Dürst Rho 312R Plus",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1762,7 +1762,7 @@
       "layout_name": "foil-printer-20",
       "name": "HP Latex 2700W",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1886,7 +1886,7 @@
       "layout_name": "label-printer-2",
       "name": "Dürst Tau 330 RSC",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -1930,7 +1930,7 @@
       "layout_name": "label-printer-2_1",
       "name": "Dürst Tau 330 RSC (2)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 61,
@@ -1960,7 +1960,7 @@
       "layout_name": "label-printer-concept",
       "name": "Dürst Tau RSCi LED",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 53,
@@ -2020,7 +2020,7 @@
       "layout_name": "paper-printer-1",
       "name": "HP 12000 Digital Press (1)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -2064,7 +2064,7 @@
       "layout_name": "paper-printer-2",
       "name": "HP 12000 Digital Press (2)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 35,
@@ -2216,7 +2216,7 @@
       "layout_name": "na-printer-1",
       "name": "Dürst P5-500",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 56,
@@ -2259,7 +2259,7 @@
       "layout_name": "na-printer-2",
       "name": "Dürst Rho 512R (2)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 56,
@@ -2302,7 +2302,7 @@
       "layout_name": "na-printer-3",
       "name": "Dürst Rho 512R (3)",
       "type": "printer",
-      "ink_expiration": true,
+
       "inks": {
         "cyan": {
           "amount": 56,
@@ -2345,7 +2345,7 @@
       "layout_name": "na-printer-4",
       "name": "Dürst Rho 512R (4)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 56,
@@ -2388,7 +2388,7 @@
       "layout_name": "na-printer-5",
       "name": "Dürst P5-350 (5)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 56,
@@ -2431,7 +2431,7 @@
       "layout_name": "na-printer-6",
       "name": "Dürst P5-350 (6)",
       "type": "printer",
-      "ink_expiration": false,
+
       "inks": {
         "cyan": {
           "amount": 56,
