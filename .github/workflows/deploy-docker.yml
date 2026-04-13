@@ -70,16 +70,53 @@ jobs:
     - name: Pull latest image
       run: docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
-    - name: Stop existing containers
-      run: docker-compose down || true
+    - name: Zero-downtime container swap
+      run: |
+        set -e
 
-    - name: Deploy with Docker Compose
-      run: docker-compose up -d
+        # Start new container alongside the old one
+        echo "Starting new container..."
+        docker-compose up -d --no-recreate
+        docker run -d \
+          --name control-room-new \
+          --network xfw \
+          -e NODE_ENV=production \
+          --health-cmd="curl -f http://localhost/health || exit 1" \
+          --health-interval=5s \
+          --health-timeout=3s \
+          --health-retries=3 \
+          --restart unless-stopped \
+          ghcr.io/s-flex/control-room:latest
+
+        # Wait for new container to be healthy
+        echo "Waiting for new container to be healthy..."
+        sleep 5
+
+        if ! docker inspect --format='{{.State.Health.Status}}' control-room-new 2>/dev/null | grep -q "healthy"; then
+          # Give it a bit more time
+          sleep 5
+        fi
+
+        if ! curl -sf http://$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' control-room-new)/health > /dev/null 2>&1; then
+          echo "New container failed health check, rolling back..."
+          docker rm -f control-room-new
+          exit 1
+        fi
+
+        echo "New container is healthy!"
+
+        # Swap containers
+        echo "Swapping containers..."
+        docker stop control-room 2>/dev/null || true
+        docker rm control-room 2>/dev/null || true
+        docker rename control-room-new control-room
+
+        echo "Container swap complete!"
 
     - name: Clean up unused Docker images
       run: docker image prune -f
 
     - name: Verify deployment
       run: |
-        sleep 10
-        docker ps | grep control-room || (echo "Container not running!" && exit 1)
+        docker ps | grep control-room
+        echo "Deployment successful!"
