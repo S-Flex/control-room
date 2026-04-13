@@ -19,6 +19,17 @@ jobs:
         docker-compose down || true
         docker system prune -f
 
+    - name: Verify secret exists
+      run: |
+        if [ -z "$GH_PAT_PACKAGES" ]; then
+          echo "ERROR: GH_PAT_PACKAGES secret is empty or not set!"
+          echo "Please add the secret in: Repository → Settings → Secrets and variables → Actions"
+          exit 1
+        fi
+        echo "Secret is set (length: ${#GH_PAT_PACKAGES} chars)"
+      env:
+        GH_PAT_PACKAGES: ${{ secrets.GH_PAT_PACKAGES }}
+
     - name: Build and deploy with Docker Compose
       run: |
         echo "$GH_PAT_PACKAGES" > /tmp/gh_token.txt
