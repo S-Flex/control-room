@@ -12,7 +12,7 @@
     }
   },
   {
-    "code": "resource_production",
+    "code": "production",
     "block": {
       "title": "Production",
       "i18n": {
@@ -24,31 +24,19 @@
     }
   },
   {
-    "code": "resource_ink",
+    "code": "ink-heads",
     "block": {
-      "title": "Ink",
+      "title": "Ink & Heads",
       "i18n": {
-        "en": { "title": "Ink" },
-        "nl": { "title": "Inkt" },
-        "de": { "title": "Tinte" },
-        "uk": { "title": "Чорнила" }
+        "en": { "title": "Ink & Heads" },
+        "nl": { "title": "Inkt & Koppen" },
+        "de": { "title": "Tinte & Köpfe" },
+        "uk": { "title": "Чорнила та головки" }
       }
     }
   },
   {
-    "code": "resource_ink_heads",
-    "block": {
-      "title": "Heads",
-      "i18n": {
-        "en": { "title": "Heads" },
-        "nl": { "title": "Koppen" },
-        "de": { "title": "Köpfe" },
-        "uk": { "title": "Головки" }
-      }
-    }
-  },
-  {
-    "code": "resource_quality_management",
+    "code": "quality-management",
     "block": {
       "title": "Quality management",
       "i18n": {
@@ -60,7 +48,7 @@
     }
   },
   {
-    "code": "resource_maintenance_tickets",
+    "code": "maintenance-tickets",
     "block": {
       "title": "Overview",
       "i18n": {
@@ -72,7 +60,7 @@
     }
   },
   {
-    "code": "resource_tooling_wear",
+    "code": "tooling-wear",
     "block": {
       "title": "Tooling & wear",
       "i18n": {
@@ -84,7 +72,7 @@
     }
   },
   {
-    "code": "resource_consumption_waste",
+    "code": "consumption-waste",
     "block": {
       "title": "Consumption & waste",
       "i18n": {
@@ -96,7 +84,7 @@
     }
   },
   {
-    "code": "resource_material_specs",
+    "code": "material-specs",
     "block": {
       "title": "Material specifications",
       "i18n": {
@@ -108,7 +96,7 @@
     }
   },
   {
-    "code": "nesting_queue",
+    "code": "nester",
     "block": {
       "title": "Nesting queue",
       "i18n": {
@@ -120,7 +108,7 @@
     }
   },
   {
-    "code": "resource_queue",
+    "code": "queued-jobs",
     "block": {
       "title": "Overview",
       "i18n": {
@@ -132,7 +120,7 @@
     }
   },
   {
-    "code": "resource_info",
+    "code": "info",
     "block": {
       "title": "Info",
       "i18n": {
@@ -144,7 +132,7 @@
     }
   },
   {
-    "code": "resource_tco",
+    "code": "tco",
     "block": {
       "title": "TCO",
       "i18n": {
