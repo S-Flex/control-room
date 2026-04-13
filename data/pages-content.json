@@ -1,6 +1,6 @@
 [
   {
-    "code": "resource_oee_timeline",
+    "code": "oee",
     "block": {
       "title": "Productivity",
       "i18n": {
@@ -8,18 +8,6 @@
         "nl": { "title": "Productiviteit" },
         "de": { "title": "Produktivität" },
         "uk": { "title": "Продуктивність" }
-      }
-    }
-  },
-  {
-    "code": "resource_oee_chart",
-    "block": {
-      "title": "OEE",
-      "i18n": {
-        "en": { "title": "OEE" },
-        "nl": { "title": "OEE" },
-        "de": { "title": "OEE" },
-        "uk": { "title": "OEE" }
       }
     }
   },

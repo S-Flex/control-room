@@ -27,7 +27,8 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
 
   const layout = dataGroup.layout ?? '';
   const dg = dataGroup as Record<string, unknown>;
-  const widgetConfig = dg.widget_config as Record<string, unknown> | undefined;
+  const configKey = layout.replace(/-/g, '_') + '_config';
+  const widgetConfig = dg[configKey] as Record<string, unknown> | undefined;
   const sectionTitle = title ?? (dataGroup.title?.text);
 
   return (
