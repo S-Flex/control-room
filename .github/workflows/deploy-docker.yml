@@ -33,8 +33,8 @@ jobs:
     - name: Build and deploy with Docker Compose
       run: |
         echo "$GH_PAT_PACKAGES" > /tmp/gh_token.txt
+        trap "rm -f /tmp/gh_token.txt" EXIT
         DOCKER_BUILDKIT=1 docker-compose up -d --build
-        rm -f /tmp/gh_token.txt
       env:
         GH_PAT_PACKAGES: ${{ secrets.GH_PAT_PACKAGES }}
 
