@@ -33,19 +33,21 @@ export type FlowGroupBy = FlowFilterGroup[] | string[];
 
 export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn }>;
 
+export type FlowRowOptions = {
+  colexp?: boolean;
+  checkable?: boolean;
+  selectable?: boolean;
+  nav?: {
+    on_select?: Record<string, unknown>;
+  };
+};
+
 export type FlowBoardLevelConfig = {
   layout: string;
   group_by?: FlowGroupBy;
   field_config?: FlowLevelFieldConfig;
   class_name?: string;
-  colexp?: boolean;
-  checkable?: boolean;
-  selectable?: boolean;
-  row_options?: {
-    nav?: {
-      on_select?: Record<string, unknown>;
-    };
-  };
+  row_options?: FlowRowOptions;
   children?: FlowBoardLevelConfig;
 };
 

@@ -132,9 +132,9 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     return {
       key,
       class_name: grpClassName,
-      colexp: levelConfig.colexp,
-      checkable: levelConfig.checkable,
-      selectable: levelConfig.selectable,
+      colexp: levelConfig.row_options?.colexp,
+      checkable: levelConfig.row_options?.checkable,
+      selectable: levelConfig.row_options?.selectable,
       on_select: levelConfig.row_options?.nav?.on_select,
       i18n,
       data,

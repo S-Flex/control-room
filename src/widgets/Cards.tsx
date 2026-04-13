@@ -102,9 +102,9 @@ export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; da
   if (!data || data.length === 0) return null;
 
   const { fields, class_name } = resolveFields(dataGroup);
-  const dg = dataGroup as Record<string, unknown>;
-  const selectable = dg.selectable as boolean | undefined;
-  const onSelectNavItem = dataGroup.row_options?.nav?.on_select;
+  const rowOptions = (dataGroup as Record<string, unknown>).row_options as Record<string, unknown> | undefined;
+  const selectable = rowOptions?.selectable as boolean | undefined;
+  const onSelectNavItem = (rowOptions?.nav as Record<string, unknown> | undefined)?.on_select;
   const primaryKeys = dataTable?.primary_keys ?? [];
   const navigate = useNavigate();
   const navAction = useNavItemAction(undefined, undefined, { extraParamKeys: primaryKeys });
