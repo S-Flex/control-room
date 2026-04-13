@@ -3,11 +3,16 @@ FROM oven/bun:debian AS builder
 
 WORKDIR /app
 
+# Accept GitHub token for private packages
+ARG GH_PAT_PACKAGES
+
 # Copy dependency files
 COPY package.json bun.lock* ./
 
-# Install dependencies
-RUN bun install --frozen-lockfile
+# Install dependencies with GitHub Packages auth
+RUN echo "//npm.pkg.github.com/:_authToken=${GH_PAT_PACKAGES}" > ~/.npmrc && \
+    bun install --frozen-lockfile && \
+    rm -f ~/.npmrc
 
 # Copy source code
 COPY . .

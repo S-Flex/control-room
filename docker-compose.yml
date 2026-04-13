@@ -8,6 +8,7 @@ services:
       target: production
       args:
         - BUILDKIT_INLINE_CACHE=1
+        - GH_PAT_PACKAGES=${GH_PAT_PACKAGES}
     image: control-room:latest
     container_name: control-room
     restart: unless-stopped

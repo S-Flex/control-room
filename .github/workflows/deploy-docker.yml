@@ -9,26 +9,22 @@ on:
 jobs:
   deploy-probo-hub:
     runs-on: [probo-server]
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set up npm auth for GitHub Packages
-      run: |
-        echo "//npm.pkg.github.com/:_authToken=${GH_PAT_PACKAGES}" > .npmrc
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      
     - name: Stop and remove existing containers
       run: |
         docker-compose down || true
         docker system prune -f
-        
+
     - name: Build and deploy with Docker Compose
       run: |
         docker-compose up -d --build
-        
+      env:
+        GH_PAT_PACKAGES: ${{ secrets.GH_PAT_PACKAGES }}
+
     - name: Clean up unused Docker images
       run: |
         docker image prune -f
