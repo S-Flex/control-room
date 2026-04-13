@@ -4,14 +4,12 @@ FROM oven/bun:debian AS builder
 WORKDIR /app
 
 # Copy dependency files
-COPY package.json bun.lock* ./
+COPY package.json bun.lock* .npmrc ./
 
 # Install dependencies with GitHub Packages auth using Docker secret
 RUN --mount=type=secret,id=gh_token \
-    export GH_PAT_PACKAGES=$(cat /run/secrets/gh_token) && \
-    echo "//npm.pkg.github.com/:_authToken=${GH_PAT_PACKAGES}" > ~/.npmrc && \
-    bun install --frozen-lockfile && \
-    rm -f ~/.npmrc
+    export GITHUB_TOKEN=$(cat /run/secrets/gh_token) && \
+    bun install --frozen-lockfile
 
 # Copy source code
 COPY . .
