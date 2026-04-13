@@ -19,6 +19,7 @@ RUN bun run build
 
 COPY ./data ./dist/data
 COPY ./models ./dist/models
+COPY ./img ./dist/img
 
 # Production stage
 FROM nginx:alpine AS production
