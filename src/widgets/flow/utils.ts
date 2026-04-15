@@ -1,4 +1,5 @@
-import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
+import type { DataGroup } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { resolveField, toDisplayLabel } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
 import type { AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowFilterGroup, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
@@ -223,7 +224,7 @@ export function buildGroupFields(
   groupByFields: string[],
   fieldMap: FieldMap,
   levelFieldConfig?: FlowLevelFieldConfig,
-  filterValues?: { field: string; value: JSONValue }[],
+  filterValues?: { field: string; value: JSONValue; }[],
   aggregateRows?: JSONRecord[],
 ): FlowFieldEntry[] {
   const entries: FlowFieldEntry[] = [];

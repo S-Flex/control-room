@@ -1,4 +1,4 @@
-import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-data';
+import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 
@@ -22,7 +22,7 @@ function DataGroupSection({ dataGroup }: { dataGroup: DataGroup; }) {
     isLoading,
     isInitialLoading,
     error,
-  } = useDataGeneric(dataGroup, []);
+  } = useDataGeneric(dataGroup);
 
   const primarySrc = Array.isArray(dataGroup.src) ? dataGroup.src[0] : dataGroup.src;
   const metaSrc = Array.isArray(dataGroup.src) ? dataGroup.src[1] : null;

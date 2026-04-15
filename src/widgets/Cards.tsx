@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
-import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
+import type { DataGroup } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
 import { useNavItemAction } from '@s-flex/xfw-ui';
 import { useNavigate } from '@s-flex/xfw-url';
@@ -9,9 +10,9 @@ import { Field } from '../controls/Field';
 
 import type { FieldNav } from './flow/types';
 
-type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav };
+type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav; };
 
-function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?: string } {
+function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?: string; } {
   const fc = dataGroup.field_config;
   if (!fc) return { fields: [] };
   const class_name = (fc as Record<string, unknown>).class_name as string | undefined;
@@ -98,7 +99,7 @@ function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
   );
 }
 
-export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; data: JSONRecord[]; dataTable?: DataTable }) {
+export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; data: JSONRecord[]; dataTable?: DataTable; }) {
   if (!data || data.length === 0) return null;
 
   const { fields, class_name } = resolveFields(dataGroup);

@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import { useDataGroups, } from '@s-flex/xfw-data';
-import { useDataGeneric } from '@s-flex/xfw-ui';
+import { useDataGroups, useDataGeneric } from '@s-flex/xfw-ui';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 
