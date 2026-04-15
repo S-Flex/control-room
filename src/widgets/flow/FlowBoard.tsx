@@ -1,8 +1,6 @@
 import { useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';
-import type { DataGroup } from '@s-flex/xfw-ui';
+import { useNavItemAction, type DataGroup, type NavItem } from '@s-flex/xfw-ui';
 import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import type { NavItem } from '@s-flex/xfw-ui';
-import { useNavItemAction } from '@s-flex/xfw-ui';
 import { useNavigate } from '@s-flex/xfw-url';
 import type { FlowBoardLevelConfig, FlowGroupData, FlowNavData, FlowContextValue } from './types';
 import {

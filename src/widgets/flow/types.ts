@@ -1,6 +1,5 @@
-import type { FieldConfig } from '@s-flex/xfw-ui';
+import type { FieldConfig, ResolvedField as LibResolvedField } from '@s-flex/xfw-ui';
 import type { JSONValue } from '@s-flex/xfw-data';
-import type { ResolvedField as LibResolvedField } from '@s-flex/xfw-ui';
 
 export type AggregateFn = 'sum' | 'count' | 'avg' | 'min' | 'max';
 

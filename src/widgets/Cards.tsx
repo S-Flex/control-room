@@ -1,8 +1,6 @@
 import { useState, useCallback } from 'react';
-import type { DataGroup } from '@s-flex/xfw-ui';
+import { useNavItemAction, type DataGroup, type NavItem, type ResolvedField } from '@s-flex/xfw-ui';
 import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
-import { useNavItemAction } from '@s-flex/xfw-ui';
 import { useNavigate } from '@s-flex/xfw-url';
 import { resolve, isFieldVisible } from './resolve';
 import { Content } from './Content';

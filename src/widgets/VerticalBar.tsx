@@ -8,7 +8,8 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from 'recharts';
-import type { JSONRecord, FieldConfig } from '@s-flex/xfw-data';
+import type { JSONRecord } from '@s-flex/xfw-data';
+import type { FieldConfig } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
 import { isFieldVisible, evaluateColorFormula } from './resolve';
 
