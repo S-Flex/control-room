@@ -17,7 +17,7 @@
   {
     "code": "tco",
     "main": {
-      "sections": [{ "data_group": "resource_tco" }]
+      "sections": [{ "data_group": "resource_capacity" }]
     }
   },
   {

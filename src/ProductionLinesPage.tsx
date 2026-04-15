@@ -14,7 +14,6 @@ import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
-import './app.css';
 
 type ModelsData = LineConfig[];
 

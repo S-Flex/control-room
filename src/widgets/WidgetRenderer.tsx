@@ -2,12 +2,14 @@ import { useMemo } from 'react';
 import type { DataGroup, DataTable, FieldConfig, JSONRecord } from '@s-flex/xfw-data';
 import { buildTableFields, type ResolvedField } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
+import { isFieldVisible } from './resolve';
 import { TimelineBar, type TimelineBarConfig } from './TimelineBar';
 import { DonutChart, type DonutChartConfig } from './DonutChart';
 import { InkGauge, type InkGaugeConfig } from './InkGauge';
 import { Cards } from './Cards';
 import { FlowBoard } from './flow';
 import { Content } from './Content';
+import { VerticalBar, type VerticalBarConfig } from './VerticalBar';
 
 const LANGS = new Set(['nl', 'en', 'de', 'fr', 'uk']);
 
@@ -62,6 +64,12 @@ function resolveHeaderLabel(field: ResolvedField, lang: string): string {
 
 function formatCellValue(val: unknown, field: ResolvedField, locale: string): string {
   if (val == null) return '';
+  if (field.control === 'percent') {
+    const num = Number(val);
+    if (!isNaN(num)) {
+      return `${Math.round(num)}%`;
+    }
+  }
   if (field.control === 'date') return new Date(val as string | number).toLocaleDateString(locale);
   if (field.control === 'datetime') return new Date(val as string | number).toLocaleString(locale);
   return String(val);
@@ -82,13 +90,25 @@ function TableWidget({ widgetConfig, dataGroup, data, dataTable }: {
     [data, dataGroup.field_config, dataTable?.schema],
   );
 
-  const fields = useMemo(
+  const allFields = useMemo(
     () => sortFieldsByOrder(
       buildTableFields(dataTable?.schema ?? {}, dataGroup.field_config),
       dataGroup.field_config,
     ),
     [dataTable?.schema, dataGroup.field_config],
   );
+
+  // Filter out columns where hidden_when hides the field for every row
+  const fields = useMemo(() => {
+    if (!dataGroup.field_config || resolvedData.length === 0) return allFields;
+    return allFields.filter(f => {
+      const fc = dataGroup.field_config![f.key];
+      const ui = fc?.ui;
+      if (!ui?.hidden_when) return true;
+      // Keep the column if at least one row shows it
+      return resolvedData.some(row => isFieldVisible(ui, row));
+    });
+  }, [allFields, dataGroup.field_config, resolvedData]);
 
   return (
     <div className={`widget-table widget-table--${size}`}>
@@ -158,6 +178,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
       return <Cards dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'flow-board':
       return <FlowBoard dataGroup={dataGroup} dataTable={dataTable!} data={data} />;
+    case 'vertical-bar':
+      return <VerticalBar widgetConfig={widgetConfig as unknown as VerticalBarConfig} dataGroup={dataGroup} data={data} />;
     case 'table':
       return <TableWidget widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'content':
