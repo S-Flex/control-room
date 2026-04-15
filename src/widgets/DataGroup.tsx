@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { useDataGroups, type DataGroup, type JSONRecord } from '@s-flex/xfw-data';
-import { useDataGeneric } from '@s-flex/xfw-ui';
+import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
+import { type JSONRecord } from '@s-flex/xfw-data';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';
 
 export function DataGroupWidget({ code, title }: { code: string; title?: string; }) {

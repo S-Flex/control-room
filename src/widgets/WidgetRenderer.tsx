@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
-import type { DataGroup, DataTable, FieldConfig, JSONRecord } from '@s-flex/xfw-data';
+import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord } from '@s-flex/xfw-data';
 import { buildTableFields, type ResolvedField } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
 import { isFieldVisible } from './resolve';
@@ -22,7 +23,7 @@ function isI18n(val: unknown): val is Record<string, Record<string, string>> {
 function resolveTableData(
   rows: JSONRecord[],
   fieldConfig?: Record<string, FieldConfig>,
-  schema?: Record<string, { scale?: number }>,
+  schema?: Record<string, { scale?: number; }>,
 ): JSONRecord[] {
   const lang = getLanguage();
   return rows.map(row => {
@@ -142,7 +143,7 @@ function TableWidget({ widgetConfig, dataGroup, data, dataTable }: {
   );
 }
 
-export function FallbackDataRows({ data }: { data: JSONRecord[] }) {
+export function FallbackDataRows({ data }: { data: JSONRecord[]; }) {
   return (
     <div className="datagroup-rows">
       {data.map((row, i) => (
