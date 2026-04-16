@@ -1,7 +1,8 @@
 import { useState, useRef, useCallback } from 'react';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
-import { Checkbox, useGroupCheck } from '../../controls/Checkbox';
+import { Checkbox } from '@s-flex/xfw-ui';
+import { useGroupCheck } from '../../controls/Checkbox';
 import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
 
@@ -37,8 +38,8 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
           <div className="flow-card-controls">
             {showCheckbox && (
               <Checkbox
-                checked={allChecked}
-                indeterminate={someChecked && !allChecked}
+                isSelected={allChecked}
+                isIndeterminate={someChecked && !allChecked}
                 onChange={() => toggleCheckedAll(g.rows)}
               />
             )}

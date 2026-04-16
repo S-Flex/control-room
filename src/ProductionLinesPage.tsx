@@ -12,6 +12,7 @@ import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
+import { Sidebar } from '@s-flex/xfw-ui';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 
@@ -732,57 +733,57 @@ export function ProductionLinesPage() {
             </label>
           }
         >
-            <div className="planning-until">
-              <label className="planning-until-label">{getBlock(uiLabels, 'from', 'title')}</label>
-              <input
-                type="date"
-                className="planning-until-input"
-                value={pendingFromDate}
-                max={pendingDate}
-                onChange={e => { setPendingFromDate(e.target.value); autoRefreshRef.current = false; setAutoRefresh(false); }}
-              />
-            </div>
-            <div className="planning-until">
-              <label className="planning-until-label">{getBlock(uiLabels, 'until', 'title')}</label>
-              <input
-                type="date"
-                className="planning-until-input"
-                value={pendingDate}
-                max={new Date().toISOString().slice(0, 10)}
-                onChange={e => handleDateChange(e.target.value)}
-              />
-            </div>
-            <div className="planning-time-slider">
-              <span className="planning-time-label">{formatTimeSlot(sliderMin)}</span>
-              <input
-                type="range"
-                className="planning-time-range"
-                min={sliderMin}
-                max={sliderMax}
-                value={Math.min(pendingSlot, sliderMax)}
-                onChange={e => handleSlotChange(Number(e.target.value))}
-              />
-              <span className="planning-time-label">{formatTimeSlot(sliderMax)}</span>
-              <span className="planning-time-current">{pendingTimeLabel}</span>
-              <button className="planning-icon-btn planning-slider-btn" title="Refresh" onClick={handleRefresh}>
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                  <path d="M17 10a7 7 0 01-12.9 3.8M3 10a7 7 0 0112.9-3.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                  <path d="M17 4v4h-4M3 16v-4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-              <button className={`planning-icon-btn planning-slider-btn${looping ? ' active' : ''}`} title={looping ? 'Stop loop' : 'Loop timeline'} onClick={handleLoop}>
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                  <path d="M14 3l3 3-3 3M6 17l-3-3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M17 6H8a4 4 0 00-4 4M3 14h9a4 4 0 004-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                </svg>
-              </button>
-              <button className={`planning-icon-btn planning-slider-btn${autoRefresh ? ' active' : ''}`} title={getBlock(uiLabels, 'now', 'title')} onClick={handleNow}>
-                <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                  <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
-                  <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </button>
-            </div>
+          <div className="planning-until">
+            <label className="planning-until-label">{getBlock(uiLabels, 'from', 'title')}</label>
+            <input
+              type="date"
+              className="planning-until-input"
+              value={pendingFromDate}
+              max={pendingDate}
+              onChange={e => { setPendingFromDate(e.target.value); autoRefreshRef.current = false; setAutoRefresh(false); }}
+            />
+          </div>
+          <div className="planning-until">
+            <label className="planning-until-label">{getBlock(uiLabels, 'until', 'title')}</label>
+            <input
+              type="date"
+              className="planning-until-input"
+              value={pendingDate}
+              max={new Date().toISOString().slice(0, 10)}
+              onChange={e => handleDateChange(e.target.value)}
+            />
+          </div>
+          <div className="planning-time-slider">
+            <span className="planning-time-label">{formatTimeSlot(sliderMin)}</span>
+            <input
+              type="range"
+              className="planning-time-range"
+              min={sliderMin}
+              max={sliderMax}
+              value={Math.min(pendingSlot, sliderMax)}
+              onChange={e => handleSlotChange(Number(e.target.value))}
+            />
+            <span className="planning-time-label">{formatTimeSlot(sliderMax)}</span>
+            <span className="planning-time-current">{pendingTimeLabel}</span>
+            <button className="planning-icon-btn planning-slider-btn" title="Refresh" onClick={handleRefresh}>
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M17 10a7 7 0 01-12.9 3.8M3 10a7 7 0 0112.9-3.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                <path d="M17 4v4h-4M3 16v-4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+            <button className={`planning-icon-btn planning-slider-btn${looping ? ' active' : ''}`} title={looping ? 'Stop loop' : 'Loop timeline'} onClick={handleLoop}>
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <path d="M14 3l3 3-3 3M6 17l-3-3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M17 6H8a4 4 0 00-4 4M3 14h9a4 4 0 004-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              </svg>
+            </button>
+            <button className={`planning-icon-btn planning-slider-btn${autoRefresh ? ' active' : ''}`} title={getBlock(uiLabels, 'now', 'title')} onClick={handleNow}>
+              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          </div>
         </PageHeader>
 
 
@@ -815,6 +816,8 @@ export function ProductionLinesPage() {
       </div>{/* .planning-main */}
 
       <PageSidebar menuContent={menuContent} />
+      <Sidebar side="right" idx={0} />
+      <Sidebar side="right" idx={1} />
     </div>
   );
 }
