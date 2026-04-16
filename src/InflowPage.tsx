@@ -4,6 +4,7 @@ import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
+import { Sidebar } from '@s-flex/xfw-ui';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import { Carousel } from './widgets/Carousel';
 import { TimeSlider } from './widgets/TimeSlider';
@@ -99,7 +100,7 @@ export function InflowPage() {
   const [materials, setMaterials] = useState<Material[]>([]);
   const [materialsContent, setMaterialsContent] = useState<ContentEntry[]>([]);
   const [cutoffTimes, setCutoffTimes] = useState<CutoffTime[]>([]);
-  const [rootProductionDates, setRootProductionDates] = useState<{ interval_workdays: number; dates: string[] }[]>([]);
+  const [rootProductionDates, setRootProductionDates] = useState<{ interval_workdays: number; dates: string[]; }[]>([]);
   const [printers, setPrinters] = useState<Printer[]>([]);
   const [printModes, setPrintModes] = useState<PrintMode[]>([]);
   const [scheduleOpen, setScheduleOpen] = useState(false);
@@ -129,7 +130,7 @@ export function InflowPage() {
   const otherModeUrl = isAuto ? '/inflow-manual' : '/inflow-auto';
 
   // Locations (multi-select)
-  type LocationEntry = { code: string; enabled: boolean };
+  type LocationEntry = { code: string; enabled: boolean; };
   const [locations, setLocations] = useState<LocationEntry[]>([]);
   const [locationsContent, setLocationsContent] = useState<ContentEntry[]>([]);
   const [selectedLocations, setSelectedLocations] = useState<Set<string>>(() => {
@@ -409,6 +410,8 @@ export function InflowPage() {
       </div>
 
       <PageSidebar menuContent={menuContent} />
+      <Sidebar side="right" idx={0} />
+      <Sidebar side="right" idx={1} />
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
-import { Checkbox, useGroupCheck } from '../../controls/Checkbox';
+import { Checkbox } from '@s-flex/xfw-ui';
+import { useGroupCheck } from '../../controls/Checkbox';
 import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
 
@@ -9,7 +10,7 @@ function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): strin
   return primaryKeys.map(k => String(row[k] ?? '')).join('||');
 }
 
-function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
+function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean; }) {
   const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
   const { allChecked, someChecked } = useGroupCheck(g.rows);
   const { primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
@@ -35,8 +36,8 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
           <div className="flow-card-controls">
             {showCheckbox && (
               <Checkbox
-                checked={allChecked}
-                indeterminate={someChecked && !allChecked}
+                isSelected={allChecked}
+                isIndeterminate={someChecked && !allChecked}
                 onChange={() => toggleCheckedAll(g.rows)}
               />
             )}

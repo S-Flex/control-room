@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
+import { useTheme } from '@s-flex/xfw-ui';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import type { LineConfig, UiLabel } from './types';
 
@@ -14,7 +15,8 @@ type PageHeaderProps = {
 };
 
 export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLanguageChange, children, actions }: PageHeaderProps) {
-  const [dark, setDark] = useState(() => document.body.classList.contains('dark'));
+  const { theme, setTheme } = useTheme();
+  const dark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
   const [lang, setLang] = useState(() => getLanguage());
   const [modelOpen, setModelOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
@@ -84,7 +86,7 @@ export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLan
         <button
           className="planning-icon-btn"
           title={dark ? 'Light mode' : 'Dark mode'}
-          onClick={() => { setDark(d => { document.body.classList.toggle('dark', !d); return !d; }); }}
+          onClick={() => setTheme(dark ? 'light' : 'dark')}
         >
           {dark ? (
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="4" stroke="currentColor" strokeWidth="1.5" /><path d="M10 2V4M10 16V18M2 10H4M16 10H18M4.93 4.93L6.34 6.34M13.66 13.66L15.07 15.07M15.07 4.93L13.66 6.34M6.34 13.66L4.93 15.07" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>

@@ -25,6 +25,7 @@ import { ProductionLinesPage } from './ProductionLinesPage';
 import { InflowPage } from './InflowPage';
 import { DataGroupPage } from './DataGroupPage';
 import { configureClient } from '@s-flex/xfw-data';
+import { ThemeProvider, SidebarProvider as UiSidebarProvider } from '@s-flex/xfw-ui';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -65,7 +66,11 @@ createRoot(document.getElementById('root')!).render(
             <NavigationProvider>
               <AriaRouterProvider>
                 <SidebarProvider>
-                  <Root />
+                  <UiSidebarProvider>
+                    <ThemeProvider darkModeClass="dark" defaultTheme="system">
+                      <Root />
+                    </ThemeProvider>
+                  </UiSidebarProvider>
                 </SidebarProvider>
               </AriaRouterProvider>
             </NavigationProvider>
