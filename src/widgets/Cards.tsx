@@ -1,28 +1,31 @@
 import { useState, useCallback } from 'react';
-import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
-import { useNavItemAction } from '@s-flex/xfw-ui';
+import { useNavItemAction, type DataGroup, type NavItem, type ResolvedField } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { useNavigate } from '@s-flex/xfw-url';
-import { resolve } from './resolve';
+import { resolve, isFieldVisible } from './resolve';
 import { Content } from './Content';
 import { Field } from '../controls/Field';
 
 import type { FieldNav } from './flow/types';
 
-type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav };
+type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav; hidden_when?: unknown; no_label?: boolean; };
 
-function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?: string } {
+function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?: string; no_label?: boolean; } {
   const fc = dataGroup.field_config;
   if (!fc) return { fields: [] };
-  const class_name = (fc as Record<string, unknown>).class_name as string | undefined;
+  const fcAny = fc as Record<string, unknown>;
+  const class_name = fcAny.class_name as string | undefined;
+  const groupNoLabel = fcAny.no_label as boolean | undefined;
   const fields = Object.entries(fc)
     .filter(([key, config]) => {
-      if (key === 'class_name') return false;
+      if (key === 'class_name' || key === 'no_label') return false;
       const ui = config.ui;
+      // Static hidden — always filtered out. hidden_when is checked per-row at render time.
       return !ui?.hidden && !ui?.table?.hidden;
     })
     .map(([key, config]) => {
       const ui = config.ui as Record<string, unknown> | undefined;
+      const fieldNoLabel = ui?.no_label as boolean | undefined;
       return {
         key,
         i18n: config.ui?.i18n,
@@ -33,10 +36,12 @@ function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?
           ?? ui?.class_name as string | undefined
           ?? config.ui?.group?.class_name,
         nav: (config as Record<string, unknown>).nav as FieldNav | undefined,
+        hidden_when: config.ui?.hidden_when,
+        no_label: fieldNoLabel ?? groupNoLabel,
       } as CardField;
     })
     .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-  return { fields, class_name };
+  return { fields, class_name, no_label: groupNoLabel };
 }
 
 function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
@@ -77,6 +82,7 @@ function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
       <div className="flow-card-header">
         <div className={class_name || undefined}>
           {fields.map((f, i) => {
+            if (!isFieldVisible({ hidden_when: f.hidden_when }, row)) return null;
             const val = resolve(row, f.key) as JSONValue;
             if (f.control === 'content') {
               return (
@@ -85,10 +91,10 @@ function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
                 </div>
               );
             }
-            const noLabel = f.control === 'badge' || f.control === 'icon-map' || (f as any).aggregate;
+            const noLabel = f.no_label === true;
             return (
               <div key={`${f.key}-${i}`} className={`${f.class_name || ''}${noLabel ? ' field-no-label' : ''}`.trim() || undefined}>
-                <Field field={f} value={val} showLabel row={row} />
+                <Field field={f} value={val} showLabel={!noLabel} row={row} />
               </div>
             );
           })}
@@ -98,7 +104,7 @@ function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
   );
 }
 
-export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; data: JSONRecord[]; dataTable?: DataTable }) {
+export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; data: JSONRecord[]; dataTable?: DataTable; }) {
   if (!data || data.length === 0) return null;
 
   const { fields, class_name } = resolveFields(dataGroup);

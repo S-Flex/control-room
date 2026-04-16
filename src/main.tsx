@@ -5,6 +5,7 @@ console.warn = (...args: unknown[]) => {
   _warn.apply(console, args);
 };
 
+import './app.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route } from 'react-router-dom';

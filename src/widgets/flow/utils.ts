@@ -1,6 +1,8 @@
-import type { DataGroup, DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
+import type { DataGroup } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { resolveField, toDisplayLabel } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
+import { resolve } from '../resolve';
 import type { AggregateFn, FieldMap, FilterRule, FlowBoardLevelConfig, FlowFieldEntry, FlowFilterGroup, FlowGroupBy, FlowLevelFieldConfig, FlowResolvedField } from './types';
 
 export function isFilterGroupBy(groupBy: FlowGroupBy): groupBy is FlowFilterGroup[] {
@@ -62,7 +64,7 @@ export function applyFilterGroup(rows: JSONRecord[], filter: FilterRule[][]): JS
 export function groupRowsByFields(rows: JSONRecord[], fields: string[]): Map<string, JSONRecord[]> {
   const groups = new Map<string, JSONRecord[]>();
   for (const row of rows) {
-    const key = fields.map(f => String(row[f] ?? '')).join('||');
+    const key = fields.map(f => String(resolve(row, f) ?? '')).join('||');
     const list = groups.get(key);
     if (list) list.push(row);
     else groups.set(key, [row]);
@@ -122,6 +124,12 @@ function resolveLevelLabel(levelFieldConfig: FlowLevelFieldConfig | undefined, f
 
 export function formatValue(val: JSONValue, control?: string): string {
   if (val === null || val === undefined) return '—';
+  if (control === 'percent') {
+    const num = Number(val);
+    if (!isNaN(num)) {
+      return `${Math.round(num)}%`;
+    }
+  }
   if (control === 'date' || control === 'datetime') {
     const d = new Date(val as string | number);
     if (!isNaN(d.getTime())) return control === 'date' ? d.toLocaleDateString() : `${d.toLocaleDateString()} ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
@@ -131,7 +139,7 @@ export function formatValue(val: JSONValue, control?: string): string {
 }
 
 function computeAggregate(rows: JSONRecord[], key: string, fn: AggregateFn): number {
-  const vals = rows.map(r => Number(r[key] ?? 0)).filter(n => !isNaN(n));
+  const vals = rows.map(r => Number(resolve(r, key) ?? 0)).filter(n => !isNaN(n));
   switch (fn) {
     case 'sum': return vals.reduce((a, b) => a + b, 0);
     case 'count': return rows.length;
@@ -163,18 +171,20 @@ export function getAggregateKeys(levelFieldConfig: FlowLevelFieldConfig | undefi
     .map(([key]) => key);
 }
 
-/** Merge level field_config overrides on top of the root fieldMap. */
+/** Merge level field_config overrides on top of the root fieldMap.
+ *  Only fields present in levelFieldConfig are included in the result;
+ *  the root fieldMap is used as a lookup for defaults (i18n, control, etc.). */
 export function mergeFieldMap(
   fieldMap: FieldMap,
   levelFieldConfig: FlowLevelFieldConfig | undefined,
   optionsMap?: Record<string, JSONRecord[]>,
 ): FieldMap {
   if (!levelFieldConfig) return fieldMap;
-  const merged = { ...fieldMap };
+  const merged: FieldMap = {};
   for (const [key, fc] of Object.entries(levelFieldConfig)) {
-    if (key === 'class_name') continue;
-    const base = fieldMap[key];
-    if (!base) continue;
+    if (key === 'class_name' || key === 'no_label') continue;
+    if (fc.ui?.hidden) continue;
+    const base = fieldMap[key] ?? { key };
     // Resolve input_data: check fc.input_data, fc.ui.input_data, or base
     const uiInputData = (fc.ui as Record<string, unknown> | undefined)?.input_data as typeof base.input_data | undefined;
     let input_data = fc.input_data ?? uiInputData ?? base.input_data;
@@ -223,17 +233,25 @@ export function buildGroupFields(
   groupByFields: string[],
   fieldMap: FieldMap,
   levelFieldConfig?: FlowLevelFieldConfig,
-  filterValues?: { field: string; value: JSONValue }[],
+  filterValues?: { field: string; value: JSONValue; }[],
   aggregateRows?: JSONRecord[],
 ): FlowFieldEntry[] {
   const entries: FlowFieldEntry[] = [];
   const seen = new Set<string>();
 
+  const isHidden = (key: string) => {
+    const fc = levelFieldConfig?.[key];
+    if (fc?.ui?.hidden) return true;
+    const resolved = fieldMap[key];
+    if (resolved?.control === 'hidden') return true;
+    return false;
+  };
+
   // Group-by fields: use first row value (or filter value)
   if (filterValues) {
     for (const f of filterValues) {
       seen.add(f.field);
-      if (!fieldMap[f.field]) continue;
+      if (!fieldMap[f.field] || isHidden(f.field)) continue;
       entries.push({
         label: resolveLabel(fieldMap, f.field),
         value: f.value,
@@ -246,10 +264,10 @@ export function buildGroupFields(
     if (firstRow) {
       for (const key of groupByFields) {
         seen.add(key);
-        if (!fieldMap[key]) continue;
+        if (!fieldMap[key] || isHidden(key)) continue;
         entries.push({
           label: resolveLabel(fieldMap, key),
-          value: firstRow[key],
+          value: resolve(firstRow, key),
           field: fieldMap[key],
           class_name: fieldClassName(levelFieldConfig?.[key]),
         });
@@ -257,20 +275,29 @@ export function buildGroupFields(
     }
   }
 
-  // Aggregate fields from level field_config
+  // Additional fields from level field_config (aggregate or first-row value)
   if (levelFieldConfig) {
+    const firstRow = rows[0];
     for (const [key, fc] of Object.entries(levelFieldConfig)) {
-      if (key === 'class_name' || seen.has(key)) continue;
-      const agg = fc.aggregate;
-      if (!agg) continue;
+      if (key === 'class_name' || key === 'no_label' || seen.has(key)) continue;
       const resolved = fieldMap[key];
-      if (!resolved) continue;
-      entries.push({
-        label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
-        value: computeAggregate(aggregateRows ?? rows, key, agg),
-        field: { ...resolved, aggregate: agg },
-        class_name: fieldClassName(levelFieldConfig[key]),
-      });
+      if (!resolved || isHidden(key)) continue;
+      const agg = fc.aggregate;
+      if (agg) {
+        entries.push({
+          label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
+          value: computeAggregate(aggregateRows ?? rows, key, agg),
+          field: { ...resolved, aggregate: agg },
+          class_name: fieldClassName(levelFieldConfig[key]),
+        });
+      } else if (firstRow) {
+        entries.push({
+          label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
+          value: resolve(firstRow, key),
+          field: resolved,
+          class_name: fieldClassName(levelFieldConfig[key]),
+        });
+      }
     }
   }
 

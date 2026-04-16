@@ -12,8 +12,8 @@ import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
+import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
-import './app.css';
 
 type ModelsData = LineConfig[];
 
@@ -215,6 +215,7 @@ export function ProductionLinesPage() {
   const navigate = useNavigate();
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
+  const { config: pageConfig, content: pageContent } = usePage('production-lines');
 
   // Read query params from URL
   const urlParams = useQueryParams([
@@ -810,7 +811,7 @@ export function ProductionLinesPage() {
           </div>
         </div>
 
-        <PageFooter uiLabels={uiLabels} offTrackCount={offTrackCount} />
+        <PageFooter footerConfig={pageConfig?.footer} content={pageContent} />
       </div>{/* .planning-main */}
 
       <PageSidebar menuContent={menuContent} />

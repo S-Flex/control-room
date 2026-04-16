@@ -15,7 +15,7 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
   const { primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
 
   const showCheckbox = g.checkable !== false;
-  const showColexp = g.colexp !== false && !!g.children;
+  const showColexp = g.colexp === true;
   const isSelected = g.selectable && selectedKey != null && g.rows.some(r => buildRowKey(r, primaryKeys) === selectedKey);
 
   const handleNavClick = (nav: FlowNavItem) => {
@@ -54,7 +54,7 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
             ? <span className="flow-box-title">{resolveI18nLabel(g.i18n, g.key)}</span>
             : g.data.map((d, i) => (
               <div key={d.field?.key ? `${d.field.key}-${i}` : i} className={d.class_name || undefined}>
-                <Field field={d.field} value={d.value} row={g.rows.length === 1 ? g.rows[0] : undefined} />
+                <Field field={d.field} value={d.value} showLabel row={g.rows.length === 1 ? g.rows[0] : undefined} />
               </div>
             ))
           }

@@ -1,20 +1,25 @@
-import { getBlock } from 'xfw-get-block';
-import type { UiLabel } from './types';
+import { SectionRenderer } from './widgets/SectionRenderer';
+import type { PageArea } from './types';
+import type { ContentEntry } from './hooks/usePages';
 
 type PageFooterProps = {
-  uiLabels: UiLabel[];
-  offTrackCount: number;
+  footerConfig?: PageArea;
+  content?: ContentEntry[];
 };
 
-export function PageFooter({ uiLabels, offTrackCount }: PageFooterProps) {
+export function PageFooter({ footerConfig, content }: PageFooterProps) {
+  if (!footerConfig) return null;
+
+  const rootSection = {
+    class_name: footerConfig.class_name,
+    grid: footerConfig.grid,
+    cols: footerConfig.cols,
+    sections: footerConfig.sections,
+  };
+
   return (
     <div className="planning-bottom">
-      <div className="planning-bottom-inner">
-        <div className="planning-off-track">
-          {getBlock(uiLabels, 'off_track', 'title')}
-          <span className="planning-badge">{offTrackCount}</span>
-        </div>
-      </div>
+      <SectionRenderer section={rootSection} content={content ?? []} />
     </div>
   );
 }

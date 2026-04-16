@@ -54,10 +54,16 @@ export type Section = {
   sections?: Section[];
 };
 
-export type PageConfig = {
-  code: string;
+export type PageArea = {
   class_name?: string;
   grid?: string | GridConfig;
   cols?: Section[];
   sections?: Section[];
+};
+
+export type PageConfig = {
+  code: string;
+  class_name?: string;
+  main?: PageArea;
+  footer?: PageArea;
 };

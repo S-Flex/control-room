@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "untitledui": {
+      "type": "http",
+      "url": "https://www.untitledui.com/react/api/mcp",
+      "headers": {
+        "Authorization": "Bearer 3fcef8ff645b70a9ae4f4459eb9d557d"
+      }
+    }
+  }
+}

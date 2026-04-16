@@ -11,7 +11,6 @@ import { DataGroupWidget } from './widgets/DataGroup';
 import { usePage } from './hooks/usePages';
 import { ProductionScheduleMenu, type Material, type ContentEntry, type CutoffTime, type Printer, type PrintMode } from './ProductionScheduleMenu';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
-import './app.css';
 
 const STORAGE_KEY = 'inflow-production-dates';
 
@@ -91,8 +90,8 @@ export function InflowPage() {
   const [, forceRender] = useState(0);
   const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
   const isAuto = window.location.pathname === '/inflow-auto';
-  const { config: pageConfig } = usePage(isAuto ? 'inflow-auto' : 'inflow-manual');
-  const flowBoardDataGroup = pageConfig?.cols?.[0]?.data_group;
+  const { config: pageConfig, content: pageContent } = usePage(isAuto ? 'inflow-auto' : 'inflow-manual');
+  const flowBoardDataGroup = pageConfig?.main?.cols?.[0]?.data_group;
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
   const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
@@ -406,7 +405,7 @@ export function InflowPage() {
           </div>
         </div>
 
-        <PageFooter uiLabels={uiLabels} offTrackCount={0} />
+        <PageFooter footerConfig={pageConfig?.footer} content={pageContent} />
       </div>
 
       <PageSidebar menuContent={menuContent} />

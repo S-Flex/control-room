@@ -1,112 +1,128 @@
 [
   {
     "code": "info",
-    "sections": [
-      { "data_group": "resource_info" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_info" }]
+    }
   },
   {
     "code": "oee",
-    "sections": [
-      { "data_group": "resource_oee_timeline" },
-      { "data_group": "resource_oee_chart" }
-    ]
+    "main": {
+      "sections": [
+        { "data_group": "resource_oee_timeline" },
+        { "data_group": "resource_oee_chart" }
+      ]
+    }
   },
   {
     "code": "tco",
-    "sections": [
-      { "data_group": "resource_tco" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_capacity" }]
+    }
   },
   {
     "code": "production",
-    "sections": [
-      { "data_group": "resource_production" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_production" }]
+    }
   },
   {
     "code": "ink-heads",
-    "sections": [
-      { "data_group": "resource_ink" },
-      { "data_group": "resource_ink_heads" }
-    ]
+    "main": {
+      "sections": [
+        { "data_group": "resource_ink" },
+        { "data_group": "resource_ink_heads" }
+      ]
+    }
   },
   {
     "code": "quality-management",
-    "sections": [
-      { "data_group": "resource_quality_management" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_quality_management" }]
+    }
   },
   {
     "code": "maintenance-tickets",
-    "sections": [
-      { "data_group": "resource_maintenance_tickets" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_maintenance_tickets" }]
+    }
   },
   {
     "code": "tooling-wear",
-    "sections": [
-      { "data_group": "resource_tooling_wear" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_tooling_wear" }]
+    }
   },
   {
     "code": "consumption-waste",
-    "sections": [
-      { "data_group": "resource_consumption_waste" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_consumption_waste" }]
+    }
   },
   {
     "code": "material-specs",
-    "sections": [
-      { "data_group": "resource_material_specs" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_material_specs" }]
+    }
   },
   {
     "code": "nester",
-    "sections": [
-      { "data_group": "nesting_queue" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "nesting_queue" }]
+    }
   },
   {
     "code": "orderlines",
-    "sections": [
-      { "data_group": "orderline_list" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "orderline_list" }]
+    }
   },
   {
     "code": "uploader-data",
-    "sections": [
-      { "data_group": "uploader_data_list" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "uploader_data_list" }]
+    }
   },
   {
     "code": "queued-jobs",
-    "sections": [
-      { "data_group": "resource_queue" }
-    ]
+    "main": {
+      "sections": [{ "data_group": "resource_queue" }]
+    }
   },
   {
     "code": "inflow-manual",
-    "grid": {
-      "columns": "1fr",
-      "areas": [
-        "flow-board"
+    "main": {
+      "grid": {
+        "columns": "1fr",
+        "areas": ["flow-board"]
+      },
+      "cols": [
+        { "area": "flow-board", "data_group": "components_inflow-manual" }
       ]
     },
-    "cols": [
-      { "area": "flow-board", "data_group": "components_inflow-manual" }
-    ]
+    "footer": {
+      "sections": [{ "data_group": "sitrep" }]
+    }
   },
   {
     "code": "inflow-auto",
-    "grid": {
-      "columns": "1fr",
-      "areas": [
-        "flow-board"
+    "main": {
+      "grid": {
+        "columns": "1fr",
+        "areas": ["flow-board"]
+      },
+      "cols": [
+        { "area": "flow-board", "data_group": "components_inflow-auto" }
       ]
     },
-    "cols": [
-      { "area": "flow-board", "data_group": "components_inflow-auto" }
-    ]
+    "footer": {
+      "sections": [{ "data_group": "sitrep" }]
+    }
+  },
+  {
+    "code": "production-lines",
+    "footer": {
+      "sections": [{ "data_group": "sitrep" }]
+    }
   }
 ]

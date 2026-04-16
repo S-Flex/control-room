@@ -1,5 +1,5 @@
-import type { FieldConfig, JSONValue } from '@s-flex/xfw-data';
-import type { ResolvedField as LibResolvedField } from '@s-flex/xfw-ui';
+import type { FieldConfig, ResolvedField as LibResolvedField } from '@s-flex/xfw-ui';
+import type { JSONValue } from '@s-flex/xfw-data';
 
 export type AggregateFn = 'sum' | 'count' | 'avg' | 'min' | 'max';
 
@@ -31,7 +31,7 @@ export type FlowFilterGroup = {
 
 export type FlowGroupBy = FlowFilterGroup[] | string[];
 
-export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn }>;
+export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn; }>;
 
 export type FlowRowOptions = {
   colexp?: boolean;

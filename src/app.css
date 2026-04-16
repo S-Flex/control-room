@@ -22,6 +22,7 @@
   --radius-md: 8px;
   --radius-xl: 12px;
   --shadow-xs: 0px 1px 2px 0px rgba(10,13,18,0.05);
+  --bg-subtle: #f9fafb;
 }
 
 .dark {
@@ -39,6 +40,7 @@
   --highlight-green: #47cd89; /* Success 400 */
   --highlight-bg: #053321; /* Success 950 */
   --shadow-xs: 0px 1px 3px 0px rgba(0,0,0,0.4);
+  --bg-subtle: #1f242f;        /* Gray 900 */
 }
 
 body {
@@ -1823,6 +1825,7 @@ body {
   flex-shrink: 0;
   background: var(--bg);
   border-top: 1px solid var(--border);
+  padding: 1rem 1rem 0.5rem 1rem;
 }
 
 .planning-bottom-inner {
@@ -2301,6 +2304,186 @@ body {
   color: var(--text-primary);
   text-align: right;
   word-break: break-word;
+}
+
+/* ---- Table Widget ---- */
+/* ---- Table Widget (UntitledUI sm/md) ---- */
+
+.widget-table-card {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  background: var(--bg);
+  box-shadow: var(--shadow-xs);
+  border: 1px solid var(--border);
+}
+
+.widget-table-scroll {
+  overflow-x: auto;
+}
+
+.widget-table-root {
+  width: 100%;
+}
+
+.widget-table-thead {
+  background: var(--bg-subtle);
+}
+
+.widget-table-th {
+  position: relative;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+/* Header bottom border via pseudo-element */
+.widget-table-th::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
+
+.widget-table-tr {
+  position: relative;
+  transition: background 0.1s;
+}
+
+.widget-table-tr:hover {
+  background: var(--bg-subtle);
+}
+
+.widget-table-tr td {
+  position: relative;
+}
+
+/* Row bottom border via pseudo-element */
+.widget-table-tr:not(:last-child) td::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--border);
+  pointer-events: none;
+}
+
+.widget-table-td {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+}
+
+/* size: sm */
+.widget-table--sm .widget-table-thead {
+  height: 1.75rem;
+}
+
+.widget-table--sm .widget-table-th {
+  padding: 0.25rem 1.25rem;
+}
+
+.widget-table--sm .widget-table-tr {
+  height: 2rem;
+}
+
+.widget-table--sm .widget-table-td {
+  padding: 0.25rem 1.25rem;
+}
+
+/* size: md */
+.widget-table--md .widget-table-thead {
+  height: 2.25rem;
+}
+
+.widget-table--md .widget-table-th {
+  padding: 0.5rem 1.5rem;
+}
+
+.widget-table--md .widget-table-tr {
+  height: 2.75rem;
+}
+
+.widget-table--md .widget-table-td {
+  padding: 0.5rem 1.5rem;
+}
+
+/* ---- Vertical Bar Widget ---- */
+.vbar-widget {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.vbar-widget.vbar-grouped {
+  display: flex;
+  gap: 8px;
+}
+
+.vbar-chart {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 30%;
+}
+
+
+.vbar-widget *:focus,
+.vbar-widget *:focus-visible {
+  outline: none;
+}
+
+.vbar-widget .recharts-active-shape,
+.vbar-widget .recharts-rectangle.recharts-tooltip-cursor,
+.vbar-widget .recharts-active-bar {
+  display: none;
+}
+
+.vbar-widget .recharts-surface {
+  outline: none;
+}
+
+.vbar-tooltip,
+.vbar-tooltip-pinned .vbar-tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 220px;
+  white-space: nowrap;
+}
+
+.vbar-tooltip-pinned {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+.vbar-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.vbar-tooltip-label {
+  color: var(--text-muted);
+}
+
+.vbar-tooltip-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ---- Timeline Bar Widget ---- */

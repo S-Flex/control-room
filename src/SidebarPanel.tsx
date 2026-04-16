@@ -36,11 +36,11 @@ export function SidebarPanel({ code, title, onClose }: {
   }, [width]);
 
   // Build a root section from the PageConfig
-  const rootSection = config ? {
-    class_name: config.class_name,
-    grid: config.grid,
-    cols: config.cols,
-    sections: config.sections,
+  const rootSection = config?.main ? {
+    class_name: config.class_name ?? config.main.class_name,
+    grid: config.main.grid,
+    cols: config.main.cols,
+    sections: config.main.sections,
   } : undefined;
 
   return (
