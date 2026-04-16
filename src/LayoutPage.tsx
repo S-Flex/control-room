@@ -3,7 +3,6 @@ import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import { Box3, Vector3 } from 'three';
 import type { Resource } from './viewer/types';
-import './app.css';
 
 type LineConfig = {
   id: string;

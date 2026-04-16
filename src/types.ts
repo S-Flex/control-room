@@ -15,7 +15,7 @@ export type UiLabel = {
 
 export type MenuContentEntry = {
   code: string;
-  block: { title?: string; textFormula?: { title: string; }; i18n?: Record<string, { title?: string; textFormula?: { title: string; }; }>; };
+  block: { title?: string; template?: { title: string; }; i18n?: Record<string, { title?: string; template?: { title: string; }; }>; };
 };
 
 export type MenuItemDef = {
@@ -23,7 +23,7 @@ export type MenuItemDef = {
   path: string;
   condition?: string;
   hidden_when?: { key: string; op: string; val: string[]; };
-  block?: { title?: string; textFormula?: { title: string; }; i18n?: Record<string, { title?: string; textFormula?: { title: string; }; }>; };
+  block?: { title?: string; template?: { title: string; }; i18n?: Record<string, { title?: string; template?: { title: string; }; }>; };
 };
 
 export type GridConfig = {

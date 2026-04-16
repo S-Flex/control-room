@@ -6,7 +6,7 @@ export interface Content {
         description?: string;
         text?: string;
         imageUrl?: string;
-        textFormula?: string[];
+        template?: string[];
         params?: string[];
         files?: string[];
         i18n?: Record<string, Record<string, string>>;

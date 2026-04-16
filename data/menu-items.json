@@ -3,7 +3,7 @@
     "code": "resource.info",
     "path": "(sidebar:info)",
     "block": {
-      "textFormula": {
+      "template": {
         "title": "{resource_name}"
       }
     }
@@ -42,7 +42,13 @@
     "code": "resource.tco",
     "path": "(sidebar:tco)",
     "block": {
-      "title": "TCO"
+      "title": "TCO & capacity",
+      "i18n": {
+        "en": { "title": "TCO & capacity" },
+        "nl": { "title": "TCO & capaciteit" },
+        "de": { "title": "TCO & Kapazität" },
+        "uk": { "title": "TCO та потужність" }
+      }
     },
     "hidden_when": {
       "key": "type",

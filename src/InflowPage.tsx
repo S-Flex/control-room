@@ -11,7 +11,6 @@ import { DataGroupWidget } from './widgets/DataGroup';
 import { usePage } from './hooks/usePages';
 import { ProductionScheduleMenu, type Material, type ContentEntry, type CutoffTime, type Printer, type PrintMode } from './ProductionScheduleMenu';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
-import './app.css';
 
 const STORAGE_KEY = 'inflow-production-dates';
 

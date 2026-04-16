@@ -10,7 +10,6 @@ import { StatusBar } from './widgets/StatusBar';
 import { Ticker } from './widgets/Ticker';
 import { DashboardHeader } from './widgets/DashboardHeader';
 import type { DashboardData } from './widgets/types';
-import './app.css';
 
 type LineConfig = {
   code: string;

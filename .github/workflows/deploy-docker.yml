@@ -1,4 +1,4 @@
-name: Deploy Docker Application
+name: Build and Deploy Docker Application
 
 on:
   push:
@@ -6,23 +6,119 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: s-flex/control-room
+
 jobs:
-  deploy-probo-hub:
-    runs-on: [probo-server]
-    
+  build:
+    name: Build and Push Image
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
-    - name: Stop and remove existing containers
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ${{ env.REGISTRY }}
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Extract metadata for Docker
+      id: meta
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+        tags: |
+          type=sha,prefix=
+          type=raw,value=latest,enable={{is_default_branch}}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        target: production
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        labels: ${{ steps.meta.outputs.labels }}
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
+        secrets: |
+          gh_token=${{ secrets.GH_PAT_PACKAGES }}
+
+  deploy:
+    name: Deploy to Server
+    needs: build
+    runs-on: [probo-server]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Log in to GitHub Container Registry
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Pull latest image
+      run: docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+
+    - name: Zero-downtime container swap
       run: |
-        docker-compose down || true
-        docker system prune -f
-        
-    - name: Build and deploy with Docker Compose
-      run: |
-        docker-compose up -d --build
-        
+        set -e
+
+        # Remove any leftover new container from previous failed deploy
+        docker rm -f control-room-new 2>/dev/null || true
+
+        # Start new container alongside the old one
+        echo "Starting new container..."
+        docker run -d \
+          --name control-room-new \
+          --network xfw \
+          -e NODE_ENV=production \
+          --health-cmd="curl -f http://localhost/health || exit 1" \
+          --health-interval=5s \
+          --health-timeout=3s \
+          --health-retries=3 \
+          --restart unless-stopped \
+          ghcr.io/s-flex/control-room:latest
+
+        # Wait for new container to be healthy
+        echo "Waiting for new container to be healthy..."
+        sleep 5
+
+        if ! docker inspect --format='{{.State.Health.Status}}' control-room-new 2>/dev/null | grep -q "healthy"; then
+          # Give it a bit more time
+          sleep 5
+        fi
+
+        if ! curl -sf http://$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' control-room-new)/health > /dev/null 2>&1; then
+          echo "New container failed health check, rolling back..."
+          docker rm -f control-room-new
+          exit 1
+        fi
+
+        echo "New container is healthy!"
+
+        # Swap containers
+        echo "Swapping containers..."
+        docker stop control-room 2>/dev/null || true
+        docker rm control-room 2>/dev/null || true
+        docker rename control-room-new control-room
+
+        echo "Container swap complete!"
+
     - name: Clean up unused Docker images
+      run: docker image prune -f
+
+    - name: Verify deployment
       run: |
-        docker image prune -f
+        docker ps | grep control-room
+        echo "Deployment successful!"

@@ -1,8 +1,6 @@
 import { useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';
-import type { DataGroup } from '@s-flex/xfw-ui';
+import { useNavItemAction, type DataGroup, type NavItem } from '@s-flex/xfw-ui';
 import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import type { NavItem } from '@s-flex/xfw-ui';
-import { useNavItemAction } from '@s-flex/xfw-ui';
 import { useNavigate } from '@s-flex/xfw-url';
 import type { FlowBoardLevelConfig, FlowGroupData, FlowNavData, FlowContextValue } from './types';
 import {
@@ -145,20 +143,9 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     };
   }
 
-  function renderLevel(levelConfig: FlowBoardLevelConfig, levelRows: JSONRecord[], inheritedRowOptions?: FlowBoardLevelConfig['row_options']): ReactNode {
+  function renderLevel(levelConfig: FlowBoardLevelConfig, levelRows: JSONRecord[]): ReactNode {
     const groupBy = levelConfig.group_by;
-    if (!groupBy || groupBy.length === 0) return null;
-
-    // Merge: level's own row_options override inherited ones
-    const mergedConfig: FlowBoardLevelConfig = levelConfig.row_options
-      ? levelConfig
-      : inheritedRowOptions
-        ? { ...levelConfig, row_options: inheritedRowOptions }
-        : levelConfig;
-    const passDown = mergedConfig.row_options ?? inheritedRowOptions;
-
     const levelFieldMap = mergeFieldMap(fieldMap, levelConfig.field_config, optionsMap);
-    const gbKeys = getGroupByKeys(levelConfig);
     const levelFc = levelConfig.field_config;
     const grpClassName = groupClassName(levelFc) ?? levelConfig.class_name;
 
@@ -169,19 +156,30 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
 
     let groups: FlowGroupData[];
 
-    if (isFilterGroupBy(groupBy)) {
+    if (!groupBy || groupBy.length === 0) {
+      // No group_by: one card per row, fields from level field_config
+      groups = levelRows.map((row, i) => {
+        const data = buildGroupFields([row], [], levelFieldMap, levelFc);
+        const children = levelConfig.children ? renderLevel(levelConfig.children, [row]) : null;
+        const rowKey = primaryKeys.length > 0
+          ? primaryKeys.map(k => String(row[k] ?? '')).join('||')
+          : String(i);
+        return buildGroup(levelConfig, rowKey, [row], data, grpClassName, children);
+      });
+    } else if (isFilterGroupBy(groupBy)) {
+      const gbKeys = getGroupByKeys(levelConfig);
       groups = groupBy.map((filterGroup, i) => {
         const groupRows = applyFilterGroup(levelRows, filterGroup.filter);
         const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
-        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows, passDown) : null;
-        return buildGroup(mergedConfig, `filter-${i}`, groupRows, data, grpClassName, children, filterGroup.navs, filterGroup.i18n);
+        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows) : null;
+        return buildGroup(levelConfig, `filter-${i}`, groupRows, data, grpClassName, children, filterGroup.navs, filterGroup.i18n);
       });
     } else {
       const grouped = groupRowsByFields(levelRows, groupBy);
       groups = [...grouped.entries()].map(([key, groupRows]) => {
         const data = buildGroupFields(groupRows, groupBy as string[], levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
-        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows, passDown) : null;
-        return buildGroup(mergedConfig, key, groupRows, data, grpClassName, children);
+        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows) : null;
+        return buildGroup(levelConfig, key, groupRows, data, grpClassName, children);
       });
     }
 
@@ -191,8 +189,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   return (
     <FlowProvider value={ctx}>
       <div className="flow-board">
-        {renderLevel(flowBoardConfig, rows, (dg.row_options as FlowBoardLevelConfig['row_options']))}
-
+        {renderLevel(flowBoardConfig, rows)}
       </div>
     </FlowProvider>
   );

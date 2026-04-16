@@ -5,3 +5,5 @@ bash.exe.stackdump
 test-db.ts
 test-db.html
 .env
+
+dist/

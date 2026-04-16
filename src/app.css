@@ -2252,7 +2252,6 @@ body {
   gap: 6px;
   width: 100%;
   padding: 0;
-  margin-bottom: 8px;
   border: none;
   background: none;
   font-family: inherit;
@@ -2271,6 +2270,11 @@ body {
 }
 .datagroup-collapse-icon.collapsed {
   transform: rotate(-90deg);
+}
+.datagroup-header-text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
 }
 .datagroup-rows {
   display: flex;
@@ -2410,6 +2414,80 @@ body {
 
 .widget-table--md .widget-table-td {
   padding: 0.5rem 1.5rem;
+}
+
+/* ---- Vertical Bar Widget ---- */
+.vbar-widget {
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.vbar-widget.vbar-grouped {
+  display: flex;
+  gap: 8px;
+}
+
+.vbar-chart {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  max-width: 30%;
+}
+
+
+.vbar-widget *:focus,
+.vbar-widget *:focus-visible {
+  outline: none;
+}
+
+.vbar-widget .recharts-active-shape,
+.vbar-widget .recharts-rectangle.recharts-tooltip-cursor,
+.vbar-widget .recharts-active-bar {
+  display: none;
+}
+
+.vbar-widget .recharts-surface {
+  outline: none;
+}
+
+.vbar-tooltip,
+.vbar-tooltip-pinned .vbar-tooltip {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-xs);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 220px;
+  white-space: nowrap;
+}
+
+.vbar-tooltip-pinned {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+}
+
+.vbar-tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 12px;
+}
+
+.vbar-tooltip-label {
+  color: var(--text-muted);
+}
+
+.vbar-tooltip-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  white-space: nowrap;
 }
 
 /* ---- Timeline Bar Widget ---- */
