@@ -143,6 +143,18 @@
       }
     }
   },
+   {
+    "code": "shift",
+    "block": {
+      "title": "Shifts",
+      "i18n": {
+        "en": { "title": "Shifts" },
+        "nl": { "title": "Shifts" },
+        "de": { "title": "Shifts" },
+        "uk": { "title": "Shifts" }
+      }
+    }
+  },
   {
     "code": "orderlines",
     "block": {

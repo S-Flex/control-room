@@ -30,12 +30,13 @@ Adapted from the XFW Portal React coding standards. Defines the architectural pa
 - **React Router** — Routing with auxiliary route support via `xfw-url`
 
 **npm Packages (migrated from local):**
-- `@s-flex/xfw-data` — API client, data hooks (`useDataGeneric`, `useDataRows`, `useDatatable`)
-- `@s-flex/xfw-url` — URL-driven state management (query params, aux routes, sidebar system)
+- `@s-flex/xfw-ui` — Full React component library, hooks, providers, and data-driven layout components. Re-exports types from `xfw-data`. Primary import source for `DataGroup`, `FieldConfig`, `useDataGeneric`, `useDataGroups`, `resolveField`, `buildTableFields`, UI components, and providers.
+- `@s-flex/xfw-data` — API client, low-level data hooks (`useDataRows`, `useDatatable`), fetch functions, auth. Import raw types (`JSONRecord`, `JSONValue`, `DataTable`, `ParamValue`) from here when not using `xfw-ui`.
+- `@s-flex/xfw-url` — URL-driven state management (query params, aux routes, sidebar system, `useNavigate`)
 
 **Local Packages (aliased via vite + tsconfig):**
 - `xfw-three` — Three.js 3D model viewer
-- `xfw-get-block` — Localization (`getBlock()`)
+- `xfw-get-block` — Localization (`getBlock()`, `getLanguage()`)
 
 ---
 
@@ -48,12 +49,13 @@ Adapted from the XFW Portal React coding standards. Defines the architectural pa
 **Import Patterns:**
 
 ```typescript
-// npm packages
-import { useDataGeneric, type DataGroup } from '@s-flex/xfw-data';
+// npm packages — prefer @s-flex/xfw-ui for components, hooks, and re-exported types
+import { useDataGeneric, useDataGroups, type DataGroup, type FieldConfig } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { useQueryParams, useNavigate } from '@s-flex/xfw-url';
 
 // Local packages (aliased)
-import { getBlock } from 'xfw-get-block';
+import { getBlock, getLanguage } from 'xfw-get-block';
 import { ThreeModelView } from 'xfw-three';
 ```
 
@@ -117,28 +119,13 @@ function resolve(row: JSONRecord, path: string): JSONValue {
 Build complex hooks from simple hooks:
 
 ```typescript
-export const useDataGeneric = <T = JSONRecord>(dataGroup: DataGroup) => {
-  // 1. Gather params from URL and context
-  const queryParams = useQueryParams(dataGroup.params);
-  const overrideParams = useOverrideParams(dataGroup.params);
-  const params = useMemo(
-    () => [...queryParams, ...overrideParams],
-    [queryParams, overrideParams]
-  );
-
-  // 2. Fetch schema
-  const { data: dataTable } = useDatatable(primarySrc);
-
-  // 3. Validate mandatory params, then fetch data
-  const { data } = useDataRows<T>(primarySrc, params, {
-    enabled: allMandatoryParamsAvailable,
-  });
-
-  // 4. Subscribe to loading state
-  useLoadingSubscription(isLoading);
-
-  return { dataTable, dataRows: data, isLoading, error, params };
-};
+// useDataGeneric is provided by @s-flex/xfw-ui — do not reimplement.
+// It internally handles: param gathering (URL + context), schema fetch,
+// mandatory param validation, data fetch, and loading subscription.
+//
+// Usage:
+const { dataTable, dataRows, isLoading, error, mutate, setLocalData } =
+  useDataGeneric(dataGroup);
 ```
 
 ### Data Fetching: Dual Query Pattern
@@ -229,7 +216,9 @@ packages/
 | Types | PascalCase | `TimelineBarConfig`, `ApiResult<T>` |
 | Event handlers | camelCase with `handle`/`on` | `handleRefresh`, `onClose` |
 | Constants | UPPER_SNAKE_CASE | `DATA_GROUP_NAME` |
-| Files | kebab-case | `use-data-generic.ts`, `loading-boundary-provider.tsx` |
+| Files (components) | PascalCase | `SidebarPanel.tsx`, `WidgetRenderer.tsx` |
+| Files (hooks) | camelCase | `useProductionLineOverview.ts` |
+| Files (utils) | camelCase or kebab-case | `resolve.ts`, `utils.ts` |
 
 ### Import Organization
 
@@ -240,13 +229,16 @@ import { useState, useMemo, useCallback } from 'react';
 // 2. Third-party
 import { useQuery } from '@tanstack/react-query';
 
-// 3. Internal packages
-import { useDataGeneric, type DataGroup } from 'xfw-data';
-import { useQueryParams } from 'xfw-url';
+// 3. Internal packages — prefer @s-flex/xfw-ui as the primary import source
+import { useDataGeneric, type DataGroup, type FieldConfig } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord } from '@s-flex/xfw-data';
+import { useNavigate } from '@s-flex/xfw-url';
 
-// 4. Local imports
+// 4. Local packages
+import { getBlock, getLanguage } from 'xfw-get-block';
+
+// 5. Local imports
 import { TimelineBar } from './widgets/TimelineBar';
-import './app.css';
 ```
 
 ### Comments: Explain "Why", Not "What"
@@ -344,4 +336,4 @@ queryKey: ["dataRows", src, params, "live"]  // editable clone
 3. **Single Source of Truth** — URL query params drive data fetching via `is_query_param`
 4. **Hook Composition** — Build complex hooks from simple, focused hooks
 5. **Package Isolation** — Internal packages are self-contained; cross-package imports use aliases
-6. **Localization** — All user-facing text goes through `getBlock()`
+6. **Localization** — All user-facing text comes from `i18n` objects, resolved via `getLanguage()` from `xfw-get-block`. Pattern: `i18n[lang] ?? i18n[Object.keys(i18n)[0]]`. Use `getBlock()` for content blocks.

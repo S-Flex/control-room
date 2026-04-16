@@ -17,9 +17,14 @@ export function DashboardHeader({ className = '' }: { className?: string }) {
 
   return (
     <div className={`dashboard-header ${className}`}>
-      <div>
-        <div className="header-title">Control Room</div>
-        <div className="header-subtitle">Production floor overview</div>
+      <div className="dashboard-header-left">
+        <a href="/" className="planning-home-btn" title="Home">
+          <img src="/img/probo.svg" alt="Home" className="planning-home-logo" />
+        </a>
+        <div>
+          <div className="header-title">Control Room</div>
+          <div className="header-subtitle">Production floor overview</div>
+        </div>
       </div>
       <div className="header-right">
         <div className="header-date">{date}</div>

@@ -1,5 +1,11 @@
 [
   {
+    "code": "shift",
+    "main": {
+      "sections": [{ "data_group": "resource_shift_employees" }]
+    }
+  },
+  {
     "code": "info",
     "main": {
       "sections": [{ "data_group": "resource_info" }]
@@ -122,7 +128,16 @@
   {
     "code": "production-lines",
     "footer": {
-      "sections": [{ "data_group": "sitrep" }]
+      "grid": {
+        "columns": "1fr 1fr",
+        "areas": [
+          "sitrep resource-shift-employees"
+        ]
+      },
+      "cols": [
+        { "area": "sitrep", "data_group": "sitrep" },
+        { "area": "resource-shift-employees", "data_group": "status_bar" }
+      ]
     }
   }
 ]

@@ -1,0 +1,50 @@
+[
+  {
+    "code": "producing",
+    "label": "Producing",
+    "color": "#22c55e",
+    "background": "#052e16",
+    "dot": "#4ade80",
+    "dot_pulse": true
+  },
+  {
+    "code": "starved",
+    "label": "Waiting for input",
+    "color": "#eab308",
+    "background": "#1a1400",
+    "dot": "#facc15",
+    "dot_pulse": false
+  },
+  {
+    "code": "blocked",
+    "label": "Blocked",
+    "color": "#f97316",
+    "background": "#1c0a00",
+    "dot": "#fb923c",
+    "dot_pulse": false
+  },
+  {
+    "code": "setup",
+    "label": "Setting up",
+    "color": "#3b82f6",
+    "background": "#0c1a2e",
+    "dot": "#60a5fa",
+    "dot_pulse": false
+  },
+  {
+    "code": "breakdown",
+    "label": "Breakdown",
+    "color": "#ef4444",
+    "background": "#1f0000",
+    "dot": "#f87171",
+    "dot_pulse": true
+  },
+  {
+    "code": "idle",
+    "label": "Idle",
+    "color": "#6b7280",
+    "background": "#111111",
+    "dot": "#9ca3af",
+    "dot_pulse": false
+  }
+]

@@ -1,0 +1,78 @@
+{
+  "operator_config": {
+    "operator_id": "op-3f8a1b2c",
+    "machine_ids": ["H1-P03", "H1-C02"],
+    "updated_at": "2026-04-15T05:58:00Z"
+  },
+
+  "machines": [
+    {
+      "machine_id": "H1-P03",
+      "hall_id": "H1",
+      "type": "printer",
+      "brand": "Durst P5 350",
+      "state": "breakdown",
+      "state_since": "2026-04-15T07:34:00Z",
+      "oee": 0,
+      "wip": 0,
+      "delay_minutes": 140,
+      "current_job": null,
+      "next_job": {
+        "job_id": "J-48291",
+        "client": "Janssen Displays",
+        "product": "Roll-up banner 85×200",
+        "qty": 50,
+        "step": "Printing",
+        "sla_deadline": "2026-04-15T14:00:00Z"
+      }
+    },
+    {
+      "machine_id": "H1-C02",
+      "hall_id": "H1",
+      "type": "cutter",
+      "brand": "Zünd G3",
+      "state": "blocked",
+      "state_since": "2026-04-15T09:21:00Z",
+      "oee": 55,
+      "wip": 14,
+      "delay_minutes": 35,
+      "current_job": {
+        "job_id": "J-48188",
+        "client": "Meubelplein",
+        "product": "Façade banner 3×8m",
+        "qty": 1,
+        "step": "Cutting",
+        "sla_deadline": "2026-04-15T16:00:00Z"
+      },
+      "next_job": {
+        "job_id": "J-48301",
+        "client": "Instore Media",
+        "product": "Gondola toppers",
+        "qty": 120,
+        "step": "Cutting",
+        "sla_deadline": "2026-04-15T13:00:00Z"
+      }
+    }
+  ],
+
+  "available_machines": [
+    { "machine_id": "H1-P01", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "Durst P5 350",  "state": "producing" },
+    { "machine_id": "H1-P02", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "Durst P5 500",  "state": "producing" },
+    { "machine_id": "H1-P03", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "Durst P5 350",  "state": "breakdown" },
+    { "machine_id": "H1-P04", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "HP Latex 800",  "state": "producing" },
+    { "machine_id": "H1-P05", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "HP Latex 630",  "state": "starved"   },
+    { "machine_id": "H1-P06", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "SwissQPrint",   "state": "producing" },
+    { "machine_id": "H1-P07", "hall_id": "H1", "hall_name": "Hall 1", "type": "printer", "brand": "Durst P5 350",  "state": "setup"     },
+    { "machine_id": "H1-C01", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "Zünd S3",       "state": "producing" },
+    { "machine_id": "H1-C02", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "Zünd G3",       "state": "blocked"   },
+    { "machine_id": "H1-C03", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "Zünd D3",       "state": "producing" },
+    { "machine_id": "H1-C04", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "ATOM Titan",    "state": "producing" },
+    { "machine_id": "H1-C05", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "Zünd S3",       "state": "starved"   },
+    { "machine_id": "H1-C06", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "Kongsberg C64", "state": "producing" },
+    { "machine_id": "H1-C07", "hall_id": "H1", "hall_name": "Hall 1", "type": "cutter",  "brand": "Zünd G3",       "state": "producing" },
+    { "machine_id": "H2-P01", "hall_id": "H2", "hall_name": "Hall 2", "type": "printer", "brand": "Durst P5 350",  "state": "producing" },
+    { "machine_id": "H2-P02", "hall_id": "H2", "hall_name": "Hall 2", "type": "printer", "brand": "Durst P5 500",  "state": "producing" },
+    { "machine_id": "H2-C01", "hall_id": "H2", "hall_name": "Hall 2", "type": "cutter",  "brand": "Zünd S3",       "state": "producing" },
+    { "machine_id": "H2-C02", "hall_id": "H2", "hall_name": "Hall 2", "type": "cutter",  "brand": "Zünd G3",       "state": "producing" }
+  ]
+}

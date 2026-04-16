@@ -1,0 +1,100 @@
+{
+  "summary": {
+    "period": "today",
+    "date": "2026-04-15",
+    "shift": "Day shift 06:00–18:00",
+    "jobs_total": 1840,
+    "jobs_done": 1203,
+    "jobs_late": 47,
+    "jobs_target": 1600,
+    "elapsed_shift_pct": 62,
+    "sla_pct": 94.2,
+    "sla_target": 95.0,
+    "oee_pct": 81,
+    "oee_target": 82,
+    "alerts_sla_risk": 2,
+    "alerts_total": 4,
+    "sla_trend": [96.1, 95.8, 94.5, 96.3, 97.1, 93.8, 94.2],
+    "oee_trend":  [79,   83,   77,   85,   88,   80,   81]
+  },
+
+  "halls": [
+    {
+      "hall_id": "H1", "name": "Hall 1", "type": "Large roll",
+      "oee": 81, "oee_target": 82, "sla": 93.1, "sla_target": 95,
+      "machines_total": 14, "machines_active": 12, "alerts": 2,
+      "trend_oee": [78, 80, 79, 83, 81, 80, 81]
+    },
+    {
+      "hall_id": "H2", "name": "Hall 2", "type": "Small roll",
+      "oee": 87, "oee_target": 82, "sla": 96.4, "sla_target": 95,
+      "machines_total": 14, "machines_active": 13, "alerts": 0,
+      "trend_oee": [82, 84, 85, 87, 86, 87, 87]
+    },
+    {
+      "hall_id": "H3", "name": "Hall 3", "type": "Panel",
+      "oee": 74, "oee_target": 78, "sla": 91.2, "sla_target": 95,
+      "machines_total": 14, "machines_active": 11, "alerts": 3,
+      "trend_oee": [80, 76, 74, 71, 73, 74, 74]
+    },
+    {
+      "hall_id": "H4", "name": "Hall 4", "type": "Textile",
+      "oee": 89, "oee_target": 82, "sla": 97.8, "sla_target": 95,
+      "machines_total": 14, "machines_active": 14, "alerts": 0,
+      "trend_oee": [85, 87, 88, 90, 89, 88, 89]
+    },
+    {
+      "hall_id": "H5", "name": "Hall 5", "type": "Sticker / foil",
+      "oee": 80, "oee_target": 80, "sla": 95.0, "sla_target": 95,
+      "machines_total": 14, "machines_active": 13, "alerts": 1,
+      "trend_oee": [78, 79, 80, 81, 79, 80, 80]
+    },
+    {
+      "hall_id": "H6", "name": "Hall 6", "type": "Rigid / wood",
+      "oee": 76, "oee_target": 75, "sla": 94.5, "sla_target": 95,
+      "machines_total": 14, "machines_active": 13, "alerts": 0,
+      "trend_oee": [74, 75, 76, 75, 77, 76, 76]
+    },
+    {
+      "hall_id": "H7", "name": "Hall 7", "type": "Finishing",
+      "oee": 70, "oee_target": 65, "sla": 95.3, "sla_target": 95,
+      "machines_total": 14, "machines_active": 12, "alerts": 0,
+      "trend_oee": [68, 69, 70, 71, 69, 70, 70]
+    }
+  ],
+
+  "alerts": [
+    {
+      "machine_id": "H1-P03",
+      "hall_id": "H1",
+      "type": "breakdown",
+      "duration_minutes": 140,
+      "impact": "7 jobs delayed",
+      "sla_risk": true
+    },
+    {
+      "machine_id": "H3-P05",
+      "hall_id": "H3",
+      "type": "breakdown",
+      "duration_minutes": 62,
+      "impact": "3 jobs delayed",
+      "sla_risk": true
+    },
+    {
+      "machine_id": "H1-C02",
+      "hall_id": "H1",
+      "type": "blocked",
+      "duration_minutes": 35,
+      "impact": "Buffer +14",
+      "sla_risk": false
+    },
+    {
+      "machine_id": "H5-P02",
+      "hall_id": "H5",
+      "type": "starved",
+      "duration_minutes": 22,
+      "impact": "Low priority",
+      "sla_risk": false
+    }
+  ]
+}

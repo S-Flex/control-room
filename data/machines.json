@@ -1,0 +1,73 @@
+{
+  "halls": [
+    {
+      "hall_id": "H1",
+      "name": "Hall 1",
+      "type": "Large roll",
+      "printers": [
+        { "machine_id": "H1-P01", "brand": "Durst P5 350",  "state": "producing",  "oee": 88, "wip": 6,  "delay_minutes": 0   },
+        { "machine_id": "H1-P02", "brand": "Durst P5 500",  "state": "producing",  "oee": 91, "wip": 4,  "delay_minutes": 0   },
+        { "machine_id": "H1-P03", "brand": "Durst P5 350",  "state": "breakdown",  "oee": 0,  "wip": 0,  "delay_minutes": 140 },
+        { "machine_id": "H1-P04", "brand": "HP Latex 800",  "state": "producing",  "oee": 79, "wip": 8,  "delay_minutes": 0   },
+        { "machine_id": "H1-P05", "brand": "HP Latex 630",  "state": "starved",    "oee": 62, "wip": 2,  "delay_minutes": 22  },
+        { "machine_id": "H1-P06", "brand": "SwissQPrint",   "state": "producing",  "oee": 84, "wip": 5,  "delay_minutes": 0   },
+        { "machine_id": "H1-P07", "brand": "Durst P5 350",  "state": "setup",      "oee": 0,  "wip": 0,  "delay_minutes": 8   }
+      ],
+      "cutters": [
+        { "machine_id": "H1-C01", "brand": "Zünd S3",       "state": "producing",  "oee": 82, "wip": 4,  "delay_minutes": 0   },
+        { "machine_id": "H1-C02", "brand": "Zünd G3",       "state": "blocked",    "oee": 55, "wip": 14, "delay_minutes": 35  },
+        { "machine_id": "H1-C03", "brand": "Zünd D3",       "state": "producing",  "oee": 88, "wip": 3,  "delay_minutes": 0   },
+        { "machine_id": "H1-C04", "brand": "ATOM Titan",    "state": "producing",  "oee": 76, "wip": 5,  "delay_minutes": 0   },
+        { "machine_id": "H1-C05", "brand": "Zünd S3",       "state": "starved",    "oee": 44, "wip": 1,  "delay_minutes": 18  },
+        { "machine_id": "H1-C06", "brand": "Kongsberg C64", "state": "producing",  "oee": 71, "wip": 6,  "delay_minutes": 0   },
+        { "machine_id": "H1-C07", "brand": "Zünd G3",       "state": "producing",  "oee": 83, "wip": 4,  "delay_minutes": 0   }
+      ]
+    },
+    {
+      "hall_id": "H2",
+      "name": "Hall 2",
+      "type": "Small roll",
+      "printers": [
+        { "machine_id": "H2-P01", "brand": "Durst P5 350",  "state": "producing",  "oee": 85, "wip": 5,  "delay_minutes": 0   },
+        { "machine_id": "H2-P02", "brand": "Durst P5 500",  "state": "producing",  "oee": 90, "wip": 7,  "delay_minutes": 0   },
+        { "machine_id": "H2-P03", "brand": "HP Latex 800",  "state": "producing",  "oee": 87, "wip": 4,  "delay_minutes": 0   },
+        { "machine_id": "H2-P04", "brand": "HP Latex 630",  "state": "blocked",    "oee": 65, "wip": 3,  "delay_minutes": 22  },
+        { "machine_id": "H2-P05", "brand": "Durst P5 350",  "state": "producing",  "oee": 82, "wip": 6,  "delay_minutes": 0   },
+        { "machine_id": "H2-P06", "brand": "SwissQPrint",   "state": "idle",       "oee": 0,  "wip": 0,  "delay_minutes": 0   },
+        { "machine_id": "H2-P07", "brand": "HP Latex 570",  "state": "producing",  "oee": 78, "wip": 4,  "delay_minutes": 0   }
+      ],
+      "cutters": [
+        { "machine_id": "H2-C01", "brand": "Zünd S3",       "state": "producing",  "oee": 80, "wip": 3,  "delay_minutes": 0   },
+        { "machine_id": "H2-C02", "brand": "Zünd G3",       "state": "producing",  "oee": 85, "wip": 5,  "delay_minutes": 0   },
+        { "machine_id": "H2-C03", "brand": "Zünd D3",       "state": "setup",      "oee": 0,  "wip": 0,  "delay_minutes": 12  },
+        { "machine_id": "H2-C04", "brand": "ATOM Titan",    "state": "producing",  "oee": 77, "wip": 4,  "delay_minutes": 0   },
+        { "machine_id": "H2-C05", "brand": "Kongsberg C64", "state": "producing",  "oee": 89, "wip": 6,  "delay_minutes": 0   },
+        { "machine_id": "H2-C06", "brand": "Zünd S3",       "state": "producing",  "oee": 81, "wip": 3,  "delay_minutes": 0   },
+        { "machine_id": "H2-C07", "brand": "Zünd G3",       "state": "producing",  "oee": 74, "wip": 5,  "delay_minutes": 0   }
+      ]
+    },
+    {
+      "hall_id": "H3",
+      "name": "Hall 3",
+      "type": "Panel",
+      "printers": [
+        { "machine_id": "H3-P01", "brand": "Durst P5 350",  "state": "producing",  "oee": 76, "wip": 4,  "delay_minutes": 0   },
+        { "machine_id": "H3-P02", "brand": "Durst P5 500",  "state": "producing",  "oee": 82, "wip": 6,  "delay_minutes": 0   },
+        { "machine_id": "H3-P03", "brand": "SwissQPrint",   "state": "producing",  "oee": 79, "wip": 3,  "delay_minutes": 0   },
+        { "machine_id": "H3-P04", "brand": "HP Latex 800",  "state": "producing",  "oee": 88, "wip": 7,  "delay_minutes": 0   },
+        { "machine_id": "H3-P05", "brand": "Durst P5 350",  "state": "breakdown",  "oee": 0,  "wip": 0,  "delay_minutes": 62  },
+        { "machine_id": "H3-P06", "brand": "HP Latex 630",  "state": "producing",  "oee": 83, "wip": 5,  "delay_minutes": 0   },
+        { "machine_id": "H3-P07", "brand": "Durst P5 500",  "state": "producing",  "oee": 71, "wip": 4,  "delay_minutes": 0   }
+      ],
+      "cutters": [
+        { "machine_id": "H3-C01", "brand": "Zünd S3",       "state": "blocked",    "oee": 58, "wip": 12, "delay_minutes": 45  },
+        { "machine_id": "H3-C02", "brand": "Zünd G3",       "state": "blocked",    "oee": 52, "wip": 10, "delay_minutes": 55  },
+        { "machine_id": "H3-C03", "brand": "ATOM Titan",    "state": "producing",  "oee": 80, "wip": 4,  "delay_minutes": 0   },
+        { "machine_id": "H3-C04", "brand": "Kongsberg C64", "state": "producing",  "oee": 76, "wip": 5,  "delay_minutes": 0   },
+        { "machine_id": "H3-C05", "brand": "Zünd D3",       "state": "producing",  "oee": 84, "wip": 3,  "delay_minutes": 0   },
+        { "machine_id": "H3-C06", "brand": "Zünd S3",       "state": "starved",    "oee": 40, "wip": 1,  "delay_minutes": 15  },
+        { "machine_id": "H3-C07", "brand": "Zünd G3",       "state": "producing",  "oee": 77, "wip": 4,  "delay_minutes": 0   }
+      ]
+    }
+  ]
+}

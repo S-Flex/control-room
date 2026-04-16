@@ -1,0 +1,535 @@
+[
+  {
+    "code": "delivery",
+    "label": "Delivery",
+    "icon": "truck-01",
+    "description": "Are we delivering what we promised?",
+    "visible_on_management": true,
+    "kpis": [
+      {
+        "code": "delivery.sla-pct",
+        "label": "On-time SLA",
+        "graph": "gauge",
+        "unit": "%",
+        "target": 95,
+        "thresholds": { "warn": -2, "danger": -5 },
+        "data_key": "sla_pct"
+      },
+      {
+        "code": "delivery.jobs-late",
+        "label": "Jobs late today",
+        "graph": "number",
+        "unit": "jobs",
+        "target": 0,
+        "thresholds": { "warn": 10, "danger": 30 },
+        "data_key": "jobs_late",
+        "invert": true
+      },
+      {
+        "code": "delivery.sla-trend",
+        "label": "SLA trend (7 days)",
+        "graph": "line",
+        "unit": "%",
+        "target": 95,
+        "data_key": "sla_trend"
+      },
+      {
+        "code": "delivery.late-by-hall",
+        "label": "Late jobs per hall",
+        "graph": "bar",
+        "unit": "jobs",
+        "data_key": "late_by_hall"
+      },
+      {
+        "code": "delivery.redeliveries",
+        "label": "Redeliveries (PROBO cost)",
+        "graph": "number",
+        "unit": "jobs",
+        "target": 0,
+        "thresholds": { "warn": 2, "danger": 5 },
+        "data_key": "redeliveries",
+        "invert": true
+      },
+      {
+        "code": "delivery.avg-lead-time",
+        "label": "Avg lead time",
+        "graph": "number",
+        "unit": "hours",
+        "target": 24,
+        "thresholds": { "warn": 4, "danger": 8 },
+        "data_key": "avg_lead_time_hours"
+      }
+    ]
+  },
+  {
+    "code": "quality",
+    "label": "Quality",
+    "icon": "check-circle",
+    "description": "Are we delivering it correctly?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "quality.first-pass-yield",
+        "label": "First-pass yield",
+        "graph": "gauge",
+        "unit": "%",
+        "target": 98,
+        "thresholds": { "warn": -1, "danger": -3 },
+        "data_key": "first_pass_yield"
+      },
+      {
+        "code": "quality.reprint-rate",
+        "label": "Reprint rate",
+        "graph": "number",
+        "unit": "%",
+        "target": 0,
+        "thresholds": { "warn": 1, "danger": 3 },
+        "data_key": "reprint_rate",
+        "invert": true
+      },
+      {
+        "code": "quality.internal-repairs",
+        "label": "Internal repairs",
+        "graph": "number",
+        "unit": "jobs",
+        "target": 0,
+        "thresholds": { "warn": 5, "danger": 15 },
+        "data_key": "internal_repairs",
+        "invert": true
+      },
+      {
+        "code": "quality.external-repairs",
+        "label": "External repairs (customer complaints)",
+        "graph": "number",
+        "unit": "jobs",
+        "target": 0,
+        "thresholds": { "warn": 2, "danger": 5 },
+        "data_key": "external_repairs",
+        "invert": true
+      },
+      {
+        "code": "quality.complaint-types",
+        "label": "Complaints by type",
+        "graph": "donut",
+        "unit": "count",
+        "data_key": "complaint_types",
+        "segments": ["print", "cut", "finishing", "packaging", "file"]
+      },
+      {
+        "code": "quality.repairs-trend",
+        "label": "Repairs trend (30 days)",
+        "graph": "line",
+        "unit": "jobs",
+        "data_key": "repairs_trend"
+      }
+    ]
+  },
+  {
+    "code": "machine-health",
+    "label": "Machine health",
+    "icon": "activity",
+    "description": "Are the machines available and maintained?",
+    "visible_on_management": true,
+    "kpis": [
+      {
+        "code": "machine-health.availability",
+        "label": "Fleet availability",
+        "graph": "gauge",
+        "unit": "%",
+        "target": 90,
+        "thresholds": { "warn": -3, "danger": -8 },
+        "data_key": "fleet_availability"
+      },
+      {
+        "code": "machine-health.breakdowns-today",
+        "label": "Breakdowns today",
+        "graph": "number",
+        "unit": "machines",
+        "target": 0,
+        "thresholds": { "warn": 1, "danger": 3 },
+        "data_key": "breakdowns_today",
+        "invert": true
+      },
+      {
+        "code": "machine-health.mtbf",
+        "label": "MTBF (mean time between failures)",
+        "graph": "number",
+        "unit": "hours",
+        "target": 72,
+        "thresholds": { "warn": -12, "danger": -24 },
+        "data_key": "mtbf_hours"
+      },
+      {
+        "code": "machine-health.mttr",
+        "label": "MTTR (mean time to repair)",
+        "graph": "number",
+        "unit": "minutes",
+        "target": 30,
+        "thresholds": { "warn": 15, "danger": 30 },
+        "data_key": "mttr_minutes",
+        "invert": true
+      },
+      {
+        "code": "machine-health.planned-vs-unplanned",
+        "label": "Planned vs unplanned maintenance",
+        "graph": "donut",
+        "unit": "hours",
+        "data_key": "maintenance_split",
+        "segments": ["planned", "unplanned"]
+      },
+      {
+        "code": "machine-health.error-types",
+        "label": "Error types (top 5)",
+        "graph": "bar",
+        "unit": "count",
+        "data_key": "error_types"
+      },
+      {
+        "code": "machine-health.ink-consumption",
+        "label": "Ink consumption vs norm",
+        "graph": "bar",
+        "unit": "ml/m²",
+        "data_key": "ink_consumption_by_machine"
+      }
+    ]
+  },
+  {
+    "code": "people",
+    "label": "People",
+    "icon": "users-01",
+    "description": "Are people available and engaged?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "people.sick-leave",
+        "label": "Sick leave rate",
+        "graph": "number",
+        "unit": "%",
+        "target": 4,
+        "thresholds": { "warn": 2, "danger": 4 },
+        "data_key": "sick_leave_pct",
+        "invert": true
+      },
+      {
+        "code": "people.staffing-vs-plan",
+        "label": "Staffing vs plan",
+        "graph": "number",
+        "unit": "%",
+        "target": 100,
+        "thresholds": { "warn": -5, "danger": -10 },
+        "data_key": "staffing_pct"
+      },
+      {
+        "code": "people.overtime-hours",
+        "label": "Overtime hours this week",
+        "graph": "bar",
+        "unit": "hours",
+        "data_key": "overtime_by_hall"
+      },
+      {
+        "code": "people.headcount-by-hall",
+        "label": "Headcount per hall",
+        "graph": "bar",
+        "unit": "persons",
+        "data_key": "headcount_by_hall"
+      }
+    ]
+  },
+  {
+    "code": "efficiency",
+    "label": "Efficiency",
+    "icon": "zap",
+    "description": "Are we operating without waste?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "efficiency.nesting-efficiency",
+        "label": "Nesting efficiency",
+        "graph": "gauge",
+        "unit": "%",
+        "target": 85,
+        "thresholds": { "warn": -5, "danger": -10 },
+        "data_key": "nesting_efficiency"
+      },
+      {
+        "code": "efficiency.waste-m2",
+        "label": "Material waste",
+        "graph": "number",
+        "unit": "m²",
+        "target": 0,
+        "thresholds": { "warn": 50, "danger": 150 },
+        "data_key": "waste_m2",
+        "invert": true
+      },
+      {
+        "code": "efficiency.waste-trend",
+        "label": "Waste trend (30 days)",
+        "graph": "line",
+        "unit": "m²",
+        "data_key": "waste_trend"
+      },
+      {
+        "code": "efficiency.staff-per-job",
+        "label": "Staff minutes per job",
+        "graph": "number",
+        "unit": "min",
+        "target": 3,
+        "thresholds": { "warn": 1, "danger": 2 },
+        "data_key": "staff_minutes_per_job",
+        "invert": true
+      },
+      {
+        "code": "efficiency.energy-per-m2",
+        "label": "Energy per m²",
+        "graph": "number",
+        "unit": "kWh",
+        "target": 0.8,
+        "thresholds": { "warn": 0.1, "danger": 0.2 },
+        "data_key": "energy_per_m2",
+        "invert": true
+      }
+    ]
+  },
+  {
+    "code": "capacity",
+    "label": "Capacity",
+    "icon": "bar-chart-01",
+    "description": "How much can we handle and how well are we using it?",
+    "visible_on_management": true,
+    "kpis": [
+      {
+        "code": "capacity.oee",
+        "label": "Overall Equipment Effectiveness",
+        "graph": "gauge",
+        "unit": "%",
+        "target": 82,
+        "thresholds": { "warn": -5, "danger": -10 },
+        "data_key": "oee_pct"
+      },
+      {
+        "code": "capacity.oee-by-hall",
+        "label": "OEE per hall",
+        "graph": "bar",
+        "unit": "%",
+        "target": 82,
+        "data_key": "oee_by_hall"
+      },
+      {
+        "code": "capacity.utilisation",
+        "label": "Hall utilisation",
+        "graph": "bar",
+        "unit": "%",
+        "data_key": "utilisation_by_hall"
+      },
+      {
+        "code": "capacity.print-modes",
+        "label": "Print mode distribution",
+        "graph": "donut",
+        "unit": "%",
+        "data_key": "print_modes",
+        "segments": ["quality", "production", "economy"]
+      },
+      {
+        "code": "capacity.inflow-vs-capacity",
+        "label": "Inflow vs capacity (next 5 days)",
+        "graph": "bar",
+        "unit": "jobs",
+        "data_key": "inflow_vs_capacity"
+      },
+      {
+        "code": "capacity.oee-trend",
+        "label": "OEE trend (30 days)",
+        "graph": "line",
+        "unit": "%",
+        "target": 82,
+        "data_key": "oee_trend"
+      }
+    ]
+  },
+  {
+    "code": "cost",
+    "label": "Cost",
+    "icon": "currency-euro",
+    "description": "What does it cost per unit produced?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "cost.cost-per-m2",
+        "label": "Cost per m²",
+        "graph": "number",
+        "unit": "€",
+        "target": 4.20,
+        "thresholds": { "warn": 0.30, "danger": 0.60 },
+        "data_key": "cost_per_m2",
+        "invert": true
+      },
+      {
+        "code": "cost.cost-per-job",
+        "label": "Cost per job",
+        "graph": "number",
+        "unit": "€",
+        "target": 12.00,
+        "thresholds": { "warn": 1.50, "danger": 3.00 },
+        "data_key": "cost_per_job",
+        "invert": true
+      },
+      {
+        "code": "cost.waste-euros",
+        "label": "Waste cost",
+        "graph": "number",
+        "unit": "€",
+        "target": 0,
+        "thresholds": { "warn": 200, "danger": 500 },
+        "data_key": "waste_euros",
+        "invert": true
+      },
+      {
+        "code": "cost.maintenance-split",
+        "label": "Maintenance cost: planned vs unplanned",
+        "graph": "donut",
+        "unit": "€",
+        "data_key": "maintenance_cost_split",
+        "segments": ["planned", "unplanned"]
+      },
+      {
+        "code": "cost.cost-trend",
+        "label": "Cost per m² trend (30 days)",
+        "graph": "line",
+        "unit": "€",
+        "data_key": "cost_per_m2_trend"
+      }
+    ]
+  },
+  {
+    "code": "safety",
+    "label": "Safety",
+    "icon": "shield-tick",
+    "description": "Are people working safely?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "safety.incidents-ytd",
+        "label": "Incidents year to date",
+        "graph": "number",
+        "unit": "incidents",
+        "target": 0,
+        "thresholds": { "warn": 1, "danger": 3 },
+        "data_key": "incidents_ytd",
+        "invert": true
+      },
+      {
+        "code": "safety.near-misses",
+        "label": "Near misses this month",
+        "graph": "number",
+        "unit": "reports",
+        "target": 0,
+        "thresholds": { "warn": 2, "danger": 5 },
+        "data_key": "near_misses_month",
+        "invert": true
+      },
+      {
+        "code": "safety.days-without-incident",
+        "label": "Days without incident",
+        "graph": "number",
+        "unit": "days",
+        "target": 365,
+        "data_key": "days_without_incident"
+      },
+      {
+        "code": "safety.incident-types",
+        "label": "Incident types",
+        "graph": "bar",
+        "unit": "count",
+        "data_key": "incident_types"
+      }
+    ]
+  },
+  {
+    "code": "sustainability",
+    "label": "Sustainability",
+    "icon": "leaf",
+    "description": "How sustainably are we operating?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "sustainability.energy-kwh",
+        "label": "Energy consumption today",
+        "graph": "number",
+        "unit": "kWh",
+        "data_key": "energy_kwh_today"
+      },
+      {
+        "code": "sustainability.energy-trend",
+        "label": "Energy trend (30 days)",
+        "graph": "line",
+        "unit": "kWh",
+        "data_key": "energy_trend"
+      },
+      {
+        "code": "sustainability.ink-waste-kg",
+        "label": "Ink waste",
+        "graph": "number",
+        "unit": "kg",
+        "target": 0,
+        "thresholds": { "warn": 2, "danger": 5 },
+        "data_key": "ink_waste_kg",
+        "invert": true
+      },
+      {
+        "code": "sustainability.material-yield",
+        "label": "Material yield",
+        "graph": "gauge",
+        "unit": "%",
+        "target": 88,
+        "thresholds": { "warn": -3, "danger": -6 },
+        "data_key": "material_yield"
+      },
+      {
+        "code": "sustainability.waste-by-type",
+        "label": "Waste by material type",
+        "graph": "donut",
+        "unit": "kg",
+        "data_key": "waste_by_material",
+        "segments": ["pvc", "textile", "paper", "foil", "rigid"]
+      }
+    ]
+  },
+  {
+    "code": "growth",
+    "label": "Growth",
+    "icon": "trending-up-01",
+    "description": "Are we growing towards our targets?",
+    "visible_on_management": false,
+    "kpis": [
+      {
+        "code": "growth.jobs-vs-target",
+        "label": "Jobs per day vs target",
+        "graph": "line",
+        "unit": "jobs",
+        "target": 1600,
+        "data_key": "jobs_per_day_trend"
+      },
+      {
+        "code": "growth.jobs-this-week",
+        "label": "Jobs this week vs last week",
+        "graph": "bar",
+        "unit": "jobs",
+        "data_key": "jobs_week_comparison"
+      },
+      {
+        "code": "growth.capacity-headroom",
+        "label": "Capacity headroom",
+        "graph": "gauge",
+        "unit": "%",
+        "data_key": "capacity_headroom"
+      },
+      {
+        "code": "growth.new-product-categories",
+        "label": "Active product categories",
+        "graph": "number",
+        "unit": "categories",
+        "data_key": "active_product_categories"
+      }
+    ]
+  }
+]

@@ -52,7 +52,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
         <p className="datagroup-header-text">{headerText}</p>
       )}
       {!collapsed && (
-        widgetConfig || layout === 'cards' || layout === 'flow-board' || layout === 'content' || layout === 'table' ? (
+        widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' ? (
           <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={dataGroup} data={dataRows} dataTable={dataTable} />
         ) : (
           <FallbackDataRows data={dataRows} />

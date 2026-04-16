@@ -3,6 +3,7 @@ import type { JSONValue, JSONRecord } from '@s-flex/xfw-data';
 import type { ResolvedField } from '@s-flex/xfw-ui';
 import { Tooltip } from '@s-flex/xfw-ui';
 import { Button } from 'react-aria-components';
+import { getLanguage } from 'xfw-get-block';
 import { resolveI18nLabel, formatValue } from '../widgets/flow/utils';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
@@ -94,6 +95,24 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
   }
   if (aggregate) {
     return <Chip label={label} value={value as string | number} />;
+  }
+
+  if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {
+    const lang = getLanguage();
+    const i18n = value as Record<string, Record<string, string>>;
+    const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
+    if (localized) {
+      const text = localized.title || localized.text || '';
+      if (showLabel) {
+        return (
+          <div className="field-with-label">
+            <span className="field-label">{label}</span>
+            <span className="field-value">{text}</span>
+          </div>
+        );
+      }
+      return <span>{text}</span>;
+    }
   }
 
   const formatted = formatValue(value, control);

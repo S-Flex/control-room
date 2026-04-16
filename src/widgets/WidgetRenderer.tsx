@@ -8,6 +8,7 @@ import { TimelineBar, type TimelineBarConfig } from './TimelineBar';
 import { DonutChart, type DonutChartConfig } from './DonutChart';
 import { InkGauge, type InkGaugeConfig } from './InkGauge';
 import { Cards } from './Cards';
+import { Item } from './Item';
 import { FlowBoard } from './flow';
 import { Content } from './Content';
 import { VerticalBar, type VerticalBarConfig } from './VerticalBar';
@@ -177,6 +178,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
     case 'cards':
       return <Cards dataGroup={dataGroup} data={data} dataTable={dataTable} />;
+    case 'item':
+      return <Item dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'flow-board':
       return <FlowBoard dataGroup={dataGroup} dataTable={dataTable!} data={data} />;
     case 'vertical-bar':

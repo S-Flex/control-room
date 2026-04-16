@@ -44,6 +44,7 @@ export type VerticalBarConfig = {
   vertical_axis: { field: string };
   tooltip?: VerticalBarTooltip;
   group_by?: string;
+  max_width?: string;
 };
 
 type MergedFieldEntry = {
@@ -415,7 +416,7 @@ export function VerticalBar({
   data: JSONRecord[];
 }) {
   const lang = getLanguage();
-  const { sets, vertical_axis, tooltip, group_by } = widgetConfig;
+  const { sets, vertical_axis, tooltip, group_by, max_width } = widgetConfig;
 
   const tooltipFields = useMemo(
     () => buildMergedFields(dataGroup.field_config, tooltip?.field_config, lang),
@@ -455,7 +456,7 @@ export function VerticalBar({
   }, [data, group_by, vertical_axis.field, lang]);
 
   return (
-    <div className={`vbar-widget${group_by ? ' vbar-grouped' : ''}`}>
+    <div className={`vbar-widget${group_by ? ' vbar-grouped' : ''}`} style={max_width ? { maxWidth: max_width } : undefined}>
       {resolvedGroups.map(g => (
         <VerticalBarChart
           key={g.key}

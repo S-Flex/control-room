@@ -61,7 +61,7 @@ function dataServerPlugin() {
 }
 
 export default defineConfig({
-  plugins: [tailwindcss(), react(), dataServerPlugin()],
+  plugins: [react(), tailwindcss(), dataServerPlugin()],
   root: '.',
   resolve: {
     alias: {

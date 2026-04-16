@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
 import { Checkbox, useGroupCheck } from '../../controls/Checkbox';
@@ -9,7 +9,9 @@ function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): strin
   return primaryKeys.map(k => String(row[k] ?? '')).join('||');
 }
 
-function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
+type GridPager = { index: number; total: number; scroll: (dir: 1 | -1) => void; };
+
+function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: GridPager; }) {
   const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
   const { allChecked, someChecked } = useGroupCheck(g.rows);
   const { primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
@@ -59,6 +61,17 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
             ))
           }
         </div>
+        {pager && (
+          <div className="flow-grid-pager">
+            <button className="flow-grid-pager-btn" disabled={pager.index <= 0} onClick={() => pager.scroll(-1)}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 3L4 6l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+            <span className="flow-grid-pager-label">{pager.index + 1}/{pager.total}</span>
+            <button className="flow-grid-pager-btn" disabled={pager.index >= pager.total - 1} onClick={() => pager.scroll(1)}>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </button>
+          </div>
+        )}
       </div>
       {g.navs && g.navs.length > 0 && (
         <div className={isGrid ? 'flow-grid-column-nav' : undefined}>
@@ -87,15 +100,41 @@ function FlowBoxItem({ g, isGrid }: { g: FlowGroupData; isGrid: boolean }) {
 
 export function FlowBox({ layout, groups }: FlowLayoutProps) {
   const isGrid = layout === 'flow-grid';
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [snapIndex, setSnapIndex] = useState(0);
+
+  const scroll = useCallback((dir: 1 | -1) => {
+    const el = gridRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' });
+  }, []);
+
+  const handleScroll = useCallback(() => {
+    const el = gridRef.current;
+    if (!el || el.clientWidth === 0) return;
+    setSnapIndex(Math.round(el.scrollLeft / el.clientWidth));
+  }, []);
+
+  if (!isGrid) {
+    return (
+      <div className="flow-card-list">
+        {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid={false} />)}
+      </div>
+    );
+  }
+
+  const pager: GridPager | undefined = groups.length > 1
+    ? { index: snapIndex, total: groups.length, scroll }
+    : undefined;
 
   return (
     <div
-      className={isGrid ? 'flow-grid' : 'flow-card-list'}
-      style={isGrid ? { gridTemplateColumns: `repeat(${groups.length}, 1fr)` } : undefined}
+      ref={gridRef}
+      className="flow-grid"
+      style={{ gridTemplateColumns: `repeat(${groups.length}, 1fr)` }}
+      onScroll={handleScroll}
     >
-      {groups.map(g => (
-        <FlowBoxItem key={g.key} g={g} isGrid={isGrid} />
-      ))}
+      {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid pager={pager} />)}
     </div>
   );
 }

@@ -1,0 +1,769 @@
+[
+  {
+    "src": "get_components_inflow",
+    "layout": "flow-board",
+    "params": [
+      {
+        "key": "reference_date",
+        "default_value": "2026-01-06"
+      },
+      {
+        "key": "from",
+        "is_query_param": true
+      },
+      {
+        "key": "material_id",
+        "is_query_param": true
+      },
+      {
+        "key": "look_ahead_days",
+        "default_value": 10
+      },
+      {
+        "key": "threshold",
+        "default_value": 2
+      },
+      {
+        "key": "domain_id",
+        "default_value": 1
+      }
+    ],
+    "children": [],
+    "widget_id": "job_components_inflow",
+    "field_config": {
+      "sqm": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "m²"
+            },
+            "nl": {
+              "title": "m²"
+            }
+          },
+          "order": 10
+        },
+        "scale": 0
+      },
+      "state": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "State"
+            },
+            "nl": {
+              "title": "Status"
+            }
+          },
+          "order": 4,
+          "control": "badge"
+        }
+      },
+      "number": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Order"
+            },
+            "nl": {
+              "title": "Order"
+            }
+          },
+          "order": 5
+        },
+        "nav": {
+          "path": "https://v2.proboview.nl/orders/edit/{order_id}"
+        }
+      },
+      "sequence": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Sequence"
+            },
+            "nl": {
+              "title": "Volgorde"
+            }
+          },
+          "order": 11,
+          "control": "badge",
+          "input_data": {
+            "src": "get_internal_status_codes",
+            "label_key": "content",
+            "value_key": "sequence"
+          }
+        }
+      },
+      "direction": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Direction"
+            },
+            "nl": {
+              "title": "Richting"
+            }
+          },
+          "order": 2,
+          "control": "badge"
+        }
+      },
+      "threshold": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Threshold"
+            },
+            "nl": {
+              "title": "Drempel"
+            }
+          },
+          "order": 11
+        }
+      },
+      "material_id": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Material"
+            },
+            "nl": {
+              "title": "Materiaal"
+            }
+          },
+          "order": 6
+        }
+      },
+      "order_location": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Location"
+            },
+            "nl": {
+              "title": "Locatie"
+            }
+          },
+          "order": 3
+        }
+      },
+      "product_amount": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Qty"
+            },
+            "nl": {
+              "title": "Aantal"
+            }
+          },
+          "order": 8
+        }
+      },
+      "production_date": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Production date"
+            },
+            "nl": {
+              "title": "Productiedatum"
+            }
+          },
+          "order": 1,
+          "control": "date"
+        }
+      },
+      "order_line_count": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Order lines"
+            },
+            "nl": {
+              "title": "Orderregels"
+            }
+          },
+          "order": 7
+        }
+      },
+      "production_hours": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Production hours"
+            },
+            "nl": {
+              "title": "Productie tijd"
+            }
+          },
+          "order": 10
+        }
+      },
+      "sales_orderline_id": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Sales orderline"
+            },
+            "nl": {
+              "title": "Verkoop orderregel"
+            }
+          },
+          "order": 29
+        }
+      },
+      "production_location": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Production location"
+            },
+            "nl": {
+              "title": "Productie locatie"
+            }
+          },
+          "order": 12
+        }
+      },
+      "internal_status_code": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Status"
+            },
+            "nl": {
+              "title": "Status"
+            }
+          },
+          "order": 13,
+          "control": "badge"
+        }
+      },
+      "total_product_amount": {
+        "ui": {
+          "i18n": {
+            "en": {
+              "title": "Total qty"
+            },
+            "nl": {
+              "title": "Totaal aantal"
+            }
+          },
+          "order": 9
+        }
+      }
+    },
+    "flow_board_config": {
+      "layout": "flow-grid",
+      "children": {
+        "layout": "flow-container",
+        "children": {
+          "layout": "flow-cards",
+          "group_by": [
+            "number",
+            "production_hours"
+          ],
+          "row_options": {
+            "nav": {
+              "on_select": {
+                "path": "(sidebar:orderlines)",
+                "params": [
+                  {
+                    "key": "order_id",
+                    "is_query_param": true
+                  }
+                ]
+              }
+            },
+            "colexp": false,
+            "checkable": true,
+            "selectable": true
+          },
+          "field_config": {
+            "sqm": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "m²"
+                  },
+                  "nl": {
+                    "title": "m²"
+                  }
+                },
+                "order": 4,
+                "class_name": "col-span-2"
+              },
+              "aggregate": "sum"
+            },
+            "number": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Order"
+                  },
+                  "nl": {
+                    "title": "Order"
+                  }
+                },
+                "order": 0,
+                "class_name": "col-span-2"
+              }
+            },
+            "sequence": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Status"
+                  },
+                  "nl": {
+                    "title": "Status"
+                  }
+                },
+                "order": 1,
+                "control": "badge",
+                "class_name": "col-span-3",
+                "input_data": {
+                  "src": "get_internal_status_codes",
+                  "label_key": "content",
+                  "value_key": "sequence"
+                }
+              },
+              "aggregate": "min"
+            },
+            "class_name": "grid grid-cols-6 gap-1",
+            "order_line_count": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Order lines"
+                  },
+                  "nl": {
+                    "title": "Orderregels"
+                  }
+                },
+                "order": 3,
+                "class_name": "col-span-2"
+              },
+              "aggregate": "sum"
+            },
+            "production_hours": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Production hours"
+                  },
+                  "nl": {
+                    "title": "Productie tijd"
+                  }
+                },
+                "order": 2,
+                "control": "badge",
+                "class_name": "col-span-1 justify-self-end"
+              }
+            },
+            "total_product_amount": {
+              "ui": {
+                "i18n": {
+                  "en": {
+                    "title": "Total qty"
+                  },
+                  "nl": {
+                    "title": "Totaal aantal"
+                  }
+                },
+                "order": 5,
+                "class_name": "col-span-2"
+              },
+              "aggregate": "sum"
+            }
+          }
+        },
+        "group_by": [
+          "production_date",
+          "direction"
+        ],
+        "row_options": {
+          "colexp": true,
+          "checkable": true,
+          "selectable": false
+        },
+        "field_config": {
+          "sqm": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "m²"
+                },
+                "nl": {
+                  "title": "m²"
+                }
+              },
+              "order": 4,
+              "control": "chip",
+              "class_name": "col-span-2"
+            },
+            "aggregate": "sum"
+          },
+          "order_id": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Orders"
+                },
+                "nl": {
+                  "title": "Orders"
+                }
+              },
+              "order": 3,
+              "control": "chip",
+              "class_name": "col-span-2"
+            },
+            "aggregate": "count"
+          },
+          "sequence": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Status"
+                },
+                "nl": {
+                  "title": "Status"
+                }
+              },
+              "order": 1,
+              "control": "badge",
+              "class_name": "col-span-3",
+              "input_data": {
+                "src": "get_internal_status_codes",
+                "label_key": "content",
+                "value_key": "sequence"
+              }
+            },
+            "aggregate": "min"
+          },
+          "direction": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Direction"
+                },
+                "nl": {
+                  "title": "Richting"
+                }
+              },
+              "order": 2,
+              "control": "icon-map",
+              "class_name": "col-span-1 justify-self-end"
+            },
+            "input_data": {
+              "options": [
+                {
+                  "id": "lt",
+                  "content": {
+                    "i18n": {
+                      "en": "Single piece",
+                      "nl": "Enkelvoudig"
+                    },
+                    "class_name": "single"
+                  }
+                },
+                {
+                  "id": "gte",
+                  "content": {
+                    "i18n": {
+                      "en": "Multi piece",
+                      "nl": "Meervoudig"
+                    },
+                    "class_name": "batch"
+                  }
+                }
+              ],
+              "label_key": "content",
+              "value_key": "id"
+            }
+          },
+          "class_name": "grid grid-cols-6 gap-1",
+          "production_date": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Production date"
+                },
+                "nl": {
+                  "title": "Productiedatum"
+                }
+              },
+              "order": 0,
+              "control": "date"
+            },
+            "class_name": "col-span-2"
+          },
+          "total_product_amount": {
+            "ui": {
+              "i18n": {
+                "en": {
+                  "title": "Total qty"
+                },
+                "nl": {
+                  "title": "Totaal aantal"
+                }
+              },
+              "order": 4,
+              "control": "chip",
+              "class_name": "col-span-2"
+            },
+            "aggregate": "sum"
+          }
+        }
+      },
+      "group_by": [
+        {
+          "i18n": {
+            "en": {
+              "title": "DE, < file_in_gangrun"
+            },
+            "nl": {
+              "title": "DE, < file_in_gangrun"
+            }
+          },
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "production_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "NL Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl-staging"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "production_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "DE Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de-staging"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "==",
+                "field": "order_location",
+                "value": "NL"
+              },
+              {
+                "op": "<",
+                "field": "sequence",
+                "value": 450
+              }
+            ]
+          ]
+        },
+        {
+          "i18n": {
+            "en": {
+              "title": "NL, < file_in_gangrun"
+            },
+            "nl": {
+              "title": "NL, < file_in_gangrun"
+            }
+          },
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "production_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "NL Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl-staging"
+            },
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "staging"
+                },
+                {
+                  "field": "production_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "DE Staging"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de-staging"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "==",
+                "field": "order_location",
+                "value": "DE"
+              },
+              {
+                "op": "<",
+                "field": "sequence",
+                "value": 450
+              }
+            ]
+          ]
+        },
+        {
+          "i18n": {
+            "en": {
+              "title": "DE, file_in_gangrun"
+            },
+            "nl": {
+              "title": "DE, file_in_gangrun"
+            }
+          },
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "submit"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "Naar productie"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "submit"
+            },
+            {
+              "data": [
+                {
+                  "field": "production_location",
+                  "value": "DE"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "Naar DE"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "de"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "==",
+                "field": "production_location",
+                "value": "NL"
+              },
+              {
+                "op": "==",
+                "field": "internal_status_code",
+                "value": "file_in_gangrun"
+              }
+            ]
+          ]
+        },
+        {
+          "i18n": {
+            "en": {
+              "title": "NL, file_in_gangrun"
+            },
+            "nl": {
+              "title": "NL, file_in_gangrun"
+            }
+          },
+          "navs": [
+            {
+              "data": [
+                {
+                  "field": "state",
+                  "value": "submit"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "Naar productie"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "submit"
+            },
+            {
+              "data": [
+                {
+                  "field": "production_location",
+                  "value": "NL"
+                }
+              ],
+              "i18n": {
+                "nl": {
+                  "text": "Naar NL"
+                }
+              },
+              "type": "button",
+              "nav_item_id": "nl"
+            }
+          ],
+          "filter": [
+            [
+              {
+                "op": "==",
+                "field": "production_location",
+                "value": "DE"
+              },
+              {
+                "op": "==",
+                "field": "internal_status_code",
+                "value": "file_in_gangrun"
+              }
+            ]
+          ]
+        }
+      ],
+      "row_options": {
+        "colexp": false,
+        "checkable": false,
+        "selectable": false
+      }
+    }
+  }
+]
