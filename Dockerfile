@@ -4,10 +4,12 @@ FROM oven/bun:debian AS builder
 WORKDIR /app
 
 # Copy dependency files
-COPY package.json bun.lock* ./
+COPY package.json bun.lock* .npmrc ./
 
-# Install dependencies
-RUN bun install --frozen-lockfile
+# Install dependencies with GitHub Packages auth using Docker secret
+RUN --mount=type=secret,id=gh_token \
+    export GITHUB_TOKEN=$(cat /run/secrets/gh_token) && \
+    bun install --frozen-lockfile
 
 # Copy source code
 COPY . .
@@ -17,6 +19,7 @@ RUN bun run build
 
 COPY ./data ./dist/data
 COPY ./models ./dist/models
+COPY ./img ./dist/img
 
 # Production stage
 FROM nginx:alpine AS production

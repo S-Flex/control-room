@@ -1,14 +1,6 @@
-version: '3.8'
-
 services:
   react-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: production
-      args:
-        - BUILDKIT_INLINE_CACHE=1
-    image: control-room:latest
+    image: ghcr.io/s-flex/control-room:latest
     container_name: control-room
     restart: unless-stopped
     environment:
@@ -34,6 +26,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+
 networks:
   xfw:
     external: true
