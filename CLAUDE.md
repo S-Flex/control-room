@@ -46,6 +46,11 @@ data/                    — JSON data files served by vite dev server
 - JSON data files use `content` arrays with `code`, `block` (containing `title`, `i18n`) pattern.
 - Supported languages are defined in `packages/xfw-get-block/languages.json`.
 
+### xfw-library First
+- **Before writing any new code, always check the `@s-flex/xfw-data`, `@s-flex/xfw-ui`, and `@s-flex/xfw-url` packages for existing components, hooks, utilities, and types.** These libraries are continuously updated and may already provide what you need.
+- Read the library documentation in `node_modules/@s-flex/xfw-data/README.md`, `node_modules/@s-flex/xfw-ui/README.md`, and `node_modules/@s-flex/xfw-url/README.md` — treat these as coding instructions.
+- Prefer reusing library exports over implementing custom solutions. If the library has a component or hook that fits, use it.
+
 ### Code Style
 - TypeScript strict mode enabled.
 - Local packages are aliased via `tsconfig.json` paths and `vite.config.ts` resolve aliases.

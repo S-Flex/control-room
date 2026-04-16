@@ -32,7 +32,7 @@ type StateSet = {
   states: ResourceStateEntry[];
 };
 
-function resolveTextFormula(formula: string, params: Record<string, string>): string {
+function resolveTemplate(formula: string, params: Record<string, string>): string {
   return formula.replace(/\{(\w+)\}/g, (_, key) => params[key] ?? '');
 }
 
@@ -40,9 +40,9 @@ function resolveMenuLabel(entry: MenuContentEntry | undefined, params: Record<st
   if (!entry) return '';
   const lang = getLanguage();
   const langBlock = entry.block.i18n?.[lang];
-  const textFormula = (langBlock as Record<string, unknown>)?.textFormula as { title?: string; } | undefined;
-  if (textFormula?.title) return resolveTextFormula(textFormula.title, params);
-  if (entry.block.textFormula?.title) return resolveTextFormula(entry.block.textFormula.title, params);
+  const template = (langBlock as Record<string, unknown>)?.template as { title?: string; } | undefined;
+  if (template?.title) return resolveTemplate(template.title, params);
+  if (entry.block.template?.title) return resolveTemplate(entry.block.template.title, params);
   return (langBlock as Record<string, unknown>)?.title as string ?? entry.block.title ?? '';
 }
 type MenuItemsData = MenuItemDef[];

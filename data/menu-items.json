@@ -3,7 +3,7 @@
     "code": "resource.info",
     "path": "(sidebar:info)",
     "block": {
-      "textFormula": {
+      "template": {
         "title": "{resource_name}"
       }
     }

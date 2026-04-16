@@ -19,7 +19,7 @@ type BarSet = {
   color: string | ColorConfig;
   value_field: string;
   max_value_field?: string;
-  i18n?: Record<string, { textFormula?: string }>;
+  i18n?: Record<string, { template?: string }>;
 };
 
 type TooltipFieldConfig = {
@@ -119,7 +119,7 @@ function evaluateFormula(formula: string, row: JSONRecord): number | null {
   }
 }
 
-function resolveTextFormula(formula: string, row: JSONRecord): string {
+function resolveTemplate(formula: string, row: JSONRecord): string {
   return formula.replace(/\{(\w+)\}/g, (_, key) => {
     const val = row[key];
     if (val == null) {
@@ -280,29 +280,29 @@ function VerticalBarChart({
               const category = String(payload.value);
 
               const contentObj = rawRow?.[vertical_axis.field];
-              let textFormulas: string[] | undefined;
+              let templates: string[] | undefined;
               if (contentObj && typeof contentObj === 'object' && !Array.isArray(contentObj)) {
                 const obj = contentObj as Record<string, unknown>;
                 if (obj.i18n && typeof obj.i18n === 'object') {
-                  const i18n = obj.i18n as Record<string, { text_formulas?: string[] }>;
+                  const i18n = obj.i18n as Record<string, { templates?: string[] }>;
                   const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
-                  textFormulas = localized?.text_formulas;
+                  templates = localized?.templates;
                 }
-                if (!textFormulas) {
-                  const localized = (obj as Record<string, { text_formulas?: string[] }>)[lang]
-                    ?? (obj as Record<string, { text_formulas?: string[] }>)[Object.keys(obj)[0]];
-                  if (localized?.text_formulas) {
-                    textFormulas = localized.text_formulas;
+                if (!templates) {
+                  const localized = (obj as Record<string, { templates?: string[] }>)[lang]
+                    ?? (obj as Record<string, { templates?: string[] }>)[Object.keys(obj)[0]];
+                  if (localized?.templates) {
+                    templates = localized.templates;
                   }
                 }
               }
 
               const formulaLines: string[] = [];
-              if (textFormulas && row) {
+              if (templates && row) {
                 for (let i = 0; i < sets.length; i++) {
-                  const formula = textFormulas[i];
+                  const formula = templates[i];
                   if (formula) {
-                    formulaLines.push(resolveTextFormula(formula, row));
+                    formulaLines.push(resolveTemplate(formula, row));
                   }
                 }
               }

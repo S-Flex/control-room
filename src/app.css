@@ -2252,7 +2252,6 @@ body {
   gap: 6px;
   width: 100%;
   padding: 0;
-  margin-bottom: 8px;
   border: none;
   background: none;
   font-family: inherit;
@@ -2271,6 +2270,11 @@ body {
 }
 .datagroup-collapse-icon.collapsed {
   transform: rotate(-90deg);
+}
+.datagroup-header-text {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: var(--text-secondary);
 }
 .datagroup-rows {
   display: flex;

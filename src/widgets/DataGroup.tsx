@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
 import { type JSONRecord } from '@s-flex/xfw-data';
+import { getLanguage } from 'xfw-get-block';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';
 
 export function DataGroupWidget({ code, title }: { code: string; title?: string; }) {
@@ -29,7 +30,13 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   const dg = dataGroup as Record<string, unknown>;
   const configKey = layout.replace(/-/g, '_') + '_config';
   const widgetConfig = dg[configKey] as Record<string, unknown> | undefined;
-  const sectionTitle = title ?? (dataGroup.title?.text);
+
+  const lang = getLanguage();
+  const i18n = dg.i18n as Record<string, Record<string, string>> | undefined;
+  const localized = i18n ? (i18n[lang] ?? i18n[Object.keys(i18n)[0]]) : undefined;
+  const headerTitle = localized?.title;
+  const headerText = localized?.text;
+  const sectionTitle = title ?? headerTitle;
 
   return (
     <div className="datagroup-container">
@@ -40,6 +47,9 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
           </svg>
           {sectionTitle}
         </button>
+      )}
+      {headerText && !collapsed && (
+        <p className="datagroup-header-text">{headerText}</p>
       )}
       {!collapsed && (
         widgetConfig || layout === 'cards' || layout === 'flow-board' || layout === 'content' || layout === 'table' ? (
