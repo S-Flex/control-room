@@ -1,0 +1,40 @@
+- generic [ref=e3]:
+  - banner [ref=e5]:
+    - generic [ref=e6]:
+      - link "Home" [ref=e7] [cursor=pointer]:
+        - /url: /
+        - img "Home" [ref=e8]
+      - button "sheet" [ref=e10] [cursor=pointer]:
+        - generic [ref=e11]: sheet
+        - img [ref=e12]
+      - generic [ref=e14]:
+        - generic [ref=e15]: 06:00
+        - slider [ref=e16] [cursor=pointer]: "206"
+        - generic [ref=e17]: 24:00
+        - generic [ref=e18]: 17:10
+        - button "Refresh" [ref=e19] [cursor=pointer]:
+          - img [ref=e20]
+        - button "now" [ref=e23] [cursor=pointer]:
+          - img [ref=e24]
+      - button "production_schedule" [ref=e28] [cursor=pointer]:
+        - generic [ref=e29]: production_schedule
+        - img [ref=e30]
+    - generic [ref=e32]:
+      - link "auto" [ref=e33] [cursor=pointer]:
+        - /url: /inflow-auto
+      - button "locations" [ref=e35] [cursor=pointer]:
+        - generic [ref=e36]: locations
+        - img [ref=e37]
+      - button "nester" [ref=e39] [cursor=pointer]:
+        - img [ref=e40]
+      - button "NL" [ref=e47] [cursor=pointer]:
+        - generic [ref=e48]: NL
+        - img [ref=e49]
+      - button "Dark mode" [ref=e51] [cursor=pointer]:
+        - img [ref=e52]
+  - generic [ref=e60]:
+    - banner [ref=e62]:
+      - heading "orderlines/detail" [level=1] [ref=e63]
+      - link [ref=e65] [cursor=pointer]:
+        - /url: /inflow-manual?from=2026-04-17T15%3A10%3A00.000Z&model=sheet
+    - paragraph [ref=e67]: Loading...

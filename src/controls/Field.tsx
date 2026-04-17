@@ -11,7 +11,7 @@ import { Badge } from './Badge';
 import type { FieldNav } from '../widgets/flow/types';
 
 type FieldProps = {
-  field: ResolvedField & { aggregate?: string; nav?: FieldNav };
+  field: ResolvedField & { aggregate?: string; nav?: FieldNav; no_label?: boolean };
   value: JSONValue;
   showLabel?: boolean;
   row?: JSONRecord;
@@ -76,8 +76,9 @@ function FieldValue({ text, nav, navUrl, className }: {
 }
 
 export function Field({ field, value, showLabel, row }: FieldProps) {
-  const { control, input_data, aggregate, nav } = field;
+  const { control, input_data, aggregate, nav, no_label } = field;
   const label = resolveI18nLabel(field.i18n, field.key);
+  const shouldShowLabel = showLabel ?? !no_label;
 
   if (control === 'icon-map' && input_data) {
     return <IconMap value={value} inputData={input_data} />;
@@ -86,12 +87,16 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     return <Badge value={value} inputData={input_data} />;
   }
   if (control === 'img') {
-    return value ? (
-      <div className="field-with-label">
-        <span className="field-label">{label}</span>
-        <img src={String(value)} alt={label} className="field-img" />
-      </div>
-    ) : null;
+    if (!value) return null;
+    if (shouldShowLabel) {
+      return (
+        <div className="field-with-label">
+          <span className="field-label">{label}</span>
+          <img src={String(value)} alt={label} className="field-img" />
+        </div>
+      );
+    }
+    return <img src={String(value)} alt={label} className="field-img" />;
   }
   if (aggregate) {
     return <Chip label={label} value={value as string | number} />;
@@ -103,7 +108,7 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
     if (localized) {
       const text = localized.title || localized.text || '';
-      if (showLabel) {
+      if (shouldShowLabel) {
         return (
           <div className="field-with-label">
             <span className="field-label">{label}</span>

@@ -107,7 +107,16 @@
       ]
     },
     "footer": {
-      "sections": [{ "data_group": "sitrep" }]
+      "grid": {
+        "columns": "1fr 1fr",
+        "areas": [
+          "sitrep status-bar"
+        ]
+      },
+      "cols": [
+        { "area": "sitrep", "data_group": "sitrep" },
+        { "area": "status-bar", "data_group": "status_bar" }
+      ]
     }
   },
   {
@@ -122,7 +131,16 @@
       ]
     },
     "footer": {
-      "sections": [{ "data_group": "sitrep" }]
+      "grid": {
+        "columns": "1fr 1fr",
+        "areas": [
+          "sitrep status-bar"
+        ]
+      },
+      "cols": [
+        { "area": "sitrep", "data_group": "sitrep" },
+        { "area": "status-bar", "data_group": "status_bar" }
+      ]
     }
   },
   {
@@ -131,12 +149,12 @@
       "grid": {
         "columns": "1fr 1fr",
         "areas": [
-          "sitrep resource-shift-employees"
+          "sitrep status-bar"
         ]
       },
       "cols": [
         { "area": "sitrep", "data_group": "sitrep" },
-        { "area": "resource-shift-employees", "data_group": "status_bar" }
+        { "area": "status-bar", "data_group": "status_bar" }
       ]
     }
   }

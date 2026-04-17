@@ -207,6 +207,11 @@ function EnlargedTimelineOverlay({
           <div className="timeline-bar-tooltip-state" style={{ color: hover.seg.color }}>
             {String(resolve(hover.seg.row, 'state.block.title') ?? resolve(hover.seg.row, 'state.code') ?? '')}
           </div>
+          {hover.seg.row.start_at && (
+            <div className="timeline-bar-tooltip-time">
+              {new Date(hover.seg.row.start_at as string).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+            </div>
+          )}
           <div className="timeline-bar-tooltip-dur">
             {Math.round(hover.seg.duration / 60)} min
           </div>

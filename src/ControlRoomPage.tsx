@@ -6,7 +6,6 @@ import { EquipCard } from './viewer/EquipCard';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { WidgetPanel } from './widgets/WidgetPanel';
-import { StatusBar } from './widgets/StatusBar';
 import { Ticker } from './widgets/Ticker';
 import { DashboardHeader } from './widgets/DashboardHeader';
 import type { DashboardData } from './widgets/types';
@@ -266,7 +265,6 @@ export function ControlRoomPage() {
               </div>
             )}
           </div>
-          <StatusBar />
           <div className="ticker-bar inner-only">
             <Ticker type="highlight" data={dashData.ticker} />
             <Ticker type="alert" data={dashData.ticker} />

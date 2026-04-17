@@ -12,7 +12,7 @@ import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { Sidebar } from '@s-flex/xfw-ui';
+import { Sidebar, Checkbox } from '@s-flex/xfw-ui';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 
@@ -722,15 +722,11 @@ export function ProductionLinesPage() {
           uiLabels={uiLabels}
           onLanguageChange={handleLanguageChange}
           actions={
-            <label className="planning-toggle" title="Show/hide capacity">
-              <input
-                type="checkbox"
-                checked={showCapacity}
-                onChange={e => setShowCapacity(e.target.checked)}
-              />
-              <span className="planning-toggle-slider" />
-              <span className="planning-toggle-label">{getBlock(uiLabels, 'capacity', 'title')}</span>
-            </label>
+            <Checkbox
+              isSelected={showCapacity}
+              onChange={setShowCapacity}
+              label={getBlock(uiLabels, 'capacity', 'title')}
+            />
           }
         >
           <div className="planning-until">

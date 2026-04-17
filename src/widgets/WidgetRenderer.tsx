@@ -12,6 +12,7 @@ import { Item } from './Item';
 import { FlowBoard } from './flow';
 import { Content } from './Content';
 import { VerticalBar, type VerticalBarConfig } from './VerticalBar';
+import { StatusBar } from './StatusBar';
 
 const LANGS = new Set(['nl', 'en', 'de', 'fr', 'uk']);
 
@@ -188,6 +189,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
       return <TableWidget widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'content':
       return <Content data={data} />;
+    case 'status-bar':
+      return <StatusBar widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     default:
       console.warn(`Unknown widget layout: "${layout}"`);
       return <FallbackDataRows data={data} />;

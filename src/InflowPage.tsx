@@ -4,7 +4,7 @@ import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { Sidebar } from '@s-flex/xfw-ui';
+import { Sidebar, Checkbox } from '@s-flex/xfw-ui';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import { Carousel } from './widgets/Carousel';
 import { TimeSlider } from './widgets/TimeSlider';
@@ -339,18 +339,14 @@ export function InflowPage() {
             >
               <div className="dropdown-menu-list">
                 {locations.map(loc => (
-                  <label
-                    key={loc.code}
-                    className={`dropdown-menu-item dropdown-menu-check${!loc.enabled ? ' disabled' : ''}${selectedLocations.has(loc.code) ? ' active' : ''}`}
-                  >
-                    <input
-                      type="checkbox"
-                      className="dropdown-menu-checkbox"
-                      checked={selectedLocations.has(loc.code)}
+                  <div key={loc.code} className={`dropdown-menu-item dropdown-menu-check${!loc.enabled ? ' disabled' : ''}${selectedLocations.has(loc.code) ? ' active' : ''}`}>
+                    <Checkbox
+                      isSelected={selectedLocations.has(loc.code)}
+                      isDisabled={!loc.enabled}
                       onChange={() => toggleLocation(loc.code)}
+                      label={getBlock(locationsContent, loc.code, 'title')}
                     />
-                    {getBlock(locationsContent, loc.code, 'title')}
-                  </label>
+                  </div>
                 ))}
               </div>
             </DropdownMenu>

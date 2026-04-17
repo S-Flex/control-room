@@ -1,0 +1,4 @@
+[     140ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=fc0383ed:19834
+[     310ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5173/favicon.ico:0
+[     320ms] [ERROR] Internal React error: Expected static flag was missing. Please notify the React team. @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=fc0383ed:5421
+[     323ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5173/favicon.ico:0

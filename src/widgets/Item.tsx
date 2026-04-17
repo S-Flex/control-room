@@ -69,10 +69,9 @@ function ItemRow({ row, fields, class_name, selectable, isSelected, onSelect }: 
             </div>
           );
         }
-        const noLabel = f.no_label === true;
         return (
-          <div key={`${f.key}-${i}`} className={`${f.class_name || ''}${noLabel ? ' field-no-label' : ''}`.trim() || undefined}>
-            <Field field={f} value={val} showLabel={!noLabel} row={row} />
+          <div key={`${f.key}-${i}`} className={f.class_name || undefined}>
+            <Field field={f} value={val} row={row} />
           </div>
         );
       })}
