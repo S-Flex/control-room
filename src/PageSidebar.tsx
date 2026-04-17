@@ -1,5 +1,4 @@
 import { useNavigate, useAuxOutlet } from '@s-flex/xfw-url';
-import { useSidebar } from '@s-flex/xfw-ui';
 import { getBlock } from 'xfw-get-block';
 import { SidebarPanel } from './SidebarPanel';
 import { usePages } from './hooks/usePages';
@@ -9,33 +8,31 @@ type PageSidebarProps = {
   menuContent: Map<string, MenuContentEntry>;
 };
 
-function SidebarOutlet({ outlet, index, content }: { outlet: string; index: number; content: { code: string; block: Record<string, unknown>; }[]; }) {
+function SidebarOutlet({ outlet, content }: { outlet: string; content: { code: string; block: Record<string, unknown> }[] }) {
   const navigate = useNavigate();
   const outletPath = useAuxOutlet({ outlet });
-  const code = outletPath ? outletPath.replace(/^\//, '') : '';
-  const title = code ? getBlock(content, code, 'title') : '';
 
-  useSidebar({
-    identifier: `outlet-${outlet}`,
-    side: 'right',
-    index,
-    isVisible: !!outletPath,
-    title,
-    navs: [{ path: `(${outlet}:)` }],
-    content: () => <SidebarPanel code={code} />,
-    deps: [code, navigate],
-  });
+  if (!outletPath) return null;
 
-  return null;
+  const code = outletPath.replace(/^\//, '');
+  const title = getBlock(content, code, 'title');
+
+  return (
+    <SidebarPanel
+      code={code}
+      title={title}
+      onClose={() => navigate(`(${outlet}:)`)}
+    />
+  );
 }
 
-export function PageSidebar({ menuContent: _menuContent }: PageSidebarProps) {
+export function PageSidebar({ menuContent }: PageSidebarProps) {
   const { content } = usePages();
 
   return (
     <>
-      <SidebarOutlet outlet="sidebar" index={0} content={content} />
-      <SidebarOutlet outlet="detail" index={1} content={content} />
+      <SidebarOutlet outlet="sidebar" content={content} />
+      <SidebarOutlet outlet="detail" content={content} />
     </>
   );
 }
