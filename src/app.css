@@ -4109,6 +4109,22 @@ body {
   color: var(--text-secondary);
 }
 
+/* ===== MINI BAR ===== */
+.minibar {
+  display: flex;
+  border-radius: 3px;
+  overflow: hidden;
+  min-width: 40px;
+}
+.minibar-segment {
+  min-width: 1px;
+}
+
+/* ===== ARC GAUGE ===== */
+.arc-gauge {
+  flex-shrink: 0;
+}
+
 /* UntitledUI Tooltip overrides — Tailwind utilities aren't generated with layer(utilities) */
 .bg-primary-solid {
   background-color: #0c111d;
