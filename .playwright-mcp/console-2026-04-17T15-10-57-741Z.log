@@ -1,2 +1,0 @@
-[     121ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=fc0383ed:19834
-[     210ms] [ERROR] Internal React error: Expected static flag was missing. Please notify the React team. @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=fc0383ed:5421

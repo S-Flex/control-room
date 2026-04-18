@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
+import { useDataGroups, type DataGroup } from '@s-flex/xfw-ui';
+import { useDataGeneric } from '../hooks/useDataGeneric';
 import { type JSONRecord } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';

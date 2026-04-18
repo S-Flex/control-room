@@ -52,7 +52,8 @@ export type FlowBoardLevelConfig = {
 };
 
 export type FieldNav = {
-  path: string;
+  path?: string;
+  on_select?: Record<string, unknown>;
 };
 
 export type FlowResolvedField = LibResolvedField & {

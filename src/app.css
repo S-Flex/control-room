@@ -2050,7 +2050,7 @@ label[data-rac] > div svg {
   align-items: center;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
-  height: 36px;
+  height: 44px;
 }
 
 .carousel-body {
@@ -4125,22 +4125,6 @@ label[data-rac] > div svg {
   color: var(--text-secondary);
 }
 
-/* ===== MINI BAR ===== */
-.minibar {
-  display: flex;
-  border-radius: 3px;
-  overflow: hidden;
-  min-width: 40px;
-}
-.minibar-segment {
-  min-width: 1px;
-}
-
-/* ===== ARC GAUGE ===== */
-.arc-gauge {
-  flex-shrink: 0;
-}
-
 /* UntitledUI Tooltip overrides — Tailwind utilities aren't generated with layer(utilities) */
 .bg-primary-solid {
   background-color: #0c111d;
@@ -4393,6 +4377,12 @@ label[data-rac] > div svg {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.badge-nav {
+  cursor: pointer;
+}
+.badge-nav:hover {
+  filter: brightness(1.1);
 }
 
 .badge.preflight {

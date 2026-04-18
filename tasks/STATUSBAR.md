@@ -133,7 +133,6 @@ Machine health
 | Field | Display |
 |---|---|
 | `machines_producing` / `machines_total` | `81 / 98` |
-| Mini-bar | Uses `MiniBar` widget — green = producing, grey = other, red = breakdown |
 | `machines_breakdown` | `2× down` in red, only shown if > 0 — text from `i18n` |
 
 Color of the fraction (thresholds from data):
@@ -165,7 +164,6 @@ Day shift  06:00–18:00
 |---|---|
 | `i18n` | Shift name resolved via `getLanguage()` |
 | `start` + `end` | `06:00–18:00` |
-| `elapsed_pct` | Uses `ArcGauge` widget — small circular arc filling as the shift progresses |
 | `remaining_minutes` | Template from `i18n`: `{ "en": { "title": "{hours}h {minutes}m left" } }` |
 | `staff_present` / `staff_planned` | `84 / 90` — label from `i18n` |
 
@@ -259,7 +257,6 @@ Internal repairs
 | Field | Display |
 |---|---|
 | `done` / `total` | `9 / 14` — label from `i18n` |
-| Mini-bar | Uses `MiniBar` widget — green = done, grey = remaining |
 
 Color of the fraction (thresholds from data):
 - Green: `done === total`
@@ -305,48 +302,6 @@ navigate({
 
 ---
 
-## New generic widgets
-
-Two reusable widgets are needed for the status bar segments. These should be placed
-in `src/widgets/` and registered in `WidgetRenderer` for use in other DataGroup layouts.
-
-### `MiniBar` widget
-
-A small horizontal stacked bar showing proportions. Data-driven, no hardcoded colors.
-
-```typescript
-type MiniBarSegment = {
-  value: number;
-  color: string;  // from data, not hardcoded
-};
-
-type MiniBarProps = {
-  segments: MiniBarSegment[];
-  height?: number;  // default 6px
-};
-```
-
-Usage in status bar:
-- Machine health: `[{ value: 81, color: 'green' }, { value: 15, color: 'grey' }, { value: 2, color: 'red' }]`
-- Internal repairs: `[{ value: 9, color: 'green' }, { value: 5, color: 'grey' }]`
-
-### `ArcGauge` widget
-
-A small circular arc (SVG) showing a percentage. Data-driven.
-
-```typescript
-type ArcGaugeProps = {
-  value: number;    // 0–1, the filled portion
-  size?: number;    // default 32px
-  color?: string;   // from data
-};
-```
-
-Usage in status bar:
-- Shift elapsed: `{ value: 0.52, color: 'var(--brand)' }`
-
----
-
 ## Behaviour
 
 ### Clickable segments
@@ -371,7 +326,7 @@ Items on the right demand attention. Items on the left provide context.
 
 ### Responsive
 
-On narrow screens (< 1024px), collapse `Machine health` mini-bar and `Shift` arc.
+On narrow screens (< 1024px), collapse secondary visual accents.
 Show numbers only. Never hide Alerts or Off-track.
 
 ### Offline

@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import type { JSONValue, JSONRecord } from '@s-flex/xfw-data';
-import type { ResolvedField } from '@s-flex/xfw-ui';
-import { Tooltip } from '@s-flex/xfw-ui';
+import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
+import { Tooltip, useNavItemAction } from '@s-flex/xfw-ui';
 import { Button } from 'react-aria-components';
 import { getLanguage } from 'xfw-get-block';
 import { resolveI18nLabel, formatValue } from '../widgets/flow/utils';
@@ -18,7 +18,7 @@ type FieldProps = {
 };
 
 function resolveNavPath(nav: FieldNav, row?: JSONRecord): string {
-  return nav.path.replace(/\{(\w+)\}/g, (_, key) => String(row?.[key] ?? ''));
+  return (nav.path ?? '').replace(/\{(\w+)\}/g, (_, key) => String(row?.[key] ?? ''));
 }
 
 function useIsOverflowing(ref: React.RefObject<HTMLElement | null>) {
@@ -35,17 +35,26 @@ function useIsOverflowing(ref: React.RefObject<HTMLElement | null>) {
   return overflowing;
 }
 
-function FieldValue({ text, nav, navUrl, className }: {
+function FieldValue({ text, nav, navUrl, row, className }: {
   text: string;
   nav?: FieldNav;
   navUrl?: string;
+  row?: JSONRecord;
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
   const overflowing = useIsOverflowing(ref);
-  const needsTooltip = overflowing || !!nav;
+  const navAction = useNavItemAction();
+  const isInteractive = !!nav && (!!nav.on_select || !!navUrl);
+  const needsTooltip = overflowing || isInteractive;
 
-  const handleClick = nav && navUrl ? (e: React.MouseEvent) => {
+  const handleClick = isInteractive ? (e: React.MouseEvent) => {
+    if (nav?.on_select) {
+      e.stopPropagation();
+      navAction(row, nav.on_select as NavItem, true);
+      return;
+    }
+    if (!navUrl) return;
     if (!e.ctrlKey && !e.metaKey) return;
     e.stopPropagation();
     const w = window.open(navUrl, '_blank');
@@ -54,10 +63,11 @@ function FieldValue({ text, nav, navUrl, className }: {
 
   const tooltipParts: string[] = [];
   if (overflowing) tooltipParts.push(text);
-  if (nav && navUrl) tooltipParts.push(`ctrl + click → ${navUrl}`);
+  if (nav?.on_select) tooltipParts.push('click → open');
+  else if (nav && navUrl) tooltipParts.push(`ctrl + click → ${navUrl}`);
 
   const span = (
-    <span ref={ref} className={`field-value-text${nav ? ' field-nav' : ''}${className ? ` ${className}` : ''}`} onClick={handleClick}>
+    <span ref={ref} className={`field-value-text${isInteractive ? ' field-nav' : ''}${className ? ` ${className}` : ''}`} onClick={handleClick}>
       {text}
     </span>
   );
@@ -84,7 +94,7 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     return <IconMap value={value} inputData={input_data} />;
   }
   if (control === 'badge') {
-    return <Badge value={value} inputData={input_data} />;
+    return <Badge value={value} inputData={input_data} nav={nav} row={row} />;
   }
   if (control === 'img') {
     if (!value) return null;
@@ -127,10 +137,10 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     return (
       <div className="field-with-label">
         <span className="field-label">{label}</span>
-        <FieldValue text={formatted} nav={nav} navUrl={navUrl} className="field-value" />
+        <FieldValue text={formatted} nav={nav} navUrl={navUrl} row={row} className="field-value" />
       </div>
     );
   }
 
-  return <FieldValue text={formatted} nav={nav} navUrl={navUrl} />;
+  return <FieldValue text={formatted} nav={nav} navUrl={navUrl} row={row} />;
 }
