@@ -3,7 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@types/react": "^19.2.14",
@@ -11,6 +12,7 @@
     "@types/three": "^0.183.1",
     "@vitejs/plugin-react": "^5.2.0",
     "live-server": "^1.2.2",
+    "patch-package": "^8.0.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1"
   },

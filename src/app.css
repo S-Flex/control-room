@@ -568,8 +568,10 @@ body {
 
 /* ===== CHECKBOX OVERRIDES =====
    xfw-ui Checkbox renders: <label data-rac><span>(hidden input)</span><div>(visual box)</div></label>
-   so the visible box is `> div`, not `> div:first-child`. */
-label[data-rac] > div {
+   so the visible box is `> div`, not `> div:first-child`.
+   Scoped to divs with svg children so Toggle (Switch) — which shares the same
+   data-rac label wrapper but has no svg inside — is not affected. */
+label[data-rac] > div:has(> svg) {
   width: 14px !important;
   height: 14px !important;
   min-width: 14px;
@@ -579,12 +581,12 @@ label[data-rac] > div {
   background: transparent !important;
   position: relative !important;
 }
-label[data-rac][data-selected] > div,
-label[data-rac][data-indeterminate] > div {
+label[data-rac][data-selected] > div:has(> svg),
+label[data-rac][data-indeterminate] > div:has(> svg) {
   background: var(--brand) !important;
   border-color: var(--brand) !important;
 }
-label[data-rac] > div svg {
+label[data-rac] > div:has(> svg) svg {
   width: 10px !important;
   height: 10px !important;
   position: absolute !important;
@@ -597,7 +599,7 @@ label[data-rac] > div svg {
 .statusbar {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 12px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 6px;
@@ -606,11 +608,12 @@ label[data-rac] > div svg {
   overflow: hidden;
   align-self: flex-start;
   width: fit-content;
+  font-size: 12px;
 }
 .statusbar > div {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   padding: 4px 4px;
   height: 36px;
   white-space: nowrap;
@@ -1495,6 +1498,7 @@ label[data-rac] > div svg {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .planning-icon-btn {

@@ -1,0 +1,70 @@
+[      89ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=136ff2c2:19834
+[  109743ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=136ff2c2:19834
+[  109877ms] [ERROR] [xfw-data] Network error in api request TypeError: Failed to fetch
+    at apiRequest (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:36:17)
+    at fetchDatatable (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:64:10)
+    at queryFn (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:147:28)
+    at Object.fetchFn [as fn] (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1117:14)
+    at run (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:818:49)
+    at Object.start (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:860:9)
+    at Query.fetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1164:40)
+    at #executeFetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1486:38)
+    at QueryObserver.onSubscribe (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1359:27)
+    at QueryObserver.subscribe (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:19:10) @ http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:39
+[  109877ms] [ERROR] [xfw-data] Network error in api request TypeError: Failed to fetch
+    at apiRequest (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:36:17)
+    at fetchDataRow (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:71:10)
+    at queryFn (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:171:28)
+    at Object.fetchFn [as fn] (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1117:14)
+    at run (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:818:49)
+    at Object.start (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:860:9)
+    at Query.fetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1164:40)
+    at #executeFetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1486:38)
+    at QueryObserver.setOptions (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1416:25)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:3354:14 @ http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:39
+[  109877ms] [ERROR] [xfw-data] Network error in api request TypeError: Failed to fetch
+    at apiRequest (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:36:17)
+    at fetchDatatable (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:64:10)
+    at queryFn (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:147:28)
+    at Object.fetchFn [as fn] (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1117:14)
+    at run (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:818:49)
+    at Object.start (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:860:9)
+    at Query.fetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1164:40)
+    at #executeFetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1486:38)
+    at QueryObserver.onSubscribe (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1359:27)
+    at QueryObserver.subscribe (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:19:10) @ http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:39
+[  109974ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=136ff2c2:19834
+[  110121ms] [ERROR] [xfw-data] Network error in api request TypeError: Failed to fetch
+    at apiRequest (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:36:17)
+    at fetchDataRow (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:71:10)
+    at queryFn (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:171:28)
+    at Object.fetchFn [as fn] (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1117:14)
+    at run (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:818:49)
+    at Object.start (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:860:9)
+    at Query.fetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1164:40)
+    at #executeFetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1486:38)
+    at QueryObserver.setOptions (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1416:25)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:3354:14 @ http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:39
+[  110121ms] [ERROR] [xfw-data] Network error in api request TypeError: Failed to fetch
+    at apiRequest (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:36:17)
+    at fetchDataRow (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:71:10)
+    at queryFn (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:171:28)
+    at Object.fetchFn [as fn] (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1117:14)
+    at run (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:818:49)
+    at Object.start (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:860:9)
+    at Query.fetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1164:40)
+    at #executeFetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1486:38)
+    at QueryObserver.setOptions (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1416:25)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:3354:14 @ http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:39
+[  110121ms] [ERROR] [xfw-data] Network error in api request TypeError: Failed to fetch
+    at apiRequest (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:36:17)
+    at fetchDataRow (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:71:10)
+    at queryFn (http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:171:28)
+    at Object.fetchFn [as fn] (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1117:14)
+    at run (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:818:49)
+    at Object.start (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:860:9)
+    at Query.fetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1164:40)
+    at #executeFetch (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1486:38)
+    at QueryObserver.setOptions (http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:1416:25)
+    at http://localhost:5173/node_modules/.vite/deps/chunk-2EATQN4D.js?v=136ff2c2:3354:14 @ http://localhost:5173/node_modules/.vite/deps/chunk-BNRSOAWK.js?v=136ff2c2:39
+[  110215ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:5173/node_modules/.vite/deps/chunk-ZSVHXSCM.js?v=136ff2c2:19834

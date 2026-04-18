@@ -1,0 +1,121 @@
+diff --git a/dist/index.d.ts b/dist/index.d.ts
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
+@@ -2290,3 +2290,4 @@
+ }
+ 
+ export { Avatar, AvatarLabelGroup, Badge, BadgeIcon, BadgeWithButton, BadgeWithDot, BadgeWithFlag, BadgeWithIcon, BadgeWithImage, type BlockRow, type BodyItem, Button, ButtonGroup, type CallbackFunction, type CallbackParameters, CallbackProvider, type CallbacksRecord, Checkbox, type Col, type Col2, CommandMenu, type Condition, type ConditionExpr, type ConditionGroup, type ConditionOp, type Content, DataCardsComponent, DataContent, DataFormComponent, type DataGenericComponentParams, type DataGroup, DataGroupComponent, type DataGroupRow, DataTable as DataTableComponent, DatePicker, DateRangePicker, type Environment, ErrorBoundary, type FieldConfig, FileListItemProgressBar, FileListItemProgressFill, FileUpload, FileUploadDropZone, FormComponent, FormField, type FormGroup, type FormInputProps, HeaderNavigationBase as HeaderNavigation, type I18n, type ImgItem, Input, type Language, LoadingBlockerProvider, LoadingBoundary, LoadingProvider, LoadingSpinner, LoadingSubscriber, MainMenu, MetricChangeIndicator, MetricsChart01, MetricsChart02, MetricsChart03, MetricsChart04, MetricsIcon01, MetricsIcon02, MetricsIcon03, MetricsIcon04, MetricsSimple, NavButtonsComponent, type NavItem$1 as NavItem, type NavJson, PaginationButtonGroup, PaginationCardDefault, PaginationCardMinimal, PaginationPageDefault, PaginationPageMinimalCenter, type ParamJson, type Popover, type ResolvedField, SearchComponent, SectionHeader, _Select as Select, Sidebar, type SidebarContainer, SidebarPortal, SidebarProvider, type SidebarSide, Tab, TabList, TabPanel, TableComponent, Tabs, MultiSelect as TagSelect, TextArea as Textarea, ThemeProvider, Toaster, Tooltip, type WidgetAction, type WidgetActionListener, buildFormGroups, buildTableFields, cx, eventBus, findSchemaKey, evalConditionExpr as isConditionExprHidden, isNavItemHidden, isReactComponent, notify, resolveField, resolveLabel, resolvePgFieldPath, resolveWidget, setNestedValue, toDisplayLabel, useArrayNavigation, useBreakpoint, useCallbackContext, useClipboard, useContentEditable, useDataGeneric, useDataGroups, useDebouncedCallback, useEvents, useI18n, useIsLoading, useLoadingSubscription, useNavItemAction, useNodeDrag, useNotification, useResizeObserver, useSidebar, useSidebarContext, useTheme, useUpload };
++export { Toggle, type ToggleProps } from "./toggle-ext";
+diff --git a/dist/index.js b/dist/index.js
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -4594,3 +4594,4 @@
+   useTheme,
+   useUpload
+ };
++export { Toggle } from "./toggle-ext.js";
+diff --git a/dist/toggle-ext.d.ts b/dist/toggle-ext.d.ts
+new file mode 100644
+--- /dev/null
++++ b/dist/toggle-ext.d.ts
+@@ -0,0 +1,15 @@
++import type { ReactNode, Ref } from 'react';
++import type { SwitchProps as AriaSwitchProps } from 'react-aria-components';
++import type { JSX } from 'react/jsx-runtime';
++
++export interface ToggleProps extends AriaSwitchProps {
++  ref?: Ref<HTMLLabelElement>;
++  size?: 'sm' | 'md';
++  label?: ReactNode;
++  hint?: ReactNode;
++}
++
++export declare const Toggle: {
++  (props: ToggleProps): JSX.Element;
++  displayName: string;
++};
+diff --git a/dist/toggle-ext.js b/dist/toggle-ext.js
+new file mode 100644
+--- /dev/null
++++ b/dist/toggle-ext.js
+@@ -0,0 +1,80 @@
++// Patched in via patch-package — adds a Toggle (switch) component to xfw-ui.
++import { Switch as AriaSwitch } from "react-aria-components";
++import { Fragment, jsx, jsxs } from "react/jsx-runtime";
++import { cx } from "./chunk-BRMLZUTI.js";
++
++var TRACK_OFF = "var(--border, #d0d5dd)";
++var TRACK_ON = "var(--brand, #7f56d9)";
++var KNOB_BG = "var(--bg-card, #ffffff)";
++
++var ToggleBase = ({ className, isSelected, isDisabled, size = "md", isFocusVisible = false }) => {
++  const W = size === "sm" ? 36 : 44;
++  const H = size === "sm" ? 20 : 24;
++  const K = size === "sm" ? 16 : 20;
++  const pad = 2;
++  const tx = isSelected ? W - K - pad * 2 : 0;
++  return /* @__PURE__ */ jsx(
++    "div",
++    {
++      className: cx(
++        "relative inline-flex shrink-0 cursor-pointer items-center rounded-full transition-colors",
++        isDisabled && "cursor-not-allowed opacity-50",
++        isFocusVisible && "outline-2 outline-offset-2 outline-focus-ring",
++        className
++      ),
++      style: {
++        width: W,
++        height: H,
++        padding: pad,
++        backgroundColor: isSelected ? TRACK_ON : TRACK_OFF
++      },
++      children: /* @__PURE__ */ jsx(
++        "span",
++        {
++          className: "block rounded-full shadow transition-transform",
++          style: {
++            width: K,
++            height: K,
++            backgroundColor: KNOB_BG,
++            transform: `translateX(${tx}px)`
++          }
++        }
++      )
++    }
++  );
++};
++ToggleBase.displayName = "ToggleBase";
++
++var Toggle = ({ label, hint, size = "md", className, ...ariaSwitchProps }) => {
++  const sizes = {
++    sm: { root: "gap-2", textWrapper: "", label: "text-sm font-medium", hint: "text-sm" },
++    md: { root: "gap-3", textWrapper: "gap-0.5", label: "text-md font-medium", hint: "text-md" }
++  };
++  return /* @__PURE__ */ jsx(
++    AriaSwitch,
++    {
++      ...ariaSwitchProps,
++      className: (state) => cx(
++        "flex items-center",
++        state.isDisabled && "cursor-not-allowed",
++        sizes[size].root,
++        typeof className === "function" ? className(state) : className
++      ),
++      children: ({ isSelected, isDisabled, isFocusVisible }) => /* @__PURE__ */ jsxs(Fragment, { children: [
++        /* @__PURE__ */ jsx(ToggleBase, {
++          size,
++          isSelected,
++          isDisabled,
++          isFocusVisible
++        }),
++        (label || hint) && /* @__PURE__ */ jsxs("div", { className: cx("inline-flex flex-col whitespace-nowrap", sizes[size].textWrapper), children: [
++          label && /* @__PURE__ */ jsx("span", { className: cx("text-secondary select-none", sizes[size].label), children: label }),
++          hint && /* @__PURE__ */ jsx("span", { className: cx("text-tertiary", sizes[size].hint), onClick: (event) => event.stopPropagation(), children: hint })
++        ] })
++      ] })
++    }
++  );
++};
++Toggle.displayName = "Toggle";
++
++export { Toggle, ToggleBase };

@@ -12,7 +12,7 @@ import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { Sidebar, Checkbox } from '@s-flex/xfw-ui';
+import { Sidebar, Toggle } from '@s-flex/xfw-ui';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 
@@ -722,7 +722,7 @@ export function ProductionLinesPage() {
           uiLabels={uiLabels}
           onLanguageChange={handleLanguageChange}
           actions={
-            <Checkbox
+            <Toggle
               isSelected={showCapacity}
               onChange={setShowCapacity}
               label={getBlock(uiLabels, 'capacity', 'title')}
