@@ -174,7 +174,7 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
     case 'timeline-bar':
       return <TimelineBar widgetConfig={widgetConfig as unknown as TimelineBarConfig} data={data} />;
     case 'donut-chart':
-      return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} data={data} />;
+      return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} dataGroup={dataGroup} data={data} />;
     case 'ink-gauge':
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
     case 'cards':

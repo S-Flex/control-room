@@ -85,6 +85,36 @@ function formatTimeSlot(slot: number): string {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
+/** ISO-8601 with the local timezone offset (e.g. "2026-04-16T06:00:00+02:00"),
+ *  so the wall-clock hour the user picked is preserved through the URL. */
+function toLocalIso(date: Date): string {
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const offsetMin = -date.getTimezoneOffset();
+  const sign = offsetMin >= 0 ? '+' : '-';
+  const abs = Math.abs(offsetMin);
+  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+    + `T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
+    + `${sign}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
+}
+
+/** Parse an `until` ISO string back to {date, slot} for the slider UI.
+ *  A time of exactly 00:00 is treated as end-of-previous-day (slot 288) so the
+ *  slider-max round-trip keeps the user on the day they picked. */
+function parseUntil(iso: string): { date: string; slot: number; } {
+  const d = new Date(iso);
+  const h = d.getHours();
+  const m = d.getMinutes();
+  if (h === 0 && m === 0) {
+    const prev = new Date(d.getTime() - 60_000);
+    const pad = (n: number) => String(n).padStart(2, '0');
+    return {
+      date: `${prev.getFullYear()}-${pad(prev.getMonth() + 1)}-${pad(prev.getDate())}`,
+      slot: 288,
+    };
+  }
+  return { date: iso.slice(0, 10), slot: Math.round((h * 60 + m) / 5) };
+}
+
 /* ---- Shift definitions ---- */
 const SHIFTS = [
   { name: 'Shift 1', startHour: 6, endHour: 15 },
@@ -230,9 +260,9 @@ export function ProductionLinesPage() {
   const urlUntil = urlParams.find(p => p.key === 'until')?.val as string | undefined;
   const urlResourceUids = urlParams.find(p => p.key === 'resource_uids')?.val as string[] | null;
 
-  // Build a 06:00 ISO string for a given YYYY-MM-DD date
+  // Build a 06:00 ISO string for a given YYYY-MM-DD date, preserving the local tz offset.
   const buildFromIso = useCallback((date: string) => {
-    return new Date(`${date}T06:00:00`).toISOString();
+    return toLocalIso(new Date(`${date}T06:00:00`));
   }, []);
 
   // `from` is the committed "from" value sent to the API; `pendingFromDate` is staged in the UI
@@ -247,11 +277,9 @@ export function ProductionLinesPage() {
     if (urlUntil) return urlUntil;
     return new Date().toISOString();
   });
-  const [pendingDate, setPendingDate] = useState(() => until.slice(0, 10));
-  const [pendingSlot, setPendingSlot] = useState(() => {
-    const d = new Date(until);
-    return Math.round((d.getHours() * 60 + d.getMinutes()) / 5);
-  });
+  const initialUntil = parseUntil(until);
+  const [pendingDate, setPendingDate] = useState(initialUntil.date);
+  const [pendingSlot, setPendingSlot] = useState(initialUntil.slot);
   const [looping, setLooping] = useState(false);
   const loopRef = useRef(false);
   const [autoRefresh, setAutoRefresh] = useState(false);
@@ -269,18 +297,15 @@ export function ProductionLinesPage() {
   useEffect(() => {
     if (urlUntil && urlUntil !== until) {
       setUntil(urlUntil);
-      setPendingDate(urlUntil.slice(0, 10));
-      const d = new Date(urlUntil);
-      setPendingSlot(Math.round((d.getHours() * 60 + d.getMinutes()) / 5));
+      const parsed = parseUntil(urlUntil);
+      setPendingDate(parsed.date);
+      setPendingSlot(parsed.slot);
     }
   }, [urlUntil]);
 
   // Derive selectedDates from committed until for timeline components
-  const selectedDates = useMemo(() => [until.slice(0, 10)], [until]);
-  const timeSlot = useMemo(() => {
-    const d = new Date(until);
-    return Math.round((d.getHours() * 60 + d.getMinutes()) / 5);
-  }, [until]);
+  const selectedDates = useMemo(() => [parseUntil(until).date], [until]);
+  const timeSlot = useMemo(() => parseUntil(until).slot, [until]);
 
   // Slider bounds (6:00 = slot 72, 24:00 = slot 288)
   const sliderMin = 72;
@@ -288,12 +313,14 @@ export function ProductionLinesPage() {
 
   const pendingTimeLabel = formatTimeSlot(pendingSlot);
 
-  // Build ISO string from pending date + slot
+  // Build ISO string from pending date + slot, preserving the local tz offset.
+  // Slot 288 (1440 min = 24:00) rolls into next-day 00:00 so the aggregation
+  // window actually includes the last minute of the selected day.
   const buildUntilFromSlot = useCallback((date: string, slot: number) => {
     const totalMinutes = slot * 5;
-    const h = Math.floor(totalMinutes / 60);
-    const m = totalMinutes % 60;
-    return new Date(`${date}T${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:00`).toISOString();
+    const base = new Date(`${date}T00:00:00`);
+    base.setMinutes(base.getMinutes() + totalMinutes);
+    return toLocalIso(base);
   }, []);
 
   const handleRefresh = useCallback(() => {

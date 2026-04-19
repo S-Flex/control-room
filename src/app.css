@@ -3469,6 +3469,37 @@ label[data-rac] > div:has(> svg) svg {
   color: var(--text-primary);
 }
 
+.timeline-set-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  align-items: start;
+  gap: 12px;
+}
+
+.timeline-set-row.compact {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.timeline-set-row + .timeline-set-row {
+  margin-top: 2px;
+}
+
+.timeline-set-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  padding-top: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timeline-set-bar {
+  min-width: 0;
+  width: 100%;
+}
+
 /* ---- Donut Chart Widget ---- */
 .donut-chart-wrap {
   display: flex;
@@ -3538,6 +3569,26 @@ label[data-rac] > div:has(> svg) svg {
   color: var(--text-primary);
   min-width: 36px;
   text-align: right;
+}
+
+.donut-chart-legend-total {
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+  padding-top: 8px;
+  font-weight: 600;
+}
+
+.donut-chart-legend-total:hover {
+  background: transparent;
+}
+
+.donut-chart-legend-total .donut-chart-legend-dot {
+  background: transparent;
+  box-shadow: none;
+}
+
+.donut-chart-legend-total .donut-chart-legend-label {
+  color: var(--text-primary);
 }
 
 /* ---- Donut Filter Tabstrip ---- */

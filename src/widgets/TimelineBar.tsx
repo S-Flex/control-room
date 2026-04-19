@@ -9,6 +9,9 @@ export type TimelineBarConfig = {
   color_field: string;
   title_field?: string;
   group_field?: string;
+  set_field?: string;
+  set_title?: string;
+  set_order_field?: string;
 };
 
 type Segment = {
@@ -19,12 +22,25 @@ type Segment = {
   idle?: boolean;
 };
 
-/** Build segments from data, inserting idle gaps from 0 to first offset and between segments. */
-function buildSegments(data: JSONRecord[], widgetConfig: TimelineBarConfig): Segment[] {
+type SetRow = {
+  key: string;
+  title: string;
+  order: number;
+  segments: Segment[];
+};
+
+type GroupBlock = {
+  key: string;
+  title: string;
+  sets: SetRow[];
+};
+
+/** Build segments from data rows, inserting idle gaps between segments (and from 0 to first offset). */
+function buildSegments(data: JSONRecord[], config: TimelineBarConfig): Segment[] {
   const raw = data.map(row => ({
-    offset: Number(resolve(row, widgetConfig.offset_field) ?? 0),
-    duration: resolve(row, widgetConfig.duration_field),
-    color: String(resolve(row, widgetConfig.color_field) ?? '#888'),
+    offset: Number(resolve(row, config.offset_field) ?? 0),
+    duration: resolve(row, config.duration_field),
+    color: String(resolve(row, config.color_field) ?? '#888'),
     row,
   }));
 
@@ -38,7 +54,6 @@ function buildSegments(data: JSONRecord[], widgetConfig: TimelineBarConfig): Seg
     return { offset: r.offset, duration: Math.max(dur, 1), color: r.color, row: r.row };
   });
 
-  // Insert idle segments for gaps
   const segments: Segment[] = [];
   let cursor = 0;
   for (const seg of dataSegments) {
@@ -54,13 +69,74 @@ function buildSegments(data: JSONRecord[], widgetConfig: TimelineBarConfig): Seg
     segments.push(seg);
     cursor = seg.offset + seg.duration;
   }
-
   return segments;
 }
 
-/** Compute totalSeconds: always starts from 0. */
-function getTotalSeconds(segments: Segment[]): number {
-  return segments.reduce((max, s) => Math.max(max, s.offset + s.duration), 0);
+function buildGroups(data: JSONRecord[], config: TimelineBarConfig): GroupBlock[] {
+  const { group_field, set_field, title_field, set_title, set_order_field } = config;
+
+  type GroupAcc = { rows: JSONRecord[]; title: string; };
+  const groupMap = new Map<string, GroupAcc>();
+  if (group_field) {
+    for (const row of data) {
+      const key = String(resolve(row, group_field) ?? 'unknown');
+      if (!groupMap.has(key)) {
+        const title = title_field ? String(resolve(row, title_field) ?? key) : key;
+        groupMap.set(key, { rows: [], title });
+      }
+      groupMap.get(key)!.rows.push(row);
+    }
+  } else {
+    groupMap.set('_all', { rows: data, title: '' });
+  }
+
+  const groups: GroupBlock[] = [];
+  for (const [gKey, g] of groupMap) {
+    let sets: SetRow[];
+    if (set_field) {
+      type SetAcc = { rows: JSONRecord[]; title: string; order: number; };
+      const setMap = new Map<string, SetAcc>();
+      for (const row of g.rows) {
+        const key = String(resolve(row, set_field) ?? 'unknown');
+        if (!setMap.has(key)) {
+          const title = set_title ? String(resolve(row, set_title) ?? key) : key;
+          const order = set_order_field ? Number(resolve(row, set_order_field) ?? 0) : 0;
+          setMap.set(key, { rows: [], title, order });
+        }
+        setMap.get(key)!.rows.push(row);
+      }
+      sets = Array.from(setMap.entries())
+        .map(([key, s]) => ({
+          key,
+          title: s.title,
+          order: s.order,
+          segments: buildSegments(s.rows, config),
+        }))
+        .sort((a, b) => a.order - b.order);
+    } else {
+      sets = [{
+        key: '_all',
+        title: '',
+        order: 0,
+        segments: buildSegments(g.rows, config),
+      }];
+    }
+    groups.push({ key: gKey, title: g.title, sets });
+  }
+  return groups;
+}
+
+function maxSecondsOfGroups(groups: GroupBlock[]): number {
+  let max = 0;
+  for (const g of groups) {
+    for (const s of g.sets) {
+      for (const seg of s.segments) {
+        const end = seg.offset + seg.duration;
+        if (end > max) max = end;
+      }
+    }
+  }
+  return max;
 }
 
 type TimelineSvgOptions = {
@@ -71,6 +147,7 @@ type TimelineSvgOptions = {
   svgWidth: number;
   svgHeight: number;
   fontSize: number;
+  showAxis?: boolean;
   interactive?: boolean;
   onSegHover?: (seg: Segment, x: number, y: number) => void;
   onSegLeave?: () => void;
@@ -78,7 +155,7 @@ type TimelineSvgOptions = {
 
 function renderTimelineSvg({
   segments, totalSeconds, startHour, barHeight, svgWidth, svgHeight, fontSize,
-  interactive = false, onSegHover, onSegLeave,
+  showAxis = true, interactive = false, onSegHover, onSegLeave,
 }: TimelineSvgOptions) {
   const totalHours = totalSeconds / 3600;
 
@@ -89,7 +166,7 @@ function renderTimelineSvg({
       preserveAspectRatio="xMinYMin meet"
       className="timeline-bar-svg"
     >
-      {Array.from({ length: Math.floor(totalHours) + 1 }, (_, i) => {
+      {showAxis && Array.from({ length: Math.floor(totalHours) + 1 }, (_, i) => {
         const hourSec = i * 3600;
         const x = (hourSec / totalSeconds) * svgWidth;
         const h = (startHour + i) % 24;
@@ -125,18 +202,16 @@ function renderTimelineSvg({
   );
 }
 
-function SingleTimelineBar({
-  segments,
+function GroupTimelineBar({
+  group,
   totalSeconds,
   startHour,
-  label,
   isEnlarged,
   onClick,
 }: {
-  segments: Segment[];
+  group: GroupBlock;
   totalSeconds: number;
   startHour: number;
-  label?: string;
   isEnlarged?: boolean;
   onClick?: () => void;
 }) {
@@ -147,28 +222,33 @@ function SingleTimelineBar({
       className={`timeline-bar-wrap${isEnlarged ? ' enlarged' : ''}`}
       onClick={onClick}
     >
-      {label && <div className="timeline-bar-label">{label}</div>}
-      {renderTimelineSvg({
-        segments, totalSeconds, startHour,
-        barHeight: 28, svgWidth: 600, svgHeight: 48, fontSize: 8,
+      {group.sets.map((set, i) => {
+        const isLast = i === group.sets.length - 1;
+        return (
+          <div key={set.key} className="timeline-set-row compact">
+            <div className="timeline-set-bar">
+              {renderTimelineSvg({
+                segments: set.segments, totalSeconds, startHour,
+                barHeight: 28, svgWidth: 600, svgHeight: isLast ? 48 : 32, fontSize: 8,
+                showAxis: isLast,
+              })}
+            </div>
+          </div>
+        );
       })}
     </div>
   );
 }
 
-function EnlargedTimelineOverlay({
-  segments,
+function EnlargedGroupOverlay({
+  group,
   totalSeconds,
   startHour,
-  label,
-  titleField,
   onClose,
 }: {
-  segments: Segment[];
+  group: GroupBlock;
   totalSeconds: number;
   startHour: number;
-  label?: string;
-  titleField?: string;
   onClose: () => void;
 }) {
   const [container, setContainer] = useState<Element | null>(null);
@@ -179,25 +259,37 @@ function EnlargedTimelineOverlay({
   }, []);
 
   if (totalSeconds <= 0 || !container) return null;
+  const hasSets = group.sets.length > 1 || !!group.sets[0]?.title;
 
   return (
     <>
       {createPortal(
         <div className="timeline-overlay">
           <div className="timeline-overlay-header">
-            {label && <div className="timeline-overlay-label">{label}</div>}
+            {group.title && <div className="timeline-overlay-label">{group.title}</div>}
             <button className="timeline-overlay-close" onClick={onClose} title="Close">
               <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
                 <path d="M5 5L15 15M15 5L5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
             </button>
           </div>
-          {renderTimelineSvg({
-            segments, totalSeconds, startHour,
-            barHeight: 48, svgWidth: 1200, svgHeight: 80, fontSize: 11,
-            interactive: true,
-            onSegHover: (seg, x, y) => setHover({ seg, x, y }),
-            onSegLeave: () => setHover(null),
+          {group.sets.map((set, i) => {
+            const isLast = i === group.sets.length - 1;
+            return (
+              <div key={set.key} className="timeline-set-row">
+                {hasSets && <div className="timeline-set-label">{set.title}</div>}
+                <div className="timeline-set-bar">
+                  {renderTimelineSvg({
+                    segments: set.segments, totalSeconds, startHour,
+                    barHeight: 48, svgWidth: 1200, svgHeight: isLast ? 80 : 56, fontSize: 11,
+                    showAxis: isLast,
+                    interactive: true,
+                    onSegHover: (seg, x, y) => setHover({ seg, x, y }),
+                    onSegLeave: () => setHover(null),
+                  })}
+                </div>
+              </div>
+            );
           })}
         </div>,
         container
@@ -230,7 +322,6 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
 
   if (!data || data.length === 0) return null;
 
-  // Derive startHour from the earliest start_at in the data
   let startHour = 0;
   for (const row of data) {
     const startAt = row.start_at as string | undefined;
@@ -243,62 +334,28 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
     }
   }
 
-  // Group data by group_field if specified
-  const groupField = widgetConfig.group_field;
-  const groups: { key: string; label: string; rows: JSONRecord[]; }[] = [];
+  const groups = buildGroups(data, widgetConfig);
+  const totalSeconds = maxSecondsOfGroups(groups);
 
-  const titleField = widgetConfig.title_field;
-
-  if (groupField) {
-    const map = new Map<string, { rows: JSONRecord[]; label: string; }>();
-    for (const row of data) {
-      const val = String(resolve(row, groupField) ?? 'unknown');
-      if (!map.has(val)) {
-        const label = titleField ? String(resolve(row, titleField) ?? val) : val;
-        map.set(val, { rows: [], label });
-      }
-      map.get(val)!.rows.push(row);
-    }
-    for (const [key, { rows, label }] of map) {
-      groups.push({ key, label, rows });
-    }
-  } else {
-    groups.push({ key: '_all', label: '', rows: data });
-  }
-
-  // Build segments per group and compute a shared totalSeconds across all groups
-  const groupSegments = groups.map(g => {
-    const segments = buildSegments(g.rows, widgetConfig);
-    return { ...g, segments };
-  });
-  const globalTotalSeconds = groupSegments.reduce(
-    (max, g) => Math.max(max, getTotalSeconds(g.segments)), 0
-  );
-
-  const enlarged = enlargedGroup != null
-    ? groupSegments.find(g => g.key === enlargedGroup)
-    : null;
+  const enlarged = enlargedGroup != null ? groups.find(g => g.key === enlargedGroup) : null;
 
   return (
     <div className="timeline-bar-groups">
-      {groupSegments.map(g => (
-        <SingleTimelineBar
+      {groups.map(g => (
+        <GroupTimelineBar
           key={g.key}
-          segments={g.segments}
-          totalSeconds={globalTotalSeconds}
+          group={g}
+          totalSeconds={totalSeconds}
           startHour={startHour}
-          label={groups.length > 1 ? g.label : undefined}
           isEnlarged={enlargedGroup === g.key}
           onClick={() => setEnlargedGroup(prev => prev === g.key ? null : g.key)}
         />
       ))}
-      {enlarged && enlarged.segments.length > 0 && (
-        <EnlargedTimelineOverlay
-          segments={enlarged.segments}
-          totalSeconds={globalTotalSeconds}
+      {enlarged && enlarged.sets.some(s => s.segments.length > 0) && (
+        <EnlargedGroupOverlay
+          group={enlarged}
+          totalSeconds={totalSeconds}
           startHour={startHour}
-          label={enlarged.label}
-          titleField={titleField}
           onClose={() => setEnlargedGroup(null)}
         />
       )}
