@@ -6,6 +6,7 @@ import { getLanguage } from 'xfw-get-block';
 import { isFieldVisible } from './resolve';
 import { TimelineBar, type TimelineBarConfig } from './TimelineBar';
 import { DonutChart, type DonutChartConfig } from './DonutChart';
+import { ActivityGauge, type ActivityGaugeConfig } from './ActivityGauge';
 import { InkGauge, type InkGaugeConfig } from './InkGauge';
 import { Cards } from './Cards';
 import { Item } from './Item';
@@ -175,6 +176,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
       return <TimelineBar widgetConfig={widgetConfig as unknown as TimelineBarConfig} data={data} />;
     case 'donut-chart':
       return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} dataGroup={dataGroup} data={data} />;
+    case 'activity-gauge':
+      return <ActivityGauge widgetConfig={widgetConfig as unknown as ActivityGaugeConfig} dataGroup={dataGroup} data={data} />;
     case 'ink-gauge':
       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
     case 'cards':

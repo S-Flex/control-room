@@ -4,7 +4,7 @@ import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { Sidebar, Checkbox } from '@s-flex/xfw-ui';
+import { Checkbox } from '@s-flex/xfw-ui';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import { Carousel } from './widgets/Carousel';
 import { TimeSlider } from './widgets/TimeSlider';
@@ -405,9 +405,7 @@ export function InflowPage() {
         <PageFooter footerConfig={pageConfig?.footer} content={pageContent} />
       </div>
 
-      <PageSidebar menuContent={menuContent} />
-      <Sidebar side="right" idx={0} />
-      <Sidebar side="right" idx={1} />
+      <PageSidebar />
     </div>
   );
 }

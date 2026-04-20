@@ -2,11 +2,6 @@ import { useNavigate, useAuxOutlet } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { SidebarPanel } from './SidebarPanel';
 import { usePages } from './hooks/usePages';
-import type { MenuContentEntry } from './types';
-
-type PageSidebarProps = {
-  menuContent: Map<string, MenuContentEntry>;
-};
 
 function SidebarOutlet({ outlet, content }: { outlet: string; content: { code: string; block: Record<string, unknown> }[] }) {
   const navigate = useNavigate();
@@ -26,7 +21,7 @@ function SidebarOutlet({ outlet, content }: { outlet: string; content: { code: s
   );
 }
 
-export function PageSidebar({ menuContent }: PageSidebarProps) {
+export function PageSidebar() {
   const { content } = usePages();
 
   return (

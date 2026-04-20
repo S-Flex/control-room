@@ -1,7 +1,12 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Ink } from './widgets/Ink';
 import { SectionRenderer } from './widgets/SectionRenderer';
 import { usePage } from './hooks/usePages';
+
+type DragListeners = {
+  move: (ev: PointerEvent) => void;
+  up: (ev: PointerEvent) => void;
+};
 
 export function SidebarPanel({ code, title, onClose }: {
   code: string;
@@ -11,7 +16,18 @@ export function SidebarPanel({ code, title, onClose }: {
   const { config, content, isLoading } = usePage(code);
   const [width, setWidth] = useState(20); // percentage
   const dragging = useRef(false);
+  const listenersRef = useRef<DragListeners | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // Tear down any in-flight drag listeners on unmount so they don't fire on
+  // a dead component (e.g. when the sidebar closes mid-drag).
+  useEffect(() => () => {
+    if (listenersRef.current) {
+      window.removeEventListener('pointermove', listenersRef.current.move);
+      window.removeEventListener('pointerup', listenersRef.current.up);
+      listenersRef.current = null;
+    }
+  }, []);
 
   const handleResizeStart = useCallback((e: React.PointerEvent) => {
     e.preventDefault();
@@ -30,7 +46,9 @@ export function SidebarPanel({ code, title, onClose }: {
       dragging.current = false;
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
+      listenersRef.current = null;
     };
+    listenersRef.current = { move: onMove, up: onUp };
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
   }, [width]);

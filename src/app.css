@@ -3944,87 +3944,106 @@ label[data-rac] > div:has(> svg) svg {
   container-type: inline-size;
 }
 
-.flow-grid {
+.column-grid {
+  /* Single row of columns: each column is at least --column-min-width and
+     grows with 1fr to share remaining space. When parent < N × min, each
+     column stays at min-width and the grid scrolls horizontally. */
+  --column-min-width: 250px;
   display: grid;
-  grid-template-rows: auto auto 1fr;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
   overflow-x: auto;
   gap: 0 8px;
-  padding: 4px 0;
   flex: 1;
+  min-width: 0;
   min-height: 0;
 }
 
-.flow-grid-column {
+.column-grid-column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Opt-in: align `header / nav / body` rows across sibling columns via subgrid
+   (used by FlowBoard so the three sections line up horizontally). */
+.column-grid--aligned {
+  grid-template-rows: auto auto 1fr;
+}
+.column-grid--aligned .column-grid-column {
   display: grid;
   grid-template-rows: subgrid;
   grid-row: span 3;
-  min-width: 250px;
-  overflow: hidden;
 }
-.flow-grid-pager {
+
+.column-grid-pager {
   display: none;
 }
 
-@container (max-width: 500px) {
-  .flow-grid {
-    grid-template-columns: none !important;
-    grid-auto-flow: column;
-    grid-auto-columns: 100%;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-  }
-  .flow-grid::-webkit-scrollbar {
-    display: none;
-  }
-  .flow-grid-column {
-    scroll-snap-align: start;
-    min-width: 0;
-  }
-  .flow-grid-pager {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-left: auto;
-    flex-shrink: 0;
-  }
-  .flow-grid-pager-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    border: none;
-    background: none;
-    color: var(--text-secondary);
-    cursor: pointer;
-    padding: 0;
-    transition: color 0.1s, opacity 0.1s;
-  }
-  .flow-grid-pager-btn:hover:not(:disabled) {
-    color: var(--text-primary);
-  }
-  .flow-grid-pager-btn:disabled {
-    opacity: 0.25;
-    cursor: default;
-  }
-  .flow-grid-pager-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    padding: 0 2px;
-  }
-  .flow-grid-column-nav {
-    padding: 2px 8px;
-  }
-  .flow-nav {
-    gap: 4px;
-  }
-  .flow-nav-btn {
-    padding: 2px 8px;
-    font-size: 11px;
-  }
+/* Narrow mode (parent < 2 × --column-min-width) — JS toggles `is-narrow`
+   on the grid via useColumnGridPager. One column at a time, snap-scroll,
+   pager visible. The grid itself is capped at one column's width so it
+   doesn't stretch wider than --column-max-width / --column-min-width. */
+.column-grid.is-narrow {
+  grid-auto-columns: 100%;
+  /* max-width: var(--column-max-width, var(--column-min-width)); */
+  /* Drop the gap in snap mode so `scrollBy(clientWidth)` lands exactly on
+     the next `scroll-snap-align: start` target. */
+  gap: 0;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.column-grid.is-narrow::-webkit-scrollbar {
+  display: none;
+}
+.column-grid.is-narrow .column-grid-column {
+  scroll-snap-align: start;
+}
+.column-grid.is-narrow .column-grid-pager {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+.column-grid-pager-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.1s, opacity 0.1s;
+}
+.column-grid-pager-btn:hover:not(:disabled) {
+  color: var(--text-primary);
+}
+.column-grid-pager-btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+.column-grid-pager-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  padding: 0 2px;
+}
+.column-grid.is-narrow .column-grid-column-nav {
+  padding: 2px 8px;
+}
+.column-grid.is-narrow .flow-nav {
+  gap: 4px;
+}
+.column-grid.is-narrow .flow-nav-btn {
+  padding: 2px 8px;
+  font-size: 11px;
 }
 
-.flow-grid-column-body {
+.column-grid-column-body {
   flex: 1;
   min-height: 0;
   overflow-y: auto;
@@ -4033,42 +4052,42 @@ label[data-rac] > div:has(> svg) svg {
   scrollbar-color: var(--text-muted) transparent;
 }
 
-.flow-grid-column-body::-webkit-scrollbar {
+.column-grid-column-body::-webkit-scrollbar {
   width: 4px;
 }
 
-.flow-grid-column-body::-webkit-scrollbar-track {
+.column-grid-column-body::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.flow-grid-column-body::-webkit-scrollbar-thumb {
+.column-grid-column-body::-webkit-scrollbar-thumb {
   background: var(--text-muted);
   border-radius: 2px;
 }
 
-.flow-grid-column-header {
+.column-grid-column-header {
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: start;
   gap: 8px;
   padding: 8px 12px;
 }
-.flow-grid-column-header:not(:has(.flow-grid-pager)) {
+.column-grid-column-header:not(:has(.column-grid-pager)) {
   grid-template-columns: 1fr;
 }
-.flow-grid-column-header:has(+ .flow-grid-column-nav) {
+.column-grid-column-header:has(+ .column-grid-column-nav) {
   padding-bottom: 4px;
 }
-.flow-grid-column-header.has-controls {
+.column-grid-column-header.has-controls {
   grid-template-columns: auto 1fr auto;
   color: var(--text-primary);
   font-size: 13px;
   flex-shrink: 0;
 }
-.flow-grid-column-header.has-controls:not(:has(.flow-grid-pager)) {
+.column-grid-column-header.has-controls:not(:has(.column-grid-pager)) {
   grid-template-columns: auto 1fr;
 }
-.flow-grid-header-value {
+.column-grid-header-value {
   white-space: nowrap;
 }
 
@@ -4143,9 +4162,6 @@ label[data-rac] > div:has(> svg) svg {
   background: var(--brand-pale);
 }
 
-.field-no-label {
-  align-self: end;
-}
 
 .field-with-label {
   display: flex;
@@ -4494,6 +4510,146 @@ label[data-rac] > div:has(> svg) svg {
   justify-content: center;
   width: 16px;
   height: 16px;
+}
+
+/* ---- Activity Gauge Widget ---- */
+.activity-gauge-cells {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 8px 6px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+}
+
+.activity-gauge-column-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+  padding: 2px 4px 8px;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-gauge-cells-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+
+.activity-gauge-cell {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+  padding: 0 4px;
+}
+
+.activity-gauge-cell-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.activity-gauge-chart {
+  width: 100%;
+  cursor: pointer;
+}
+
+.activity-gauge-title {
+  font-size: 14px;
+  font-weight: 700;
+  fill: var(--text-primary);
+}
+
+.activity-gauge-legend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  padding: 2px 0 0;
+}
+
+.activity-gauge-legend-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--text-secondary);
+  line-height: 1.3;
+  white-space: nowrap;
+}
+
+.activity-gauge-legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.activity-gauge-legend-label {
+  color: var(--text-tertiary);
+}
+
+.activity-gauge-legend-value {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Generic Field Tooltip ---- */
+.field-tooltip {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  background: var(--bg-card);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 8px);
+  padding: 8px 10px;
+  font-size: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  min-width: 140px;
+  max-width: 280px;
+}
+
+.field-tooltip-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.field-tooltip-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  padding: 2px 0;
+  align-items: baseline;
+}
+
+.field-tooltip-label {
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.field-tooltip-value {
+  color: var(--text-primary);
+  font-weight: 600;
+  text-align: right;
 }
 
 .icon-map-img {

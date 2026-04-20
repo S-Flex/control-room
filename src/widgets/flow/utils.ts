@@ -122,17 +122,22 @@ function resolveLevelLabel(levelFieldConfig: FlowLevelFieldConfig | undefined, f
   return resolveLabel(fieldMap, key);
 }
 
-export function formatValue(val: JSONValue, control?: string): string {
+export function formatValue(val: JSONValue, control?: string, scale?: number): string {
   if (val === null || val === undefined) return '—';
   if (control === 'percent') {
     const num = Number(val);
     if (!isNaN(num)) {
-      return `${Math.round(num)}%`;
+      const pct = typeof scale === 'number' ? num.toFixed(scale) : String(Math.round(num));
+      return `${pct}%`;
     }
   }
   if (control === 'date' || control === 'datetime') {
     const d = new Date(val as string | number);
     if (!isNaN(d.getTime())) return control === 'date' ? d.toLocaleDateString() : `${d.toLocaleDateString()} ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+  }
+  if (typeof scale === 'number') {
+    const num = Number(val);
+    if (!isNaN(num) && isFinite(num)) return num.toFixed(scale);
   }
   if (typeof val === 'object') return JSON.stringify(val);
   return String(val);

@@ -1,5 +1,4 @@
-import { useDataGroups, type DataGroup } from '@s-flex/xfw-ui';
-import { useDataGeneric } from './hooks/useDataGeneric';
+import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 

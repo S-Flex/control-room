@@ -11,7 +11,7 @@ import { Badge } from './Badge';
 import type { FieldNav } from '../widgets/flow/types';
 
 type FieldProps = {
-  field: ResolvedField & { aggregate?: string; nav?: FieldNav; no_label?: boolean };
+  field: ResolvedField & { aggregate?: string; nav?: FieldNav; no_label?: boolean; scale?: number };
   value: JSONValue;
   showLabel?: boolean;
   row?: JSONRecord;
@@ -86,7 +86,7 @@ function FieldValue({ text, nav, navUrl, row, className }: {
 }
 
 export function Field({ field, value, showLabel, row }: FieldProps) {
-  const { control, input_data, aggregate, nav, no_label } = field;
+  const { control, input_data, aggregate, nav, no_label, scale } = field;
   const label = resolveI18nLabel(field.i18n, field.key);
   const shouldShowLabel = showLabel ?? !no_label;
 
@@ -114,10 +114,20 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
 
   if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {
     const lang = getLanguage();
-    const i18n = value as Record<string, Record<string, string>>;
+    const i18n = value as Record<string, unknown>;
     const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
-    if (localized) {
-      const text = localized.title || localized.text || '';
+    let text = '';
+    // Flat i18n: { nl: "Plaat" }
+    if (typeof localized === 'string') {
+      text = localized;
+    } else if (localized && typeof localized === 'object') {
+      // Nested i18n: { nl: { title: "Plaat" } }
+      const inner = localized as Record<string, unknown>;
+      text = (typeof inner.title === 'string' ? inner.title : '')
+        || (typeof inner.text === 'string' ? inner.text : '')
+        || '';
+    }
+    if (text) {
       if (shouldShowLabel) {
         return (
           <div className="field-with-label">
@@ -130,10 +140,10 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     }
   }
 
-  const formatted = formatValue(value, control);
+  const formatted = formatValue(value, control, scale);
   const navUrl = nav ? resolveNavPath(nav, row) : undefined;
 
-  if (showLabel) {
+  if (shouldShowLabel) {
     return (
       <div className="field-with-label">
         <span className="field-label">{label}</span>

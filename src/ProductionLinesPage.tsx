@@ -12,7 +12,7 @@ import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { Sidebar, Toggle } from '@s-flex/xfw-ui';
+import { Toggle } from '@s-flex/xfw-ui';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 
@@ -838,9 +838,7 @@ export function ProductionLinesPage() {
         <PageFooter footerConfig={pageConfig?.footer} content={pageContent} />
       </div>{/* .planning-main */}
 
-      <PageSidebar menuContent={menuContent} />
-      <Sidebar side="right" idx={0} />
-      <Sidebar side="right" idx={1} />
+      <PageSidebar />
     </div>
   );
 }

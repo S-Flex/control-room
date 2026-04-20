@@ -1,18 +1,17 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState } from 'react';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
 import { Checkbox } from '@s-flex/xfw-ui';
 import { useGroupCheck } from '../../controls/Checkbox';
 import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
+import { useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
 
 function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
   return primaryKeys.map(k => String(row[k] ?? '')).join('||');
 }
 
-type GridPager = { index: number; total: number; scroll: (dir: 1 | -1) => void; };
-
-function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: GridPager; }) {
+function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: ColumnGridPager; }) {
   const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
   const { allChecked, someChecked } = useGroupCheck(g.rows);
   const { primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
@@ -30,10 +29,10 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
 
   return (
     <div
-      className={`${isGrid ? 'flow-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
+      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
       onClick={g.selectable ? () => selectItem(g.rows[0], g.on_select) : undefined}
     >
-      <div className={`${isGrid ? 'flow-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
+      <div className={`${isGrid ? 'column-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
         {(showCheckbox || showColexp) && (
           <div className="flow-card-controls">
             {showCheckbox && (
@@ -63,19 +62,19 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
           }
         </div>
         {pager && (
-          <div className="flow-grid-pager">
-            <button className="flow-grid-pager-btn" disabled={pager.index <= 0} onClick={() => pager.scroll(-1)}>
+          <div className="column-grid-pager">
+            <button className="column-grid-pager-btn" disabled={pager.atStart} onClick={() => pager.scroll(-1)}>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 3L4 6l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
-            <span className="flow-grid-pager-label">{pager.index + 1}/{pager.total}</span>
-            <button className="flow-grid-pager-btn" disabled={pager.index >= pager.total - 1} onClick={() => pager.scroll(1)}>
+            <span className="column-grid-pager-label">{pager.index + 1}/{pager.total}</span>
+            <button className="column-grid-pager-btn" disabled={pager.atEnd} onClick={() => pager.scroll(1)}>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </button>
           </div>
         )}
       </div>
       {g.navs && g.navs.length > 0 && (
-        <div className={isGrid ? 'flow-grid-column-nav' : undefined}>
+        <div className={isGrid ? 'column-grid-column-nav' : undefined}>
           <div className="flow-nav">
             {g.navs.map(nav => (
               <button
@@ -91,7 +90,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
         </div>
       )}
       {!isCollapsed && g.children && (
-        <div className={isGrid ? 'flow-grid-column-body' : 'flow-card-body'}>
+        <div className={isGrid ? 'column-grid-column-body' : 'flow-card-body'}>
           {g.children}
         </div>
       )}
@@ -101,20 +100,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
 
 export function FlowBox({ layout, groups }: FlowLayoutProps) {
   const isGrid = layout === 'flow-grid';
-  const gridRef = useRef<HTMLDivElement>(null);
-  const [snapIndex, setSnapIndex] = useState(0);
-
-  const scroll = useCallback((dir: 1 | -1) => {
-    const el = gridRef.current;
-    if (!el) return;
-    el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' });
-  }, []);
-
-  const handleScroll = useCallback(() => {
-    const el = gridRef.current;
-    if (!el || el.clientWidth === 0) return;
-    setSnapIndex(Math.round(el.scrollLeft / el.clientWidth));
-  }, []);
+  const { gridRef, pager, handleScroll, isNarrow } = useColumnGridPager(groups.length);
 
   if (!isGrid) {
     return (
@@ -124,15 +110,10 @@ export function FlowBox({ layout, groups }: FlowLayoutProps) {
     );
   }
 
-  const pager: GridPager | undefined = groups.length > 1
-    ? { index: snapIndex, total: groups.length, scroll }
-    : undefined;
-
   return (
     <div
       ref={gridRef}
-      className="flow-grid"
-      style={{ gridTemplateColumns: `repeat(${groups.length}, 1fr)` }}
+      className={`column-grid column-grid--aligned${isNarrow ? ' is-narrow' : ''}`}
       onScroll={handleScroll}
     >
       {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid pager={pager} />)}

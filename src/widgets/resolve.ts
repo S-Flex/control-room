@@ -34,8 +34,18 @@ type ColorConfig = { values: string[]; formula: string };
 export function evaluateColorFormula(
   config: ColorConfig,
   row: JSONRecord,
+  placeholders?: Record<string, string | number>,
 ): string {
   let expr = config.formula;
+
+  // Substitute {name} placeholders first so the value (e.g. a series % read
+  // from outside the row) can be injected before field/time replacements.
+  if (placeholders) {
+    expr = expr.replace(/\{(\w+)\}/g, (_, key) => {
+      const v = placeholders[key];
+      return v == null ? '0' : String(v);
+    });
+  }
 
   // Replace time literals like '12:00' or '0:00' with minutes
   expr = expr.replace(/'(\d{1,2}:\d{2})'/g, (_, t) => String(timeToMinutes(t)));
