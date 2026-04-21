@@ -6,13 +6,13 @@ import {
   useAuxOutlet,
   AuxRouteProvider,
 } from '@s-flex/xfw-url';
+import { Toggle } from './controls/Toggle';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { Toggle } from '@s-flex/xfw-ui';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
 

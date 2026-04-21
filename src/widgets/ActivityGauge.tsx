@@ -9,27 +9,29 @@ import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
 import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { useQueryParams } from '@s-flex/xfw-url';
 import { getLanguage } from 'xfw-get-block';
-import { resolve, evaluateColorFormula } from './resolve';
+import { resolve } from './resolve';
 import { formatValue, localizeI18n, resolveI18nLabel } from './flow/utils';
 import { Field } from '../controls/Field';
-import { FieldTooltip, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
+import { FieldTooltip, type TooltipConfig, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
 import {
   ColumnGridPagerControls,
   useColumnGridPager,
   type ColumnGridPager,
 } from './useColumnGridPager';
 
-type ColorConfig = { true: string; false: string };
-
 type ActivityGaugeSeries = {
   value_field: string;
   domain_max?: number;
-  colors?: string | ColorConfig;
+  /** Color source: single string, array indexed by `color_index_field`, or
+   *  object keyed by `String(color_index_field)` (e.g. `{ "true": …, "false": … }`). */
+  colors?: string | string[] | Record<string, string>;
 };
 
 type ActivityGaugeMode = {
   i18n?: Record<string, Record<string, string>>;
   gauge_title_field?: string;
+  /** Row field whose value indexes/keys into each series' `colors`. */
+  color_index_field?: string;
   series: ActivityGaugeSeries[];
 };
 
@@ -38,11 +40,10 @@ export type ActivityGaugeConfig = {
   title_field?: string;
   gauge_label_field?: string;
   mode_param?: string;
-  color_formula?: string;
   column_min_width?: string | number;
   column_max_width?: string | number;
   modes: ActivityGaugeMode[];
-  tooltip?: { field_config?: Record<string, TooltipFieldConfigEntry> };
+  tooltip?: TooltipConfig;
 };
 
 type Ring = {
@@ -83,19 +84,20 @@ function readControl(fc: FieldConfig | undefined): string | undefined {
 function resolveColor(
   series: ActivityGaugeSeries,
   row: JSONRecord,
-  value: number,
-  formula: string | undefined,
+  colorIndexField: string | undefined,
   fallback: string,
 ): string {
   if (typeof series.colors === 'string') return series.colors;
   if (!series.colors) return fallback;
-  if (!formula) return series.colors.true;
-  const picked = evaluateColorFormula(
-    { values: [series.colors.false, series.colors.true], formula },
-    row,
-    { pct: value },
-  );
-  return picked ?? fallback;
+  const indexRaw = colorIndexField ? resolve(row, colorIndexField.trim()) : undefined;
+  if (indexRaw == null) return fallback;
+  if (Array.isArray(series.colors)) {
+    const i = Number(indexRaw);
+    return Number.isInteger(i) && i >= 0 && i < series.colors.length
+      ? series.colors[i]
+      : fallback;
+  }
+  return series.colors[String(indexRaw)] ?? fallback;
 }
 
 function Gauge({
@@ -236,7 +238,6 @@ type ColumnProps = {
   fieldConfig?: Record<string, FieldConfig>;
   rows: JSONRecord[];
   mode: ActivityGaugeMode;
-  colorFormula?: string;
   lang: string;
   style?: React.CSSProperties;
   onHover: (row: JSONRecord, x: number, y: number) => void;
@@ -251,7 +252,6 @@ function Column({
   fieldConfig,
   rows,
   mode,
-  colorFormula,
   lang,
   style,
   onHover,
@@ -287,7 +287,7 @@ function Column({
           series: s,
           value,
           domainMax: s.domain_max ?? 100,
-          color: resolveColor(s, row, value, colorFormula, 'var(--brand)'),
+          color: resolveColor(s, row, mode.color_index_field, 'var(--brand)'),
           label: seriesLabels[i],
         });
       });
@@ -299,7 +299,7 @@ function Column({
       out.push({ row, rings, centerTitle });
     }
     return out;
-  }, [rows, mode, colorFormula, seriesLabels, gaugeTitleField, centerField]);
+  }, [rows, mode, seriesLabels, gaugeTitleField, centerField]);
 
   if (cells.length === 0) return null;
 
@@ -358,7 +358,6 @@ export function ActivityGauge({
     title_field,
     gauge_label_field,
     mode_param,
-    color_formula,
     column_min_width,
     column_max_width,
     modes,
@@ -366,7 +365,6 @@ export function ActivityGauge({
   } = widgetConfig;
 
   const fieldConfig = dataGroup?.field_config as Record<string, FieldConfig> | undefined;
-  const tooltipFc = tooltip?.field_config;
   const lang = getLanguage();
 
   const resolvedLabelField = useMemo(() => {
@@ -454,7 +452,6 @@ export function ActivityGauge({
             fieldConfig={fieldConfig}
             rows={g.rows}
             mode={activeMode}
-            colorFormula={color_formula}
             lang={lang}
             style={columnStyle}
             onHover={onHover}
@@ -469,7 +466,7 @@ export function ActivityGauge({
         x={hover?.x ?? 0}
         y={hover?.y ?? 0}
         fieldConfig={fieldConfig as Record<string, TooltipFieldConfigEntry> | undefined}
-        tooltipConfig={tooltipFc}
+        tooltipConfig={tooltip}
         titleField={title_field}
       />
     </>
