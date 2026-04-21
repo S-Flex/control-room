@@ -9,8 +9,8 @@ Control Room is a React-based industrial monitoring application built with Vite,
 ## Development commands
 
 ```bash
-npm run dev        # Start development server with HMR
-npm run build      # Build for production
+npm run dev        # Start development server with HMR + TypeScript checking
+npm run build      # Type-check + build for production (fails on type errors)
 npx tsc --noEmit   # Type-check without emitting
 ```
 
@@ -72,7 +72,9 @@ Import locally, e.g. `import { Toggle } from './controls/Toggle'`. Keep these co
 - `i18n` uses BCP 47 locale codes (`nl`, `en`, `fr`, `de`)
 
 ### Code style
-- TypeScript strict mode — always run `npx tsc --noEmit` after changes.
+- TypeScript strict mode — the dev server shows type errors in real-time via `vite-plugin-checker`. **Fix all type errors before committing.**
+- `npm run build` will **fail** if there are any TypeScript errors. Do not bypass this.
+- Only import components/types that actually exist in the library. Verify exports before using them.
 - No custom solutions when the library already provides one.
 - All components must be generic and reusable — semantics in data, not in code.
 - Business logic belongs in JSON/data, not in component code.
