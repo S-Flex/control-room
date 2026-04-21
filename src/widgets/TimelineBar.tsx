@@ -47,13 +47,21 @@ function buildSegments(data: JSONRecord[], config: TimelineBarConfig): Segment[]
 
   raw.sort((a, b) => a.offset - b.offset);
 
-  return raw.map((r, i) => {
+  const segments = raw.map((r, i) => {
     let dur = r.duration !== null && r.duration !== undefined ? Number(r.duration) : 0;
     if (dur <= 0) {
       dur = i + 1 < raw.length ? raw[i + 1].offset - r.offset : 300;
     }
     return { offset: r.offset, duration: Math.max(dur, 1), color: r.color, row: r.row };
   });
+
+  // Paint order: state.order ascending (null/missing treated as 0), so higher
+  // order segments render on top of lower order ones where they overlap.
+  segments.sort((a, b) =>
+    Number(resolve(a.row, 'state.order') ?? 0) - Number(resolve(b.row, 'state.order') ?? 0)
+  );
+
+  return segments;
 }
 
 function buildGroups(data: JSONRecord[], config: TimelineBarConfig): GroupBlock[] {
