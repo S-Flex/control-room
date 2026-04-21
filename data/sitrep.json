@@ -794,7 +794,7 @@
             "field_config": {
               "sqm_cut": {
                 "ui": {
-                  "order": 8
+                  "order": 2
                 }
               },
               "sqm_done": {
@@ -809,27 +809,27 @@
               },
               "sqm_total": {
                 "ui": {
-                  "order": 2
+                  "order": 5
                 }
               },
               "sqm_pct_cut": {
                 "ui": {
-                  "order": 9
+                  "order": 7
                 }
               },
               "sqm_printed": {
                 "ui": {
-                  "order": 6
+                  "order": 0
                 }
               },
               "sqm_pct_done": {
                 "ui": {
-                  "order": 5
+                  "order": 8
                 }
               },
               "sqm_pct_printed": {
                 "ui": {
-                  "order": 7
+                  "order": 6
                 }
               }
             }
@@ -838,42 +838,42 @@
             "field_config": {
               "order_cut": {
                 "ui": {
-                  "order": 16
+                  "order": 1
                 }
               },
               "order_done": {
                 "ui": {
-                  "order": 12
+                  "order": 4
                 }
               },
               "order_open": {
                 "ui": {
-                  "order": 11
+                  "order": 3
                 }
               },
               "order_count": {
                 "ui": {
-                  "order": 10
+                  "order": 5
                 }
               },
               "order_pct_cut": {
                 "ui": {
-                  "order": 17
+                  "order": 7
                 }
               },
               "order_printed": {
                 "ui": {
-                  "order": 14
+                  "order": 0
                 }
               },
               "order_pct_done": {
                 "ui": {
-                  "order": 13
+                  "order": 8
                 }
               },
               "order_pct_printed": {
                 "ui": {
-                  "order": 15
+                  "order": 6
                 }
               }
             }
