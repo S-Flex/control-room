@@ -80,5 +80,15 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          three: ['three', 'three-stdlib'],
+          'react-three': ['@react-three/fiber', '@react-three/drei'],
+          react: ['react', 'react-dom', 'react-router-dom'],
+          'react-aria': ['react-aria-components'],
+        },
+      },
+    },
   },
 });
