@@ -50,7 +50,9 @@ jobs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         cache-from: type=gha
-        cache-to: type=gha,mode=max
+        cache-to: type=gha,mode=min
+        provenance: false
+        sbom: false
         secrets: |
           gh_token=${{ secrets.GH_PAT_PACKAGES }}
 
