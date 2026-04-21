@@ -19,6 +19,7 @@ npx tsc --noEmit   # Type-check without emitting
 ```
 src/                        — Application source code (React + TypeScript)
   hooks/                    — Custom hooks (useProductionLineOverview, etc.)
+  controls/                 — Reusable UI controls (Toggle, Badge, Chip, Field, …)
   widgets/                  — Widget components (TimelineBar, DonutChart, InkGauge)
   SidebarPanel.tsx           — Sidebar with data-driven widget rendering
   ProductionLinesPage.tsx    — Main page with 3D view, timeline, controls
@@ -36,9 +37,9 @@ data/                       — JSON data files served by vite dev server
 ### Protected directories
 - **Never edit files in `packages/` without explicit user permission.** These are shared internal packages. Always ask before modifying any file under `packages/`.
 
-### xfw-library first — mandatory
+### xfw-library first
 
-**Before writing any new component, hook, utility, or type: always check the xfw-library.**
+**Before writing any new component, hook, utility, or type: check the xfw-library.**
 
 The three core packages are:
 - `node_modules/@s-flex/xfw-data/README.md` — data fetching, DataGroup, DataTable, param system
@@ -47,22 +48,16 @@ The three core packages are:
 
 **Workflow:**
 1. Read the relevant README(s) before writing code.
-2. Use existing exports — never re-implement what the library already provides.
-3. If something is missing from the library, document it in `docs/xfw-changes/` (see below).
+2. Use existing exports when they fit — don't re-implement what the library already provides.
+3. If the library does not cover a use case, build it locally (see next section). Do **not** patch `node_modules/` — patches are unmaintainable and were removed from this project.
 
-**If you are unsure whether the library covers a use case: read the README first, then decide.**
+### Local controls and widgets
 
-### xfw library changes
+When something is needed that the xfw-library does not provide, build it in this repo:
+- Reusable UI controls (inputs, toggles, chips, tooltips, …) go in **`src/controls/`**.
+- Data/widget components (timelines, gauges, cards, …) go in **`src/widgets/`**.
 
-When a task requires something that the xfw-library does not yet support:
-1. Do **not** implement a custom workaround without asking.
-2. Create or update a file in `docs/xfw-changes/YYYY-MM-DD-[short-description].md`.
-3. That file must contain:
-   - What is missing or needs to change in the library
-   - Which package and file is affected (`@s-flex/xfw-data`, `@s-flex/xfw-ui`, or `@s-flex/xfw-url`)
-   - The proposed change with a before/after example
-   - Why this change is needed (use case)
-4. Inform the user: "Ik heb een wijzigingsvoorstel aangemaakt in `docs/xfw-changes/`."
+Import locally, e.g. `import { Toggle } from './controls/Toggle'`. Keep these components generic and reusable — semantics in data, not hard-coded in the component.
 
 ### Data & i18n
 - All user-facing text must go through `getBlock()` from `xfw-get-block`.
