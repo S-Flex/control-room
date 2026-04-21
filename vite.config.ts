@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
+import checker from 'vite-plugin-checker';
 import path from 'path';
 import fs from 'fs';
 
@@ -61,7 +62,12 @@ function dataServerPlugin() {
 }
 
 export default defineConfig({
-  plugins: [react(), tailwindcss(), dataServerPlugin()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    checker({ typescript: true }),
+    dataServerPlugin(),
+  ],
   root: '.',
   resolve: {
     alias: {
