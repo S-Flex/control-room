@@ -3,8 +3,7 @@ import type { JSONValue, JSONRecord } from '@s-flex/xfw-data';
 import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
 import { Tooltip, useNavItemAction } from '@s-flex/xfw-ui';
 import { Button } from 'react-aria-components';
-import { getLanguage } from 'xfw-get-block';
-import { resolveI18nLabel, formatValue } from '../widgets/flow/utils';
+import { resolveI18nLabel, formatValue, localizeI18n } from '../widgets/flow/utils';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
 import { Badge } from './Badge';
@@ -113,20 +112,7 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
   }
 
   if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {
-    const lang = getLanguage();
-    const i18n = value as Record<string, unknown>;
-    const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
-    let text = '';
-    // Flat i18n: { nl: "Plaat" }
-    if (typeof localized === 'string') {
-      text = localized;
-    } else if (localized && typeof localized === 'object') {
-      // Nested i18n: { nl: { title: "Plaat" } }
-      const inner = localized as Record<string, unknown>;
-      text = (typeof inner.title === 'string' ? inner.title : '')
-        || (typeof inner.text === 'string' ? inner.text : '')
-        || '';
-    }
+    const text = localizeI18n(value);
     if (text) {
       if (shouldShowLabel) {
         return (

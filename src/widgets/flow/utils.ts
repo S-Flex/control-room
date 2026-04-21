@@ -94,22 +94,35 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
   return result;
 }
 
-/** Resolve label from an i18n object, checking text, title, and label keys. */
-export function resolveI18nLabel(i18n: unknown, key: string): string {
-  if (i18n && typeof i18n === 'object') {
-    const lang = getLanguage();
-    const map = i18n as Record<string, Record<string, string> | undefined>;
-    const byLang = map[lang];
-    if (byLang?.text) return byLang.text;
-    if (byLang?.label) return byLang.label;
-    if (byLang?.title) return byLang.title;
-    for (const v of Object.values(map)) {
-      if (v?.text) return v.text;
-      if (v?.label) return v.label;
-      if (v?.title) return v.title;
+/** Pick the localized text from an i18n object. Accepts both nested
+ *  (`{nl: {title: "Plaat"}}`) and flat (`{nl: "Plaat"}`) shapes. Returns
+ *  `undefined` when nothing usable is found, so callers can decide on fallbacks. */
+export function localizeI18n(i18n: unknown, lang?: string): string | undefined {
+  if (!i18n || typeof i18n !== 'object') return undefined;
+  const map = i18n as Record<string, unknown>;
+  const l = lang ?? getLanguage();
+  const pick = (v: unknown): string | undefined => {
+    if (typeof v === 'string') return v || undefined;
+    if (v && typeof v === 'object') {
+      const inner = v as Record<string, unknown>;
+      if (typeof inner.text === 'string' && inner.text) return inner.text;
+      if (typeof inner.label === 'string' && inner.label) return inner.label;
+      if (typeof inner.title === 'string' && inner.title) return inner.title;
     }
+    return undefined;
+  };
+  const byLang = pick(map[l]);
+  if (byLang) return byLang;
+  for (const v of Object.values(map)) {
+    const hit = pick(v);
+    if (hit) return hit;
   }
-  return toDisplayLabel(key);
+  return undefined;
+}
+
+/** Resolve a label for a key with i18n fallback to a humanized default. */
+export function resolveI18nLabel(i18n: unknown, key: string): string {
+  return localizeI18n(i18n) ?? toDisplayLabel(key);
 }
 
 export function resolveLabel(fieldMap: FieldMap, key: string): string {

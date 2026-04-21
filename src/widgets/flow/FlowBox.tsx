@@ -5,7 +5,7 @@ import { Checkbox } from '@s-flex/xfw-ui';
 import { useGroupCheck } from '../../controls/Checkbox';
 import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
-import { useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
+import { ColumnGridPagerControls, useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
 
 function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
   return primaryKeys.map(k => String(row[k] ?? '')).join('||');
@@ -61,17 +61,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
             ))
           }
         </div>
-        {pager && (
-          <div className="column-grid-pager">
-            <button className="column-grid-pager-btn" disabled={pager.atStart} onClick={() => pager.scroll(-1)}>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 3L4 6l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </button>
-            <span className="column-grid-pager-label">{pager.index + 1}/{pager.total}</span>
-            <button className="column-grid-pager-btn" disabled={pager.atEnd} onClick={() => pager.scroll(1)}>
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-            </button>
-          </div>
-        )}
+        {pager && <ColumnGridPagerControls pager={pager} />}
       </div>
       {g.navs && g.navs.length > 0 && (
         <div className={isGrid ? 'column-grid-column-nav' : undefined}>

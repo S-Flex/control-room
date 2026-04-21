@@ -105,6 +105,36 @@ Uses `xfw-url` for URL-driven state management:
 - **Auxiliary routes**: Overlays — `/page(sidebar:help//popup:confirm)`
 - **Query params**: `?model=sheet&from=...&until=...&resource=...`
 
+**Aux-route separator is `//`, not `/`.** When two or more auxiliary outlets
+appear in the same URL, they are joined by a **double** slash — e.g.
+`(sidebar:orderlines//detail:uploader-data)`. A single slash is wrong and
+collapses the two outlets into one. This rule applies to:
+- Data JSON values (`nav.path`, `on_select.path`, `menu-items.path`, etc.).
+- String literals passed to `navigate(...)`.
+- Any manual string composition of outlet paths in widgets/hooks.
+- Snapshots / screenshots / docs that reference aux-route URLs.
+
+Do **not** change `//` to `/` in aux routes during simplify, review, or
+refactor passes — even if it looks like a typo or duplicate slash. Preserve
+the `//` exactly.
+
+**If `//` aux routes appear broken at runtime, the fix is to clear Vite's
+dep cache, not to edit code.** `@s-flex/xfw-url`'s `dist/index.js` already
+contains a forgiving parser that handles both `//` and a collapsed `/`. But
+Vite pre-bundles `node_modules` into `node_modules/.vite/deps/` and does not
+reliably invalidate that cache when the package is updated. Symptom: the
+current `dist/index.js` has the regex `split(/\/+(?=[A-Za-z_][A-Za-z0-9_-]*:)/)`
+but `.vite/deps/chunk-*.js` still has the old `split("//")`.
+
+Fix:
+```bash
+rm -rf node_modules/.vite
+# then restart: npm run dev
+```
+Do not patch `node_modules/@s-flex/xfw-url/**` — the dist is already correct.
+Do not search the app source for `/` vs `//` — the compose/parse logic lives
+in xfw-url, not in app code.
+
 ### Widget system
 
 Widgets in `src/widgets/` receive `widgetConfig` (field mappings) and `data` (rows):

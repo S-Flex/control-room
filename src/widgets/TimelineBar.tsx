@@ -19,7 +19,6 @@ type Segment = {
   duration: number;
   color: string;
   row: JSONRecord;
-  idle?: boolean;
 };
 
 type SetRow = {
@@ -35,7 +34,9 @@ type GroupBlock = {
   sets: SetRow[];
 };
 
-/** Build segments from data rows, inserting idle gaps between segments (and from 0 to first offset). */
+/** Build segments from data rows. Gaps between rows are left empty — the
+ *  track background shows through — rather than filled with synthetic idle
+ *  segments. */
 function buildSegments(data: JSONRecord[], config: TimelineBarConfig): Segment[] {
   const raw = data.map(row => ({
     offset: Number(resolve(row, config.offset_field) ?? 0),
@@ -46,30 +47,13 @@ function buildSegments(data: JSONRecord[], config: TimelineBarConfig): Segment[]
 
   raw.sort((a, b) => a.offset - b.offset);
 
-  const dataSegments: Segment[] = raw.map((r, i) => {
+  return raw.map((r, i) => {
     let dur = r.duration !== null && r.duration !== undefined ? Number(r.duration) : 0;
     if (dur <= 0) {
       dur = i + 1 < raw.length ? raw[i + 1].offset - r.offset : 300;
     }
     return { offset: r.offset, duration: Math.max(dur, 1), color: r.color, row: r.row };
   });
-
-  const segments: Segment[] = [];
-  let cursor = 0;
-  for (const seg of dataSegments) {
-    if (seg.offset > cursor) {
-      segments.push({
-        offset: cursor,
-        duration: seg.offset - cursor,
-        color: 'var(--bg-idle, #e0e0e0)',
-        row: {} as JSONRecord,
-        idle: true,
-      });
-    }
-    segments.push(seg);
-    cursor = seg.offset + seg.duration;
-  }
-  return segments;
 }
 
 function buildGroups(data: JSONRecord[], config: TimelineBarConfig): GroupBlock[] {
@@ -190,11 +174,10 @@ function renderTimelineSvg({
             width={w}
             height={barHeight}
             fill={seg.color}
-            opacity={seg.idle ? 0.3 : 1}
-            onMouseEnter={interactive && !seg.idle && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
-            onMouseMove={interactive && !seg.idle && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
-            onMouseLeave={interactive && !seg.idle && onSegLeave ? onSegLeave : undefined}
-            style={{ cursor: interactive && !seg.idle ? 'pointer' : 'default' }}
+            onMouseEnter={interactive && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
+            onMouseMove={interactive && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
+            onMouseLeave={interactive && onSegLeave ? onSegLeave : undefined}
+            style={{ cursor: interactive ? 'pointer' : 'default' }}
           />
         );
       })}

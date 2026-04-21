@@ -10,9 +10,14 @@ import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { useQueryParams } from '@s-flex/xfw-url';
 import { getLanguage } from 'xfw-get-block';
 import { resolve, evaluateColorFormula } from './resolve';
+import { formatValue, localizeI18n, resolveI18nLabel } from './flow/utils';
 import { Field } from '../controls/Field';
 import { FieldTooltip, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
-import { useColumnGridPager, type ColumnGridPager } from './useColumnGridPager';
+import {
+  ColumnGridPagerControls,
+  useColumnGridPager,
+  type ColumnGridPager,
+} from './useColumnGridPager';
 
 type ColorConfig = { true: string; false: string };
 
@@ -24,8 +29,6 @@ type ActivityGaugeSeries = {
 
 type ActivityGaugeMode = {
   i18n?: Record<string, Record<string, string>>;
-  /** Field path whose value renders as the center number. Either name accepted. */
-  gauge_title?: string;
   gauge_title_field?: string;
   series: ActivityGaugeSeries[];
 };
@@ -50,57 +53,31 @@ type Ring = {
   label: string;
 };
 
+type FieldInput = Parameters<typeof Field>[0]['field'];
+
 function cssSize(v: string | number | undefined, fallback: string): string {
   if (v == null) return fallback;
   if (typeof v === 'number') return `${v}px`;
   return v;
 }
 
-/** Produce a stable string key / display text from a value that may be a
- *  plain scalar, a `{code,...}` record, or an i18n object like
- *  `{nl:{title:"Plaat"}, en:{title:"Plate"}}`. Never returns "[object Object]". */
-function stringifyValue(val: JSONValue, lang: string): string {
+function scalarOf(val: JSONValue, lang: string): string {
   if (val == null) return '';
   if (typeof val !== 'object') return String(val);
   if (Array.isArray(val)) return '';
   const obj = val as Record<string, unknown>;
   if (typeof obj.code === 'string') return obj.code;
   if (typeof obj.id === 'string' || typeof obj.id === 'number') return String(obj.id);
-  const localized = obj[lang] ?? obj[Object.keys(obj)[0]];
-  // Flat i18n: { nl: "Plaat", en: "Sheet" }
-  if (typeof localized === 'string') return localized;
-  // Nested i18n: { nl: { title: "Plaat" } }
-  if (localized && typeof localized === 'object') {
-    const inner = localized as Record<string, unknown>;
-    const title = inner.title ?? inner.text;
-    if (typeof title === 'string') return title;
-  }
-  return '';
+  return localizeI18n(obj, lang) ?? '';
 }
 
-function resolveFieldLabel(
-  key: string,
-  fieldConfig: Record<string, FieldConfig> | undefined,
-  lang: string,
-): string {
-  const fc = fieldConfig?.[key];
-  const i18n = (fc?.ui as Record<string, unknown> | undefined)?.i18n as
-    Record<string, Record<string, string>> | undefined;
-  return i18n?.[lang]?.title
-    ?? i18n?.[Object.keys(i18n ?? {})[0]]?.title
-    ?? key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+function readUi(fc: FieldConfig | undefined): Record<string, unknown> | undefined {
+  return fc?.ui as Record<string, unknown> | undefined;
 }
 
-function formatCenter(value: JSONValue, field: FieldConfig | undefined): string {
-  if (value == null) return '';
-  const ui = field?.ui as Record<string, unknown> | undefined;
-  const scale = ui?.scale as number | undefined;
-  const num = Number(value);
-  if (!isNaN(num) && isFinite(num)) {
-    if (typeof scale === 'number') return num.toFixed(scale);
-    return String(Math.round(num));
-  }
-  return String(value);
+function readControl(fc: FieldConfig | undefined): string | undefined {
+  const ui = readUi(fc);
+  return (ui?.control as string | undefined) ?? (ui?.type as string | undefined);
 }
 
 function resolveColor(
@@ -134,20 +111,21 @@ function Gauge({
   onHover: (row: JSONRecord, x: number, y: number) => void;
   onLeave: () => void;
 }) {
-  // Recharts places the first data entry innermost; reverse so series[0] sits
-  // on the outer ring and series[last] innermost.
-  const data = [...rings].reverse().map(r => ({
-    name: r.label,
-    value: r.value,
-    fill: r.color,
-  }));
-  const domainMax = Math.max(100, ...rings.map(r => r.domainMax));
+  // Recharts places the first data entry innermost, so reverse to land
+  // series[0] on the outer ring and series[last] innermost.
+  const data = useMemo(
+    () => [...rings].reverse().map(r => ({ name: r.label, value: r.value, fill: r.color })),
+    [rings],
+  );
+  const domainMax = useMemo(
+    () => Math.max(100, ...rings.map(r => r.domainMax)),
+    [rings],
+  );
 
   return (
     <div
       className="activity-gauge-chart"
       onMouseEnter={e => onHover(row, e.clientX, e.clientY)}
-      onMouseMove={e => onHover(row, e.clientX, e.clientY)}
       onMouseLeave={onLeave}
     >
       <ResponsiveContainer width="100%" height={140}>
@@ -193,13 +171,10 @@ function GaugeLegend({
   return (
     <div className="activity-gauge-legend">
       {rings.map(r => {
-        const fc = fieldConfig?.[r.series.value_field];
-        const ui = fc?.ui as Record<string, unknown> | undefined;
+        const ui = readUi(fieldConfig?.[r.series.value_field]);
         const isPct = ui?.type === 'percent' || ui?.control === 'percent';
         const scale = ui?.scale as number | undefined;
-        const num = Math.round(r.value * (typeof scale === 'number' ? 10 ** scale : 1))
-          / (typeof scale === 'number' ? 10 ** scale : 1);
-        const display = isPct ? `${num}%` : String(num);
+        const display = formatValue(r.value, isPct ? 'percent' : undefined, scale);
         return (
           <div key={r.series.value_field} className="activity-gauge-legend-row">
             <span className="activity-gauge-legend-dot" style={{ background: r.color }} />
@@ -230,10 +205,8 @@ function GaugeCell({
   onLeave: () => void;
 }) {
   const labelValue = labelField ? resolve(row, labelField) as JSONValue : null;
-  const labelFc = (labelField ? fieldConfig?.[labelField] : undefined) as FieldConfig | undefined;
-  const labelUi = labelFc?.ui as Record<string, unknown> | undefined;
-  const labelControl = (labelUi?.control as string | undefined) ?? (labelUi?.type as string | undefined);
-  const labelI18n = labelUi?.i18n as Record<string, Record<string, string>> | undefined;
+  const labelFc = labelField ? fieldConfig?.[labelField] : undefined;
+  const labelUi = readUi(labelFc);
 
   return (
     <div className="activity-gauge-cell">
@@ -242,26 +215,35 @@ function GaugeCell({
           <Field
             field={{
               key: labelField,
-              control: labelControl,
-              i18n: labelI18n,
+              control: readControl(labelFc),
+              i18n: labelUi?.i18n as Record<string, Record<string, string>> | undefined,
               no_label: true,
-            } as Parameters<typeof Field>[0]['field']}
+            } as FieldInput}
             value={labelValue}
             row={row}
           />
         </div>
       )}
-      <Gauge
-        rings={rings}
-        row={row}
-        centerTitle={centerTitle}
-        onHover={onHover}
-        onLeave={onLeave}
-      />
+      <Gauge rings={rings} row={row} centerTitle={centerTitle} onHover={onHover} onLeave={onLeave} />
       <GaugeLegend rings={rings} fieldConfig={fieldConfig} />
     </div>
   );
 }
+
+type ColumnProps = {
+  titleField?: string;
+  labelField?: string;
+  fieldConfig?: Record<string, FieldConfig>;
+  rows: JSONRecord[];
+  mode: ActivityGaugeMode;
+  colorFormula?: string;
+  lang: string;
+  style?: React.CSSProperties;
+  onHover: (row: JSONRecord, x: number, y: number) => void;
+  onLeave: () => void;
+  pager?: ColumnGridPager;
+  fallbackTitle?: string;
+};
 
 function Column({
   titleField,
@@ -276,52 +258,48 @@ function Column({
   onLeave,
   pager,
   fallbackTitle,
-}: {
-  titleField?: string;
-  labelField?: string;
-  fieldConfig?: Record<string, FieldConfig>;
-  rows: JSONRecord[];
-  mode: ActivityGaugeMode;
-  colorFormula?: string;
-  lang: string;
-  style?: React.CSSProperties;
-  onHover: (row: JSONRecord, x: number, y: number) => void;
-  onLeave: () => void;
-  pager?: ColumnGridPager;
-  fallbackTitle?: string;
-}) {
+}: ColumnProps) {
   const headerRow = rows[0];
+  const headerField = titleField ? fieldConfig?.[titleField] : undefined;
+  const headerUi = readUi(headerField);
   const headerValue = titleField && headerRow ? resolve(headerRow, titleField) as JSONValue : null;
-  const headerField = (titleField ? fieldConfig?.[titleField] : undefined) as FieldConfig | undefined;
-  const headerUi = headerField?.ui as Record<string, unknown> | undefined;
-  const headerControl = (headerUi?.control as string | undefined)
-    ?? (headerUi?.type as string | undefined);
-  const headerI18n = headerUi?.i18n as Record<string, Record<string, string>> | undefined;
-  const gaugeTitleField = mode.gauge_title_field ?? mode.gauge_title;
-  const centerFieldConfig = gaugeTitleField ? fieldConfig?.[gaugeTitleField] : undefined;
+  const gaugeTitleField = mode.gauge_title_field;
+  const centerField = gaugeTitleField ? fieldConfig?.[gaugeTitleField] : undefined;
 
-  const cells = rows.map(row => {
-    const rings: Ring[] = [];
-    for (const s of mode.series) {
-      const raw = resolve(row, s.value_field);
-      if (raw == null) continue;
-      const value = Number(raw);
-      if (!isFinite(value) || value === 0) continue;
-      const domainMax = s.domain_max ?? 100;
-      const color = resolveColor(s, row, value, colorFormula, 'var(--brand)');
-      rings.push({
-        series: s,
-        value,
-        domainMax,
-        color,
-        label: resolveFieldLabel(s.value_field, fieldConfig, lang),
+  // Series labels are stable per field-config / mode and don't depend on rows,
+  // so resolving them once per render cycle (outside the row loop) avoids
+  // re-walking i18n per period.
+  const seriesLabels = useMemo(
+    () => mode.series.map(s => resolveI18nLabel(readUi(fieldConfig?.[s.value_field])?.i18n, s.value_field)),
+    [mode, fieldConfig],
+  );
+
+  const cells = useMemo(() => {
+    const out: { row: JSONRecord; rings: Ring[]; centerTitle: string }[] = [];
+    for (const row of rows) {
+      const rings: Ring[] = [];
+      mode.series.forEach((s, i) => {
+        const raw = resolve(row, s.value_field);
+        if (raw == null) return;
+        const value = Number(raw);
+        if (!isFinite(value) || value === 0) return;
+        rings.push({
+          series: s,
+          value,
+          domainMax: s.domain_max ?? 100,
+          color: resolveColor(s, row, value, colorFormula, 'var(--brand)'),
+          label: seriesLabels[i],
+        });
       });
+      if (rings.length === 0) continue;
+      const centerValue = gaugeTitleField ? resolve(row, gaugeTitleField) as JSONValue : null;
+      const centerTitle = centerValue == null
+        ? ''
+        : formatValue(centerValue, readControl(centerField), readUi(centerField)?.scale as number | undefined);
+      out.push({ row, rings, centerTitle });
     }
-    if (rings.length === 0) return null;
-    const centerValue = gaugeTitleField ? resolve(row, gaugeTitleField) as JSONValue : null;
-    const centerTitle = formatCenter(centerValue, centerFieldConfig);
-    return { row, rings, centerTitle };
-  }).filter(Boolean) as { row: JSONRecord; rings: Ring[]; centerTitle: string }[];
+    return out;
+  }, [rows, mode, colorFormula, seriesLabels, gaugeTitleField, centerField]);
 
   if (cells.length === 0) return null;
 
@@ -334,39 +312,17 @@ function Column({
               <Field
                 field={{
                   key: titleField,
-                  control: headerControl,
-                  i18n: headerI18n,
+                  control: readControl(headerField),
+                  i18n: headerUi?.i18n as Record<string, Record<string, string>> | undefined,
                   no_label: true,
-                } as Parameters<typeof Field>[0]['field']}
+                } as FieldInput}
                 value={headerValue}
                 row={headerRow}
               />
             ) : (
               <span>{fallbackTitle}</span>
             )}
-            {pager && (
-              <div className="column-grid-pager">
-                <button
-                  className="column-grid-pager-btn"
-                  disabled={pager.atStart}
-                  onClick={() => pager.scroll(-1)}
-                >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M7.5 3L4 6l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-                <span className="column-grid-pager-label">{pager.index + 1}/{pager.total}</span>
-                <button
-                  className="column-grid-pager-btn"
-                  disabled={pager.atEnd}
-                  onClick={() => pager.scroll(1)}
-                >
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                    <path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                </button>
-              </div>
-            )}
+            {pager && <ColumnGridPagerControls pager={pager} />}
           </div>
           <div className="activity-gauge-cells-row">
             {cells.map((c, idx) => (
@@ -417,14 +373,10 @@ export function ActivityGauge({
     if (gauge_label_field) return gauge_label_field;
     if (!fieldConfig) return undefined;
     const candidates = Object.entries(fieldConfig)
-      .filter(([key, fc]) => {
-        if (key === title_field) return false;
-        const ui = fc.ui as Record<string, unknown> | undefined;
-        return ui?.control === 'i18n-text';
-      })
+      .filter(([key, fc]) => key !== title_field && readUi(fc)?.control === 'i18n-text')
       .sort(([, a], [, b]) => {
-        const oa = ((a.ui as Record<string, unknown> | undefined)?.order as number | undefined) ?? 999;
-        const ob = ((b.ui as Record<string, unknown> | undefined)?.order as number | undefined) ?? 999;
+        const oa = (readUi(a)?.order as number | undefined) ?? 999;
+        const ob = (readUi(b)?.order as number | undefined) ?? 999;
         return oa - ob;
       });
     return candidates[0]?.[0];
@@ -434,11 +386,10 @@ export function ActivityGauge({
     mode_param ? [{ key: mode_param, is_query_param: true, is_optional: true }] : [],
   );
   const modeIndex = useMemo(() => {
-    if (!mode_param) return 0;
+    if (!mode_param || !modes || modes.length === 0) return 0;
     const raw = modeParams.find(p => p.key === mode_param)?.val;
     const n = Number(raw ?? 0);
     if (!isFinite(n)) return 0;
-    if (!modes || modes.length === 0) return 0;
     return Math.max(0, Math.min(modes.length - 1, Math.floor(n)));
   }, [modeParams, mode_param, modes]);
 
@@ -449,7 +400,7 @@ export function ActivityGauge({
     const map = new Map<string, { key: string; rows: JSONRecord[] }>();
     if (group_by) {
       for (const row of data) {
-        const key = stringifyValue(resolve(row, group_by), lang);
+        const key = scalarOf(resolve(row, group_by), lang);
         if (!map.has(key)) map.set(key, { key, rows: [] });
         map.get(key)!.rows.push(row);
       }
@@ -475,15 +426,17 @@ export function ActivityGauge({
   }, []);
   const onLeave = useCallback(() => setHover(null), []);
 
-  if (!data || data.length === 0 || !activeMode) return null;
-
-  const gridStyle = {
+  const gridStyle = useMemo(() => ({
     '--column-min-width': cssSize(column_min_width, '320px'),
     ...(column_max_width != null ? { '--column-max-width': cssSize(column_max_width, 'none') } : {}),
-  } as React.CSSProperties;
-  const columnStyle: React.CSSProperties = column_max_width != null
-    ? { maxWidth: cssSize(column_max_width, 'none') }
-    : {};
+  }) as React.CSSProperties, [column_min_width, column_max_width]);
+
+  const columnStyle = useMemo<React.CSSProperties>(
+    () => (column_max_width != null ? { maxWidth: cssSize(column_max_width, 'none') } : {}),
+    [column_max_width],
+  );
+
+  if (!data || data.length === 0 || !activeMode) return null;
 
   return (
     <>

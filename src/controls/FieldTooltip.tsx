@@ -1,9 +1,10 @@
-import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { FieldConfig, ResolvedField } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
 import { resolve, isFieldVisible } from '../widgets/resolve';
+import { localizeI18n, resolveI18nLabel } from '../widgets/flow/utils';
 import { Field } from './Field';
 
 export type TooltipFieldConfigEntry = FieldConfig & {
@@ -24,7 +25,6 @@ type FieldEntry = {
   scale?: number;
   i18n?: Record<string, Record<string, string>>;
   hidden_when?: unknown;
-  no_label: boolean;
 };
 
 function resolveControl(fc: TooltipFieldConfigEntry | undefined): string | undefined {
@@ -65,7 +65,6 @@ function buildEntries(
       scale: ui.scale as number | undefined,
       i18n: ui.i18n as Record<string, Record<string, string>> | undefined,
       hidden_when: ui.hidden_when,
-      no_label: false,
     });
   }
   entries.sort((a, b) => a.order - b.order);
@@ -82,17 +81,10 @@ function resolveHeaderText(
   if (title !== undefined) return title;
   if (!row || !titleField) return null;
   const val = resolve(row, titleField);
-  if (val && typeof val === 'object' && !Array.isArray(val)) {
-    // i18n object
-    const i18n = val as Record<string, Record<string, string>>;
-    const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
-    return localized?.title ?? localized?.text ?? null;
-  }
-  if (val != null) return String(val);
-  const fc = fieldConfig?.[titleField];
-  const i18n = (fc?.ui as Record<string, unknown> | undefined)?.i18n as
-    Record<string, Record<string, string>> | undefined;
-  return i18n?.[lang]?.title ?? null;
+  const localized = localizeI18n(val, lang);
+  if (localized) return localized;
+  if (val != null && typeof val !== 'object') return String(val);
+  return localizeI18n((fieldConfig?.[titleField]?.ui as Record<string, unknown> | undefined)?.i18n, lang) ?? null;
 }
 
 export function FieldTooltip({
@@ -117,9 +109,6 @@ export function FieldTooltip({
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ left: x, top: y });
   const lang = getLanguage();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => setMounted(true), []);
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -135,9 +124,13 @@ export function FieldTooltip({
     setPos({ left, top });
   }, [x, y, row]);
 
-  if (!row || !mounted) return null;
+  const entries = useMemo(
+    () => buildEntries(fieldConfig, tooltipConfig),
+    [fieldConfig, tooltipConfig],
+  );
 
-  const entries = buildEntries(fieldConfig, tooltipConfig);
+  if (!row || typeof document === 'undefined') return null;
+
   const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
 
   const body = (
@@ -151,9 +144,7 @@ export function FieldTooltip({
         if (!isFieldVisible({ hidden_when: entry.hidden_when }, row)) return null;
         const value = resolve(row, entry.key) as JSONValue;
         if (value == null) return null;
-        const label = entry.i18n?.[lang]?.title
-          ?? entry.i18n?.[Object.keys(entry.i18n ?? {})[0]]?.title
-          ?? entry.key;
+        const label = resolveI18nLabel(entry.i18n, entry.key);
         const field: ResolvedField & { no_label?: boolean; scale?: number } = {
           key: entry.key,
           control: entry.control,

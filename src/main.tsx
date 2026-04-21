@@ -39,7 +39,7 @@ const queryClient = new QueryClient({
 });
 
 configureClient({
-  baseUrl: import.meta.env.VITE_HUB_URL ?? 'http://probo-hub.hub.probo',
+  baseUrl: import.meta.env.VITE_HUB_URL ?? 'http://probo-hub.hub.probo.local',
   getToken: () => null,
 });
 

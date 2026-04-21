@@ -1,0 +1,1170 @@
+diff --git a/src/controls/Field.tsx b/src/controls/Field.tsx
+index e2a886c..f712859 100644
+--- a/src/controls/Field.tsx
++++ b/src/controls/Field.tsx
+@@ -1,7 +1,7 @@
+ import { useRef, useState, useEffect } from 'react';
+ import type { JSONValue, JSONRecord } from '@s-flex/xfw-data';
+-import type { ResolvedField } from '@s-flex/xfw-ui';
+-import { Tooltip } from '@s-flex/xfw-ui';
++import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
++import { Tooltip, useNavItemAction } from '@s-flex/xfw-ui';
+ import { Button } from 'react-aria-components';
+ import { getLanguage } from 'xfw-get-block';
+ import { resolveI18nLabel, formatValue } from '../widgets/flow/utils';
+@@ -11,14 +11,14 @@ import { Badge } from './Badge';
+ import type { FieldNav } from '../widgets/flow/types';
+ 
+ type FieldProps = {
+-  field: ResolvedField & { aggregate?: string; nav?: FieldNav };
++  field: ResolvedField & { aggregate?: string; nav?: FieldNav; no_label?: boolean; scale?: number };
+   value: JSONValue;
+   showLabel?: boolean;
+   row?: JSONRecord;
+ };
+ 
+ function resolveNavPath(nav: FieldNav, row?: JSONRecord): string {
+-  return nav.path.replace(/\{(\w+)\}/g, (_, key) => String(row?.[key] ?? ''));
++  return (nav.path ?? '').replace(/\{(\w+)\}/g, (_, key) => String(row?.[key] ?? ''));
+ }
+ 
+ function useIsOverflowing(ref: React.RefObject<HTMLElement | null>) {
+@@ -35,17 +35,26 @@ function useIsOverflowing(ref: React.RefObject<HTMLElement | null>) {
+   return overflowing;
+ }
+ 
+-function FieldValue({ text, nav, navUrl, className }: {
++function FieldValue({ text, nav, navUrl, row, className }: {
+   text: string;
+   nav?: FieldNav;
+   navUrl?: string;
++  row?: JSONRecord;
+   className?: string;
+ }) {
+   const ref = useRef<HTMLSpanElement>(null);
+   const overflowing = useIsOverflowing(ref);
+-  const needsTooltip = overflowing || !!nav;
++  const navAction = useNavItemAction();
++  const isInteractive = !!nav && (!!nav.on_select || !!navUrl);
++  const needsTooltip = overflowing || isInteractive;
+ 
+-  const handleClick = nav && navUrl ? (e: React.MouseEvent) => {
++  const handleClick = isInteractive ? (e: React.MouseEvent) => {
++    if (nav?.on_select) {
++      e.stopPropagation();
++      navAction(row, nav.on_select as NavItem, true);
++      return;
++    }
++    if (!navUrl) return;
+     if (!e.ctrlKey && !e.metaKey) return;
+     e.stopPropagation();
+     const w = window.open(navUrl, '_blank');
+@@ -54,10 +63,11 @@ function FieldValue({ text, nav, navUrl, className }: {
+ 
+   const tooltipParts: string[] = [];
+   if (overflowing) tooltipParts.push(text);
+-  if (nav && navUrl) tooltipParts.push(`ctrl + click → ${navUrl}`);
++  if (nav?.on_select) tooltipParts.push('click → open');
++  else if (nav && navUrl) tooltipParts.push(`ctrl + click → ${navUrl}`);
+ 
+   const span = (
+-    <span ref={ref} className={`field-value-text${nav ? ' field-nav' : ''}${className ? ` ${className}` : ''}`} onClick={handleClick}>
++    <span ref={ref} className={`field-value-text${isInteractive ? ' field-nav' : ''}${className ? ` ${className}` : ''}`} onClick={handleClick}>
+       {text}
+     </span>
+   );
+@@ -76,22 +86,27 @@ function FieldValue({ text, nav, navUrl, className }: {
+ }
+ 
+ export function Field({ field, value, showLabel, row }: FieldProps) {
+-  const { control, input_data, aggregate, nav } = field;
++  const { control, input_data, aggregate, nav, no_label, scale } = field;
+   const label = resolveI18nLabel(field.i18n, field.key);
++  const shouldShowLabel = showLabel ?? !no_label;
+ 
+   if (control === 'icon-map' && input_data) {
+     return <IconMap value={value} inputData={input_data} />;
+   }
+   if (control === 'badge') {
+-    return <Badge value={value} inputData={input_data} />;
++    return <Badge value={value} inputData={input_data} nav={nav} row={row} />;
+   }
+   if (control === 'img') {
+-    return value ? (
+-      <div className="field-with-label">
+-        <span className="field-label">{label}</span>
+-        <img src={String(value)} alt={label} className="field-img" />
+-      </div>
+-    ) : null;
++    if (!value) return null;
++    if (shouldShowLabel) {
++      return (
++        <div className="field-with-label">
++          <span className="field-label">{label}</span>
++          <img src={String(value)} alt={label} className="field-img" />
++        </div>
++      );
++    }
++    return <img src={String(value)} alt={label} className="field-img" />;
+   }
+   if (aggregate) {
+     return <Chip label={label} value={value as string | number} />;
+@@ -99,11 +114,21 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
+ 
+   if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {
+     const lang = getLanguage();
+-    const i18n = value as Record<string, Record<string, string>>;
++    const i18n = value as Record<string, unknown>;
+     const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
+-    if (localized) {
+-      const text = localized.title || localized.text || '';
+-      if (showLabel) {
++    let text = '';
++    // Flat i18n: { nl: "Plaat" }
++    if (typeof localized === 'string') {
++      text = localized;
++    } else if (localized && typeof localized === 'object') {
++      // Nested i18n: { nl: { title: "Plaat" } }
++      const inner = localized as Record<string, unknown>;
++      text = (typeof inner.title === 'string' ? inner.title : '')
++        || (typeof inner.text === 'string' ? inner.text : '')
++        || '';
++    }
++    if (text) {
++      if (shouldShowLabel) {
+         return (
+           <div className="field-with-label">
+             <span className="field-label">{label}</span>
+@@ -115,17 +140,17 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
+     }
+   }
+ 
+-  const formatted = formatValue(value, control);
++  const formatted = formatValue(value, control, scale);
+   const navUrl = nav ? resolveNavPath(nav, row) : undefined;
+ 
+-  if (showLabel) {
++  if (shouldShowLabel) {
+     return (
+       <div className="field-with-label">
+         <span className="field-label">{label}</span>
+-        <FieldValue text={formatted} nav={nav} navUrl={navUrl} className="field-value" />
++        <FieldValue text={formatted} nav={nav} navUrl={navUrl} row={row} className="field-value" />
+       </div>
+     );
+   }
+ 
+-  return <FieldValue text={formatted} nav={nav} navUrl={navUrl} />;
++  return <FieldValue text={formatted} nav={nav} navUrl={navUrl} row={row} />;
+ }
+diff --git a/src/controls/FieldTooltip.tsx b/src/controls/FieldTooltip.tsx
+new file mode 100644
+index 0000000..6a29557
+--- /dev/null
++++ b/src/controls/FieldTooltip.tsx
+@@ -0,0 +1,177 @@
++import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react';
++import { createPortal } from 'react-dom';
++import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
++import type { FieldConfig, ResolvedField } from '@s-flex/xfw-ui';
++import { getLanguage } from 'xfw-get-block';
++import { resolve, isFieldVisible } from '../widgets/resolve';
++import { Field } from './Field';
++
++export type TooltipFieldConfigEntry = FieldConfig & {
++  ui?: FieldConfig['ui'] & {
++    order?: number;
++    title?: string;
++    scale?: number;
++    hidden?: boolean;
++    hidden_when?: unknown;
++    i18n?: Record<string, Record<string, string>>;
++  };
++};
++
++type FieldEntry = {
++  key: string;
++  order: number;
++  control?: string;
++  scale?: number;
++  i18n?: Record<string, Record<string, string>>;
++  hidden_when?: unknown;
++  no_label: boolean;
++};
++
++function resolveControl(fc: TooltipFieldConfigEntry | undefined): string | undefined {
++  if (!fc) return undefined;
++  const top = (fc as Record<string, unknown>).control as string | undefined;
++  const ui = fc.ui as Record<string, unknown> | undefined;
++  return top ?? (ui?.control as string | undefined) ?? (ui?.type as string | undefined);
++}
++
++function mergeEntry(
++  base: TooltipFieldConfigEntry | undefined,
++  override: TooltipFieldConfigEntry | undefined,
++): TooltipFieldConfigEntry {
++  const baseUi = (base?.ui ?? {}) as Record<string, unknown>;
++  const overUi = (override?.ui ?? {}) as Record<string, unknown>;
++  return {
++    ...base,
++    ...override,
++    ui: { ...baseUi, ...overUi },
++  } as TooltipFieldConfigEntry;
++}
++
++function buildEntries(
++  fieldConfig: Record<string, TooltipFieldConfigEntry> | undefined,
++  tooltipConfig: Record<string, TooltipFieldConfigEntry> | undefined,
++): FieldEntry[] {
++  // Only keys present in tooltipConfig are rendered; fieldConfig supplies labels/controls.
++  const source = tooltipConfig ?? fieldConfig ?? {};
++  const entries: FieldEntry[] = [];
++  for (const [key, raw] of Object.entries(source)) {
++    const merged = mergeEntry(fieldConfig?.[key], raw);
++    const ui = (merged.ui ?? {}) as Record<string, unknown>;
++    if (ui.hidden) continue;
++    entries.push({
++      key,
++      order: (ui.order as number | undefined) ?? 999,
++      control: resolveControl(merged),
++      scale: ui.scale as number | undefined,
++      i18n: ui.i18n as Record<string, Record<string, string>> | undefined,
++      hidden_when: ui.hidden_when,
++      no_label: false,
++    });
++  }
++  entries.sort((a, b) => a.order - b.order);
++  return entries;
++}
++
++function resolveHeaderText(
++  title: ReactNode | undefined,
++  row: JSONRecord | null,
++  titleField: string | undefined,
++  fieldConfig: Record<string, TooltipFieldConfigEntry> | undefined,
++  lang: string,
++): ReactNode {
++  if (title !== undefined) return title;
++  if (!row || !titleField) return null;
++  const val = resolve(row, titleField);
++  if (val && typeof val === 'object' && !Array.isArray(val)) {
++    // i18n object
++    const i18n = val as Record<string, Record<string, string>>;
++    const localized = i18n[lang] ?? i18n[Object.keys(i18n)[0]];
++    return localized?.title ?? localized?.text ?? null;
++  }
++  if (val != null) return String(val);
++  const fc = fieldConfig?.[titleField];
++  const i18n = (fc?.ui as Record<string, unknown> | undefined)?.i18n as
++    Record<string, Record<string, string>> | undefined;
++  return i18n?.[lang]?.title ?? null;
++}
++
++export function FieldTooltip({
++  row,
++  x,
++  y,
++  fieldConfig,
++  tooltipConfig,
++  title,
++  titleField,
++  className,
++}: {
++  row: JSONRecord | null;
++  x: number;
++  y: number;
++  fieldConfig?: Record<string, TooltipFieldConfigEntry>;
++  tooltipConfig?: Record<string, TooltipFieldConfigEntry>;
++  title?: ReactNode;
++  titleField?: string;
++  className?: string;
++}) {
++  const ref = useRef<HTMLDivElement>(null);
++  const [pos, setPos] = useState({ left: x, top: y });
++  const lang = getLanguage();
++  const [mounted, setMounted] = useState(false);
++
++  useEffect(() => setMounted(true), []);
++
++  useLayoutEffect(() => {
++    const el = ref.current;
++    if (!el) return;
++    const rect = el.getBoundingClientRect();
++    const vw = window.innerWidth;
++    const vh = window.innerHeight;
++    let left = x + 12;
++    let top = y - 10;
++    if (left + rect.width > vw - 8) left = Math.max(8, x - rect.width - 12);
++    if (top + rect.height > vh - 8) top = Math.max(8, vh - rect.height - 8);
++    if (top < 8) top = 8;
++    setPos({ left, top });
++  }, [x, y, row]);
++
++  if (!row || !mounted) return null;
++
++  const entries = buildEntries(fieldConfig, tooltipConfig);
++  const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
++
++  const body = (
++    <div
++      ref={ref}
++      className={`field-tooltip${className ? ` ${className}` : ''}`}
++      style={{ left: pos.left, top: pos.top }}
++    >
++      {header && <div className="field-tooltip-title">{header}</div>}
++      {entries.map(entry => {
++        if (!isFieldVisible({ hidden_when: entry.hidden_when }, row)) return null;
++        const value = resolve(row, entry.key) as JSONValue;
++        if (value == null) return null;
++        const label = entry.i18n?.[lang]?.title
++          ?? entry.i18n?.[Object.keys(entry.i18n ?? {})[0]]?.title
++          ?? entry.key;
++        const field: ResolvedField & { no_label?: boolean; scale?: number } = {
++          key: entry.key,
++          control: entry.control,
++          i18n: entry.i18n,
++          no_label: true,
++          scale: entry.scale,
++        } as ResolvedField & { no_label?: boolean; scale?: number };
++        return (
++          <div key={entry.key} className="field-tooltip-row">
++            <span className="field-tooltip-label">{label}</span>
++            <span className="field-tooltip-value">
++              <Field field={field} value={value} row={row} />
++            </span>
++          </div>
++        );
++      })}
++    </div>
++  );
++
++  return createPortal(body, document.body);
++}
+diff --git a/src/widgets/ActivityGauge.tsx b/src/widgets/ActivityGauge.tsx
+new file mode 100644
+index 0000000..5cebe4d
+--- /dev/null
++++ b/src/widgets/ActivityGauge.tsx
+@@ -0,0 +1,524 @@
++import { useCallback, useMemo, useState } from 'react';
++import {
++  PolarAngleAxis,
++  RadialBar,
++  RadialBarChart,
++  ResponsiveContainer,
++} from 'recharts';
++import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
++import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
++import { useQueryParams } from '@s-flex/xfw-url';
++import { getLanguage } from 'xfw-get-block';
++import { resolve, evaluateColorFormula } from './resolve';
++import { Field } from '../controls/Field';
++import { FieldTooltip, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
++import { useColumnGridPager, type ColumnGridPager } from './useColumnGridPager';
++
++type ColorConfig = { true: string; false: string };
++
++type ActivityGaugeSeries = {
++  value_field: string;
++  domain_max?: number;
++  colors?: string | ColorConfig;
++};
++
++type ActivityGaugeMode = {
++  i18n?: Record<string, Record<string, string>>;
++  /** Field path whose value renders as the center number. Either name accepted. */
++  gauge_title?: string;
++  gauge_title_field?: string;
++  series: ActivityGaugeSeries[];
++};
++
++export type ActivityGaugeConfig = {
++  group_by?: string;
++  title_field?: string;
++  gauge_label_field?: string;
++  mode_param?: string;
++  color_formula?: string;
++  column_min_width?: string | number;
++  column_max_width?: string | number;
++  modes: ActivityGaugeMode[];
++  tooltip?: { field_config?: Record<string, TooltipFieldConfigEntry> };
++};
++
++type Ring = {
++  series: ActivityGaugeSeries;
++  value: number;
++  domainMax: number;
++  color: string;
++  label: string;
++};
++
++function cssSize(v: string | number | undefined, fallback: string): string {
++  if (v == null) return fallback;
++  if (typeof v === 'number') return `${v}px`;
++  return v;
++}
++
++/** Produce a stable string key / display text from a value that may be a
++ *  plain scalar, a `{code,...}` record, or an i18n object like
++ *  `{nl:{title:"Plaat"}, en:{title:"Plate"}}`. Never returns "[object Object]". */
++function stringifyValue(val: JSONValue, lang: string): string {
++  if (val == null) return '';
++  if (typeof val !== 'object') return String(val);
++  if (Array.isArray(val)) return '';
++  const obj = val as Record<string, unknown>;
++  if (typeof obj.code === 'string') return obj.code;
++  if (typeof obj.id === 'string' || typeof obj.id === 'number') return String(obj.id);
++  const localized = obj[lang] ?? obj[Object.keys(obj)[0]];
++  // Flat i18n: { nl: "Plaat", en: "Sheet" }
++  if (typeof localized === 'string') return localized;
++  // Nested i18n: { nl: { title: "Plaat" } }
++  if (localized && typeof localized === 'object') {
++    const inner = localized as Record<string, unknown>;
++    const title = inner.title ?? inner.text;
++    if (typeof title === 'string') return title;
++  }
++  return '';
++}
++
++function resolveFieldLabel(
++  key: string,
++  fieldConfig: Record<string, FieldConfig> | undefined,
++  lang: string,
++): string {
++  const fc = fieldConfig?.[key];
++  const i18n = (fc?.ui as Record<string, unknown> | undefined)?.i18n as
++    Record<string, Record<string, string>> | undefined;
++  return i18n?.[lang]?.title
++    ?? i18n?.[Object.keys(i18n ?? {})[0]]?.title
++    ?? key.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
++}
++
++function formatCenter(value: JSONValue, field: FieldConfig | undefined): string {
++  if (value == null) return '';
++  const ui = field?.ui as Record<string, unknown> | undefined;
++  const scale = ui?.scale as number | undefined;
++  const num = Number(value);
++  if (!isNaN(num) && isFinite(num)) {
++    if (typeof scale === 'number') return num.toFixed(scale);
++    return String(Math.round(num));
++  }
++  return String(value);
++}
++
++function resolveColor(
++  series: ActivityGaugeSeries,
++  row: JSONRecord,
++  value: number,
++  formula: string | undefined,
++  fallback: string,
++): string {
++  if (typeof series.colors === 'string') return series.colors;
++  if (!series.colors) return fallback;
++  if (!formula) return series.colors.true;
++  const picked = evaluateColorFormula(
++    { values: [series.colors.false, series.colors.true], formula },
++    row,
++    { pct: value },
++  );
++  return picked ?? fallback;
++}
++
++function Gauge({
++  rings,
++  centerTitle,
++  row,
++  onHover,
++  onLeave,
++}: {
++  rings: Ring[];
++  centerTitle: string;
++  row: JSONRecord;
++  onHover: (row: JSONRecord, x: number, y: number) => void;
++  onLeave: () => void;
++}) {
++  // Recharts places the first data entry innermost; reverse so series[0] sits
++  // on the outer ring and series[last] innermost.
++  const data = [...rings].reverse().map(r => ({
++    name: r.label,
++    value: r.value,
++    fill: r.color,
++  }));
++  const domainMax = Math.max(100, ...rings.map(r => r.domainMax));
++
++  return (
++    <div
++      className="activity-gauge-chart"
++      onMouseEnter={e => onHover(row, e.clientX, e.clientY)}
++      onMouseMove={e => onHover(row, e.clientX, e.clientY)}
++      onMouseLeave={onLeave}
++    >
++      <ResponsiveContainer width="100%" height={140}>
++        <RadialBarChart
++          data={data}
++          innerRadius={28}
++          outerRadius={62}
++          startAngle={90}
++          endAngle={450}
++          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
++        >
++          <PolarAngleAxis tick={false} domain={[0, domainMax]} type="number" />
++          <RadialBar
++            isAnimationActive={false}
++            dataKey="value"
++            cornerRadius={99}
++            background={{ fill: 'var(--border)' }}
++          />
++          {centerTitle && (
++            <text
++              x="50%"
++              y="50%"
++              textAnchor="middle"
++              dominantBaseline="central"
++              className="activity-gauge-title"
++            >
++              {centerTitle}
++            </text>
++          )}
++        </RadialBarChart>
++      </ResponsiveContainer>
++    </div>
++  );
++}
++
++function GaugeLegend({
++  rings,
++  fieldConfig,
++}: {
++  rings: Ring[];
++  fieldConfig?: Record<string, FieldConfig>;
++}) {
++  return (
++    <div className="activity-gauge-legend">
++      {rings.map(r => {
++        const fc = fieldConfig?.[r.series.value_field];
++        const ui = fc?.ui as Record<string, unknown> | undefined;
++        const isPct = ui?.type === 'percent' || ui?.control === 'percent';
++        const scale = ui?.scale as number | undefined;
++        const num = Math.round(r.value * (typeof scale === 'number' ? 10 ** scale : 1))
++          / (typeof scale === 'number' ? 10 ** scale : 1);
++        const display = isPct ? `${num}%` : String(num);
++        return (
++          <div key={r.series.value_field} className="activity-gauge-legend-row">
++            <span className="activity-gauge-legend-dot" style={{ background: r.color }} />
++            <span className="activity-gauge-legend-label">{r.label}</span>
++            <span className="activity-gauge-legend-value">{display}</span>
++          </div>
++        );
++      })}
++    </div>
++  );
++}
++
++function GaugeCell({
++  row,
++  rings,
++  centerTitle,
++  labelField,
++  fieldConfig,
++  onHover,
++  onLeave,
++}: {
++  row: JSONRecord;
++  rings: Ring[];
++  centerTitle: string;
++  labelField?: string;
++  fieldConfig?: Record<string, FieldConfig>;
++  onHover: (row: JSONRecord, x: number, y: number) => void;
++  onLeave: () => void;
++}) {
++  const labelValue = labelField ? resolve(row, labelField) as JSONValue : null;
++  const labelFc = (labelField ? fieldConfig?.[labelField] : undefined) as FieldConfig | undefined;
++  const labelUi = labelFc?.ui as Record<string, unknown> | undefined;
++  const labelControl = (labelUi?.control as string | undefined) ?? (labelUi?.type as string | undefined);
++  const labelI18n = labelUi?.i18n as Record<string, Record<string, string>> | undefined;
++
++  return (
++    <div className="activity-gauge-cell">
++      {labelField && labelValue != null && (
++        <div className="activity-gauge-cell-label">
++          <Field
++            field={{
++              key: labelField,
++              control: labelControl,
++              i18n: labelI18n,
++              no_label: true,
++            } as Parameters<typeof Field>[0]['field']}
++            value={labelValue}
++            row={row}
++          />
++        </div>
++      )}
++      <Gauge
++        rings={rings}
++        row={row}
++        centerTitle={centerTitle}
++        onHover={onHover}
++        onLeave={onLeave}
++      />
++      <GaugeLegend rings={rings} fieldConfig={fieldConfig} />
++    </div>
++  );
++}
++
++function Column({
++  titleField,
++  labelField,
++  fieldConfig,
++  rows,
++  mode,
++  colorFormula,
++  lang,
++  style,
++  onHover,
++  onLeave,
++  pager,
++  fallbackTitle,
++}: {
++  titleField?: string;
++  labelField?: string;
++  fieldConfig?: Record<string, FieldConfig>;
++  rows: JSONRecord[];
++  mode: ActivityGaugeMode;
++  colorFormula?: string;
++  lang: string;
++  style?: React.CSSProperties;
++  onHover: (row: JSONRecord, x: number, y: number) => void;
++  onLeave: () => void;
++  pager?: ColumnGridPager;
++  fallbackTitle?: string;
++}) {
++  const headerRow = rows[0];
++  const headerValue = titleField && headerRow ? resolve(headerRow, titleField) as JSONValue : null;
++  const headerField = (titleField ? fieldConfig?.[titleField] : undefined) as FieldConfig | undefined;
++  const headerUi = headerField?.ui as Record<string, unknown> | undefined;
++  const headerControl = (headerUi?.control as string | undefined)
++    ?? (headerUi?.type as string | undefined);
++  const headerI18n = headerUi?.i18n as Record<string, Record<string, string>> | undefined;
++  const gaugeTitleField = mode.gauge_title_field ?? mode.gauge_title;
++  const centerFieldConfig = gaugeTitleField ? fieldConfig?.[gaugeTitleField] : undefined;
++
++  const cells = rows.map(row => {
++    const rings: Ring[] = [];
++    for (const s of mode.series) {
++      const raw = resolve(row, s.value_field);
++      if (raw == null) continue;
++      const value = Number(raw);
++      if (!isFinite(value) || value === 0) continue;
++      const domainMax = s.domain_max ?? 100;
++      const color = resolveColor(s, row, value, colorFormula, 'var(--brand)');
++      rings.push({
++        series: s,
++        value,
++        domainMax,
++        color,
++        label: resolveFieldLabel(s.value_field, fieldConfig, lang),
++      });
++    }
++    if (rings.length === 0) return null;
++    const centerValue = gaugeTitleField ? resolve(row, gaugeTitleField) as JSONValue : null;
++    const centerTitle = formatCenter(centerValue, centerFieldConfig);
++    return { row, rings, centerTitle };
++  }).filter(Boolean) as { row: JSONRecord; rings: Ring[]; centerTitle: string }[];
++
++  if (cells.length === 0) return null;
++
++  return (
++    <div className="column-grid-column" style={style}>
++      <div className="column-grid-column-body">
++        <div className="activity-gauge-cells">
++          <div className="activity-gauge-column-title">
++            {titleField && headerValue != null ? (
++              <Field
++                field={{
++                  key: titleField,
++                  control: headerControl,
++                  i18n: headerI18n,
++                  no_label: true,
++                } as Parameters<typeof Field>[0]['field']}
++                value={headerValue}
++                row={headerRow}
++              />
++            ) : (
++              <span>{fallbackTitle}</span>
++            )}
++            {pager && (
++              <div className="column-grid-pager">
++                <button
++                  className="column-grid-pager-btn"
++                  disabled={pager.atStart}
++                  onClick={() => pager.scroll(-1)}
++                >
++                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
++                    <path d="M7.5 3L4 6l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
++                  </svg>
++                </button>
++                <span className="column-grid-pager-label">{pager.index + 1}/{pager.total}</span>
++                <button
++                  className="column-grid-pager-btn"
++                  disabled={pager.atEnd}
++                  onClick={() => pager.scroll(1)}
++                >
++                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
++                    <path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
++                  </svg>
++                </button>
++              </div>
++            )}
++          </div>
++          <div className="activity-gauge-cells-row">
++            {cells.map((c, idx) => (
++              <GaugeCell
++                key={idx}
++                row={c.row}
++                rings={c.rings}
++                centerTitle={c.centerTitle}
++                labelField={labelField}
++                fieldConfig={fieldConfig}
++                onHover={onHover}
++                onLeave={onLeave}
++              />
++            ))}
++          </div>
++        </div>
++      </div>
++    </div>
++  );
++}
++
++export function ActivityGauge({
++  widgetConfig,
++  dataGroup,
++  data,
++}: {
++  widgetConfig: ActivityGaugeConfig;
++  dataGroup?: DataGroup;
++  data: JSONRecord[];
++}) {
++  const {
++    group_by,
++    title_field,
++    gauge_label_field,
++    mode_param,
++    color_formula,
++    column_min_width,
++    column_max_width,
++    modes,
++    tooltip,
++  } = widgetConfig;
++
++  const fieldConfig = dataGroup?.field_config as Record<string, FieldConfig> | undefined;
++  const tooltipFc = tooltip?.field_config;
++  const lang = getLanguage();
++
++  const resolvedLabelField = useMemo(() => {
++    if (gauge_label_field) return gauge_label_field;
++    if (!fieldConfig) return undefined;
++    const candidates = Object.entries(fieldConfig)
++      .filter(([key, fc]) => {
++        if (key === title_field) return false;
++        const ui = fc.ui as Record<string, unknown> | undefined;
++        return ui?.control === 'i18n-text';
++      })
++      .sort(([, a], [, b]) => {
++        const oa = ((a.ui as Record<string, unknown> | undefined)?.order as number | undefined) ?? 999;
++        const ob = ((b.ui as Record<string, unknown> | undefined)?.order as number | undefined) ?? 999;
++        return oa - ob;
++      });
++    return candidates[0]?.[0];
++  }, [gauge_label_field, fieldConfig, title_field]);
++
++  const modeParams = useQueryParams(
++    mode_param ? [{ key: mode_param, is_query_param: true, is_optional: true }] : [],
++  );
++  const modeIndex = useMemo(() => {
++    if (!mode_param) return 0;
++    const raw = modeParams.find(p => p.key === mode_param)?.val;
++    const n = Number(raw ?? 0);
++    if (!isFinite(n)) return 0;
++    if (!modes || modes.length === 0) return 0;
++    return Math.max(0, Math.min(modes.length - 1, Math.floor(n)));
++  }, [modeParams, mode_param, modes]);
++
++  const activeMode = modes?.[modeIndex];
++  const [hover, setHover] = useState<{ row: JSONRecord; x: number; y: number } | null>(null);
++
++  const groups = useMemo(() => {
++    const map = new Map<string, { key: string; rows: JSONRecord[] }>();
++    if (group_by) {
++      for (const row of data) {
++        const key = stringifyValue(resolve(row, group_by), lang);
++        if (!map.has(key)) map.set(key, { key, rows: [] });
++        map.get(key)!.rows.push(row);
++      }
++    } else {
++      map.set('_all', { key: '_all', rows: data });
++    }
++    return Array.from(map.values());
++  }, [data, group_by, lang]);
++
++  const minWidthPx = useMemo(() => {
++    if (typeof column_min_width === 'number') return column_min_width;
++    if (typeof column_min_width === 'string') {
++      const n = parseFloat(column_min_width);
++      if (isFinite(n)) return n;
++    }
++    return 320;
++  }, [column_min_width]);
++
++  const { gridRef, pager, handleScroll, isNarrow } = useColumnGridPager(groups.length, minWidthPx);
++
++  const onHover = useCallback((row: JSONRecord, x: number, y: number) => {
++    setHover({ row, x, y });
++  }, []);
++  const onLeave = useCallback(() => setHover(null), []);
++
++  if (!data || data.length === 0 || !activeMode) return null;
++
++  const gridStyle = {
++    '--column-min-width': cssSize(column_min_width, '320px'),
++    ...(column_max_width != null ? { '--column-max-width': cssSize(column_max_width, 'none') } : {}),
++  } as React.CSSProperties;
++  const columnStyle: React.CSSProperties = column_max_width != null
++    ? { maxWidth: cssSize(column_max_width, 'none') }
++    : {};
++
++  return (
++    <>
++      <div
++        ref={gridRef}
++        className={`column-grid${isNarrow ? ' is-narrow' : ''}`}
++        style={gridStyle}
++        onScroll={handleScroll}
++      >
++        {groups.map(g => (
++          <Column
++            key={g.key}
++            titleField={title_field}
++            labelField={resolvedLabelField}
++            fieldConfig={fieldConfig}
++            rows={g.rows}
++            mode={activeMode}
++            colorFormula={color_formula}
++            lang={lang}
++            style={columnStyle}
++            onHover={onHover}
++            onLeave={onLeave}
++            pager={pager}
++            fallbackTitle={g.key}
++          />
++        ))}
++      </div>
++      <FieldTooltip
++        row={hover?.row ?? null}
++        x={hover?.x ?? 0}
++        y={hover?.y ?? 0}
++        fieldConfig={fieldConfig as Record<string, TooltipFieldConfigEntry> | undefined}
++        tooltipConfig={tooltipFc}
++        titleField={title_field}
++      />
++    </>
++  );
++}
+diff --git a/src/widgets/WidgetRenderer.tsx b/src/widgets/WidgetRenderer.tsx
+index 32320e4..a275fb0 100644
+--- a/src/widgets/WidgetRenderer.tsx
++++ b/src/widgets/WidgetRenderer.tsx
+@@ -6,12 +6,14 @@ import { getLanguage } from 'xfw-get-block';
+ import { isFieldVisible } from './resolve';
+ import { TimelineBar, type TimelineBarConfig } from './TimelineBar';
+ import { DonutChart, type DonutChartConfig } from './DonutChart';
++import { ActivityGauge, type ActivityGaugeConfig } from './ActivityGauge';
+ import { InkGauge, type InkGaugeConfig } from './InkGauge';
+ import { Cards } from './Cards';
+ import { Item } from './Item';
+ import { FlowBoard } from './flow';
+ import { Content } from './Content';
+ import { VerticalBar, type VerticalBarConfig } from './VerticalBar';
++import { StatusBar } from './StatusBar';
+ 
+ const LANGS = new Set(['nl', 'en', 'de', 'fr', 'uk']);
+ 
+@@ -173,7 +175,9 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
+     case 'timeline-bar':
+       return <TimelineBar widgetConfig={widgetConfig as unknown as TimelineBarConfig} data={data} />;
+     case 'donut-chart':
+-      return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} data={data} />;
++      return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} dataGroup={dataGroup} data={data} />;
++    case 'activity-gauge':
++      return <ActivityGauge widgetConfig={widgetConfig as unknown as ActivityGaugeConfig} dataGroup={dataGroup} data={data} />;
+     case 'ink-gauge':
+       return <InkGauge widgetConfig={widgetConfig as unknown as InkGaugeConfig} data={data} />;
+     case 'cards':
+@@ -188,6 +192,8 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
+       return <TableWidget widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
+     case 'content':
+       return <Content data={data} />;
++    case 'status-bar':
++      return <StatusBar widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
+     default:
+       console.warn(`Unknown widget layout: "${layout}"`);
+       return <FallbackDataRows data={data} />;
+diff --git a/src/widgets/flow/FlowBox.tsx b/src/widgets/flow/FlowBox.tsx
+index 5b828ad..616a44b 100644
+--- a/src/widgets/flow/FlowBox.tsx
++++ b/src/widgets/flow/FlowBox.tsx
+@@ -1,18 +1,17 @@
+-import { useState, useRef, useCallback } from 'react';
++import { useState } from 'react';
+ import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
+ import { Field } from '../../controls/Field';
+ import { Checkbox } from '@s-flex/xfw-ui';
+ import { useGroupCheck } from '../../controls/Checkbox';
+ import { resolveI18nLabel } from './utils';
+ import { useFlowContext } from './FlowContext';
++import { useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
+ 
+ function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
+   return primaryKeys.map(k => String(row[k] ?? '')).join('||');
+ }
+ 
+-type GridPager = { index: number; total: number; scroll: (dir: 1 | -1) => void; };
+-
+-function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: GridPager; }) {
++function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: ColumnGridPager; }) {
+   const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
+   const { allChecked, someChecked } = useGroupCheck(g.rows);
+   const { primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
+@@ -30,10 +29,10 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean;
+ 
+   return (
+     <div
+-      className={`${isGrid ? 'flow-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
++      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
+       onClick={g.selectable ? () => selectItem(g.rows[0], g.on_select) : undefined}
+     >
+-      <div className={`${isGrid ? 'flow-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
++      <div className={`${isGrid ? 'column-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
+         {(showCheckbox || showColexp) && (
+           <div className="flow-card-controls">
+             {showCheckbox && (
+@@ -63,19 +62,19 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean;
+           }
+         </div>
+         {pager && (
+-          <div className="flow-grid-pager">
+-            <button className="flow-grid-pager-btn" disabled={pager.index <= 0} onClick={() => pager.scroll(-1)}>
++          <div className="column-grid-pager">
++            <button className="column-grid-pager-btn" disabled={pager.atStart} onClick={() => pager.scroll(-1)}>
+               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M7.5 3L4 6l3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+             </button>
+-            <span className="flow-grid-pager-label">{pager.index + 1}/{pager.total}</span>
+-            <button className="flow-grid-pager-btn" disabled={pager.index >= pager.total - 1} onClick={() => pager.scroll(1)}>
++            <span className="column-grid-pager-label">{pager.index + 1}/{pager.total}</span>
++            <button className="column-grid-pager-btn" disabled={pager.atEnd} onClick={() => pager.scroll(1)}>
+               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M4.5 3L8 6l-3.5 3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
+             </button>
+           </div>
+         )}
+       </div>
+       {g.navs && g.navs.length > 0 && (
+-        <div className={isGrid ? 'flow-grid-column-nav' : undefined}>
++        <div className={isGrid ? 'column-grid-column-nav' : undefined}>
+           <div className="flow-nav">
+             {g.navs.map(nav => (
+               <button
+@@ -91,7 +90,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean;
+         </div>
+       )}
+       {!isCollapsed && g.children && (
+-        <div className={isGrid ? 'flow-grid-column-body' : 'flow-card-body'}>
++        <div className={isGrid ? 'column-grid-column-body' : 'flow-card-body'}>
+           {g.children}
+         </div>
+       )}
+@@ -101,20 +100,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean;
+ 
+ export function FlowBox({ layout, groups }: FlowLayoutProps) {
+   const isGrid = layout === 'flow-grid';
+-  const gridRef = useRef<HTMLDivElement>(null);
+-  const [snapIndex, setSnapIndex] = useState(0);
+-
+-  const scroll = useCallback((dir: 1 | -1) => {
+-    const el = gridRef.current;
+-    if (!el) return;
+-    el.scrollBy({ left: dir * el.clientWidth, behavior: 'smooth' });
+-  }, []);
+-
+-  const handleScroll = useCallback(() => {
+-    const el = gridRef.current;
+-    if (!el || el.clientWidth === 0) return;
+-    setSnapIndex(Math.round(el.scrollLeft / el.clientWidth));
+-  }, []);
++  const { gridRef, pager, handleScroll, isNarrow } = useColumnGridPager(groups.length);
+ 
+   if (!isGrid) {
+     return (
+@@ -124,15 +110,10 @@ export function FlowBox({ layout, groups }: FlowLayoutProps) {
+     );
+   }
+ 
+-  const pager: GridPager | undefined = groups.length > 1
+-    ? { index: snapIndex, total: groups.length, scroll }
+-    : undefined;
+-
+   return (
+     <div
+       ref={gridRef}
+-      className="flow-grid"
+-      style={{ gridTemplateColumns: `repeat(${groups.length}, 1fr)` }}
++      className={`column-grid column-grid--aligned${isNarrow ? ' is-narrow' : ''}`}
+       onScroll={handleScroll}
+     >
+       {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid pager={pager} />)}
+diff --git a/src/widgets/flow/utils.ts b/src/widgets/flow/utils.ts
+index 70c645f..1583ffa 100644
+--- a/src/widgets/flow/utils.ts
++++ b/src/widgets/flow/utils.ts
+@@ -122,18 +122,23 @@ function resolveLevelLabel(levelFieldConfig: FlowLevelFieldConfig | undefined, f
+   return resolveLabel(fieldMap, key);
+ }
+ 
+-export function formatValue(val: JSONValue, control?: string): string {
++export function formatValue(val: JSONValue, control?: string, scale?: number): string {
+   if (val === null || val === undefined) return '—';
+   if (control === 'percent') {
+     const num = Number(val);
+     if (!isNaN(num)) {
+-      return `${Math.round(num)}%`;
++      const pct = typeof scale === 'number' ? num.toFixed(scale) : String(Math.round(num));
++      return `${pct}%`;
+     }
+   }
+   if (control === 'date' || control === 'datetime') {
+     const d = new Date(val as string | number);
+     if (!isNaN(d.getTime())) return control === 'date' ? d.toLocaleDateString() : `${d.toLocaleDateString()} ${d.getHours().toString().padStart(2, '0')}:${d.getMinutes().toString().padStart(2, '0')}`;
+   }
++  if (typeof scale === 'number') {
++    const num = Number(val);
++    if (!isNaN(num) && isFinite(num)) return num.toFixed(scale);
++  }
+   if (typeof val === 'object') return JSON.stringify(val);
+   return String(val);
+ }
+diff --git a/src/widgets/resolve.ts b/src/widgets/resolve.ts
+index 87efd03..528d7ea 100644
+--- a/src/widgets/resolve.ts
++++ b/src/widgets/resolve.ts
+@@ -34,9 +34,19 @@ type ColorConfig = { values: string[]; formula: string };
+ export function evaluateColorFormula(
+   config: ColorConfig,
+   row: JSONRecord,
++  placeholders?: Record<string, string | number>,
+ ): string {
+   let expr = config.formula;
+ 
++  // Substitute {name} placeholders first so the value (e.g. a series % read
++  // from outside the row) can be injected before field/time replacements.
++  if (placeholders) {
++    expr = expr.replace(/\{(\w+)\}/g, (_, key) => {
++      const v = placeholders[key];
++      return v == null ? '0' : String(v);
++    });
++  }
++
+   // Replace time literals like '12:00' or '0:00' with minutes
+   expr = expr.replace(/'(\d{1,2}:\d{2})'/g, (_, t) => String(timeToMinutes(t)));
+ 
+diff --git a/src/widgets/useColumnGridPager.ts b/src/widgets/useColumnGridPager.ts
+new file mode 100644
+index 0000000..f09a223
+--- /dev/null
++++ b/src/widgets/useColumnGridPager.ts
+@@ -0,0 +1,87 @@
++import { useCallback, useEffect, useRef, useState } from 'react';
++
++export type ColumnGridPager = {
++  index: number;
++  total: number;
++  atStart: boolean;
++  atEnd: boolean;
++  scroll: (dir: 1 | -1) => void;
++};
++
++/** Pager + responsive narrow-mode detection for the shared `.column-grid`.
++ *
++ *  - When the parent has room for ≥ 2 columns at `minWidthPx`, the grid stays
++ *    in its default auto-fit layout (no pager visible).
++ *  - When it doesn't, the grid switches to a single-column scroll-snap mode
++ *    and a pager is exposed for prev/next.
++ *
++ *  Returns `gridRef`, `pager` (only when narrow + multi-column), `handleScroll`,
++ *  and an `isNarrow` flag the caller toggles into a class. */
++export function useColumnGridPager(total: number, minWidthPx = 250) {
++  const gridRef = useRef<HTMLDivElement>(null);
++  const [index, setIndex] = useState(0);
++  const [isNarrow, setIsNarrow] = useState(false);
++  const [atStart, setAtStart] = useState(true);
++  const [atEnd, setAtEnd] = useState(false);
++
++  useEffect(() => {
++    const el = gridRef.current;
++    if (!el) return;
++    const update = (width: number) => setIsNarrow(width < 2 * minWidthPx);
++    update(el.clientWidth);
++    const ro = new ResizeObserver(entries => {
++      for (const entry of entries) update(entry.contentRect.width);
++    });
++    ro.observe(el);
++    return () => ro.disconnect();
++  }, [minWidthPx]);
++
++  const pageWidth = useCallback(() => {
++    const el = gridRef.current;
++    if (!el) return 0;
++    const col = el.firstElementChild as HTMLElement | null;
++    if (!col) return el.clientWidth;
++    const styles = getComputedStyle(el);
++    const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
++    return col.offsetWidth + gap;
++  }, []);
++
++  const scroll = useCallback((dir: 1 | -1) => {
++    const el = gridRef.current;
++    if (!el) return;
++    const step = pageWidth() || el.clientWidth;
++    // Snap to the page-aligned target so the last click always lands on the
++    // last column even when scrollLeft isn't a clean multiple of step.
++    const currentIdx = Math.round(el.scrollLeft / (step || 1));
++    const maxIdx = Math.max(0, Math.ceil((el.scrollWidth - el.clientWidth) / (step || 1)));
++    const nextIdx = Math.max(0, Math.min(maxIdx, currentIdx + dir));
++    el.scrollTo({ left: nextIdx * step, behavior: 'smooth' });
++  }, [pageWidth]);
++
++  const handleScroll = useCallback(() => {
++    const el = gridRef.current;
++    if (!el) return;
++    const step = pageWidth();
++    if (step <= 0) return;
++    const maxScroll = el.scrollWidth - el.clientWidth;
++    const i = Math.max(0, Math.min(total - 1, Math.round(el.scrollLeft / step)));
++    setIndex(i);
++    setAtStart(el.scrollLeft <= 1);
++    setAtEnd(el.scrollLeft >= maxScroll - 1);
++  }, [pageWidth, total]);
++
++  // Initialise atEnd whenever the column count or width might have changed.
++  useEffect(() => {
++    const el = gridRef.current;
++    if (!el) return;
++    const maxScroll = el.scrollWidth - el.clientWidth;
++    setAtStart(el.scrollLeft <= 1);
++    setAtEnd(maxScroll <= 0 || el.scrollLeft >= maxScroll - 1);
++  }, [total, isNarrow]);
++
++  const pager: ColumnGridPager | undefined = isNarrow && total > 1
++    ? { index, total, atStart, atEnd, scroll }
++    : undefined;
++
++  return { gridRef, pager, handleScroll, isNarrow };
++}

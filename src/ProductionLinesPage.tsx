@@ -324,19 +324,9 @@ export function ProductionLinesPage() {
   }, []);
 
   const handleRefresh = useCallback(() => {
-    const today = new Date().toISOString().slice(0, 10);
-    let slot = pendingSlot;
-    // If viewing today and slot exceeds current time, clamp to now
-    if (pendingDate === today) {
-      const now = new Date();
-      const nowSlot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
-      if (slot > nowSlot) {
-        slot = nowSlot;
-        setPendingSlot(slot);
-      }
-    }
+    const slot = sliderMax;
+    setPendingSlot(slot);
     const untilIso = buildUntilFromSlot(pendingDate, slot);
-    // Clamp from date: if it's after the until date, reset it to the until date
     let fromDate = pendingFromDate;
     if (fromDate > pendingDate) {
       fromDate = pendingDate;
@@ -344,7 +334,7 @@ export function ProductionLinesPage() {
     }
     setFrom(buildFromIso(fromDate));
     setUntil(untilIso);
-  }, [pendingFromDate, pendingDate, pendingSlot, buildFromIso, buildUntilFromSlot]);
+  }, [pendingFromDate, pendingDate, buildFromIso, buildUntilFromSlot]);
 
   const handleNow = useCallback(() => {
     const now = new Date();

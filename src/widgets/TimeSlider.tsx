@@ -49,18 +49,9 @@ export function TimeSlider({ uiLabels, onChange }: TimeSliderProps) {
   }, []);
 
   const handleRefresh = useCallback(() => {
-    const today = new Date().toISOString().slice(0, 10);
-    let s = slot;
-    if (date === today) {
-      const now = new Date();
-      const nowSlot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
-      if (s > nowSlot) {
-        s = nowSlot;
-        setSlot(s);
-      }
-    }
-    onChange(buildIsoFromSlot(date, s));
-  }, [date, slot, onChange]);
+    setSlot(SLIDER_MAX);
+    onChange(buildIsoFromSlot(date, SLIDER_MAX));
+  }, [date, onChange]);
 
   const handleNow = useCallback(() => {
     const now = new Date();
