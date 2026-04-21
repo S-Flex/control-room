@@ -17,10 +17,6 @@ COPY . .
 # Build the application
 RUN bun run build
 
-COPY ./data ./dist/data
-COPY ./models ./dist/models
-COPY ./img ./dist/img
-
 # Production stage
 FROM nginx:alpine AS production
 
@@ -32,6 +28,9 @@ COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # Copy built application from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
+COPY ./data /usr/share/nginx/html/data
+COPY ./models /usr/share/nginx/html/models
+COPY ./img /usr/share/nginx/html/img
 
 # Create non-root user for nginx
 RUN adduser -D -H -s /sbin/nologin nginx-user && \
