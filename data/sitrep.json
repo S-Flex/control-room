@@ -1,0 +1,891 @@
+[
+  {
+    "src": "get_sitrep",
+    "header": {
+      "navs": [
+        {
+          "menu": [
+            {
+              "i18n": {
+                "de": {
+                  "text": "m²"
+                },
+                "en": {
+                  "text": "m²"
+                },
+                "es": {
+                  "text": "m²"
+                },
+                "fr": {
+                  "text": "m²"
+                },
+                "nl": {
+                  "text": "m²"
+                },
+                "uk": {
+                  "text": "м²"
+                }
+              },
+              "type": "button",
+              "params": [
+                {
+                  "key": "sitrep_mode",
+                  "val": "0",
+                  "is_query_param": true
+                }
+              ],
+              "nav_item_id": "sqm"
+            },
+            {
+              "i18n": {
+                "de": {
+                  "text": "Aufträge"
+                },
+                "en": {
+                  "text": "Orders"
+                },
+                "es": {
+                  "text": "Pedidos"
+                },
+                "fr": {
+                  "text": "Commandes"
+                },
+                "nl": {
+                  "text": "Orders"
+                },
+                "uk": {
+                  "text": "Замовлення"
+                }
+              },
+              "type": "button",
+              "params": [
+                {
+                  "key": "sitrep_mode",
+                  "val": "1",
+                  "is_query_param": true
+                }
+              ],
+              "nav_item_id": "orders"
+            }
+          ],
+          "type": "tabstrip",
+          "nav_item_id": "sitrep-mode"
+        }
+      ]
+    },
+    "layout": "activity-gauge",
+    "params": [
+      {
+        "key": "model",
+        "is_optional": true,
+        "is_query_param": true
+      },
+      {
+        "key": "models",
+        "is_optional": true,
+        "is_query_param": true
+      },
+      {
+        "key": "sitrep_mode",
+        "is_optional": true,
+        "is_query_param": true
+      }
+    ],
+    "widget_id": "sitrep",
+    "field_config": {
+      "content": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Zeitraum"
+            },
+            "en": {
+              "title": "Period"
+            },
+            "es": {
+              "title": "Período"
+            },
+            "fr": {
+              "title": "Période"
+            },
+            "nl": {
+              "title": "Periode"
+            },
+            "uk": {
+              "title": "Період"
+            }
+          },
+          "order": 0,
+          "control": "i18n-text"
+        }
+      },
+      "sqm_cut": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Geschnitten m²"
+            },
+            "en": {
+              "title": "Cut m²"
+            },
+            "es": {
+              "title": "Cortado m²"
+            },
+            "fr": {
+              "title": "Coupé m²"
+            },
+            "nl": {
+              "title": "Gesneden m²"
+            },
+            "uk": {
+              "title": "Порізано м²"
+            }
+          },
+          "order": 16,
+          "scale": 0,
+          "hidden_when": {
+            "op": "==",
+            "key": "sqm_cut",
+            "value": "0"
+          }
+        }
+      },
+      "sqm_done": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Fertig m²"
+            },
+            "en": {
+              "title": "Done m²"
+            },
+            "es": {
+              "title": "Hecho m²"
+            },
+            "fr": {
+              "title": "Terminé m²"
+            },
+            "nl": {
+              "title": "Gereed m²"
+            },
+            "uk": {
+              "title": "Готово м²"
+            }
+          },
+          "order": 14,
+          "scale": 0,
+          "hidden_when": {
+            "op": "==",
+            "key": "sqm_done",
+            "value": "0"
+          }
+        }
+      },
+      "sqm_open": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Offen m²"
+            },
+            "en": {
+              "title": "Open m²"
+            },
+            "es": {
+              "title": "Abierto m²"
+            },
+            "fr": {
+              "title": "Ouvert m²"
+            },
+            "nl": {
+              "title": "Open m²"
+            },
+            "uk": {
+              "title": "Відкрито м²"
+            }
+          },
+          "order": 13,
+          "scale": 0
+        }
+      },
+      "order_cut": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Aufträge geschnitten"
+            },
+            "en": {
+              "title": "Orders cut"
+            },
+            "es": {
+              "title": "Pedidos cortados"
+            },
+            "fr": {
+              "title": "Commandes coupées"
+            },
+            "nl": {
+              "title": "Orders gesneden"
+            },
+            "uk": {
+              "title": "Замовлення порізано"
+            }
+          },
+          "order": 7,
+          "hidden_when": {
+            "op": "==",
+            "key": "order_cut",
+            "value": "0"
+          }
+        }
+      },
+      "sqm_total": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Gesamt m²"
+            },
+            "en": {
+              "title": "Total m²"
+            },
+            "es": {
+              "title": "Total m²"
+            },
+            "fr": {
+              "title": "Total m²"
+            },
+            "nl": {
+              "title": "Totaal m²"
+            },
+            "uk": {
+              "title": "Всього м²"
+            }
+          },
+          "order": 12,
+          "scale": 0
+        }
+      },
+      "order_done": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Aufträge fertig"
+            },
+            "en": {
+              "title": "Orders done"
+            },
+            "es": {
+              "title": "Pedidos completados"
+            },
+            "fr": {
+              "title": "Commandes terminées"
+            },
+            "nl": {
+              "title": "Orders gereed"
+            },
+            "uk": {
+              "title": "Замовлення готові"
+            }
+          },
+          "order": 5,
+          "hidden_when": {
+            "op": "==",
+            "key": "order_done",
+            "value": "0"
+          }
+        }
+      },
+      "order_open": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Aufträge offen"
+            },
+            "en": {
+              "title": "Orders open"
+            },
+            "es": {
+              "title": "Pedidos abiertos"
+            },
+            "fr": {
+              "title": "Commandes ouvertes"
+            },
+            "nl": {
+              "title": "Orders open"
+            },
+            "uk": {
+              "title": "Замовлення відкриті"
+            }
+          },
+          "order": 4
+        }
+      },
+      "bucket_date": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Datum"
+            },
+            "en": {
+              "title": "Date"
+            },
+            "es": {
+              "title": "Fecha"
+            },
+            "fr": {
+              "title": "Date"
+            },
+            "nl": {
+              "title": "Datum"
+            },
+            "uk": {
+              "title": "Дата"
+            }
+          },
+          "order": 1,
+          "control": "date"
+        }
+      },
+      "order_count": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Aufträge"
+            },
+            "en": {
+              "title": "Orders"
+            },
+            "es": {
+              "title": "Pedidos"
+            },
+            "fr": {
+              "title": "Commandes"
+            },
+            "nl": {
+              "title": "Orders"
+            },
+            "uk": {
+              "title": "Замовлення"
+            }
+          },
+          "order": 3
+        }
+      },
+      "sqm_pct_cut": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Schnitt"
+            },
+            "en": {
+              "title": "Cut"
+            },
+            "es": {
+              "title": "Corte"
+            },
+            "fr": {
+              "title": "Coupe"
+            },
+            "nl": {
+              "title": "Gesneden"
+            },
+            "uk": {
+              "title": "Прогрес різання м²"
+            }
+          },
+          "type": "percent",
+          "order": 19,
+          "hidden_when": {
+            "op": "==",
+            "key": "sqm_cut",
+            "value": "0"
+          }
+        }
+      },
+      "sqm_printed": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Gedruckt"
+            },
+            "en": {
+              "title": "Printed"
+            },
+            "es": {
+              "title": "Impreso"
+            },
+            "fr": {
+              "title": "Imprimé"
+            },
+            "nl": {
+              "title": "Geprint"
+            },
+            "uk": {
+              "title": "Надруковано м²"
+            }
+          },
+          "order": 15,
+          "scale": 0,
+          "hidden_when": {
+            "op": "==",
+            "key": "sqm_printed",
+            "value": "0"
+          }
+        }
+      },
+      "current_time": {
+        "ui": {
+          "order": 20,
+          "hidden": true
+        }
+      },
+      "sqm_pct_done": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Fortschritt"
+            },
+            "en": {
+              "title": "Done"
+            },
+            "es": {
+              "title": "Progreso"
+            },
+            "fr": {
+              "title": "Progression"
+            },
+            "nl": {
+              "title": "Gereed"
+            },
+            "uk": {
+              "title": "Прогрес"
+            }
+          },
+          "type": "percent",
+          "order": 17,
+          "hidden_when": {
+            "op": "==",
+            "key": "sqm_done",
+            "value": "0"
+          }
+        }
+      },
+      "order_pct_cut": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Fortschritt schnitt orders"
+            },
+            "en": {
+              "title": "Progress cut orders"
+            },
+            "es": {
+              "title": "Corte"
+            },
+            "fr": {
+              "title": "Coupe"
+            },
+            "nl": {
+              "title": "Snijden"
+            },
+            "uk": {
+              "title": "Прогрес різання замовлень"
+            }
+          },
+          "type": "percent",
+          "order": 10,
+          "hidden_when": {
+            "op": "==",
+            "key": "order_cut",
+            "value": "0"
+          }
+        }
+      },
+      "order_printed": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Aufträge gedruckt"
+            },
+            "en": {
+              "title": "Orders printed"
+            },
+            "es": {
+              "title": "Pedidos impresos"
+            },
+            "fr": {
+              "title": "Commandes imprimées"
+            },
+            "nl": {
+              "title": "Orders gedrukt"
+            },
+            "uk": {
+              "title": "Замовлення надруковано"
+            }
+          },
+          "order": 6,
+          "hidden_when": {
+            "op": "==",
+            "key": "order_printed",
+            "value": "0"
+          }
+        }
+      },
+      "customer_count": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Kunden"
+            },
+            "en": {
+              "title": "Customers"
+            },
+            "es": {
+              "title": "Clientes"
+            },
+            "fr": {
+              "title": "Clients"
+            },
+            "nl": {
+              "title": "Klanten"
+            },
+            "uk": {
+              "title": "Клієнти"
+            }
+          },
+          "order": 11
+        }
+      },
+      "order_pct_done": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Fortschritt orders"
+            },
+            "en": {
+              "title": "Done"
+            },
+            "es": {
+              "title": "Progreso pedidos"
+            },
+            "fr": {
+              "title": "Progression commandes"
+            },
+            "nl": {
+              "title": "Gereed"
+            },
+            "uk": {
+              "title": "Прогрес замовлень"
+            }
+          },
+          "type": "percent",
+          "order": 8,
+          "hidden_when": {
+            "op": "==",
+            "key": "order_done",
+            "value": "0"
+          }
+        }
+      },
+      "production_line": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Produktionslinie"
+            },
+            "en": {
+              "title": "Production line"
+            },
+            "es": {
+              "title": "Línea de producción"
+            },
+            "fr": {
+              "title": "Ligne de production"
+            },
+            "nl": {
+              "title": "Productielijn"
+            },
+            "uk": {
+              "title": "Виробнича лінія"
+            }
+          },
+          "order": 2,
+          "control": "i18n-text"
+        }
+      },
+      "sqm_pct_printed": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Fortschritt druck m²"
+            },
+            "en": {
+              "title": "Printed"
+            },
+            "es": {
+              "title": "Progreso impresión m²"
+            },
+            "fr": {
+              "title": "Progression impression m²"
+            },
+            "nl": {
+              "title": "Geprint"
+            },
+            "uk": {
+              "title": "Прогрес друку м²"
+            }
+          },
+          "type": "percent",
+          "order": 18,
+          "hidden_when": {
+            "op": "==",
+            "key": "sqm_printed",
+            "value": "0"
+          }
+        }
+      },
+      "order_pct_printed": {
+        "ui": {
+          "i18n": {
+            "de": {
+              "title": "Fortschritt druck orders"
+            },
+            "en": {
+              "title": "Printed"
+            },
+            "es": {
+              "title": "Progreso impresión pedidos"
+            },
+            "fr": {
+              "title": "Progression impression commandes"
+            },
+            "nl": {
+              "title": "Geprint"
+            },
+            "uk": {
+              "title": "Прогрес друку замовлень"
+            }
+          },
+          "type": "percent",
+          "order": 9,
+          "hidden_when": {
+            "op": "==",
+            "key": "order_printed",
+            "value": "0"
+          }
+        }
+      }
+    },
+    "activity_gauge_config": {
+      "modes": [
+        {
+          "i18n": {
+            "de": {
+              "title": "m²"
+            },
+            "en": {
+              "title": "m²"
+            },
+            "es": {
+              "title": "m²"
+            },
+            "fr": {
+              "title": "m²"
+            },
+            "nl": {
+              "title": "m²"
+            },
+            "uk": {
+              "title": "м²"
+            }
+          },
+          "series": [
+            {
+              "colors": {
+                "true": "#12b76a",
+                "false": "#f04438"
+              },
+              "value_field": "sqm_pct_printed"
+            },
+            {
+              "colors": {
+                "true": "#039855",
+                "false": "#d92d20"
+              },
+              "value_field": "sqm_pct_cut"
+            },
+            {
+              "colors": {
+                "true": "#027a48",
+                "false": "#b42318"
+              },
+              "value_field": "sqm_pct_done"
+            }
+          ],
+          "gauge_title_field": "sqm_total"
+        },
+        {
+          "i18n": {
+            "de": {
+              "title": "Aufträge"
+            },
+            "en": {
+              "title": "Orders"
+            },
+            "es": {
+              "title": "Pedidos"
+            },
+            "fr": {
+              "title": "Commandes"
+            },
+            "nl": {
+              "title": "Orders"
+            },
+            "uk": {
+              "title": "Замовлення"
+            }
+          },
+          "series": [
+            {
+              "colors": {
+                "true": "#12b76a",
+                "false": "#f04438"
+              },
+              "value_field": "order_pct_printed"
+            },
+            {
+              "colors": {
+                "true": "#039855",
+                "false": "#d92d20"
+              },
+              "value_field": "order_pct_cut"
+            },
+            {
+              "colors": {
+                "true": "#027a48",
+                "false": "#b42318"
+              },
+              "value_field": "order_pct_done"
+            }
+          ],
+          "gauge_title_field": "opder_count"
+        }
+      ],
+      "tooltip": {
+        "sections": [
+            {
+            "field_config": {
+              "content": {
+                "ui": {
+                  "order": 0
+                }
+              },
+              "bucket_date": {
+                "ui": {
+                  "order": 1
+                }
+              },
+              "customer_count": {
+                "ui": {
+                  "order": 18
+                }
+              }
+            }
+          },
+          {
+            "field_config": {
+              "sqm_cut": {
+                "ui": {
+                  "order": 8
+                }
+              },
+              "sqm_done": {
+                "ui": {
+                  "order": 4
+                }
+              },
+              "sqm_open": {
+                "ui": {
+                  "order": 3
+                }
+              },
+              "sqm_total": {
+                "ui": {
+                  "order": 2
+                }
+              },
+              "sqm_pct_cut": {
+                "ui": {
+                  "order": 9
+                }
+              },
+              "sqm_printed": {
+                "ui": {
+                  "order": 6
+                }
+              },
+              "sqm_pct_done": {
+                "ui": {
+                  "order": 5
+                }
+              },
+              "sqm_pct_printed": {
+                "ui": {
+                  "order": 7
+                }
+              }
+            }
+          },
+          {
+            "field_config": {
+              "order_cut": {
+                "ui": {
+                  "order": 16
+                }
+              },
+              "order_done": {
+                "ui": {
+                  "order": 12
+                }
+              },
+              "order_open": {
+                "ui": {
+                  "order": 11
+                }
+              },
+              "order_count": {
+                "ui": {
+                  "order": 10
+                }
+              },
+              "order_pct_cut": {
+                "ui": {
+                  "order": 17
+                }
+              },
+              "order_printed": {
+                "ui": {
+                  "order": 14
+                }
+              },
+              "order_pct_done": {
+                "ui": {
+                  "order": 13
+                }
+              },
+              "order_pct_printed": {
+                "ui": {
+                  "order": 15
+                }
+              }
+            }
+          }
+        ]
+      },
+      "group_by": "production_line",
+      "mode_param": "sitrep_mode",
+      "title_field": "production_line",
+      "color_formula": "((current_time >= '0:00' && current_time < '12:00' && {pct} > 70) || (current_time >= '12:00' && current_time < '18:00' && {pct} > 80) || (current_time >= '18:00' && {pct} > 90))",
+      "column_max_width": 600,
+      "column_min_width": 600
+    }
+  }
+]
