@@ -18,6 +18,16 @@ export type TooltipFieldConfigEntry = FieldConfig & {
   };
 };
 
+export type TooltipSectionConfig = {
+  field_config?: Record<string, TooltipFieldConfigEntry>;
+};
+
+export type TooltipConfig = {
+  sections?: TooltipSectionConfig[];
+  /** Legacy flat shape — equivalent to `{ sections: [{ field_config }] }`. */
+  field_config?: Record<string, TooltipFieldConfigEntry>;
+};
+
 type FieldEntry = {
   key: string;
   order: number;
@@ -87,6 +97,16 @@ function resolveHeaderText(
   return localizeI18n((fieldConfig?.[titleField]?.ui as Record<string, unknown> | undefined)?.i18n, lang) ?? null;
 }
 
+function normalizeSections(
+  tooltipConfig: TooltipConfig | undefined,
+  fieldConfig: Record<string, TooltipFieldConfigEntry> | undefined,
+): TooltipSectionConfig[] {
+  if (tooltipConfig?.sections) return tooltipConfig.sections;
+  if (tooltipConfig?.field_config) return [{ field_config: tooltipConfig.field_config }];
+  if (fieldConfig) return [{ field_config: fieldConfig }];
+  return [];
+}
+
 export function FieldTooltip({
   row,
   x,
@@ -101,7 +121,7 @@ export function FieldTooltip({
   x: number;
   y: number;
   fieldConfig?: Record<string, TooltipFieldConfigEntry>;
-  tooltipConfig?: Record<string, TooltipFieldConfigEntry>;
+  tooltipConfig?: TooltipConfig;
   title?: ReactNode;
   titleField?: string;
   className?: string;
@@ -124,14 +144,38 @@ export function FieldTooltip({
     setPos({ left, top });
   }, [x, y, row]);
 
-  const entries = useMemo(
-    () => buildEntries(fieldConfig, tooltipConfig),
+  const sections = useMemo(
+    () => normalizeSections(tooltipConfig, fieldConfig).map(s =>
+      buildEntries(fieldConfig, s.field_config),
+    ),
     [fieldConfig, tooltipConfig],
   );
 
   if (!row || typeof document === 'undefined') return null;
 
   const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
+
+  const renderEntry = (entry: FieldEntry) => {
+    if (!isFieldVisible({ hidden_when: entry.hidden_when }, row)) return null;
+    const value = resolve(row, entry.key) as JSONValue;
+    if (value == null) return null;
+    const label = resolveI18nLabel(entry.i18n, entry.key);
+    const field: ResolvedField & { no_label?: boolean; scale?: number } = {
+      key: entry.key,
+      control: entry.control,
+      i18n: entry.i18n,
+      no_label: true,
+      scale: entry.scale,
+    } as ResolvedField & { no_label?: boolean; scale?: number };
+    return (
+      <div key={entry.key} className="field-tooltip-row">
+        <span className="field-tooltip-label">{label}</span>
+        <span className="field-tooltip-value">
+          <Field field={field} value={value} row={row} />
+        </span>
+      </div>
+    );
+  };
 
   const body = (
     <div
@@ -140,27 +184,12 @@ export function FieldTooltip({
       style={{ left: pos.left, top: pos.top }}
     >
       {header && <div className="field-tooltip-title">{header}</div>}
-      {entries.map(entry => {
-        if (!isFieldVisible({ hidden_when: entry.hidden_when }, row)) return null;
-        const value = resolve(row, entry.key) as JSONValue;
-        if (value == null) return null;
-        const label = resolveI18nLabel(entry.i18n, entry.key);
-        const field: ResolvedField & { no_label?: boolean; scale?: number } = {
-          key: entry.key,
-          control: entry.control,
-          i18n: entry.i18n,
-          no_label: true,
-          scale: entry.scale,
-        } as ResolvedField & { no_label?: boolean; scale?: number };
-        return (
-          <div key={entry.key} className="field-tooltip-row">
-            <span className="field-tooltip-label">{label}</span>
-            <span className="field-tooltip-value">
-              <Field field={field} value={value} row={row} />
-            </span>
-          </div>
-        );
-      })}
+      {sections.map((entries, i) => (
+        <div key={i} className="field-tooltip-section">
+          {i > 0 && <hr className="field-tooltip-divider" />}
+          {entries.map(renderEntry)}
+        </div>
+      ))}
     </div>
   );
 

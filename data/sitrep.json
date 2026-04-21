@@ -699,17 +699,19 @@
           },
           "series": [
             {
-              "colors": {
-                "true": "#12b76a",
-                "false": "#f04438"
-              },
+              "color_index_field": "sqm_color_index ",
+              "colors": [
+                "#12b76a",
+                "#f04438"
+              ],
               "value_field": "sqm_pct_printed"
             },
             {
-              "colors": {
-                "true": "#039855",
-                "false": "#d92d20"
-              },
+              "color_index_field": "order_color_index",
+              "colors": [
+                "#039855",
+                "#d92d20"
+              ],
               "value_field": "sqm_pct_cut"
             },
             {
@@ -771,7 +773,7 @@
       ],
       "tooltip": {
         "sections": [
-            {
+          {
             "field_config": {
               "content": {
                 "ui": {
@@ -883,7 +885,6 @@
       "group_by": "production_line",
       "mode_param": "sitrep_mode",
       "title_field": "production_line",
-      "color_formula": "((current_time >= '0:00' && current_time < '12:00' && {pct} > 70) || (current_time >= '12:00' && current_time < '18:00' && {pct} > 80) || (current_time >= '18:00' && {pct} > 90))",
       "column_max_width": 600,
       "column_min_width": 600
     }

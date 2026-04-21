@@ -4652,6 +4652,12 @@ label[data-rac] > div:has(> svg) svg {
   text-align: right;
 }
 
+.field-tooltip-divider {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 6px 0;
+}
+
 .icon-map-img {
   width: 16px;
   height: 16px;

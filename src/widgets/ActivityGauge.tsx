@@ -12,7 +12,7 @@ import { getLanguage } from 'xfw-get-block';
 import { resolve, evaluateColorFormula } from './resolve';
 import { formatValue, localizeI18n, resolveI18nLabel } from './flow/utils';
 import { Field } from '../controls/Field';
-import { FieldTooltip, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
+import { FieldTooltip, type TooltipConfig, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
 import {
   ColumnGridPagerControls,
   useColumnGridPager,
@@ -42,7 +42,7 @@ export type ActivityGaugeConfig = {
   column_min_width?: string | number;
   column_max_width?: string | number;
   modes: ActivityGaugeMode[];
-  tooltip?: { field_config?: Record<string, TooltipFieldConfigEntry> };
+  tooltip?: TooltipConfig;
 };
 
 type Ring = {
@@ -366,7 +366,6 @@ export function ActivityGauge({
   } = widgetConfig;
 
   const fieldConfig = dataGroup?.field_config as Record<string, FieldConfig> | undefined;
-  const tooltipFc = tooltip?.field_config;
   const lang = getLanguage();
 
   const resolvedLabelField = useMemo(() => {
@@ -469,7 +468,7 @@ export function ActivityGauge({
         x={hover?.x ?? 0}
         y={hover?.y ?? 0}
         fieldConfig={fieldConfig as Record<string, TooltipFieldConfigEntry> | undefined}
-        tooltipConfig={tooltipFc}
+        tooltipConfig={tooltip}
         titleField={title_field}
       />
     </>
