@@ -697,9 +697,9 @@
               "title": "м²"
             }
           },
+          "color_index_field": "sqm_color_index ",
           "series": [
             {
-              "color_index_field": "sqm_color_index ",
               "colors": [
                 "#12b76a",
                 "#f04438"
@@ -707,7 +707,6 @@
               "value_field": "sqm_pct_printed"
             },
             {
-              "color_index_field": "order_color_index",
               "colors": [
                 "#039855",
                 "#d92d20"
@@ -745,6 +744,7 @@
               "title": "Замовлення"
             }
           },
+          "color_index_field": "order_color_index",
           "series": [
             {
               "colors": {

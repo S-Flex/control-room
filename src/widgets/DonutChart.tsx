@@ -224,23 +224,6 @@ export function DonutChart({ widgetConfig, dataGroup, data }: {
 
   const groups = buildGroups(filteredData, widgetConfig);
 
-  const totalSeconds = data.reduce((s, r) => s + Number(resolve(r, widgetConfig.aggregate_field) ?? 0), 0);
-  const filteredSeconds = filteredData.reduce((s, r) => s + Number(resolve(r, widgetConfig.aggregate_field) ?? 0), 0);
-  const groupsSeconds = groups.reduce((s, g) => s + g.value, 0);
-  console.log('[DonutChart] rows', {
-    rowCount: data.length,
-    filteredCount: filteredData.length,
-    totalSeconds,
-    totalHMS: `${Math.floor(totalSeconds / 3600)}:${String(Math.round((totalSeconds % 3600) / 60)).padStart(2, '0')}`,
-    filteredSeconds,
-    groupsSeconds,
-    activeFilters: Array.from(activeFilters),
-    config: widgetConfig,
-    rows: data,
-    filteredRows: filteredData,
-    groups,
-  });
-
   if (groups.length === 0) return null;
 
   const contentField = widgetConfig.content_field;
