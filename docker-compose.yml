@@ -1,6 +1,9 @@
 services:
   react-app:
     image: ghcr.io/s-flex/control-room:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: control-room
     restart: unless-stopped
     environment:

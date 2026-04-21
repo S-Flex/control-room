@@ -1,8 +1,16 @@
 node_modules
-dist
 .git
 .github
 *.md
 .vscode
 .env*
 *.log
+src
+packages
+bun.lock
+package.json
+tsconfig.json
+vite.config.ts
+.npmrc
+Dockerfile
+docker-compose*.yml
