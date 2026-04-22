@@ -5,6 +5,7 @@ import type { FieldConfig, ResolvedField } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
 import { resolve, isFieldVisible } from '../widgets/resolve';
 import { localizeI18n, resolveI18nLabel } from '../widgets/flow/utils';
+import { resolveGroupItems, relativeKey, type FieldGroupConfig } from '../widgets/groupUtils';
 import { Field } from './Field';
 
 export type TooltipFieldConfigEntry = FieldConfig & {
@@ -20,6 +21,9 @@ export type TooltipFieldConfigEntry = FieldConfig & {
 
 export type TooltipSectionConfig = {
   field_config?: Record<string, TooltipFieldConfigEntry>;
+  /** Render an array/record at `group.data_field` as repeated rows using the
+   *  sub-fields defined in `group.field_config`. See `groupUtils.ts`. */
+  group?: FieldGroupConfig<TooltipFieldConfigEntry>;
 };
 
 export type TooltipConfig = {
@@ -35,6 +39,7 @@ type FieldEntry = {
   scale?: number;
   i18n?: Record<string, Record<string, string>>;
   hidden_when?: unknown;
+  class_name?: string;
 };
 
 function resolveControl(fc: TooltipFieldConfigEntry | undefined): string | undefined {
@@ -69,6 +74,7 @@ function buildEntries(
   const entries: FieldEntry[] = [];
   for (const [key, raw] of Object.entries(source)) {
     const merged = mergeEntry(fieldConfig?.[key], raw);
+    const mergedRaw = merged as Record<string, unknown>;
     const ui = (merged.ui ?? {}) as Record<string, unknown>;
     if (ui.hidden) continue;
     entries.push({
@@ -78,6 +84,8 @@ function buildEntries(
       scale: ui.scale as number | undefined,
       i18n: ui.i18n as Record<string, Record<string, string>> | undefined,
       hidden_when: ui.hidden_when,
+      class_name: (mergedRaw.class_name as string | undefined)
+        ?? (ui.class_name as string | undefined),
     });
   }
   entries.sort((a, b) => a.order - b.order);
@@ -193,9 +201,7 @@ export function FieldTooltip({
   }, [x, y, row]);
 
   const sections = useMemo(
-    () => normalizeSections(tooltipConfig, fieldConfig).map(s =>
-      buildEntries(fieldConfig, s.field_config),
-    ),
+    () => normalizeSections(tooltipConfig, fieldConfig),
     [fieldConfig, tooltipConfig],
   );
 
@@ -203,26 +209,62 @@ export function FieldTooltip({
 
   const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
 
-  const renderEntry = (entry: FieldEntry) => {
-    if (!isFieldVisible({ hidden_when: entry.hidden_when }, row)) return null;
-    const value = resolve(row, entry.key) as JSONValue;
+  const buildField = (entry: FieldEntry): ResolvedField & { no_label?: boolean; scale?: number } => ({
+    key: entry.key,
+    control: entry.control,
+    i18n: entry.i18n,
+    no_label: true,
+    scale: entry.scale,
+  } as ResolvedField & { no_label?: boolean; scale?: number });
+
+  const renderEntry = (entry: FieldEntry, source: JSONRecord, keySuffix: string, resolveKey: string) => {
+    if (!isFieldVisible({ hidden_when: entry.hidden_when }, source)) return null;
+    const value = resolve(source, resolveKey) as JSONValue;
     if (value == null) return null;
     const label = resolveI18nLabel(entry.i18n, entry.key);
-    const field: ResolvedField & { no_label?: boolean; scale?: number } = {
-      key: entry.key,
-      control: entry.control,
-      i18n: entry.i18n,
-      no_label: true,
-      scale: entry.scale,
-    } as ResolvedField & { no_label?: boolean; scale?: number };
     return (
-      <div key={entry.key} className="field-tooltip-row">
+      <div key={`${entry.key}-${keySuffix}`} className={`field-tooltip-row${entry.class_name ? ` ${entry.class_name}` : ''}`}>
         <span className="field-tooltip-label">{label}</span>
         <span className="field-tooltip-value">
-          <Field field={field} value={value} row={row} />
+          <Field field={buildField(entry)} value={value} row={source} />
         </span>
       </div>
     );
+  };
+
+  const renderSection = (section: TooltipSectionConfig, sectionIdx: number): ReactNode => {
+    if (section.group) {
+      const { data_field, field_config, class_name: groupClass } = section.group;
+      const items = resolveGroupItems(row, data_field);
+      if (items.length === 0) return null;
+      const subEntries = buildEntries(fieldConfig, field_config);
+      if (subEntries.length === 0) return null;
+      return (
+        <div key={`group-${sectionIdx}`} className={`field-tooltip-group${groupClass ? ` ${groupClass}` : ''}`}>
+          {subEntries.map(entry => (
+            <div
+              key={`h-${entry.key}`}
+              className={`field-tooltip-group-header-cell${entry.class_name ? ` ${entry.class_name}` : ''}`}
+            >
+              {resolveI18nLabel(entry.i18n, entry.key)}
+            </div>
+          ))}
+          {items.flatMap((item, itemIdx) =>
+            subEntries.map(entry => {
+              const resolveKey = relativeKey(data_field, entry.key);
+              const value = resolve(item, resolveKey) as JSONValue;
+              return (
+                <div key={`${itemIdx}-${entry.key}`} className={entry.class_name || undefined}>
+                  {value == null ? '—' : <Field field={buildField(entry)} value={value} row={item} />}
+                </div>
+              );
+            })
+          )}
+        </div>
+      );
+    }
+    const entries = buildEntries(fieldConfig, section.field_config);
+    return entries.map(entry => renderEntry(entry, row, `${sectionIdx}`, entry.key));
   };
 
   const body = (
@@ -232,9 +274,9 @@ export function FieldTooltip({
       style={{ left: pos.left, top: pos.top }}
     >
       {header && <div className="field-tooltip-title">{header}</div>}
-      {sections.flatMap((entries, i) => [
+      {sections.flatMap((section, i) => [
         i > 0 && <hr key={`div-${i}`} className="field-tooltip-divider" />,
-        ...entries.map(renderEntry),
+        renderSection(section, i),
       ])}
     </div>
   );

@@ -4717,6 +4717,12 @@ label[data-rac] > div:has(> svg) svg {
   margin: 6px 0;
 }
 
+.field-tooltip-group-header-cell {
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-size: 11px;
+}
+
 .icon-map-img {
   width: 16px;
   height: 16px;

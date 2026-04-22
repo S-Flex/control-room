@@ -5,15 +5,12 @@ import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { resolve, isFieldVisible } from './resolve';
 import { Content } from './Content';
 import { Field } from '../controls/Field';
+import { resolveGroupItems, relativeKey, type FieldGroupConfig } from './groupUtils';
 import type { FieldNav } from './flow/types';
 
 type StatusBarField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav; hidden_when?: unknown; no_label?: boolean; };
 
-type StatusBarGroup = {
-  data_field: string;
-  field_config?: Record<string, Record<string, unknown>>;
-  class_name?: string;
-};
+type StatusBarGroup = FieldGroupConfig<Record<string, unknown>>;
 
 type StatusBarItem =
   | { kind: 'field'; field: StatusBarField }
@@ -45,10 +42,6 @@ function mergeFieldConfig(base: Record<string, unknown>, override: Record<string
     ...override,
     ui: { ...baseUi, ...overrideUi },
   };
-}
-
-function relativeKey(parent: string, key: string): string {
-  return key.startsWith(`${parent}.`) ? key.slice(parent.length + 1) : key;
 }
 
 function resolveItems(
@@ -150,13 +143,7 @@ export function StatusBar({ widgetConfig, dataGroup, data }: {
         if (item.kind === 'field') {
           return <Fragment key={`${item.field.key}-${i}`}>{renderField(item.field, row, `${item.field.key}-${i}`)}</Fragment>;
         }
-        const raw = resolve(row, item.dataField);
-        const groupItems: JSONRecord[] = Array.isArray(raw)
-          ? (raw.filter(v => v != null && typeof v === 'object' && !Array.isArray(v)) as JSONRecord[])
-          : (raw != null && typeof raw === 'object'
-              ? Object.values(raw as Record<string, JSONValue>)
-                  .filter(v => v != null && typeof v === 'object' && !Array.isArray(v)) as JSONRecord[]
-              : []);
+        const groupItems = resolveGroupItems(row, item.dataField);
         if (groupItems.length === 0) return null;
         return (
           <Fragment key={`${item.field.key}-${i}`}>
