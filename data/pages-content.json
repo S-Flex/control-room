@@ -4,10 +4,21 @@
     "block": {
       "title": "Productivity",
       "i18n": {
-        "en": { "title": "Productivity" },
-        "nl": { "title": "Productiviteit" },
-        "de": { "title": "Produktivität" },
-        "uk": { "title": "Продуктивність" }
+        "en": {
+          "title": "Productivity"
+        },
+        "nl": {
+          "title": "Productiviteit"
+        },
+        "de": {
+          "title": "Produktivität"
+        },
+        "uk": {
+          "title": "Продуктивність"
+        },
+        "es": {
+          "title": "Productividad"
+        }
       }
     }
   },
@@ -16,10 +27,21 @@
     "block": {
       "title": "Production",
       "i18n": {
-        "en": { "title": "Production" },
-        "nl": { "title": "Productie" },
-        "de": { "title": "Produktion" },
-        "uk": { "title": "Виробництво" }
+        "en": {
+          "title": "Production"
+        },
+        "nl": {
+          "title": "Productie"
+        },
+        "de": {
+          "title": "Produktion"
+        },
+        "uk": {
+          "title": "Виробництво"
+        },
+        "es": {
+          "title": "Producción"
+        }
       }
     }
   },
@@ -28,10 +50,21 @@
     "block": {
       "title": "Ink & Heads",
       "i18n": {
-        "en": { "title": "Ink & Heads" },
-        "nl": { "title": "Inkt & Koppen" },
-        "de": { "title": "Tinte & Köpfe" },
-        "uk": { "title": "Чорнила та головки" }
+        "en": {
+          "title": "Ink & Heads"
+        },
+        "nl": {
+          "title": "Inkt & Koppen"
+        },
+        "de": {
+          "title": "Tinte & Köpfe"
+        },
+        "uk": {
+          "title": "Чорнила та головки"
+        },
+        "es": {
+          "title": "Tintas y cabezales"
+        }
       }
     }
   },
@@ -40,10 +73,21 @@
     "block": {
       "title": "Quality management",
       "i18n": {
-        "en": { "title": "Quality management" },
-        "nl": { "title": "Kwaliteitsbeheer" },
-        "de": { "title": "Qualitätsmanagement" },
-        "uk": { "title": "Управління якістю" }
+        "en": {
+          "title": "Quality management"
+        },
+        "nl": {
+          "title": "Kwaliteitsbeheer"
+        },
+        "de": {
+          "title": "Qualitätsmanagement"
+        },
+        "uk": {
+          "title": "Управління якістю"
+        },
+        "es": {
+          "title": "Gestión de calidad"
+        }
       }
     }
   },
@@ -52,10 +96,21 @@
     "block": {
       "title": "Overview",
       "i18n": {
-        "en": { "title": "Overview" },
-        "nl": { "title": "Overzicht" },
-        "de": { "title": "Übersicht" },
-        "uk": { "title": "Огляд" }
+        "en": {
+          "title": "Overview"
+        },
+        "nl": {
+          "title": "Overzicht"
+        },
+        "de": {
+          "title": "Übersicht"
+        },
+        "uk": {
+          "title": "Огляд"
+        },
+        "es": {
+          "title": "Resumen"
+        }
       }
     }
   },
@@ -64,10 +119,21 @@
     "block": {
       "title": "Tooling & wear",
       "i18n": {
-        "en": { "title": "Tooling & wear" },
-        "nl": { "title": "Gereedschap & slijtage" },
-        "de": { "title": "Werkzeug & Verschleiß" },
-        "uk": { "title": "Інструмент та знос" }
+        "en": {
+          "title": "Tooling & wear"
+        },
+        "nl": {
+          "title": "Gereedschap & slijtage"
+        },
+        "de": {
+          "title": "Werkzeug & Verschleiß"
+        },
+        "uk": {
+          "title": "Інструмент та знос"
+        },
+        "es": {
+          "title": "Herramientas y desgaste"
+        }
       }
     }
   },
@@ -76,10 +142,21 @@
     "block": {
       "title": "Consumption & waste",
       "i18n": {
-        "en": { "title": "Consumption & waste" },
-        "nl": { "title": "Verbruik & afval" },
-        "de": { "title": "Verbrauch & Abfall" },
-        "uk": { "title": "Споживання та відходи" }
+        "en": {
+          "title": "Consumption & waste"
+        },
+        "nl": {
+          "title": "Verbruik & afval"
+        },
+        "de": {
+          "title": "Verbrauch & Abfall"
+        },
+        "uk": {
+          "title": "Споживання та відходи"
+        },
+        "es": {
+          "title": "Consumo y desperdicio"
+        }
       }
     }
   },
@@ -88,10 +165,21 @@
     "block": {
       "title": "Material specifications",
       "i18n": {
-        "en": { "title": "Material specifications" },
-        "nl": { "title": "Materiaalspecificaties" },
-        "de": { "title": "Materialspezifikationen" },
-        "uk": { "title": "Специфікації матеріалів" }
+        "en": {
+          "title": "Material specifications"
+        },
+        "nl": {
+          "title": "Materiaalspecificaties"
+        },
+        "de": {
+          "title": "Materialspezifikationen"
+        },
+        "uk": {
+          "title": "Специфікації матеріалів"
+        },
+        "es": {
+          "title": "Especificaciones del material"
+        }
       }
     }
   },
@@ -100,10 +188,21 @@
     "block": {
       "title": "Nesting queue",
       "i18n": {
-        "en": { "title": "Nesting queue" },
-        "nl": { "title": "Nestwachtrij" },
-        "de": { "title": "Nesting-Warteschlange" },
-        "uk": { "title": "Черга нестингу" }
+        "en": {
+          "title": "Nesting queue"
+        },
+        "nl": {
+          "title": "Nestwachtrij"
+        },
+        "de": {
+          "title": "Nesting-Warteschlange"
+        },
+        "uk": {
+          "title": "Черга нестингу"
+        },
+        "es": {
+          "title": "Cola de anidado"
+        }
       }
     }
   },
@@ -112,10 +211,21 @@
     "block": {
       "title": "Overview",
       "i18n": {
-        "en": { "title": "Overview" },
-        "nl": { "title": "Overzicht" },
-        "de": { "title": "Übersicht" },
-        "uk": { "title": "Огляд" }
+        "en": {
+          "title": "Overview"
+        },
+        "nl": {
+          "title": "Overzicht"
+        },
+        "de": {
+          "title": "Übersicht"
+        },
+        "uk": {
+          "title": "Огляд"
+        },
+        "es": {
+          "title": "Resumen"
+        }
       }
     }
   },
@@ -124,10 +234,21 @@
     "block": {
       "title": "Info",
       "i18n": {
-        "en": { "title": "Info" },
-        "nl": { "title": "Info" },
-        "de": { "title": "Info" },
-        "uk": { "title": "Інфо" }
+        "en": {
+          "title": "Info"
+        },
+        "nl": {
+          "title": "Info"
+        },
+        "de": {
+          "title": "Info"
+        },
+        "uk": {
+          "title": "Інфо"
+        },
+        "es": {
+          "title": "Información"
+        }
       }
     }
   },
@@ -136,22 +257,44 @@
     "block": {
       "title": "TCO",
       "i18n": {
-        "en": { "title": "TCO" },
-        "nl": { "title": "TCO" },
-        "de": { "title": "TCO" },
-        "uk": { "title": "TCO" }
+        "en": {
+          "title": "TCO"
+        },
+        "nl": {
+          "title": "TCO"
+        },
+        "de": {
+          "title": "TCO"
+        },
+        "uk": {
+          "title": "TCO"
+        },
+        "es": {
+          "title": "TCO"
+        }
       }
     }
   },
-   {
+  {
     "code": "shift",
     "block": {
       "title": "Shifts",
       "i18n": {
-        "en": { "title": "Shifts" },
-        "nl": { "title": "Shifts" },
-        "de": { "title": "Shifts" },
-        "uk": { "title": "Shifts" }
+        "en": {
+          "title": "Shifts"
+        },
+        "nl": {
+          "title": "Shifts"
+        },
+        "de": {
+          "title": "Shifts"
+        },
+        "uk": {
+          "title": "Shifts"
+        },
+        "es": {
+          "title": "Turnos"
+        }
       }
     }
   },
@@ -160,10 +303,21 @@
     "block": {
       "title": "Order lines",
       "i18n": {
-        "en": { "title": "Order lines" },
-        "nl": { "title": "Orderregels" },
-        "de": { "title": "Auftragszeilen" },
-        "uk": { "title": "Рядки замовлення" }
+        "en": {
+          "title": "Order lines"
+        },
+        "nl": {
+          "title": "Orderregels"
+        },
+        "de": {
+          "title": "Auftragszeilen"
+        },
+        "uk": {
+          "title": "Рядки замовлення"
+        },
+        "es": {
+          "title": "Líneas de pedido"
+        }
       }
     }
   },
@@ -172,10 +326,21 @@
     "block": {
       "title": "Uploader data",
       "i18n": {
-        "en": { "title": "Uploader data" },
-        "nl": { "title": "Uploader data" },
-        "de": { "title": "Uploader-Daten" },
-        "uk": { "title": "Дані завантажувача" }
+        "en": {
+          "title": "Uploader data"
+        },
+        "nl": {
+          "title": "Uploader data"
+        },
+        "de": {
+          "title": "Uploader-Daten"
+        },
+        "uk": {
+          "title": "Дані завантажувача"
+        },
+        "es": {
+          "title": "Datos del cargador"
+        }
       }
     }
   },
@@ -184,10 +349,21 @@
     "block": {
       "title": "Inflow Manual",
       "i18n": {
-        "en": { "title": "Inflow Manual" },
-        "nl": { "title": "Inflow Handmatig" },
-        "de": { "title": "Eingang Manuell" },
-        "uk": { "title": "Вхідний потік ручний" }
+        "en": {
+          "title": "Inflow Manual"
+        },
+        "nl": {
+          "title": "Inflow Handmatig"
+        },
+        "de": {
+          "title": "Eingang Manuell"
+        },
+        "uk": {
+          "title": "Вхідний потік ручний"
+        },
+        "es": {
+          "title": "Entrada manual"
+        }
       }
     }
   },
@@ -196,10 +372,21 @@
     "block": {
       "title": "Inflow Auto",
       "i18n": {
-        "en": { "title": "Inflow Auto" },
-        "nl": { "title": "Inflow Auto" },
-        "de": { "title": "Eingang Auto" },
-        "uk": { "title": "Вхідний потік авто" }
+        "en": {
+          "title": "Inflow Auto"
+        },
+        "nl": {
+          "title": "Inflow Auto"
+        },
+        "de": {
+          "title": "Eingang Auto"
+        },
+        "uk": {
+          "title": "Вхідний потік авто"
+        },
+        "es": {
+          "title": "Entrada automática"
+        }
       }
     }
   }

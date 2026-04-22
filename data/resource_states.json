@@ -15,6 +15,9 @@
             },
             "uk": {
               "title": "Виробництво"
+            },
+            "es": {
+              "title": "Produciendo"
             }
           }
         },
@@ -33,6 +36,9 @@
             },
             "uk": {
               "title": "Налаштування"
+            },
+            "es": {
+              "title": "Configuración"
             }
           }
         },
@@ -47,6 +53,9 @@
         },
         "nl": {
           "title": "Producerend"
+        },
+        "es": {
+          "title": "Produciendo"
         }
       }
     },
@@ -68,6 +77,9 @@
             },
             "uk": {
               "title": "Голодування"
+            },
+            "es": {
+              "title": "Sin material"
             }
           }
         },
@@ -86,6 +98,9 @@
             },
             "uk": {
               "title": "Голодування (Оператор)"
+            },
+            "es": {
+              "title": "Sin material (Operador)"
             }
           }
         },
@@ -104,6 +119,9 @@
             },
             "uk": {
               "title": "Заблоковано"
+            },
+            "es": {
+              "title": "Bloqueado"
             }
           }
         },
@@ -122,6 +140,9 @@
             },
             "uk": {
               "title": "Неактивний"
+            },
+            "es": {
+              "title": "Inactivo"
             }
           }
         },
@@ -136,6 +157,9 @@
         },
         "nl": {
           "title": "Wachtend"
+        },
+        "es": {
+          "title": "En espera"
         }
       }
     },
@@ -157,6 +181,9 @@
             },
             "uk": {
               "title": "Поломка"
+            },
+            "es": {
+              "title": "Avería"
             }
           }
         },
@@ -171,6 +198,9 @@
         },
         "nl": {
           "title": "Storing"
+        },
+        "es": {
+          "title": "Avería"
         }
       }
     },
@@ -192,6 +222,9 @@
             },
             "uk": {
               "title": "Технічне обслуговування"
+            },
+            "es": {
+              "title": "Mantenimiento"
             }
           }
         },
@@ -210,6 +243,9 @@
             },
             "uk": {
               "title": "Технічне обслуговування (Тестовий друк)"
+            },
+            "es": {
+              "title": "Mantenimiento (Impresión de prueba)"
             }
           }
         },
@@ -224,6 +260,9 @@
         },
         "nl": {
           "title": "Onderhoud"
+        },
+        "es": {
+          "title": "Mantenimiento"
         }
       }
     },
@@ -245,6 +284,9 @@
             },
             "uk": {
               "title": "Офлайн"
+            },
+            "es": {
+              "title": "Desconectado"
             }
           }
         },
@@ -263,6 +305,9 @@
             },
             "uk": {
               "title": "Інсталяція"
+            },
+            "es": {
+              "title": "Instalación"
             }
           }
         },
@@ -281,6 +326,9 @@
             },
             "uk": {
               "title": "Відсутні дані"
+            },
+            "es": {
+              "title": "Datos faltantes"
             }
           }
         },
@@ -295,6 +343,9 @@
         },
         "nl": {
           "title": "Offline"
+        },
+        "es": {
+          "title": "Desconectado"
         }
       }
     },

@@ -22,15 +22,12 @@ import {
 type ActivityGaugeSeries = {
   value_field: string;
   domain_max?: number;
-  /** Color source: single string, array indexed by `color_index_field`, or
-   *  object keyed by `String(color_index_field)` (e.g. `{ "true": …, "false": … }`). */
   colors?: string | string[] | Record<string, string>;
 };
 
 type ActivityGaugeMode = {
   i18n?: Record<string, Record<string, string>>;
   gauge_title_field?: string;
-  /** Row field whose value indexes/keys into each series' `colors`. */
   color_index_field?: string;
   series: ActivityGaugeSeries[];
 };
@@ -89,7 +86,7 @@ function resolveColor(
 ): string {
   if (typeof series.colors === 'string') return series.colors;
   if (!series.colors) return fallback;
-  const indexRaw = colorIndexField ? resolve(row, colorIndexField.trim()) : undefined;
+  const indexRaw = colorIndexField ? resolve(row, colorIndexField) : undefined;
   if (indexRaw == null) return fallback;
   if (Array.isArray(series.colors)) {
     const i = Number(indexRaw);
@@ -275,6 +272,7 @@ function Column({
   );
 
   const cells = useMemo(() => {
+    const colorIndexField = mode.color_index_field?.trim();
     const out: { row: JSONRecord; rings: Ring[]; centerTitle: string }[] = [];
     for (const row of rows) {
       const rings: Ring[] = [];
@@ -287,7 +285,7 @@ function Column({
           series: s,
           value,
           domainMax: s.domain_max ?? 100,
-          color: resolveColor(s, row, mode.color_index_field, 'var(--brand)'),
+          color: resolveColor(s, row, colorIndexField, 'var(--brand)'),
           label: seriesLabels[i],
         });
       });

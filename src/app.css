@@ -3354,6 +3354,30 @@ label[data-rac] > div:has(> svg) svg {
   opacity: 0.85;
 }
 
+.timeline-bar-rect-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 4px;
+  color: #111;
+  line-height: 1.1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.timeline-bar-rect-label-name,
+.timeline-bar-rect-label-time {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timeline-bar-rect-label-time {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
 .timeline-bar-tooltip {
   position: fixed;
   z-index: 100;
@@ -3390,6 +3414,7 @@ label[data-rac] > div:has(> svg) svg {
 }
 
 .timeline-bar-groups {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -3485,6 +3510,10 @@ label[data-rac] > div:has(> svg) svg {
   margin-top: 2px;
 }
 
+.timeline-set-row.compact + .timeline-set-row.compact {
+  margin-top: -4px;
+}
+
 .timeline-set-label {
   font-size: 13px;
   font-weight: 500;
@@ -3498,6 +3527,34 @@ label[data-rac] > div:has(> svg) svg {
 .timeline-set-bar {
   min-width: 0;
   width: 100%;
+}
+
+.timeline-set-bar-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+
+.timeline-set-bar-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.timeline-bar-zoom-badge {
+  position: absolute;
+  top: 4px;
+  right: 8px;
+  z-index: 10;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+  transition: opacity 0.2s;
 }
 
 /* ---- Donut Chart Widget ---- */
@@ -4621,8 +4678,10 @@ label[data-rac] > div:has(> svg) svg {
   padding: 8px 10px;
   font-size: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  min-width: 140px;
-  max-width: 280px;
+  min-width: 180px;
+  max-width: max-content;
+  width: max-content;
+  white-space: nowrap;
 }
 
 .field-tooltip-title {
@@ -4656,6 +4715,12 @@ label[data-rac] > div:has(> svg) svg {
   border: 0;
   border-top: 1px solid var(--border);
   margin: 6px 0;
+}
+
+.field-tooltip-group-header-cell {
+  color: var(--text-tertiary);
+  font-weight: 500;
+  font-size: 11px;
 }
 
 .icon-map-img {

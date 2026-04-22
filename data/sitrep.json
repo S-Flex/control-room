@@ -714,10 +714,10 @@
               "value_field": "sqm_pct_cut"
             },
             {
-              "colors": {
-                "true": "#027a48",
-                "false": "#b42318"
-              },
+              "colors": [
+                "#027a48",
+                "#b42318"
+              ],
               "value_field": "sqm_pct_done"
             }
           ],
@@ -747,24 +747,24 @@
           "color_index_field": "order_color_index",
           "series": [
             {
-              "colors": {
-                "true": "#12b76a",
-                "false": "#f04438"
-              },
+              "colors": [
+                "#12b76a",
+                "#f04438"
+              ],
               "value_field": "order_pct_printed"
             },
             {
-              "colors": {
-                "true": "#039855",
-                "false": "#d92d20"
-              },
+              "colors": [
+                "#039855",
+                "#d92d20"
+              ],
               "value_field": "order_pct_cut"
             },
             {
-              "colors": {
-                "true": "#027a48",
-                "false": "#b42318"
-              },
+              "colors": [
+                "#027a48",
+                "#b42318"
+              ],
               "value_field": "order_pct_done"
             }
           ],

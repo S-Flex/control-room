@@ -14,10 +14,21 @@
     "block": {
       "title": "Analytics",
       "i18n": {
-        "en": { "title": "Analytics" },
-        "nl": { "title": "Analyse" },
-        "de": { "title": "Analytik" },
-        "uk": { "title": "Аналітика" }
+        "en": {
+          "title": "Analytics"
+        },
+        "nl": {
+          "title": "Analyse"
+        },
+        "de": {
+          "title": "Analytik"
+        },
+        "uk": {
+          "title": "Аналітика"
+        },
+        "es": {
+          "title": "Analítica"
+        }
       }
     },
     "hidden_when": {
@@ -44,10 +55,21 @@
     "block": {
       "title": "TCO & capacity",
       "i18n": {
-        "en": { "title": "TCO & capacity" },
-        "nl": { "title": "TCO & capaciteit" },
-        "de": { "title": "TCO & Kapazität" },
-        "uk": { "title": "TCO та потужність" }
+        "en": {
+          "title": "TCO & capacity"
+        },
+        "nl": {
+          "title": "TCO & capaciteit"
+        },
+        "de": {
+          "title": "TCO & Kapazität"
+        },
+        "uk": {
+          "title": "TCO та потужність"
+        },
+        "es": {
+          "title": "TCO y capacidad"
+        }
       }
     },
     "hidden_when": {
@@ -85,6 +107,9 @@
         },
         "uk": {
           "title": "Виробництво"
+        },
+        "es": {
+          "title": "Producción"
         }
       }
     },
@@ -123,6 +148,9 @@
         },
         "uk": {
           "title": "Чорнила та головки"
+        },
+        "es": {
+          "title": "Tintas y cabezales"
         }
       }
     },
@@ -151,6 +179,9 @@
         },
         "uk": {
           "title": "Управління якістю"
+        },
+        "es": {
+          "title": "Gestión de calidad"
         }
       }
     },
@@ -185,6 +216,9 @@
         },
         "uk": {
           "title": "Обслуговування та заявки"
+        },
+        "es": {
+          "title": "Mantenimiento y tickets"
         }
       }
     },
@@ -223,6 +257,9 @@
         },
         "uk": {
           "title": "Інструмент та знос"
+        },
+        "es": {
+          "title": "Herramientas y desgaste"
         }
       }
     },
@@ -252,6 +289,9 @@
         },
         "uk": {
           "title": "Черга"
+        },
+        "es": {
+          "title": "Trabajos en cola"
         }
       }
     },
@@ -280,6 +320,9 @@
         },
         "uk": {
           "title": "Споживання та відходи"
+        },
+        "es": {
+          "title": "Consumo y desperdicio"
         }
       }
     },
@@ -308,6 +351,9 @@
         },
         "uk": {
           "title": "Специфікації матеріалів"
+        },
+        "es": {
+          "title": "Especificaciones del material"
         }
       }
     },

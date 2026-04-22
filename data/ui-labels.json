@@ -4,11 +4,24 @@
     "block": {
       "title": "Mode",
       "i18n": {
-        "en": { "title": "Mode" },
-        "nl": { "title": "Modus" },
-        "de": { "title": "Modus" },
-        "fr": { "title": "Mode" },
-        "uk": { "title": "Режим" }
+        "en": {
+          "title": "Mode"
+        },
+        "nl": {
+          "title": "Modus"
+        },
+        "de": {
+          "title": "Modus"
+        },
+        "fr": {
+          "title": "Mode"
+        },
+        "uk": {
+          "title": "Режим"
+        },
+        "es": {
+          "title": "Modo"
+        }
       }
     }
   },
@@ -17,11 +30,24 @@
     "block": {
       "title": "Manual",
       "i18n": {
-        "en": { "title": "Manual" },
-        "nl": { "title": "Handmatig" },
-        "de": { "title": "Manuell" },
-        "fr": { "title": "Manuel" },
-        "uk": { "title": "Ручний" }
+        "en": {
+          "title": "Manual"
+        },
+        "nl": {
+          "title": "Handmatig"
+        },
+        "de": {
+          "title": "Manuell"
+        },
+        "fr": {
+          "title": "Manuel"
+        },
+        "uk": {
+          "title": "Ручний"
+        },
+        "es": {
+          "title": "Manual"
+        }
       }
     }
   },
@@ -30,11 +56,24 @@
     "block": {
       "title": "Auto",
       "i18n": {
-        "en": { "title": "Auto" },
-        "nl": { "title": "Automatisch" },
-        "de": { "title": "Automatisch" },
-        "fr": { "title": "Auto" },
-        "uk": { "title": "Автоматичний" }
+        "en": {
+          "title": "Auto"
+        },
+        "nl": {
+          "title": "Automatisch"
+        },
+        "de": {
+          "title": "Automatisch"
+        },
+        "fr": {
+          "title": "Auto"
+        },
+        "uk": {
+          "title": "Автоматичний"
+        },
+        "es": {
+          "title": "Automático"
+        }
       }
     }
   },
@@ -43,11 +82,24 @@
     "block": {
       "title": "Nester",
       "i18n": {
-        "en": { "title": "Nester" },
-        "nl": { "title": "Nester" },
-        "de": { "title": "Nester" },
-        "fr": { "title": "Nester" },
-        "uk": { "title": "Нестер" }
+        "en": {
+          "title": "Nester"
+        },
+        "nl": {
+          "title": "Nester"
+        },
+        "de": {
+          "title": "Nester"
+        },
+        "fr": {
+          "title": "Nester"
+        },
+        "uk": {
+          "title": "Нестер"
+        },
+        "es": {
+          "title": "Anidador"
+        }
       }
     }
   },
@@ -56,11 +108,24 @@
     "block": {
       "title": "Locations",
       "i18n": {
-        "en": { "title": "Locations" },
-        "nl": { "title": "Locaties" },
-        "de": { "title": "Standorte" },
-        "fr": { "title": "Emplacements" },
-        "uk": { "title": "Локації" }
+        "en": {
+          "title": "Locations"
+        },
+        "nl": {
+          "title": "Locaties"
+        },
+        "de": {
+          "title": "Standorte"
+        },
+        "fr": {
+          "title": "Emplacements"
+        },
+        "uk": {
+          "title": "Локації"
+        },
+        "es": {
+          "title": "Ubicaciones"
+        }
       }
     }
   },
@@ -69,11 +134,24 @@
     "block": {
       "title": "From",
       "i18n": {
-        "en": { "title": "From" },
-        "nl": { "title": "Van" },
-        "de": { "title": "Von" },
-        "fr": { "title": "De" },
-        "uk": { "title": "Від" }
+        "en": {
+          "title": "From"
+        },
+        "nl": {
+          "title": "Van"
+        },
+        "de": {
+          "title": "Von"
+        },
+        "fr": {
+          "title": "De"
+        },
+        "uk": {
+          "title": "Від"
+        },
+        "es": {
+          "title": "Desde"
+        }
       }
     }
   },
@@ -82,11 +160,24 @@
     "block": {
       "title": "Until",
       "i18n": {
-        "en": { "title": "Until" },
-        "nl": { "title": "Tot" },
-        "de": { "title": "Bis" },
-        "fr": { "title": "Jusqu'à" },
-        "uk": { "title": "До" }
+        "en": {
+          "title": "Until"
+        },
+        "nl": {
+          "title": "Tot"
+        },
+        "de": {
+          "title": "Bis"
+        },
+        "fr": {
+          "title": "Jusqu'à"
+        },
+        "uk": {
+          "title": "До"
+        },
+        "es": {
+          "title": "Hasta"
+        }
       }
     }
   },
@@ -95,11 +186,24 @@
     "block": {
       "title": "Capacity",
       "i18n": {
-        "en": { "title": "Capacity" },
-        "nl": { "title": "Capaciteit" },
-        "de": { "title": "Kapazität" },
-        "fr": { "title": "Capacité" },
-        "uk": { "title": "Потужність" }
+        "en": {
+          "title": "Capacity"
+        },
+        "nl": {
+          "title": "Capaciteit"
+        },
+        "de": {
+          "title": "Kapazität"
+        },
+        "fr": {
+          "title": "Capacité"
+        },
+        "uk": {
+          "title": "Потужність"
+        },
+        "es": {
+          "title": "Capacidad"
+        }
       }
     }
   },
@@ -108,11 +212,24 @@
     "block": {
       "title": "Off track",
       "i18n": {
-        "en": { "title": "Off track" },
-        "nl": { "title": "Off track" },
-        "de": { "title": "Off track" },
-        "fr": { "title": "Off track" },
-        "uk": { "title": "Не працює" }
+        "en": {
+          "title": "Off track"
+        },
+        "nl": {
+          "title": "Off track"
+        },
+        "de": {
+          "title": "Off track"
+        },
+        "fr": {
+          "title": "Off track"
+        },
+        "uk": {
+          "title": "Не працює"
+        },
+        "es": {
+          "title": "Fuera de camino"
+        }
       }
     }
   },
@@ -121,11 +238,24 @@
     "block": {
       "title": "Single piece",
       "i18n": {
-        "en": { "title": "Single piece" },
-        "nl": { "title": "Enkelvoudig" },
-        "de": { "title": "Einzelstück" },
-        "fr": { "title": "Pièce unique" },
-        "uk": { "title": "Одинична деталь" }
+        "en": {
+          "title": "Single piece"
+        },
+        "nl": {
+          "title": "Enkelvoudig"
+        },
+        "de": {
+          "title": "Einzelstück"
+        },
+        "fr": {
+          "title": "Pièce unique"
+        },
+        "uk": {
+          "title": "Одинична деталь"
+        },
+        "es": {
+          "title": "Pieza única"
+        }
       }
     }
   },
@@ -134,11 +264,24 @@
     "block": {
       "title": "Multi piece",
       "i18n": {
-        "en": { "title": "Multi piece" },
-        "nl": { "title": "Meervoudig" },
-        "de": { "title": "Mehrfach" },
-        "fr": { "title": "Multi pièces" },
-        "uk": { "title": "Багатодетальний" }
+        "en": {
+          "title": "Multi piece"
+        },
+        "nl": {
+          "title": "Meervoudig"
+        },
+        "de": {
+          "title": "Mehrfach"
+        },
+        "fr": {
+          "title": "Multi pièces"
+        },
+        "uk": {
+          "title": "Багатодетальний"
+        },
+        "es": {
+          "title": "Múltiples piezas"
+        }
       }
     }
   },
@@ -147,11 +290,24 @@
     "block": {
       "title": "Schedule",
       "i18n": {
-        "en": { "title": "Schedule" },
-        "nl": { "title": "Planning" },
-        "de": { "title": "Zeitplan" },
-        "fr": { "title": "Calendrier" },
-        "uk": { "title": "Розклад" }
+        "en": {
+          "title": "Schedule"
+        },
+        "nl": {
+          "title": "Planning"
+        },
+        "de": {
+          "title": "Zeitplan"
+        },
+        "fr": {
+          "title": "Calendrier"
+        },
+        "uk": {
+          "title": "Розклад"
+        },
+        "es": {
+          "title": "Programación"
+        }
       }
     }
   },
@@ -160,11 +316,24 @@
     "block": {
       "title": "Production Schedule",
       "i18n": {
-        "en": { "title": "Production Schedule" },
-        "nl": { "title": "Productieschema" },
-        "de": { "title": "Produktionsplan" },
-        "fr": { "title": "Calendrier de production" },
-        "uk": { "title": "Графік виробництва" }
+        "en": {
+          "title": "Production Schedule"
+        },
+        "nl": {
+          "title": "Productieschema"
+        },
+        "de": {
+          "title": "Produktionsplan"
+        },
+        "fr": {
+          "title": "Calendrier de production"
+        },
+        "uk": {
+          "title": "Графік виробництва"
+        },
+        "es": {
+          "title": "Programación de producción"
+        }
       }
     }
   },
@@ -173,11 +342,24 @@
     "block": {
       "title": "Every day",
       "i18n": {
-        "en": { "title": "Every day" },
-        "nl": { "title": "Elke dag" },
-        "de": { "title": "Jeden Tag" },
-        "fr": { "title": "Chaque jour" },
-        "uk": { "title": "Щодня" }
+        "en": {
+          "title": "Every day"
+        },
+        "nl": {
+          "title": "Elke dag"
+        },
+        "de": {
+          "title": "Jeden Tag"
+        },
+        "fr": {
+          "title": "Chaque jour"
+        },
+        "uk": {
+          "title": "Щодня"
+        },
+        "es": {
+          "title": "Cada día"
+        }
       }
     }
   },
@@ -186,11 +368,24 @@
     "block": {
       "title": "Every {n} days",
       "i18n": {
-        "en": { "title": "Every {n} days" },
-        "nl": { "title": "Elke {n} dagen" },
-        "de": { "title": "Alle {n} Tage" },
-        "fr": { "title": "Tous les {n} jours" },
-        "uk": { "title": "Кожні {n} днів" }
+        "en": {
+          "title": "Every {n} days"
+        },
+        "nl": {
+          "title": "Elke {n} dagen"
+        },
+        "de": {
+          "title": "Alle {n} Tage"
+        },
+        "fr": {
+          "title": "Tous les {n} jours"
+        },
+        "uk": {
+          "title": "Кожні {n} днів"
+        },
+        "es": {
+          "title": "Cada {n} días"
+        }
       }
     }
   },
@@ -199,11 +394,24 @@
     "block": {
       "title": "Now",
       "i18n": {
-        "en": { "title": "Now" },
-        "nl": { "title": "Nu" },
-        "de": { "title": "Jetzt" },
-        "fr": { "title": "Maintenant" },
-        "uk": { "title": "Зараз" }
+        "en": {
+          "title": "Now"
+        },
+        "nl": {
+          "title": "Nu"
+        },
+        "de": {
+          "title": "Jetzt"
+        },
+        "fr": {
+          "title": "Maintenant"
+        },
+        "uk": {
+          "title": "Зараз"
+        },
+        "es": {
+          "title": "Ahora"
+        }
       }
     }
   }

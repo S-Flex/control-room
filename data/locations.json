@@ -19,9 +19,18 @@
       "block": {
         "title": "Dokkum",
         "i18n": {
-          "en": { "title": "Dokkum" },
-          "nl": { "title": "Dokkum" },
-          "de": { "title": "Dokkum" }
+          "en": {
+            "title": "Dokkum"
+          },
+          "nl": {
+            "title": "Dokkum"
+          },
+          "de": {
+            "title": "Dokkum"
+          },
+          "es": {
+            "title": "Dokkum"
+          }
         }
       }
     },
@@ -30,9 +39,18 @@
       "block": {
         "title": "Bad Hersfeld",
         "i18n": {
-          "en": { "title": "Bad Hersfeld" },
-          "nl": { "title": "Bad Hersfeld" },
-          "de": { "title": "Bad Hersfeld" }
+          "en": {
+            "title": "Bad Hersfeld"
+          },
+          "nl": {
+            "title": "Bad Hersfeld"
+          },
+          "de": {
+            "title": "Bad Hersfeld"
+          },
+          "es": {
+            "title": "Bad Hersfeld"
+          }
         }
       }
     },
@@ -41,9 +59,18 @@
       "block": {
         "title": "Malaga",
         "i18n": {
-          "en": { "title": "Malaga" },
-          "nl": { "title": "Malaga" },
-          "de": { "title": "Malaga" }
+          "en": {
+            "title": "Malaga"
+          },
+          "nl": {
+            "title": "Malaga"
+          },
+          "de": {
+            "title": "Malaga"
+          },
+          "es": {
+            "title": "Málaga"
+          }
         }
       }
     }

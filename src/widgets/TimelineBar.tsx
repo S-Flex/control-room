@@ -1,7 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
-import type { JSONRecord } from '@s-flex/xfw-data';
+import type { JSONRecord, JSONValue, ParamDefinition } from '@s-flex/xfw-data';
+import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
+import { useNavigate } from '@s-flex/xfw-url';
 import { resolve } from './resolve';
+import { localizeI18n } from './flow/utils';
+import type { FieldNav } from './flow/types';
+import { FieldTooltip, type TooltipConfig, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
 
 export type TimelineBarConfig = {
   offset_field: string;
@@ -10,8 +15,14 @@ export type TimelineBarConfig = {
   title_field?: string;
   group_field?: string;
   set_field?: string;
+  /** Field path whose value is the set's display title (string or i18n object). */
   set_title?: string;
+  /** Field path whose value is the set's sort order among sibling sets. */
+  set_order?: string;
+  /** Legacy alias for `set_order`. */
   set_order_field?: string;
+  nav?: FieldNav;
+  tooltip?: TooltipConfig;
 };
 
 type Segment = {
@@ -64,8 +75,17 @@ function buildSegments(data: JSONRecord[], config: TimelineBarConfig): Segment[]
   return segments;
 }
 
+function resolveSetTitle(row: JSONRecord, setTitleField: string | undefined, fallback: string): string {
+  if (!setTitleField) return fallback;
+  const val = resolve(row, setTitleField);
+  if (val == null) return fallback;
+  if (typeof val === 'string') return val;
+  return localizeI18n(val) ?? fallback;
+}
+
 function buildGroups(data: JSONRecord[], config: TimelineBarConfig): GroupBlock[] {
-  const { group_field, set_field, title_field, set_title, set_order_field } = config;
+  const { group_field, set_field, title_field, set_title } = config;
+  const setOrderField = config.set_order ?? config.set_order_field;
 
   type GroupAcc = { rows: JSONRecord[]; title: string; };
   const groupMap = new Map<string, GroupAcc>();
@@ -91,8 +111,8 @@ function buildGroups(data: JSONRecord[], config: TimelineBarConfig): GroupBlock[
       for (const row of g.rows) {
         const key = String(resolve(row, set_field) ?? 'unknown');
         if (!setMap.has(key)) {
-          const title = set_title ? String(resolve(row, set_title) ?? key) : key;
-          const order = set_order_field ? Number(resolve(row, set_order_field) ?? 0) : 0;
+          const title = resolveSetTitle(row, set_title, key);
+          const order = setOrderField ? Number(resolve(row, setOrderField) ?? 0) : 0;
           setMap.set(key, { rows: [], title, order });
         }
         setMap.get(key)!.rows.push(row);
@@ -139,24 +159,44 @@ type TimelineSvgOptions = {
   svgWidth: number;
   svgHeight: number;
   fontSize: number;
+  zoom?: number;
   showAxis?: boolean;
   interactive?: boolean;
+  showPlanLabel?: boolean;
   onSegHover?: (seg: Segment, x: number, y: number) => void;
   onSegLeave?: () => void;
+  onSegClick?: (seg: Segment) => void;
 };
+
+function formatSegmentTime(raw: unknown): string {
+  if (raw == null) return '';
+  const d = new Date(raw as string | number);
+  if (isNaN(d.getTime())) return '';
+  return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
 
 function renderTimelineSvg({
   segments, totalSeconds, startHour, barHeight, svgWidth, svgHeight, fontSize,
-  showAxis = true, interactive = false, onSegHover, onSegLeave,
+  zoom,
+  showAxis = true, interactive = false, showPlanLabel = false,
+  onSegHover, onSegLeave, onSegClick,
 }: TimelineSvgOptions) {
   const totalHours = totalSeconds / 3600;
+  const MIN_LABEL_W = 24;
+  const isZoomed = zoom !== undefined;
+  const zoomedWidth = svgWidth * (zoom ?? 100) / 100;
+  // Positions use the (possibly zoomed) coordinate width; absolute pixel
+  // sizes for text/labels stay the same because fontSize is in user units.
+  svgWidth = zoomedWidth;
 
   return (
     <svg
-      width="100%"
-      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+      width={isZoomed ? zoomedWidth : '100%'}
+      height={svgHeight}
+      viewBox={`0 0 ${zoomedWidth} ${svgHeight}`}
       preserveAspectRatio="xMinYMin meet"
       className="timeline-bar-svg"
+      style={isZoomed ? { width: zoomedWidth, height: svgHeight } : undefined}
     >
       {showAxis && Array.from({ length: Math.floor(totalHours) + 1 }, (_, i) => {
         const hourSec = i * 3600;
@@ -174,19 +214,31 @@ function renderTimelineSvg({
       {segments.map((seg, i) => {
         const x = (seg.offset / totalSeconds) * svgWidth;
         const w = Math.max(1, (seg.duration / totalSeconds) * svgWidth);
+        const batchName = showPlanLabel ? String(resolve(seg.row, 'batch_name') ?? '') : '';
+        const startTime = showPlanLabel ? formatSegmentTime(seg.row.start_at) : '';
         return (
-          <rect
-            key={i}
-            x={x}
-            y={0}
-            width={w}
-            height={barHeight}
-            fill={seg.color}
-            onMouseEnter={interactive && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
-            onMouseMove={interactive && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
-            onMouseLeave={interactive && onSegLeave ? onSegLeave : undefined}
-            style={{ cursor: interactive ? 'pointer' : 'default' }}
-          />
+          <g key={i}>
+            <rect
+              x={x}
+              y={0}
+              width={w}
+              height={barHeight}
+              fill={seg.color}
+              onMouseEnter={interactive && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
+              onMouseMove={interactive && onSegHover ? e => onSegHover(seg, e.clientX, e.clientY) : undefined}
+              onMouseLeave={interactive && onSegLeave ? onSegLeave : undefined}
+              onClick={interactive && onSegClick ? e => { e.stopPropagation(); onSegClick(seg); } : undefined}
+              style={{ cursor: interactive && onSegClick ? 'pointer' : 'default' }}
+            />
+            {showPlanLabel && w >= MIN_LABEL_W && (batchName || startTime) && (
+              <foreignObject x={x} y={0} width={w} height={barHeight} style={{ pointerEvents: 'none' }}>
+                <div className="timeline-bar-rect-label" style={{ fontSize: fontSize + 1 }}>
+                  {batchName && <div className="timeline-bar-rect-label-name">{batchName}</div>}
+                  {startTime && <div className="timeline-bar-rect-label-time">{startTime}</div>}
+                </div>
+              </foreignObject>
+            )}
+          </g>
         );
       })}
     </svg>
@@ -235,27 +287,67 @@ function EnlargedGroupOverlay({
   group,
   totalSeconds,
   startHour,
+  zoom,
+  showZoomBadge,
+  fieldConfig,
+  tooltip,
+  nav,
   onClose,
 }: {
   group: GroupBlock;
   totalSeconds: number;
   startHour: number;
+  zoom: number;
+  showZoomBadge: boolean;
+  fieldConfig?: Record<string, TooltipFieldConfigEntry>;
+  tooltip?: TooltipConfig;
+  nav?: FieldNav;
   onClose: () => void;
 }) {
   const [container, setContainer] = useState<Element | null>(null);
   const [hover, setHover] = useState<{ seg: Segment; x: number; y: number; } | null>(null);
+  const scrollRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const syncingRef = useRef(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setContainer(document.querySelector('.planning-viewer'));
   }, []);
 
+  const handleRowScroll = (idx: number) => () => {
+    if (syncingRef.current) return;
+    const src = scrollRefs.current[idx];
+    if (!src) return;
+    syncingRef.current = true;
+    for (let i = 0; i < scrollRefs.current.length; i++) {
+      const el = scrollRefs.current[i];
+      if (el && i !== idx) el.scrollLeft = src.scrollLeft;
+    }
+    // Release the flag in the next frame after all scroll events from the
+    // programmatic updates above have fired.
+    requestAnimationFrame(() => { syncingRef.current = false; });
+  };
+
   if (totalSeconds <= 0 || !container) return null;
   const hasSets = group.sets.length > 1 || !!group.sets[0]?.title;
+
+  const onSelect = nav?.on_select as { path?: string; params?: ParamDefinition[] } | undefined;
+  const handleSegClick = onSelect?.path
+    ? (seg: Segment) => {
+        const queryParams = (onSelect.params ?? [])
+          .filter(p => p.is_query_param)
+          .map(p => ({ key: p.key, val: resolve(seg.row, p.key) as JSONValue }));
+        navigate({ partialPath: onSelect.path, queryParams });
+      }
+    : undefined;
 
   return (
     <>
       {createPortal(
         <div className="timeline-overlay">
+          {showZoomBadge && (
+            <div className="timeline-bar-zoom-badge">{zoom}%</div>
+          )}
           <div className="timeline-overlay-header">
             {group.title && <div className="timeline-overlay-label">{group.title}</div>}
             <button className="timeline-overlay-close" onClick={onClose} title="Close">
@@ -269,14 +361,21 @@ function EnlargedGroupOverlay({
             return (
               <div key={set.key} className="timeline-set-row">
                 {hasSets && <div className="timeline-set-label">{set.title}</div>}
-                <div className="timeline-set-bar">
+                <div
+                  className="timeline-set-bar timeline-set-bar-scroll"
+                  ref={el => { scrollRefs.current[i] = el; }}
+                  onScroll={handleRowScroll(i)}
+                >
                   {renderTimelineSvg({
                     segments: set.segments, totalSeconds, startHour,
                     barHeight: 48, svgWidth: 1200, svgHeight: isLast ? 80 : 56, fontSize: 11,
+                    zoom,
                     showAxis: isLast,
                     interactive: true,
+                    showPlanLabel: set.key === 'plan',
                     onSegHover: (seg, x, y) => setHover({ seg, x, y }),
                     onSegLeave: () => setHover(null),
+                    onSegClick: handleSegClick,
                   })}
                 </div>
               </div>
@@ -285,31 +384,56 @@ function EnlargedGroupOverlay({
         </div>,
         container
       )}
-      {hover && createPortal(
-        <div className="timeline-bar-tooltip" style={{ left: hover.x + 12, top: hover.y - 10 }}>
-          <div className="timeline-bar-tooltip-state" style={{ color: hover.seg.color }}>
-            {String(resolve(hover.seg.row, 'state.block.title') ?? resolve(hover.seg.row, 'state.code') ?? '')}
-          </div>
-          {hover.seg.row.start_at && (
-            <div className="timeline-bar-tooltip-time">
-              {new Date(hover.seg.row.start_at as string).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
-            </div>
-          )}
-          <div className="timeline-bar-tooltip-dur">
-            {Math.round(hover.seg.duration / 60)} min
-          </div>
-          {hover.seg.row.job_name && (
-            <div className="timeline-bar-tooltip-job">{String(hover.seg.row.job_name)}</div>
-          )}
-        </div>,
-        document.body
-      )}
+      <FieldTooltip
+        row={hover?.seg.row ?? null}
+        x={hover?.x ?? 0}
+        y={hover?.y ?? 0}
+        fieldConfig={fieldConfig}
+        tooltipConfig={tooltip}
+      />
     </>
   );
 }
 
-export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarConfig; data: JSONRecord[]; }) {
+const ZOOM_MIN = 100;
+const ZOOM_MAX = 400;
+const ZOOM_STEP = 10;
+
+export function TimelineBar({ widgetConfig, dataGroup, data }: {
+  widgetConfig: TimelineBarConfig;
+  dataGroup?: DataGroup;
+  data: JSONRecord[];
+}) {
   const [enlargedGroup, setEnlargedGroup] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(100);
+  const [zoomBadgeVisible, setZoomBadgeVisible] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const badgeTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const onWheel = (e: WheelEvent) => {
+      if (!e.shiftKey) return;
+      // Chrome remaps shift+wheel vertical → horizontal, so the delta can
+      // land on either axis depending on OS/browser. Use whichever is set.
+      const delta = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      if (delta === 0) return;
+      const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+      const hit = path.some(n => n instanceof Element && !!n.closest?.('.timeline-overlay'));
+      if (!hit) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const dir = delta > 0 ? -1 : 1;
+      setZoom(z => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z + dir * ZOOM_STEP)));
+      setZoomBadgeVisible(true);
+      if (badgeTimerRef.current) window.clearTimeout(badgeTimerRef.current);
+      badgeTimerRef.current = window.setTimeout(() => setZoomBadgeVisible(false), 900);
+    };
+    window.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    return () => {
+      window.removeEventListener('wheel', onWheel, { capture: true } as EventListenerOptions);
+      if (badgeTimerRef.current) window.clearTimeout(badgeTimerRef.current);
+    };
+  }, []);
 
   if (!data || data.length === 0) return null;
 
@@ -327,11 +451,12 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
 
   const groups = buildGroups(data, widgetConfig);
   const totalSeconds = maxSecondsOfGroups(groups);
+  const fieldConfig = dataGroup?.field_config as Record<string, FieldConfig> | undefined;
 
   const enlarged = enlargedGroup != null ? groups.find(g => g.key === enlargedGroup) : null;
 
   return (
-    <div className="timeline-bar-groups">
+    <div ref={wrapperRef} className="timeline-bar-groups">
       {groups.map(g => (
         <GroupTimelineBar
           key={g.key}
@@ -347,6 +472,11 @@ export function TimelineBar({ widgetConfig, data }: { widgetConfig: TimelineBarC
           group={enlarged}
           totalSeconds={totalSeconds}
           startHour={startHour}
+          zoom={zoom}
+          showZoomBadge={zoomBadgeVisible}
+          fieldConfig={fieldConfig as Record<string, TooltipFieldConfigEntry> | undefined}
+          tooltip={widgetConfig.tooltip}
+          nav={widgetConfig.nav}
           onClose={() => setEnlargedGroup(null)}
         />
       )}

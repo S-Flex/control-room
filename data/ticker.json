@@ -5,7 +5,12 @@
       "block": {
         "title": "Sheet: cutoff 21:30 still 3 files in DTP",
         "i18n": {
-          "nl": { "title": "Sheet: cutoff 21:30 nog 3 bestanden in DTP" }
+          "nl": {
+            "title": "Sheet: cutoff 21:30 nog 3 bestanden in DTP"
+          },
+          "es": {
+            "title": "Sheet: cutoff 21:30 nog 3 bestanden in DTP"
+          }
         }
       }
     },
@@ -13,35 +18,70 @@
       "code": "uv-cutoff-2130",
       "block": {
         "title": "UV: cutoff 21:30 still 2 files in DTP",
-        "i18n": { "nl": { "title": "UV: cutoff 21:30 nog 2 bestanden in DTP" } }
+        "i18n": {
+          "nl": {
+            "title": "UV: cutoff 21:30 nog 2 bestanden in DTP"
+          },
+          "es": {
+            "title": "UV: cutoff 21:30 nog 2 bestanden in DTP"
+          }
+        }
       }
     },
     {
       "code": "textile-p5-down",
       "block": {
         "title": "Textile: P5 500 Tex Isub down",
-        "i18n": { "nl": { "title": "Textiel: P5 500 Tex Isub uitgevallen" } }
+        "i18n": {
+          "nl": {
+            "title": "Textiel: P5 500 Tex Isub uitgevallen"
+          },
+          "es": {
+            "title": "Textiel: P5 500 Tex Isub uitgevallen"
+          }
+        }
       }
     },
     {
       "code": "paper-indigo-down",
       "block": {
         "title": "Paper: HP Indigo down",
-        "i18n": { "nl": { "title": "Papier: HP Indigo uitgevallen" } }
+        "i18n": {
+          "nl": {
+            "title": "Papier: HP Indigo uitgevallen"
+          },
+          "es": {
+            "title": "Papier: HP Indigo uitgevallen"
+          }
+        }
       }
     },
     {
       "code": "skyjet-arrived",
       "block": {
         "title": "SkyJet has arrived",
-        "i18n": { "nl": { "title": "SkyJet is aangekomen" } }
+        "i18n": {
+          "nl": {
+            "title": "SkyJet is aangekomen"
+          },
+          "es": {
+            "title": "SkyJet is aangekomen"
+          }
+        }
       }
     },
     {
       "code": "revenue-above-budget",
       "block": {
         "title": "Revenue last week 8% above budget",
-        "i18n": { "nl": { "title": "Omzet vorige week 8% boven budget" } }
+        "i18n": {
+          "nl": {
+            "title": "Omzet vorige week 8% boven budget"
+          },
+          "es": {
+            "title": "Omzet vorige week 8% boven budget"
+          }
+        }
       }
     },
     {
@@ -49,20 +89,39 @@
       "block": {
         "title": "Massive amount polyprop flute produced",
         "i18n": {
-          "nl": { "title": "Enorme hoeveelheid polyprop flute geproduceerd" }
+          "nl": {
+            "title": "Enorme hoeveelheid polyprop flute geproduceerd"
+          },
+          "es": {
+            "title": "Enorme hoeveelheid polyprop flute geproduceerd"
+          }
         }
       }
     }
   ],
   "alert": [
-    { "code": "sheet-cutoff-2130" },
-    { "code": "uv-cutoff-2130" },
-    { "code": "textile-p5-down" },
-    { "code": "paper-indigo-down" }
+    {
+      "code": "sheet-cutoff-2130"
+    },
+    {
+      "code": "uv-cutoff-2130"
+    },
+    {
+      "code": "textile-p5-down"
+    },
+    {
+      "code": "paper-indigo-down"
+    }
   ],
   "highlight": [
-    { "code": "skyjet-arrived" },
-    { "code": "revenue-above-budget" },
-    { "code": "polyprop-volume" }
+    {
+      "code": "skyjet-arrived"
+    },
+    {
+      "code": "revenue-above-budget"
+    },
+    {
+      "code": "polyprop-volume"
+    }
   ]
 }

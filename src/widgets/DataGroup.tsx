@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
 import { type JSONRecord } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';
+import { normalizeDataGroup } from './normalizeDataGroup';
 
 export function DataGroupWidget({ code, title }: { code: string; title?: string; }) {
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(code);
@@ -22,12 +23,17 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     error,
   } = useDataGeneric(dataGroup);
 
+  // Pre-merge every nested `field_config` with root.field_config once, so
+  // downstream widgets (and their tooltip/group sub-configs) inherit
+  // label/i18n/order/control/scale without duplicating merge logic.
+  const normalizedDataGroup = useMemo(() => normalizeDataGroup(dataGroup), [dataGroup]);
+
   if (isLoading) return <p className="datagroup-loading">Loading...</p>;
   if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
   if (!dataRows || dataRows.length === 0) return <p className="datagroup-empty">No data</p>;
 
-  const layout = dataGroup.layout ?? '';
-  const dg = dataGroup as Record<string, unknown>;
+  const layout = normalizedDataGroup.layout ?? '';
+  const dg = normalizedDataGroup as Record<string, unknown>;
   const configKey = layout.replace(/-/g, '_') + '_config';
   const widgetConfig = dg[configKey] as Record<string, unknown> | undefined;
 
@@ -53,7 +59,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
       )}
       {!collapsed && (
         widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
-          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={dataGroup} data={dataRows} dataTable={dataTable} />
+          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={dataRows} dataTable={dataTable} />
         ) : (
           <FallbackDataRows data={dataRows} />
         )
