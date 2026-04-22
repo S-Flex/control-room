@@ -78,6 +78,12 @@
     }
   },
   {
+    "code": "batch",
+    "main": {
+      "sections": [{ "data_group": "batch" }]
+    }
+  },
+  {
     "code": "orderlines",
     "main": {
       "sections": [{ "data_group": "orderline_list" }]
