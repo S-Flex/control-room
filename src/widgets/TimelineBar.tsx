@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { JSONRecord, JSONValue, ParamDefinition } from '@s-flex/xfw-data';
 import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
@@ -159,6 +159,7 @@ type TimelineSvgOptions = {
   svgWidth: number;
   svgHeight: number;
   fontSize: number;
+  zoom?: number;
   showAxis?: boolean;
   interactive?: boolean;
   showPlanLabel?: boolean;
@@ -176,18 +177,26 @@ function formatSegmentTime(raw: unknown): string {
 
 function renderTimelineSvg({
   segments, totalSeconds, startHour, barHeight, svgWidth, svgHeight, fontSize,
+  zoom,
   showAxis = true, interactive = false, showPlanLabel = false,
   onSegHover, onSegLeave, onSegClick,
 }: TimelineSvgOptions) {
   const totalHours = totalSeconds / 3600;
   const MIN_LABEL_W = 24;
+  const isZoomed = zoom !== undefined;
+  const zoomedWidth = svgWidth * (zoom ?? 100) / 100;
+  // Positions use the (possibly zoomed) coordinate width; absolute pixel
+  // sizes for text/labels stay the same because fontSize is in user units.
+  svgWidth = zoomedWidth;
 
   return (
     <svg
-      width="100%"
-      viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+      width={isZoomed ? zoomedWidth : '100%'}
+      height={svgHeight}
+      viewBox={`0 0 ${zoomedWidth} ${svgHeight}`}
       preserveAspectRatio="xMinYMin meet"
       className="timeline-bar-svg"
+      style={isZoomed ? { width: zoomedWidth, height: svgHeight } : undefined}
     >
       {showAxis && Array.from({ length: Math.floor(totalHours) + 1 }, (_, i) => {
         const hourSec = i * 3600;
@@ -278,6 +287,8 @@ function EnlargedGroupOverlay({
   group,
   totalSeconds,
   startHour,
+  zoom,
+  showZoomBadge,
   fieldConfig,
   tooltip,
   nav,
@@ -286,6 +297,8 @@ function EnlargedGroupOverlay({
   group: GroupBlock;
   totalSeconds: number;
   startHour: number;
+  zoom: number;
+  showZoomBadge: boolean;
   fieldConfig?: Record<string, TooltipFieldConfigEntry>;
   tooltip?: TooltipConfig;
   nav?: FieldNav;
@@ -293,11 +306,27 @@ function EnlargedGroupOverlay({
 }) {
   const [container, setContainer] = useState<Element | null>(null);
   const [hover, setHover] = useState<{ seg: Segment; x: number; y: number; } | null>(null);
+  const scrollRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const syncingRef = useRef(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     setContainer(document.querySelector('.planning-viewer'));
   }, []);
+
+  const handleRowScroll = (idx: number) => () => {
+    if (syncingRef.current) return;
+    const src = scrollRefs.current[idx];
+    if (!src) return;
+    syncingRef.current = true;
+    for (let i = 0; i < scrollRefs.current.length; i++) {
+      const el = scrollRefs.current[i];
+      if (el && i !== idx) el.scrollLeft = src.scrollLeft;
+    }
+    // Release the flag in the next frame after all scroll events from the
+    // programmatic updates above have fired.
+    requestAnimationFrame(() => { syncingRef.current = false; });
+  };
 
   if (totalSeconds <= 0 || !container) return null;
   const hasSets = group.sets.length > 1 || !!group.sets[0]?.title;
@@ -316,6 +345,9 @@ function EnlargedGroupOverlay({
     <>
       {createPortal(
         <div className="timeline-overlay">
+          {showZoomBadge && (
+            <div className="timeline-bar-zoom-badge">{zoom}%</div>
+          )}
           <div className="timeline-overlay-header">
             {group.title && <div className="timeline-overlay-label">{group.title}</div>}
             <button className="timeline-overlay-close" onClick={onClose} title="Close">
@@ -329,10 +361,15 @@ function EnlargedGroupOverlay({
             return (
               <div key={set.key} className="timeline-set-row">
                 {hasSets && <div className="timeline-set-label">{set.title}</div>}
-                <div className="timeline-set-bar">
+                <div
+                  className="timeline-set-bar timeline-set-bar-scroll"
+                  ref={el => { scrollRefs.current[i] = el; }}
+                  onScroll={handleRowScroll(i)}
+                >
                   {renderTimelineSvg({
                     segments: set.segments, totalSeconds, startHour,
                     barHeight: 48, svgWidth: 1200, svgHeight: isLast ? 80 : 56, fontSize: 11,
+                    zoom,
                     showAxis: isLast,
                     interactive: true,
                     showPlanLabel: set.key === 'plan',
@@ -358,12 +395,45 @@ function EnlargedGroupOverlay({
   );
 }
 
+const ZOOM_MIN = 100;
+const ZOOM_MAX = 400;
+const ZOOM_STEP = 10;
+
 export function TimelineBar({ widgetConfig, dataGroup, data }: {
   widgetConfig: TimelineBarConfig;
   dataGroup?: DataGroup;
   data: JSONRecord[];
 }) {
   const [enlargedGroup, setEnlargedGroup] = useState<string | null>(null);
+  const [zoom, setZoom] = useState(100);
+  const [zoomBadgeVisible, setZoomBadgeVisible] = useState(false);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  const badgeTimerRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const onWheel = (e: WheelEvent) => {
+      if (!e.shiftKey) return;
+      // Chrome remaps shift+wheel vertical → horizontal, so the delta can
+      // land on either axis depending on OS/browser. Use whichever is set.
+      const delta = e.deltaY !== 0 ? e.deltaY : e.deltaX;
+      if (delta === 0) return;
+      const path = typeof e.composedPath === 'function' ? e.composedPath() : [];
+      const hit = path.some(n => n instanceof Element && !!n.closest?.('.timeline-overlay'));
+      if (!hit) return;
+      e.preventDefault();
+      e.stopPropagation();
+      const dir = delta > 0 ? -1 : 1;
+      setZoom(z => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z + dir * ZOOM_STEP)));
+      setZoomBadgeVisible(true);
+      if (badgeTimerRef.current) window.clearTimeout(badgeTimerRef.current);
+      badgeTimerRef.current = window.setTimeout(() => setZoomBadgeVisible(false), 900);
+    };
+    window.addEventListener('wheel', onWheel, { passive: false, capture: true });
+    return () => {
+      window.removeEventListener('wheel', onWheel, { capture: true } as EventListenerOptions);
+      if (badgeTimerRef.current) window.clearTimeout(badgeTimerRef.current);
+    };
+  }, []);
 
   if (!data || data.length === 0) return null;
 
@@ -386,7 +456,7 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
   const enlarged = enlargedGroup != null ? groups.find(g => g.key === enlargedGroup) : null;
 
   return (
-    <div className="timeline-bar-groups">
+    <div ref={wrapperRef} className="timeline-bar-groups">
       {groups.map(g => (
         <GroupTimelineBar
           key={g.key}
@@ -402,6 +472,8 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
           group={enlarged}
           totalSeconds={totalSeconds}
           startHour={startHour}
+          zoom={zoom}
+          showZoomBadge={zoomBadgeVisible}
           fieldConfig={fieldConfig as Record<string, TooltipFieldConfigEntry> | undefined}
           tooltip={widgetConfig.tooltip}
           nav={widgetConfig.nav}

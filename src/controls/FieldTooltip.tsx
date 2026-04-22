@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from 'react';
 import { createPortal } from 'react-dom';
 import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { FieldConfig, ResolvedField } from '@s-flex/xfw-ui';
@@ -110,6 +110,50 @@ function normalizeSections(
   return [];
 }
 
+// Module-scoped Shift tracking. Listeners install eagerly at module load so
+// state is already being tracked when the first FieldTooltip mounts — we
+// never miss a shift press because the component wasn't there yet.
+// We also sample `shiftKey` from mouse/wheel events so focus quirks that
+// swallow keydown on some OSes can't desync us.
+let _shiftHeld = false;
+const _shiftSubs = new Set<() => void>();
+
+if (typeof window !== 'undefined') {
+  const notify = () => _shiftSubs.forEach(fn => fn());
+  const setHeld = (v: boolean) => {
+    if (_shiftHeld === v) return;
+    _shiftHeld = v;
+    notify();
+  };
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Shift' || e.shiftKey) setHeld(true);
+  }, { capture: true });
+  window.addEventListener('keyup', e => {
+    if (e.key === 'Shift') setHeld(false);
+  }, { capture: true });
+  window.addEventListener('blur', () => setHeld(false));
+  // Defensive sync: any mouse-family or wheel event carries the current
+  // shiftKey flag. This catches the case where the user was already holding
+  // Shift before any keyboard event could reach the window.
+  const syncFromEvent = (e: MouseEvent | WheelEvent) => setHeld(e.shiftKey);
+  window.addEventListener('mousemove', syncFromEvent, { capture: true, passive: true });
+  window.addEventListener('mousedown', syncFromEvent, { capture: true, passive: true });
+  window.addEventListener('wheel', syncFromEvent, { capture: true, passive: true });
+}
+
+function subscribeShift(fn: () => void) {
+  _shiftSubs.add(fn);
+  return () => { _shiftSubs.delete(fn); };
+}
+
+function getShiftSnapshot() {
+  return _shiftHeld;
+}
+
+function useShiftHeld() {
+  return useSyncExternalStore(subscribeShift, getShiftSnapshot, () => false);
+}
+
 export function FieldTooltip({
   row,
   x,
@@ -131,6 +175,7 @@ export function FieldTooltip({
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const [pos, setPos] = useState({ left: x, top: y });
+  const shiftHeld = useShiftHeld();
   const lang = getLanguage();
 
   useLayoutEffect(() => {
@@ -154,7 +199,7 @@ export function FieldTooltip({
     [fieldConfig, tooltipConfig],
   );
 
-  if (!row || typeof document === 'undefined') return null;
+  if (!row || shiftHeld || typeof document === 'undefined') return null;
 
   const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
 
