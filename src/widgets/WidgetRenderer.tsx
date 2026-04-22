@@ -173,7 +173,7 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
   const key = layout.replace(/_/g, '-');
   switch (key) {
     case 'timeline-bar':
-      return <TimelineBar widgetConfig={widgetConfig as unknown as TimelineBarConfig} data={data} />;
+      return <TimelineBar widgetConfig={widgetConfig as unknown as TimelineBarConfig} dataGroup={dataGroup} data={data} />;
     case 'donut-chart':
       return <DonutChart widgetConfig={widgetConfig as unknown as DonutChartConfig} dataGroup={dataGroup} data={data} />;
     case 'activity-gauge':

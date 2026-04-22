@@ -6,8 +6,18 @@
         "title": "Printer operator",
         "text": "Bediening van Durst en Epson printsystemen",
         "i18n": {
-          "nl": { "title": "Printer operator", "text": "Bediening van Durst en Epson printsystemen" },
-          "en": { "title": "Printer operator", "text": "Operation of Durst and Epson print systems" }
+          "nl": {
+            "title": "Printer operator",
+            "text": "Bediening van Durst en Epson printsystemen"
+          },
+          "en": {
+            "title": "Printer operator",
+            "text": "Operation of Durst and Epson print systems"
+          },
+          "es": {
+            "title": "Operador de impresora",
+            "text": "Operación de sistemas de impresión Durst y Epson"
+          }
         }
       }
     },
@@ -17,8 +27,18 @@
         "title": "Cutter operator",
         "text": "Bediening van Zünd snijsystemen",
         "i18n": {
-          "nl": { "title": "Cutter operator", "text": "Bediening van Zünd snijsystemen" },
-          "en": { "title": "Cutter operator", "text": "Operation of Zünd cutting systems" }
+          "nl": {
+            "title": "Cutter operator",
+            "text": "Bediening van Zünd snijsystemen"
+          },
+          "en": {
+            "title": "Cutter operator",
+            "text": "Operation of Zünd cutting systems"
+          },
+          "es": {
+            "title": "Operador de cortadora",
+            "text": "Operación de sistemas de corte Zünd"
+          }
         }
       }
     },
@@ -28,8 +48,18 @@
         "title": "Afwerkmedewerker",
         "text": "Werkzaam in de afwerkzone",
         "i18n": {
-          "nl": { "title": "Afwerkmedewerker", "text": "Werkzaam in de afwerkzone" },
-          "en": { "title": "Finishing operator", "text": "Working in the finishing zone" }
+          "nl": {
+            "title": "Afwerkmedewerker",
+            "text": "Werkzaam in de afwerkzone"
+          },
+          "en": {
+            "title": "Finishing operator",
+            "text": "Working in the finishing zone"
+          },
+          "es": {
+            "title": "Operador de acabado",
+            "text": "Trabajo en la zona de acabado"
+          }
         }
       }
     },
@@ -38,8 +68,15 @@
       "block": {
         "title": "Personeelskosten / uur",
         "i18n": {
-          "nl": { "title": "Personeelskosten / uur" },
-          "en": { "title": "Labour cost / hour" }
+          "nl": {
+            "title": "Personeelskosten / uur"
+          },
+          "en": {
+            "title": "Labour cost / hour"
+          },
+          "es": {
+            "title": "Coste laboral / hora"
+          }
         }
       }
     },
@@ -48,8 +85,15 @@
       "block": {
         "title": "Personeelskosten / m²",
         "i18n": {
-          "nl": { "title": "Personeelskosten / m²" },
-          "en": { "title": "Labour cost / m²" }
+          "nl": {
+            "title": "Personeelskosten / m²"
+          },
+          "en": {
+            "title": "Labour cost / m²"
+          },
+          "es": {
+            "title": "Coste laboral / m²"
+          }
         }
       }
     },
@@ -59,8 +103,18 @@
         "title": "Kosten bij stilstand",
         "text": "Personeelskosten terwijl machine idle, starved of blocked is",
         "i18n": {
-          "nl": { "title": "Kosten bij stilstand", "text": "Personeelskosten terwijl machine idle, starved of blocked is" },
-          "en": { "title": "Idle labour cost", "text": "Labour costs while machine is idle, starved or blocked" }
+          "nl": {
+            "title": "Kosten bij stilstand",
+            "text": "Personeelskosten terwijl machine idle, starved of blocked is"
+          },
+          "en": {
+            "title": "Idle labour cost",
+            "text": "Labour costs while machine is idle, starved or blocked"
+          },
+          "es": {
+            "title": "Coste laboral inactivo",
+            "text": "Costes laborales cuando la máquina está inactiva, sin material o bloqueada"
+          }
         }
       }
     }
@@ -73,8 +127,14 @@
       "isEveningShift": 1
     },
     "shifts": [
-      { "name": "day", "hours": null },
-      { "name": "evening", "hours": null }
+      {
+        "name": "day",
+        "hours": null
+      },
+      {
+        "name": "evening",
+        "hours": null
+      }
     ],
     "roles": [
       {
@@ -82,21 +142,27 @@
         "params": {
           "averageGrossHourlyRateEur": null
         },
-        "formula": ["result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"]
+        "formula": [
+          "result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"
+        ]
       },
       {
         "code": "employee.cutter-operator",
         "params": {
           "averageGrossHourlyRateEur": null
         },
-        "formula": ["result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"]
+        "formula": [
+          "result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"
+        ]
       },
       {
         "code": "employee.finishing-operator",
         "params": {
           "averageGrossHourlyRateEur": null
         },
-        "formula": ["result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"]
+        "formula": [
+          "result=averageGrossHourlyRate*overheadMultiplier*(isEveningShift ? eveningShiftHours : dayShiftHours)"
+        ]
       }
     ]
   }

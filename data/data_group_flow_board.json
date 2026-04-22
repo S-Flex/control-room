@@ -39,6 +39,9 @@
             },
             "nl": {
               "title": "m²"
+            },
+            "es": {
+              "title": "m²"
             }
           },
           "order": 10
@@ -53,6 +56,9 @@
             },
             "nl": {
               "title": "Status"
+            },
+            "es": {
+              "title": "Estado"
             }
           },
           "order": 4,
@@ -67,6 +73,9 @@
             },
             "nl": {
               "title": "Order"
+            },
+            "es": {
+              "title": "Pedido"
             }
           },
           "order": 5
@@ -83,6 +92,9 @@
             },
             "nl": {
               "title": "Volgorde"
+            },
+            "es": {
+              "title": "Secuencia"
             }
           },
           "order": 11,
@@ -102,6 +114,9 @@
             },
             "nl": {
               "title": "Richting"
+            },
+            "es": {
+              "title": "Dirección"
             }
           },
           "order": 2,
@@ -116,6 +131,9 @@
             },
             "nl": {
               "title": "Drempel"
+            },
+            "es": {
+              "title": "Umbral"
             }
           },
           "order": 11
@@ -129,6 +147,9 @@
             },
             "nl": {
               "title": "Materiaal"
+            },
+            "es": {
+              "title": "Material"
             }
           },
           "order": 6
@@ -142,6 +163,9 @@
             },
             "nl": {
               "title": "Locatie"
+            },
+            "es": {
+              "title": "Ubicación"
             }
           },
           "order": 3
@@ -155,6 +179,9 @@
             },
             "nl": {
               "title": "Aantal"
+            },
+            "es": {
+              "title": "Cantidad"
             }
           },
           "order": 8
@@ -168,6 +195,9 @@
             },
             "nl": {
               "title": "Productiedatum"
+            },
+            "es": {
+              "title": "Fecha de producción"
             }
           },
           "order": 1,
@@ -182,6 +212,9 @@
             },
             "nl": {
               "title": "Orderregels"
+            },
+            "es": {
+              "title": "Líneas de pedido"
             }
           },
           "order": 7
@@ -195,6 +228,9 @@
             },
             "nl": {
               "title": "Productie tijd"
+            },
+            "es": {
+              "title": "Horas de producción"
             }
           },
           "order": 10
@@ -208,6 +244,9 @@
             },
             "nl": {
               "title": "Verkoop orderregel"
+            },
+            "es": {
+              "title": "Línea de pedido de venta"
             }
           },
           "order": 29
@@ -221,6 +260,9 @@
             },
             "nl": {
               "title": "Productie locatie"
+            },
+            "es": {
+              "title": "Ubicación de producción"
             }
           },
           "order": 12
@@ -234,6 +276,9 @@
             },
             "nl": {
               "title": "Status"
+            },
+            "es": {
+              "title": "Estado"
             }
           },
           "order": 13,
@@ -248,6 +293,9 @@
             },
             "nl": {
               "title": "Totaal aantal"
+            },
+            "es": {
+              "title": "Cantidad total"
             }
           },
           "order": 9
@@ -289,6 +337,9 @@
                   },
                   "nl": {
                     "title": "m²"
+                  },
+                  "es": {
+                    "title": "m²"
                   }
                 },
                 "order": 4,
@@ -304,6 +355,9 @@
                   },
                   "nl": {
                     "title": "Order"
+                  },
+                  "es": {
+                    "title": "Pedido"
                   }
                 },
                 "order": 0,
@@ -318,6 +372,9 @@
                   },
                   "nl": {
                     "title": "Status"
+                  },
+                  "es": {
+                    "title": "Estado"
                   }
                 },
                 "order": 1,
@@ -340,6 +397,9 @@
                   },
                   "nl": {
                     "title": "Orderregels"
+                  },
+                  "es": {
+                    "title": "Líneas de pedido"
                   }
                 },
                 "order": 3,
@@ -355,6 +415,9 @@
                   },
                   "nl": {
                     "title": "Productie tijd"
+                  },
+                  "es": {
+                    "title": "Horas de producción"
                   }
                 },
                 "order": 2,
@@ -370,6 +433,9 @@
                   },
                   "nl": {
                     "title": "Totaal aantal"
+                  },
+                  "es": {
+                    "title": "Cantidad total"
                   }
                 },
                 "order": 5,
@@ -397,6 +463,9 @@
                 },
                 "nl": {
                   "title": "m²"
+                },
+                "es": {
+                  "title": "m²"
                 }
               },
               "order": 4,
@@ -413,6 +482,9 @@
                 },
                 "nl": {
                   "title": "Orders"
+                },
+                "es": {
+                  "title": "Pedidos"
                 }
               },
               "order": 3,
@@ -429,6 +501,9 @@
                 },
                 "nl": {
                   "title": "Status"
+                },
+                "es": {
+                  "title": "Estado"
                 }
               },
               "order": 1,
@@ -450,6 +525,9 @@
                 },
                 "nl": {
                   "title": "Richting"
+                },
+                "es": {
+                  "title": "Dirección"
                 }
               },
               "order": 2,
@@ -463,7 +541,8 @@
                   "content": {
                     "i18n": {
                       "en": "Single piece",
-                      "nl": "Enkelvoudig"
+                      "nl": "Enkelvoudig",
+                      "es": "Pieza única"
                     },
                     "class_name": "single"
                   }
@@ -473,7 +552,8 @@
                   "content": {
                     "i18n": {
                       "en": "Multi piece",
-                      "nl": "Meervoudig"
+                      "nl": "Meervoudig",
+                      "es": "Múltiples piezas"
                     },
                     "class_name": "batch"
                   }
@@ -492,6 +572,9 @@
                 },
                 "nl": {
                   "title": "Productiedatum"
+                },
+                "es": {
+                  "title": "Fecha de producción"
                 }
               },
               "order": 0,
@@ -507,6 +590,9 @@
                 },
                 "nl": {
                   "title": "Totaal aantal"
+                },
+                "es": {
+                  "title": "Cantidad total"
                 }
               },
               "order": 4,
@@ -525,6 +611,9 @@
             },
             "nl": {
               "title": "DE, < file_in_gangrun"
+            },
+            "es": {
+              "title": "DE, < file_in_gangrun"
             }
           },
           "navs": [
@@ -541,6 +630,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "NL Staging"
+                },
+                "es": {
                   "text": "NL Staging"
                 }
               },
@@ -560,6 +652,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "DE Staging"
+                },
+                "es": {
                   "text": "DE Staging"
                 }
               },
@@ -589,6 +684,9 @@
             },
             "nl": {
               "title": "NL, < file_in_gangrun"
+            },
+            "es": {
+              "title": "NL, < file_in_gangrun"
             }
           },
           "navs": [
@@ -605,6 +703,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "NL Staging"
+                },
+                "es": {
                   "text": "NL Staging"
                 }
               },
@@ -624,6 +725,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "DE Staging"
+                },
+                "es": {
                   "text": "DE Staging"
                 }
               },
@@ -653,6 +757,9 @@
             },
             "nl": {
               "title": "DE, file_in_gangrun"
+            },
+            "es": {
+              "title": "DE, file_in_gangrun"
             }
           },
           "navs": [
@@ -665,6 +772,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "Naar productie"
+                },
+                "es": {
                   "text": "Naar productie"
                 }
               },
@@ -680,6 +790,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "Naar DE"
+                },
+                "es": {
                   "text": "Naar DE"
                 }
               },
@@ -709,6 +822,9 @@
             },
             "nl": {
               "title": "NL, file_in_gangrun"
+            },
+            "es": {
+              "title": "NL, file_in_gangrun"
             }
           },
           "navs": [
@@ -721,6 +837,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "Naar productie"
+                },
+                "es": {
                   "text": "Naar productie"
                 }
               },
@@ -736,6 +855,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "Naar NL"
+                },
+                "es": {
                   "text": "Naar NL"
                 }
               },

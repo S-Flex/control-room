@@ -3354,6 +3354,30 @@ label[data-rac] > div:has(> svg) svg {
   opacity: 0.85;
 }
 
+.timeline-bar-rect-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 0 4px;
+  color: #111;
+  line-height: 1.1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.timeline-bar-rect-label-name,
+.timeline-bar-rect-label-time {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.timeline-bar-rect-label-time {
+  font-size: 0.85em;
+  opacity: 0.8;
+}
+
 .timeline-bar-tooltip {
   position: fixed;
   z-index: 100;
@@ -4621,8 +4645,10 @@ label[data-rac] > div:has(> svg) svg {
   padding: 8px 10px;
   font-size: 12px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  min-width: 140px;
-  max-width: 280px;
+  min-width: 180px;
+  max-width: max-content;
+  width: max-content;
+  white-space: nowrap;
 }
 
 .field-tooltip-title {

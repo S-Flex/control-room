@@ -39,9 +39,12 @@ type FieldEntry = {
 
 function resolveControl(fc: TooltipFieldConfigEntry | undefined): string | undefined {
   if (!fc) return undefined;
-  const top = (fc as Record<string, unknown>).control as string | undefined;
+  const raw = fc as Record<string, unknown>;
   const ui = fc.ui as Record<string, unknown> | undefined;
-  return top ?? (ui?.control as string | undefined) ?? (ui?.type as string | undefined);
+  return (raw.control as string | undefined)
+    ?? (raw.type as string | undefined)
+    ?? (ui?.control as string | undefined)
+    ?? (ui?.type as string | undefined);
 }
 
 function mergeEntry(
@@ -184,12 +187,10 @@ export function FieldTooltip({
       style={{ left: pos.left, top: pos.top }}
     >
       {header && <div className="field-tooltip-title">{header}</div>}
-      {sections.map((entries, i) => (
-        <div key={i} className="field-tooltip-section">
-          {i > 0 && <hr className="field-tooltip-divider" />}
-          {entries.map(renderEntry)}
-        </div>
-      ))}
+      {sections.flatMap((entries, i) => [
+        i > 0 && <hr key={`div-${i}`} className="field-tooltip-divider" />,
+        ...entries.map(renderEntry),
+      ])}
     </div>
   );
 

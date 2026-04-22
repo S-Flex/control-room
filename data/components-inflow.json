@@ -39,6 +39,9 @@
             },
             "nl": {
               "title": "m²"
+            },
+            "es": {
+              "title": "m²"
             }
           },
           "order": 10
@@ -53,6 +56,9 @@
             },
             "nl": {
               "title": "Status"
+            },
+            "es": {
+              "title": "Estado"
             }
           },
           "order": 4,
@@ -67,6 +73,9 @@
             },
             "nl": {
               "title": "Order"
+            },
+            "es": {
+              "title": "Pedido"
             }
           },
           "order": 5
@@ -80,6 +89,9 @@
             },
             "nl": {
               "title": "Richting"
+            },
+            "es": {
+              "title": "Dirección"
             }
           },
           "order": 2,
@@ -94,6 +106,9 @@
             },
             "nl": {
               "title": "Drempel"
+            },
+            "es": {
+              "title": "Umbral"
             }
           },
           "order": 11
@@ -107,6 +122,9 @@
             },
             "nl": {
               "title": "Materiaal"
+            },
+            "es": {
+              "title": "Material"
             }
           },
           "order": 6
@@ -120,6 +138,9 @@
             },
             "nl": {
               "title": "Locatie"
+            },
+            "es": {
+              "title": "Ubicación"
             }
           },
           "order": 3
@@ -133,6 +154,9 @@
             },
             "nl": {
               "title": "Aantal"
+            },
+            "es": {
+              "title": "Cantidad"
             }
           },
           "order": 8
@@ -146,6 +170,9 @@
             },
             "nl": {
               "title": "Productiedatum"
+            },
+            "es": {
+              "title": "Fecha de producción"
             }
           },
           "order": 1,
@@ -160,6 +187,9 @@
             },
             "nl": {
               "title": "Orderregels"
+            },
+            "es": {
+              "title": "Líneas de pedido"
             }
           },
           "order": 7
@@ -173,6 +203,9 @@
             },
             "nl": {
               "title": "Productie tijd"
+            },
+            "es": {
+              "title": "Horas de producción"
             }
           },
           "order": 10
@@ -186,6 +219,9 @@
             },
             "nl": {
               "title": "Totaal aantal"
+            },
+            "es": {
+              "title": "Cantidad total"
             }
           },
           "order": 9
@@ -198,7 +234,10 @@
         "layout": "flow-container",
         "children": {
           "layout": "flow-cards",
-          "group_by": ["order_id", "production_hours"],
+          "group_by": [
+            "order_id",
+            "production_hours"
+          ],
           "field_config": {
             "sqm": {
               "ui": {
@@ -207,6 +246,9 @@
                     "title": "m²"
                   },
                   "nl": {
+                    "title": "m²"
+                  },
+                  "es": {
                     "title": "m²"
                   }
                 },
@@ -223,6 +265,9 @@
                   },
                   "nl": {
                     "title": "Order"
+                  },
+                  "es": {
+                    "title": "Pedido"
                   }
                 },
                 "order": 0,
@@ -238,6 +283,9 @@
                   },
                   "nl": {
                     "title": "Orderregels"
+                  },
+                  "es": {
+                    "title": "Líneas de pedido"
                   }
                 },
                 "order": 2,
@@ -253,6 +301,9 @@
                   },
                   "nl": {
                     "title": "Productie tijd"
+                  },
+                  "es": {
+                    "title": "Horas de producción"
                   }
                 },
                 "order": 1,
@@ -268,6 +319,9 @@
                   },
                   "nl": {
                     "title": "Totaal aantal"
+                  },
+                  "es": {
+                    "title": "Cantidad total"
                   }
                 },
                 "order": 4,
@@ -277,7 +331,10 @@
             }
           }
         },
-        "group_by": ["production_date", "direction"],
+        "group_by": [
+          "production_date",
+          "direction"
+        ],
         "field_config": {
           "sqm": {
             "ui": {
@@ -286,6 +343,9 @@
                   "title": "m²"
                 },
                 "nl": {
+                  "title": "m²"
+                },
+                "es": {
                   "title": "m²"
                 }
               },
@@ -303,6 +363,9 @@
                 },
                 "nl": {
                   "title": "Orders"
+                },
+                "es": {
+                  "title": "Pedidos"
                 }
               },
               "order": 3,
@@ -319,6 +382,9 @@
                 },
                 "nl": {
                   "title": "Richting"
+                },
+                "es": {
+                  "title": "Dirección"
                 }
               },
               "order": 2,
@@ -332,7 +398,8 @@
                   "content": {
                     "i18n": {
                       "en": "Single piece",
-                      "nl": "Enkelvoudig"
+                      "nl": "Enkelvoudig",
+                      "es": "Pieza única"
                     },
                     "class_name": "single"
                   }
@@ -342,7 +409,8 @@
                   "content": {
                     "i18n": {
                       "en": "Multi piece",
-                      "nl": "Meervoudig"
+                      "nl": "Meervoudig",
+                      "es": "Múltiples piezas"
                     },
                     "class_name": "batch"
                   }
@@ -361,6 +429,9 @@
                 },
                 "nl": {
                   "title": "Productiedatum"
+                },
+                "es": {
+                  "title": "Fecha de producción"
                 }
               },
               "order": 0,
@@ -376,6 +447,9 @@
                 },
                 "nl": {
                   "title": "Totaal aantal"
+                },
+                "es": {
+                  "title": "Cantidad total"
                 }
               },
               "order": 4,
@@ -392,6 +466,9 @@
                 },
                 "nl": {
                   "title": "Status"
+                },
+                "es": {
+                  "title": "Estado"
                 }
               },
               "order": 1,
@@ -424,6 +501,9 @@
               "i18n": {
                 "nl": {
                   "text": "NL Staging"
+                },
+                "es": {
+                  "text": "NL Staging"
                 }
               },
               "type": "button",
@@ -442,6 +522,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "DE Staging"
+                },
+                "es": {
                   "text": "DE Staging"
                 }
               },
@@ -480,6 +563,9 @@
               "i18n": {
                 "nl": {
                   "text": "NL Staging"
+                },
+                "es": {
+                  "text": "NL Staging"
                 }
               },
               "type": "button",
@@ -498,6 +584,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "DE Staging"
+                },
+                "es": {
                   "text": "DE Staging"
                 }
               },
@@ -536,6 +625,9 @@
               "i18n": {
                 "nl": {
                   "text": "NL Pending-release"
+                },
+                "es": {
+                  "text": "NL Pending-release"
                 }
               },
               "type": "button",
@@ -555,6 +647,9 @@
               "i18n": {
                 "nl": {
                   "text": "DE Pending-release"
+                },
+                "es": {
+                  "text": "DE Pending-release"
                 }
               },
               "type": "button",
@@ -569,6 +664,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "Pre-nesting"
+                },
+                "es": {
                   "text": "Pre-nesting"
                 }
               },
@@ -619,6 +717,9 @@
               "i18n": {
                 "nl": {
                   "text": "NL Pending-release"
+                },
+                "es": {
+                  "text": "NL Pending-release"
                 }
               },
               "type": "button",
@@ -638,6 +739,9 @@
               "i18n": {
                 "nl": {
                   "text": "DE Pending-release"
+                },
+                "es": {
+                  "text": "DE Pending-release"
                 }
               },
               "type": "button",
@@ -652,6 +756,9 @@
               ],
               "i18n": {
                 "nl": {
+                  "text": "Pre-nesting"
+                },
+                "es": {
                   "text": "Pre-nesting"
                 }
               },
