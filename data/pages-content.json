@@ -1,5 +1,18 @@
 [
   {
+    "code": "batch",
+    "block": {
+      "title": "Batch",
+      "i18n": {
+        "en": { "title": "Batch" },
+        "nl": { "title": "Batch" },
+        "de": { "title": "Batch" },
+        "uk": { "title": "Батч" },
+        "es": { "title": "Lote" }
+      }
+    }
+  },
+  {
     "code": "oee",
     "block": {
       "title": "Productivity",

@@ -7,18 +7,14 @@ import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
 import { ColumnGridPagerControls, useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
 
-function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
-  return primaryKeys.map(k => String(row[k] ?? '')).join('||');
-}
-
 function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: ColumnGridPager; }) {
   const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
   const { allChecked, someChecked } = useGroupCheck(g.rows);
-  const { primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
+  const { selectedGroupKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
 
   const showCheckbox = g.checkable !== false;
   const showColexp = g.colexp === true;
-  const isSelected = g.selectable && selectedKey != null && g.rows.some(r => buildRowKey(r, primaryKeys) === selectedKey);
+  const isSelected = !!g.selectable && g.key === selectedGroupKey;
 
   const handleNavClick = (nav: FlowNavItem) => {
     if (!nav.data || nav.data.length === 0) return;
@@ -27,10 +23,23 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
 
   const hasChecked = g.rows.some(r => r.checked);
 
+  const handleSelect = g.selectable ? (e: React.MouseEvent) => {
+    // Stop propagation so clicks on a deeper selectable group don't also
+    // fire the ancestor's select handler — deepest level wins.
+    e.stopPropagation();
+    selectItem(g.rows[0], g.key, g.on_select);
+  } : undefined;
+
+  const handleColexp = (e: React.MouseEvent) => {
+    // Toggling collapse must never double as a selection change.
+    e.stopPropagation();
+    setCollapsed(c => !c);
+  };
+
   return (
     <div
       className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
-      onClick={g.selectable ? () => selectItem(g.rows[0], g.on_select) : undefined}
+      onClick={handleSelect}
     >
       <div className={`${isGrid ? 'column-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
         {(showCheckbox || showColexp) && (
@@ -43,7 +52,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
               />
             )}
             {showColexp && (
-              <button className="flow-collapse-btn" onClick={() => setCollapsed(c => !c)}>
+              <button className="flow-collapse-btn" onClick={handleColexp}>
                 <svg className={`flow-collapse-icon${isCollapsed ? ' collapsed' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
                   <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>

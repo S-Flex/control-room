@@ -94,9 +94,12 @@ export type FlowLayoutProps = {
 export type FlowContextValue = {
   primaryKeys: string[];
   selectedKey: string | null;
+  /** Key of the currently-selected flow group — single source of truth so
+   *  ancestors/siblings don't light up when a deeper level is picked. */
+  selectedGroupKey: string | null;
   toggleChecked: (row: Record<string, JSONValue>) => void;
   toggleCheckedAll: (rows: Record<string, JSONValue>[]) => void;
   clearChecked: () => void;
   mergeData: (rows: Record<string, JSONValue>[], data: FlowNavData[]) => void;
-  selectItem: (row: Record<string, JSONValue>, onSelect?: Record<string, unknown>) => void;
+  selectItem: (row: Record<string, JSONValue>, groupKey: string, onSelect?: Record<string, unknown>) => void;
 };

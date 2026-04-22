@@ -43,6 +43,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
 
   const [rows, setRows] = useState<JSONRecord[]>(() => data.map(r => ({ ...r, checked: false })));
   const [selectedKey, setSelectedKey] = useState<string | null>(() => readSelectedFromUrl(primaryKeys));
+  const [selectedGroupKey, setSelectedGroupKey] = useState<string | null>(null);
 
   useEffect(() => {
     setRows(data.map(r => ({ ...r, checked: false })));
@@ -54,6 +55,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     const exists = rows.some(r => buildRowKey(r, primaryKeys) === selectedKey);
     if (!exists) {
       setSelectedKey(null);
+      setSelectedGroupKey(null);
       navigate({ queryParams: primaryKeys.map(k => ({ key: k, val: null })) });
     }
   }, [rows, selectedKey, primaryKeys, navigate]);
@@ -91,10 +93,13 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
 
   const navAction = useNavItemAction(undefined, undefined, { extraParamKeys: primaryKeys });
 
-  const selectItem = useCallback((row: Record<string, unknown>, onSelect?: Record<string, unknown>) => {
+  const selectItem = useCallback((row: Record<string, unknown>, groupKey: string, onSelect?: Record<string, unknown>) => {
     const key = buildRowKey(row, primaryKeys);
-    const newKey = key === selectedKey ? null : key;
+    const sameGroup = groupKey === selectedGroupKey && key === selectedKey;
+    const newKey = sameGroup ? null : key;
+    const newGroupKey = sameGroup ? null : groupKey;
     setSelectedKey(newKey);
+    setSelectedGroupKey(newGroupKey);
 
     if (onSelect && newKey) {
       navAction(row as JSONRecord, onSelect as NavItem, true);
@@ -102,17 +107,18 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       const keyValues = primaryKeys.map(k => ({ key: k, val: (newKey ? row[k] : null) as JSONValue }));
       navigate({ queryParams: keyValues });
     }
-  }, [primaryKeys, selectedKey, navAction, navigate]);
+  }, [primaryKeys, selectedKey, selectedGroupKey, navAction, navigate]);
 
   const ctx: FlowContextValue = useMemo(() => ({
     primaryKeys,
     selectedKey,
+    selectedGroupKey,
     toggleChecked,
     toggleCheckedAll,
     clearChecked,
     mergeData,
     selectItem,
-  }), [primaryKeys, selectedKey, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem]);
+  }), [primaryKeys, selectedKey, selectedGroupKey, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem]);
 
   if (!flowBoardConfig) {
     return <p className="datagroup-error">Missing flow_board_config</p>;
