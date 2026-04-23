@@ -733,12 +733,40 @@ export function ProductionLinesPage() {
     pickTooltip('widget_config', 'three_d_config', 'tooltip') ??
     pickTooltip('widget_config', 'tooltip') ??
     pickTooltip('tooltip');
-  const tooltipFieldConfig = (dgRecord?.field_config ?? (dgRecord?.widget_config as Record<string, unknown> | undefined)?.field_config) as Record<string, TooltipFieldConfigEntry> | undefined;
+  // Build the field_config the tooltip will see by combining:
+  //   1. dataTable.schema  (PgField — supplies scale, control, schema-level ui.i18n)
+  //   2. dataGroup.field_config (and widget_config.field_config) — UI overrides
+  // FieldTooltip then merges this over the section-level field_config in tooltipConfig.
+  const tooltipFieldConfig = useMemo(() => {
+    const result: Record<string, TooltipFieldConfigEntry> = {};
+    const schema = (overviewDataTable?.schema ?? {}) as Record<string, { scale?: number; ui?: Record<string, unknown>; pg_type?: string }>;
+    const dgFc = (
+      (dgRecord?.field_config as Record<string, TooltipFieldConfigEntry> | undefined) ??
+      ((dgRecord?.widget_config as Record<string, unknown> | undefined)?.field_config as Record<string, TooltipFieldConfigEntry> | undefined) ??
+      {}
+    );
+    const allKeys = new Set<string>([...Object.keys(schema), ...Object.keys(dgFc)]);
+    for (const key of allKeys) {
+      const pg = schema[key];
+      const dg = dgFc[key];
+      const pgUi = (pg?.ui ?? {}) as Record<string, unknown>;
+      const dgUi = ((dg as Record<string, unknown> | undefined)?.ui ?? {}) as Record<string, unknown>;
+      // Promote PgField.scale → ui.scale so display rounding picks it up by default.
+      // dataGroup.field_config.ui.scale (if set) wins via the spread order.
+      const mergedUi: Record<string, unknown> = {
+        ...(pg?.scale != null ? { scale: pg.scale } : {}),
+        ...pgUi,
+        ...dgUi,
+      };
+      result[key] = { ...(dg ?? {}), ui: mergedUi as TooltipFieldConfigEntry['ui'] } as TooltipFieldConfigEntry;
+    }
+    return result;
+  }, [overviewDataTable, dgRecord]);
   // One-shot debug so we can confirm where the backend exposes the tooltip config
   useEffect(() => {
     if (!dgRecord) return;
-    console.log('[CapacityTooltip] dataGroup keys:', Object.keys(dgRecord), 'tooltipConfig found:', !!tooltipConfig, tooltipConfig);
-  }, [dgRecord, tooltipConfig]);
+    console.log('[CapacityTooltip] dataGroup keys:', Object.keys(dgRecord), 'tooltipConfig found:', !!tooltipConfig, 'merged fieldConfig sample:', tooltipFieldConfig);
+  }, [dgRecord, tooltipConfig, tooltipFieldConfig]);
   const renderLabel = useCallback((data: Record<string, unknown>) => (
     <CapacityTooltip
       objectData={data}
