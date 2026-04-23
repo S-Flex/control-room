@@ -28,7 +28,16 @@
   --color-outline-focus-ring: var(--brand);
 
   /* Utility brand */
+  --color-utility-brand-50:  var(--brand);
+  --color-utility-brand-100: var(--brand);
+  --color-utility-brand-200: var(--brand);
+  --color-utility-brand-300: var(--brand);
+  --color-utility-brand-400: var(--brand);
+  --color-utility-brand-500: var(--brand);
   --color-utility-brand-600: var(--brand);
+  --color-utility-brand-700: var(--brand);
+  --color-utility-brand-800: var(--brand);
+  --color-utility-brand-900: var(--brand);
 
   /* Status */
   --color-status-green: var(--highlight-green);
