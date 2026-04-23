@@ -10,6 +10,8 @@ import { Toggle } from './controls/Toggle';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
+import { CapacityTooltip } from './widgets/CapacityTooltip';
+import type { TooltipConfig, TooltipFieldConfigEntry } from './controls/FieldTooltip';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
@@ -244,8 +246,10 @@ function computeResourceShiftStats(resource: Resource, minutesFromMidnight: numb
 /* ---- Main page ---- */
 export function ProductionLinesPage() {
   const navigate = useNavigate();
-  const [, forceRender] = useState(0);
-  const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
+  const [lang, setLang] = useState(() => getLanguage());
+  const handleLanguageChange = useCallback((newLang?: string) => {
+    setLang(newLang ?? getLanguage());
+  }, []);
   const { config: pageConfig, content: pageContent } = usePage('production-lines');
 
   // Read query params from URL
@@ -254,11 +258,15 @@ export function ProductionLinesPage() {
     { key: 'from', is_query_param: true },
     { key: 'until', is_query_param: true },
     { key: 'resource_uids', is_query_param: true },
+    { key: 'capacity', is_query_param: true },
+    { key: 'lang', is_query_param: true },
   ]);
   const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
   const urlFrom = urlParams.find(p => p.key === 'from')?.val as string | undefined;
   const urlUntil = urlParams.find(p => p.key === 'until')?.val as string | undefined;
   const urlResourceUids = urlParams.find(p => p.key === 'resource_uids')?.val as string[] | null;
+  const urlCapacity = urlParams.find(p => p.key === 'capacity')?.val as string | undefined;
+  const urlLang = urlParams.find(p => p.key === 'lang')?.val as string | undefined;
 
   // Build a 06:00 ISO string for a given YYYY-MM-DD date, preserving the local tz offset.
   const buildFromIso = useCallback((date: string) => {
@@ -411,7 +419,7 @@ export function ProductionLinesPage() {
   }, [autoRefresh, buildFromIso, buildUntilFromSlot]);
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
-  const { rowMap: overviewMap } = useProductionLineOverview();
+  const { rowMap: overviewMap, dataGroup: overviewDataGroup, dataTable: overviewDataTable } = useProductionLineOverview();
   const [activeLineId, setActiveLineId] = useState<string>(() => {
     const params = new URLSearchParams(window.location.search);
     return params.get('model') || 'sheet';
@@ -480,18 +488,34 @@ export function ProductionLinesPage() {
   }, []);
 
   const hadActiveRef = useRef(false);
-  const [showCapacity, setShowCapacity] = useState(false);
+  const [showCapacity, setShowCapacity] = useState(() => urlCapacity === 'true');
   const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d');
 
-  // Sync model, from, until to URL
+  // Apply ?lang=… on mount and whenever the URL value changes externally.
+  useEffect(() => {
+    if (urlLang && urlLang !== getLanguage()) {
+      setLanguage(urlLang);
+      setLang(urlLang);
+    }
+  }, [urlLang]);
+
+  // React to capacity query param changes
+  useEffect(() => {
+    const v = urlCapacity === 'true';
+    if (v !== showCapacity) setShowCapacity(v);
+  }, [urlCapacity]);
+
+  // Sync model, from, until, capacity, lang to URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     params.set('model', activeLineId);
     params.set('from', from);
     params.set('until', until);
+    if (showCapacity) params.set('capacity', 'true'); else params.delete('capacity');
+    params.set('lang', lang);
     const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
     window.history.replaceState(null, '', newUrl);
-  }, [activeLineId, from, until]);
+  }, [activeLineId, from, until, showCapacity, lang]);
 
   // React to model query param changes
   useEffect(() => {
@@ -688,30 +712,42 @@ export function ProductionLinesPage() {
     );
   }, []);
 
-  // Render capacity label on each equipment object in 3D scene
-  const renderLabel = useCallback((data: Record<string, unknown>) => {
-    if (!showCapacity) return null;
-    if (data.type === 'stock' || data.type === 'queue') return null;
-    const shifts = data._shifts as { name: string; oee: number; capacity: number; planned: number; available: number; }[] | undefined;
-    if (!shifts) return null;
-    return (
-      <div className="planning-3d-label">
-        {shifts.map((s, i) => {
-          const oeeColor = s.oee >= 75 ? '#079455' : s.oee >= 50 ? '#eab308' : '#d92d20';
-          return (
-            <div key={s.name}>
-              {i > 0 && <div className="planning-3d-label-hdivider" />}
-              <div className="planning-3d-label-shift">{s.name}</div>
-              <div className="planning-3d-label-oee" style={{ color: oeeColor }}>OEE {s.oee}%</div>
-              <div className="planning-3d-label-cap">Capacity {s.capacity} m²</div>
-              <div className="planning-3d-label-cap">Planned {s.planned} m²</div>
-              <div className="planning-3d-label-avail">Available {s.available} m²</div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  }, [showCapacity]);
+  // Render capacity tooltip on each equipment object in 3D scene.
+  // Sourced from production_line_overview. The tooltip config may be authored
+  // under several paths depending on backend version, so we probe each.
+  const dgRecord = overviewDataGroup as unknown as Record<string, unknown> | undefined;
+  const pickTooltip = (...path: string[]): TooltipConfig | undefined => {
+    let cur: unknown = dgRecord;
+    for (const p of path) {
+      if (!cur || typeof cur !== 'object') return undefined;
+      cur = (cur as Record<string, unknown>)[p];
+    }
+    if (cur && typeof cur === 'object') {
+      const c = cur as Record<string, unknown>;
+      if (c.field_config || c.sections || c.hidden_when) return c as TooltipConfig;
+    }
+    return undefined;
+  };
+  const tooltipConfig =
+    pickTooltip('three_d_config', 'tooltip') ??
+    pickTooltip('widget_config', 'three_d_config', 'tooltip') ??
+    pickTooltip('widget_config', 'tooltip') ??
+    pickTooltip('tooltip');
+  const tooltipFieldConfig = (dgRecord?.field_config ?? (dgRecord?.widget_config as Record<string, unknown> | undefined)?.field_config) as Record<string, TooltipFieldConfigEntry> | undefined;
+  // One-shot debug so we can confirm where the backend exposes the tooltip config
+  useEffect(() => {
+    if (!dgRecord) return;
+    console.log('[CapacityTooltip] dataGroup keys:', Object.keys(dgRecord), 'tooltipConfig found:', !!tooltipConfig, tooltipConfig);
+  }, [dgRecord, tooltipConfig]);
+  const renderLabel = useCallback((data: Record<string, unknown>) => (
+    <CapacityTooltip
+      objectData={data}
+      show={showCapacity}
+      overviewMap={overviewMap}
+      tooltipConfig={tooltipConfig}
+      fieldConfig={tooltipFieldConfig}
+    />
+  ), [showCapacity, tooltipConfig, tooltipFieldConfig, overviewMap]);
 
   const offTrackCount = useMemo(() => lineResources.filter(r => {
     const s = overviewMap.get(r.layout_name)?.state.code ?? 'offline';

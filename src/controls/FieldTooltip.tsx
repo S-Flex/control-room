@@ -30,6 +30,8 @@ export type TooltipConfig = {
   sections?: TooltipSectionConfig[];
   /** Legacy flat shape — equivalent to `{ sections: [{ field_config }] }`. */
   field_config?: Record<string, TooltipFieldConfigEntry>;
+  /** Row-level predicate. When it matches, the entire tooltip is suppressed. */
+  hidden_when?: unknown;
 };
 
 type FieldEntry = {
@@ -81,7 +83,9 @@ function buildEntries(
       key,
       order: (ui.order as number | undefined) ?? 999,
       control: resolveControl(merged),
-      scale: ui.scale as number | undefined,
+      // `scale` may live under ui.scale (FieldConfig override) or at the entry/PgField
+      // top level (schema-derived). Accept either so PgField.scale flows through.
+      scale: (ui.scale as number | undefined) ?? (mergedRaw.scale as number | undefined),
       i18n: ui.i18n as Record<string, Record<string, string>> | undefined,
       hidden_when: ui.hidden_when,
       class_name: (mergedRaw.class_name as string | undefined)
@@ -171,41 +175,53 @@ export function FieldTooltip({
   title,
   titleField,
   className,
+  inline,
 }: {
   row: JSONRecord | null;
-  x: number;
-  y: number;
+  /** Required for the default portal-positioned tooltip. Ignored when `inline` is true. */
+  x?: number;
+  y?: number;
   fieldConfig?: Record<string, TooltipFieldConfigEntry>;
   tooltipConfig?: TooltipConfig;
   title?: ReactNode;
   titleField?: string;
   className?: string;
+  /** When true: render inline (no portal, no absolute positioning, no shift-to-hide).
+   *  Lets callers anchor the tooltip themselves — e.g. inside drei's <Html> for a 3D scene. */
+  inline?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [pos, setPos] = useState({ left: x, top: y });
+  const [pos, setPos] = useState({ left: x ?? 0, top: y ?? 0 });
   const shiftHeld = useShiftHeld();
   const lang = getLanguage();
 
   useLayoutEffect(() => {
+    if (inline) return;
     const el = ref.current;
     if (!el) return;
     const rect = el.getBoundingClientRect();
     const vw = window.innerWidth;
     const vh = window.innerHeight;
-    let left = x + 12;
-    let top = y - 10;
-    if (left + rect.width > vw - 8) left = Math.max(8, x - rect.width - 12);
+    let left = (x ?? 0) + 12;
+    let top = (y ?? 0) - 10;
+    if (left + rect.width > vw - 8) left = Math.max(8, (x ?? 0) - rect.width - 12);
     if (top + rect.height > vh - 8) top = Math.max(8, vh - rect.height - 8);
     if (top < 8) top = 8;
     setPos({ left, top });
-  }, [x, y, row]);
+  }, [x, y, row, inline]);
 
   const sections = useMemo(
     () => normalizeSections(tooltipConfig, fieldConfig),
     [fieldConfig, tooltipConfig],
   );
 
-  if (!row || shiftHeld || typeof document === 'undefined') return null;
+  if (!row) return null;
+  if (!inline && (shiftHeld || typeof document === 'undefined')) return null;
+
+  // Top-level hidden_when: suppress the entire tooltip when the predicate matches.
+  if (tooltipConfig?.hidden_when && !isFieldVisible({ hidden_when: tooltipConfig.hidden_when }, row)) {
+    return null;
+  }
 
   const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
 
@@ -217,6 +233,22 @@ export function FieldTooltip({
     scale: entry.scale,
   } as ResolvedField & { no_label?: boolean; scale?: number });
 
+  const renderValue = (entry: FieldEntry, value: JSONValue, source: JSONRecord) => {
+    // Inline tooltips can be rendered inside contexts that don't have the
+    // NavigationProvider (e.g. drei's <Html> inside an r3f Canvas). The Field
+    // component calls useNavItemAction unconditionally and would crash there,
+    // so render a simple text cell in inline mode.
+    if (inline) {
+      if (value == null) return null;
+      if (entry.scale != null) {
+        const n = typeof value === 'number' ? value : Number(value);
+        if (!Number.isNaN(n)) return <>{n.toFixed(entry.scale)}</>;
+      }
+      return <>{String(value)}</>;
+    }
+    return <Field field={buildField(entry)} value={value} row={source} />;
+  };
+
   const renderEntry = (entry: FieldEntry, source: JSONRecord, keySuffix: string, resolveKey: string) => {
     if (!isFieldVisible({ hidden_when: entry.hidden_when }, source)) return null;
     const value = resolve(source, resolveKey) as JSONValue;
@@ -225,9 +257,7 @@ export function FieldTooltip({
     return (
       <div key={`${entry.key}-${keySuffix}`} className={`field-tooltip-row${entry.class_name ? ` ${entry.class_name}` : ''}`}>
         <span className="field-tooltip-label">{label}</span>
-        <span className="field-tooltip-value">
-          <Field field={buildField(entry)} value={value} row={source} />
-        </span>
+        <span className="field-tooltip-value">{renderValue(entry, value, source)}</span>
       </div>
     );
   };
@@ -240,7 +270,11 @@ export function FieldTooltip({
       const subEntries = buildEntries(fieldConfig, field_config);
       if (subEntries.length === 0) return null;
       return (
-        <div key={`group-${sectionIdx}`} className={`field-tooltip-group${groupClass ? ` ${groupClass}` : ''}`}>
+        <div
+          key={`group-${sectionIdx}`}
+          className={`field-tooltip-group${groupClass ? ` ${groupClass}` : ''}`}
+          style={{ ['--field-tooltip-group-cols' as string]: subEntries.length }}
+        >
           {subEntries.map(entry => (
             <div
               key={`h-${entry.key}`}
@@ -255,7 +289,7 @@ export function FieldTooltip({
               const value = resolve(item, resolveKey) as JSONValue;
               return (
                 <div key={`${itemIdx}-${entry.key}`} className={entry.class_name || undefined}>
-                  {value == null ? '—' : <Field field={buildField(entry)} value={value} row={item} />}
+                  {value == null ? '—' : renderValue(entry, value, item)}
                 </div>
               );
             })
@@ -267,19 +301,31 @@ export function FieldTooltip({
     return entries.map(entry => renderEntry(entry, row, `${sectionIdx}`, entry.key));
   };
 
+  // Render each section eagerly so we can detect "no content" and skip rendering.
+  const renderedSections: ReactNode[] = [];
+  for (let i = 0; i < sections.length; i++) {
+    const node = renderSection(sections[i], i);
+    if (node == null) continue;
+    if (Array.isArray(node) && node.every(n => n == null || n === false)) continue;
+    renderedSections.push(node);
+  }
+
+  if (!header && renderedSections.length === 0) return null;
+
   const body = (
     <div
       ref={ref}
-      className={`field-tooltip${className ? ` ${className}` : ''}`}
-      style={{ left: pos.left, top: pos.top }}
+      className={`field-tooltip${inline ? ' field-tooltip-inline' : ''}${className ? ` ${className}` : ''}`}
+      style={inline ? undefined : { left: pos.left, top: pos.top }}
     >
       {header && <div className="field-tooltip-title">{header}</div>}
-      {sections.flatMap((section, i) => [
+      {renderedSections.flatMap((node, i) => [
         i > 0 && <hr key={`div-${i}`} className="field-tooltip-divider" />,
-        renderSection(section, i),
+        node,
       ])}
     </div>
   );
 
+  if (inline) return body;
   return createPortal(body, document.body);
 }

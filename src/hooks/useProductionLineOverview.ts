@@ -47,6 +47,7 @@ export function useProductionLineOverview() {
     return {
         dataRows,
         dataTable,
+        dataGroup,
         rowMap,
         isLoading: !dataGroup || isLoading,
         error,

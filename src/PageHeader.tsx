@@ -9,7 +9,7 @@ type PageHeaderProps = {
   activeLineId: string;
   switchLine: (id: string) => void;
   uiLabels: UiLabel[];
-  onLanguageChange?: () => void;
+  onLanguageChange?: (lang: string) => void;
   children?: React.ReactNode;
   actions?: React.ReactNode;
 };
@@ -30,7 +30,7 @@ export function PageHeader({ allLines, activeLineId, switchLine, uiLabels, onLan
     setLanguage(l);
     setLang(l);
     setLangOpen(false);
-    onLanguageChange?.();
+    onLanguageChange?.(l);
   }, [onLanguageChange]);
 
   const modelLabel = getBlock(allLines, activeLineId, 'title');
