@@ -1,0 +1,182 @@
+[
+  {
+    "code": "cyan",
+    "block": {
+      "title": "Cyan",
+      "i18n": {
+        "en": {
+          "title": "Cyan"
+        },
+        "nl": {
+          "title": "Cyaan"
+        },
+        "de": {
+          "title": "Cyan"
+        },
+        "fr": {
+          "title": "Cyan"
+        },
+        "es": {
+          "title": "Cian"
+        },
+        "uk": {
+          "title": "Блакитний"
+        }
+      }
+    },
+    "color": "#00bcd4",
+    "level": 820,
+    "capacity": 1000,
+    "expiration_date": null
+  },
+  {
+    "code": "magenta",
+    "block": {
+      "title": "Magenta",
+      "i18n": {
+        "en": {
+          "title": "Magenta"
+        },
+        "nl": {
+          "title": "Magenta"
+        },
+        "de": {
+          "title": "Magenta"
+        },
+        "fr": {
+          "title": "Magenta"
+        },
+        "es": {
+          "title": "Magenta"
+        },
+        "uk": {
+          "title": "Пурпуровий"
+        }
+      }
+    },
+    "color": "#e91e63",
+    "level": 640,
+    "capacity": 1000,
+    "expiration_date": "2026-04-26"
+  },
+  {
+    "code": "yellow",
+    "block": {
+      "title": "Yellow",
+      "i18n": {
+        "en": {
+          "title": "Yellow"
+        },
+        "nl": {
+          "title": "Geel"
+        },
+        "de": {
+          "title": "Gelb"
+        },
+        "fr": {
+          "title": "Jaune"
+        },
+        "es": {
+          "title": "Amarillo"
+        },
+        "uk": {
+          "title": "Жовтий"
+        }
+      }
+    },
+    "color": "#ffc107",
+    "level": 910,
+    "capacity": 1000,
+    "expiration_date": null
+  },
+  {
+    "code": "black",
+    "block": {
+      "title": "Black",
+      "i18n": {
+        "en": {
+          "title": "Black"
+        },
+        "nl": {
+          "title": "Zwart"
+        },
+        "de": {
+          "title": "Schwarz"
+        },
+        "fr": {
+          "title": "Noir"
+        },
+        "es": {
+          "title": "Negro"
+        },
+        "uk": {
+          "title": "Чорний"
+        }
+      }
+    },
+    "color": "#333333",
+    "level": 450,
+    "capacity": 1000,
+    "expiration_date": "2026-05-18"
+  },
+  {
+    "code": "light-cyan",
+    "block": {
+      "title": "Light Cyan",
+      "i18n": {
+        "en": {
+          "title": "Light Cyan"
+        },
+        "nl": {
+          "title": "Lichtcyaan"
+        },
+        "de": {
+          "title": "Hellcyan"
+        },
+        "fr": {
+          "title": "Cyan clair"
+        },
+        "es": {
+          "title": "Cian claro"
+        },
+        "uk": {
+          "title": "Світло-блакитний"
+        }
+      }
+    },
+    "color": "#80deea",
+    "level": 780,
+    "capacity": 1000,
+    "expiration_date": null
+  },
+  {
+    "code": "light-magenta",
+    "block": {
+      "title": "Light Magenta",
+      "i18n": {
+        "en": {
+          "title": "Light Magenta"
+        },
+        "nl": {
+          "title": "Lichtmagenta"
+        },
+        "de": {
+          "title": "Hellmagenta"
+        },
+        "fr": {
+          "title": "Magenta clair"
+        },
+        "es": {
+          "title": "Magenta claro"
+        },
+        "uk": {
+          "title": "Світло-пурпуровий"
+        }
+      }
+    },
+    "color": "#f48fb1",
+    "level": 550,
+    "capacity": 1000,
+    "expiration_date": null
+  }
+]

@@ -1,0 +1,288 @@
+[
+  {
+    "code": "ink_levels",
+    "block": {
+      "title": "Ink Levels",
+      "i18n": {
+        "en": {
+          "title": "Ink Levels"
+        },
+        "nl": {
+          "title": "Inktniveaus"
+        },
+        "de": {
+          "title": "Tintenstände"
+        },
+        "fr": {
+          "title": "Niveaux d'encre"
+        },
+        "es": {
+          "title": "Niveles de tinta"
+        },
+        "uk": {
+          "title": "Рівні чорнила"
+        }
+      }
+    }
+  },
+  {
+    "code": "ink_usage_today",
+    "block": {
+      "title": "Ink Usage Today",
+      "i18n": {
+        "en": {
+          "title": "Ink Usage Today"
+        },
+        "nl": {
+          "title": "Inktverbruik vandaag"
+        },
+        "de": {
+          "title": "Tintenverbrauch heute"
+        },
+        "fr": {
+          "title": "Consommation d'encre aujourd'hui"
+        },
+        "es": {
+          "title": "Consumo de tinta hoy"
+        },
+        "uk": {
+          "title": "Витрата чорнила сьогодні"
+        }
+      }
+    }
+  },
+  {
+    "code": "stock_near_expiration",
+    "block": {
+      "title": "Stock, near expiration",
+      "i18n": {
+        "en": {
+          "title": "Stock, near expiration"
+        },
+        "nl": {
+          "title": "Voorraad, bijna verlopen"
+        },
+        "de": {
+          "title": "Bestand, bald ablaufend"
+        },
+        "fr": {
+          "title": "Stock, proche de l'expiration"
+        },
+        "es": {
+          "title": "Stock, próximo a caducar"
+        },
+        "uk": {
+          "title": "Запас, термін придатності закінчується"
+        }
+      }
+    }
+  },
+  {
+    "code": "status",
+    "block": {
+      "title": "Status",
+      "i18n": {
+        "en": {
+          "title": "Status"
+        },
+        "nl": {
+          "title": "Status"
+        },
+        "de": {
+          "title": "Status"
+        },
+        "fr": {
+          "title": "Statut"
+        },
+        "es": {
+          "title": "Estado"
+        },
+        "uk": {
+          "title": "Статус"
+        }
+      }
+    }
+  },
+  {
+    "code": "print",
+    "block": {
+      "title": "Print",
+      "i18n": {
+        "en": {
+          "title": "Print"
+        },
+        "nl": {
+          "title": "Print"
+        },
+        "de": {
+          "title": "Druck"
+        },
+        "fr": {
+          "title": "Impression"
+        },
+        "es": {
+          "title": "Impresión"
+        },
+        "uk": {
+          "title": "Друк"
+        }
+      }
+    }
+  },
+  {
+    "code": "diff",
+    "block": {
+      "title": "Diff",
+      "i18n": {
+        "en": {
+          "title": "Diff"
+        },
+        "nl": {
+          "title": "Verschil"
+        },
+        "de": {
+          "title": "Diff"
+        },
+        "fr": {
+          "title": "Diff"
+        },
+        "es": {
+          "title": "Dif"
+        },
+        "uk": {
+          "title": "Різн."
+        }
+      }
+    }
+  },
+  {
+    "code": "total_purge_errors",
+    "block": {
+      "title": "Total purge/errors",
+      "i18n": {
+        "en": {
+          "title": "Total purge/errors"
+        },
+        "nl": {
+          "title": "Totaal spoeling/fouten"
+        },
+        "de": {
+          "title": "Gesamt Spülung/Fehler"
+        },
+        "fr": {
+          "title": "Total purge/erreurs"
+        },
+        "es": {
+          "title": "Total purga/errores"
+        },
+        "uk": {
+          "title": "Усього промивання/помилки"
+        }
+      }
+    }
+  },
+  {
+    "code": "expires",
+    "block": {
+      "title": "Expires {date}",
+      "i18n": {
+        "en": {
+          "title": "Expires {date}"
+        },
+        "nl": {
+          "title": "Verloopt {date}"
+        },
+        "de": {
+          "title": "Läuft ab {date}"
+        },
+        "fr": {
+          "title": "Expire le {date}"
+        },
+        "es": {
+          "title": "Caduca el {date}"
+        },
+        "uk": {
+          "title": "Закінчується {date}"
+        }
+      }
+    }
+  },
+  {
+    "code": "days_left",
+    "block": {
+      "title": "{n} days left",
+      "i18n": {
+        "en": {
+          "title": "{n} days left"
+        },
+        "nl": {
+          "title": "Nog {n} dagen"
+        },
+        "de": {
+          "title": "Noch {n} Tage"
+        },
+        "fr": {
+          "title": "{n} jours restants"
+        },
+        "es": {
+          "title": "{n} días restantes"
+        },
+        "uk": {
+          "title": "Залишилось {n} днів"
+        }
+      }
+    }
+  },
+  {
+    "code": "days",
+    "block": {
+      "title": "{n} days",
+      "i18n": {
+        "en": {
+          "title": "{n} days"
+        },
+        "nl": {
+          "title": "{n} dagen"
+        },
+        "de": {
+          "title": "{n} Tage"
+        },
+        "fr": {
+          "title": "{n} jours"
+        },
+        "es": {
+          "title": "{n} días"
+        },
+        "uk": {
+          "title": "{n} днів"
+        }
+      }
+    }
+  },
+  {
+    "code": "ml",
+    "block": {
+      "title": "ml",
+      "i18n": {
+        "en": {
+          "title": "ml"
+        },
+        "nl": {
+          "title": "ml"
+        },
+        "de": {
+          "title": "ml"
+        },
+        "fr": {
+          "title": "ml"
+        },
+        "es": {
+          "title": "ml"
+        },
+        "uk": {
+          "title": "мл"
+        }
+      }
+    }
+  }
+]

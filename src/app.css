@@ -3849,14 +3849,14 @@ label[data-rac] > div:has(> svg) svg {
   border-radius: var(--radius-md);
   font-size: 11px;
   font-weight: 600;
-  color: #e53e3e;
-  background: rgba(229, 62, 62, 0.10);
-  border: 1px solid rgba(229, 62, 62, 0.2);
+  color: #ff5470;
+  background: rgba(255, 84, 112, 0.10);
+  border: 1px solid rgba(255, 84, 112, 0.25);
 }
 
 .ink-expiration-banner.expiring {
-  background: rgba(229, 62, 62, 0.15);
-  border-color: rgba(229, 62, 62, 0.35);
+  background: rgba(255, 84, 112, 0.18);
+  border-color: rgba(255, 84, 112, 0.45);
 }
 
 /* Ink stock near expiration */
@@ -3872,7 +3872,7 @@ label[data-rac] > div:has(> svg) svg {
   margin-left: auto;
   font-size: 11px;
   font-weight: 600;
-  color: #e53e3e;
+  color: #ff5470;
 }
 
 /* Ink usage table */

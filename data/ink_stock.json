@@ -1,0 +1,86 @@
+[
+  {
+    "code": "cyan",
+    "block": {
+      "title": "Cyan",
+      "i18n": {
+        "en": {
+          "title": "Cyan"
+        },
+        "nl": {
+          "title": "Cyaan"
+        },
+        "de": {
+          "title": "Cyan"
+        },
+        "fr": {
+          "title": "Cyan"
+        },
+        "es": {
+          "title": "Cian"
+        },
+        "uk": {
+          "title": "Блакитний"
+        }
+      }
+    },
+    "color": "#00bcd4",
+    "expiration_date": "2026-05-15"
+  },
+  {
+    "code": "magenta",
+    "block": {
+      "title": "Magenta",
+      "i18n": {
+        "en": {
+          "title": "Magenta"
+        },
+        "nl": {
+          "title": "Magenta"
+        },
+        "de": {
+          "title": "Magenta"
+        },
+        "fr": {
+          "title": "Magenta"
+        },
+        "es": {
+          "title": "Magenta"
+        },
+        "uk": {
+          "title": "Пурпуровий"
+        }
+      }
+    },
+    "color": "#e91e63",
+    "expiration_date": "2026-05-04"
+  },
+  {
+    "code": "black",
+    "block": {
+      "title": "Black",
+      "i18n": {
+        "en": {
+          "title": "Black"
+        },
+        "nl": {
+          "title": "Zwart"
+        },
+        "de": {
+          "title": "Schwarz"
+        },
+        "fr": {
+          "title": "Noir"
+        },
+        "es": {
+          "title": "Negro"
+        },
+        "uk": {
+          "title": "Чорний"
+        }
+      }
+    },
+    "color": "#333333",
+    "expiration_date": "2026-05-30"
+  }
+]

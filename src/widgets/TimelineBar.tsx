@@ -272,7 +272,7 @@ function GroupTimelineBar({
             <div className="timeline-set-bar">
               {renderTimelineSvg({
                 segments: set.segments, totalSeconds, startHour,
-                barHeight: 28, svgWidth: 600, svgHeight: isLast ? 48 : 32, fontSize: 8,
+                barHeight: 28, svgWidth: 600, svgHeight: 32, fontSize: 8,
                 showAxis: isLast,
               })}
             </div>

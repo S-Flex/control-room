@@ -1,0 +1,176 @@
+[
+  {
+    "code": "cyan",
+    "block": {
+      "title": "Cyan",
+      "i18n": {
+        "en": {
+          "title": "Cyan"
+        },
+        "nl": {
+          "title": "Cyaan"
+        },
+        "de": {
+          "title": "Cyan"
+        },
+        "fr": {
+          "title": "Cyan"
+        },
+        "es": {
+          "title": "Cian"
+        },
+        "uk": {
+          "title": "Блакитний"
+        }
+      }
+    },
+    "color": "#00bcd4",
+    "status_report": 295,
+    "print_production": 280
+  },
+  {
+    "code": "magenta",
+    "block": {
+      "title": "Magenta",
+      "i18n": {
+        "en": {
+          "title": "Magenta"
+        },
+        "nl": {
+          "title": "Magenta"
+        },
+        "de": {
+          "title": "Magenta"
+        },
+        "fr": {
+          "title": "Magenta"
+        },
+        "es": {
+          "title": "Magenta"
+        },
+        "uk": {
+          "title": "Пурпуровий"
+        }
+      }
+    },
+    "color": "#e91e63",
+    "status_report": 372,
+    "print_production": 350
+  },
+  {
+    "code": "yellow",
+    "block": {
+      "title": "Yellow",
+      "i18n": {
+        "en": {
+          "title": "Yellow"
+        },
+        "nl": {
+          "title": "Geel"
+        },
+        "de": {
+          "title": "Gelb"
+        },
+        "fr": {
+          "title": "Jaune"
+        },
+        "es": {
+          "title": "Amarillo"
+        },
+        "uk": {
+          "title": "Жовтий"
+        }
+      }
+    },
+    "color": "#ffc107",
+    "status_report": 248,
+    "print_production": 230
+  },
+  {
+    "code": "black",
+    "block": {
+      "title": "Black",
+      "i18n": {
+        "en": {
+          "title": "Black"
+        },
+        "nl": {
+          "title": "Zwart"
+        },
+        "de": {
+          "title": "Schwarz"
+        },
+        "fr": {
+          "title": "Noir"
+        },
+        "es": {
+          "title": "Negro"
+        },
+        "uk": {
+          "title": "Чорний"
+        }
+      }
+    },
+    "color": "#333333",
+    "status_report": 485,
+    "print_production": 460
+  },
+  {
+    "code": "light-cyan",
+    "block": {
+      "title": "Light Cyan",
+      "i18n": {
+        "en": {
+          "title": "Light Cyan"
+        },
+        "nl": {
+          "title": "Lichtcyaan"
+        },
+        "de": {
+          "title": "Hellcyan"
+        },
+        "fr": {
+          "title": "Cyan clair"
+        },
+        "es": {
+          "title": "Cian claro"
+        },
+        "uk": {
+          "title": "Світло-блакитний"
+        }
+      }
+    },
+    "color": "#80deea",
+    "status_report": 152,
+    "print_production": 140
+  },
+  {
+    "code": "light-magenta",
+    "block": {
+      "title": "Light Magenta",
+      "i18n": {
+        "en": {
+          "title": "Light Magenta"
+        },
+        "nl": {
+          "title": "Lichtmagenta"
+        },
+        "de": {
+          "title": "Hellmagenta"
+        },
+        "fr": {
+          "title": "Magenta clair"
+        },
+        "es": {
+          "title": "Magenta claro"
+        },
+        "uk": {
+          "title": "Світло-пурпуровий"
+        }
+      }
+    },
+    "color": "#f48fb1",
+    "status_report": 208,
+    "print_production": 190
+  }
+]
