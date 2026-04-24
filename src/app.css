@@ -3371,6 +3371,175 @@ label[data-rac] > div:has(> svg) svg {
   white-space: nowrap;
 }
 
+/* ---- Stacked Bar Widget ---- */
+.stacked-bar-widget {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.stacked-bar-widget.stacked-bar-grouped {
+  gap: 24px;
+}
+
+.stacked-bar-chart {
+  position: relative;
+  width: 100%;
+}
+
+.stacked-bar-chart-canvas {
+  position: relative;
+  width: 100%;
+  flex: none;
+}
+
+.stacked-bar-chart-canvas > .recharts-responsive-container {
+  height: 100% !important;
+  min-height: 100%;
+}
+
+.stacked-bar-legend {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  font-size: 11px;
+  color: #ffffff;
+}
+
+.stacked-bar-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.stacked-bar-legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stacked-bar-legend-label {
+  color: #ffffff;
+}
+
+.stacked-bar-chart-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.stacked-bar-widget .recharts-legend-item-text,
+.stacked-bar-widget .recharts-cartesian-axis-tick-value,
+.stacked-bar-widget text {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+}
+
+.stacked-bar-widget .recharts-surface { outline: none; }
+.stacked-bar-widget .recharts-rectangle.recharts-tooltip-cursor { fill: rgba(0, 0, 0, 0.04); }
+.dark .stacked-bar-widget .recharts-rectangle.recharts-tooltip-cursor { fill: rgba(255, 255, 255, 0.04); }
+
+.stacked-bar-tooltip-pinned {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -100%);
+  pointer-events: none;
+  margin-top: -8px;
+}
+
+.stacked-bar-tooltip-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+  padding: 8px 10px;
+  min-width: 240px;
+  max-width: 360px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.stacked-bar-tooltip-title {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.stacked-bar-tooltip-entries {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.stacked-bar-tooltip-entry-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.stacked-bar-tooltip-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.stacked-bar-tooltip-entry-label {
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.stacked-bar-tooltip-group {
+  margin-bottom: 4px;
+}
+
+.stacked-bar-tooltip-group:last-child {
+  margin-bottom: 0;
+}
+
+.stacked-bar-tooltip-group-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--text-tertiary);
+  margin-bottom: 2px;
+}
+
+.stacked-bar-tooltip-cell {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.stacked-bar-tooltip-cell-label {
+  font-size: 10px;
+  color: var(--text-tertiary);
+}
+
+.stacked-bar-tooltip-cell-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
 /* ---- Timeline Bar Widget ---- */
 .timeline-bar-svg {
   display: block;

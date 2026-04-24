@@ -29,7 +29,7 @@
   {
     "code": "production",
     "main": {
-      "sections": [{ "data_group": "resource_production" }]
+      "sections": [{ "data_group": "resource_production_materials" }]
     }
   },
   {
