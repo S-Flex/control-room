@@ -18,7 +18,7 @@ import {
   MainRoutes,
   AuxRouteProvider,
 } from '@s-flex/xfw-url';
-import { SidebarProvider } from '@s-flex/xfw-sidebar';
+import { SidebarProvider, SidebarLayout } from '@s-flex/xfw-sidebar';
 import { HomePage } from './HomePage';
 import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';
@@ -45,15 +45,17 @@ configureClient({
 
 function Root() {
   return (
-    <MainRoutes>
-      <Route path="/control-room" element={<ControlRoomPage />} />
-      <Route path="/production-lines" element={<ProductionLinesPage />} />
-      <Route path="/inflow-manual" element={<InflowPage />} />
-      <Route path="/inflow-auto" element={<InflowPage />} />
-      <Route path="/layout" element={<LayoutPage />} />
-      <Route path="/data" element={<DataGroupPage />} />
-      <Route path="*" element={<HomePage />} />
-    </MainRoutes>
+    <SidebarLayout>
+      <MainRoutes>
+        <Route path="/control-room" element={<ControlRoomPage />} />
+        <Route path="/production-lines" element={<ProductionLinesPage />} />
+        <Route path="/inflow-manual" element={<InflowPage />} />
+        <Route path="/inflow-auto" element={<InflowPage />} />
+        <Route path="/layout" element={<LayoutPage />} />
+        <Route path="/data" element={<DataGroupPage />} />
+        <Route path="*" element={<HomePage />} />
+      </MainRoutes>
+    </SidebarLayout>
   );
 }
 

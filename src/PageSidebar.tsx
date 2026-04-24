@@ -29,7 +29,6 @@ function SidebarOutletRegistration({
       <NavButtonsComponent
         key={`sidebar-close-${code}`}
         nav={[{
-          i18n: { nl: { text: 'Close', } },
           path: closePath,
           type: 'link',
           icon: 'XClose',

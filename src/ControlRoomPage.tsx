@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { ThreeModelView, type CameraState, type JSONRecord, type ObjectData } from 'xfw-three';
 import { useQueryParams } from '@s-flex/xfw-url';
+import { SidebarMeta, useSidebar } from '@s-flex/xfw-sidebar';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import { EquipCard } from './viewer/EquipCard';
 import type { Resource } from './viewer/types';
@@ -41,6 +42,27 @@ function buildStateMap(stateSets: StateSetData[]): Map<string, ResourceStateEntr
     for (const st of ss.states) map.set(st.code, st);
   }
   return map;
+}
+
+function ControlRoomBottomSidebar({ ticker }: { ticker: DashboardData['ticker']; }) {
+  useSidebar({
+    identifier: 'control-room-ticker',
+    side: 'bottom',
+    index: 0,
+    title: 'Ticker',
+    content: () => (
+      <>
+        <SidebarMeta side="bottom" title="Ticker" />
+        <div className="ticker-bar">
+          <Ticker type="highlight" data={ticker} />
+          <Ticker type="alert" data={ticker} />
+        </div>
+      </>
+    ),
+    deps: [ticker],
+  });
+
+  return null;
 }
 
 export function ControlRoomPage() {
@@ -265,17 +287,10 @@ export function ControlRoomPage() {
               </div>
             )}
           </div>
-          <div className="ticker-bar inner-only">
-            <Ticker type="highlight" data={dashData.ticker} />
-            <Ticker type="alert" data={dashData.ticker} />
-          </div>
         </div>
         <WidgetPanel side="right" data={dashData} />
       </div>
-      <div className="ticker-bar outer-only">
-        <Ticker type="highlight" data={dashData.ticker} />
-        <Ticker type="alert" data={dashData.ticker} />
-      </div>
+      <ControlRoomBottomSidebar ticker={dashData.ticker} />
     </div>
   );
 }
