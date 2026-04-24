@@ -15,10 +15,10 @@ import {
   QueryParamProvider,
   NavigationProvider,
   AriaRouterProvider,
-  SidebarProvider,
   MainRoutes,
   AuxRouteProvider,
 } from '@s-flex/xfw-url';
+import { SidebarProvider } from '@s-flex/xfw-sidebar';
 import { HomePage } from './HomePage';
 import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';
@@ -64,7 +64,7 @@ createRoot(document.getElementById('root')!).render(
       <QueryParamProvider>
         <BrowserRouter>
           <AuxRouteProvider>
-            <NavigationProvider>
+            <NavigationProvider appendOutlets={{ sidebar: ';', 'sidebar-stashed': ';' }}>
               <AriaRouterProvider>
                 <SidebarProvider>
                   <UiSidebarProvider>
