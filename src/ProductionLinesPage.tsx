@@ -12,6 +12,7 @@ import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { CapacityTooltip } from './widgets/CapacityTooltip';
 import type { TooltipConfig, TooltipFieldConfigEntry } from './controls/FieldTooltip';
+import { syncQueryParams, rewriteUrl } from './lib/urlSync';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
@@ -475,16 +476,12 @@ export function ProductionLinesPage() {
 
   // Write resource_uids to URL (only called from user actions)
   const setResourceUidsInUrl = useCallback((uids: string[]) => {
-    const params = new URLSearchParams(window.location.search);
-    if (uids.length > 0) {
-      params.set('resource_uids', JSON.stringify(uids));
-    } else {
-      params.delete('resource_uids');
-    }
-    params.delete('selected');
-    params.delete('resource');
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState(null, '', newUrl);
+    rewriteUrl(qp => {
+      if (uids.length > 0) qp.set('resource_uids', JSON.stringify(uids));
+      else qp.delete('resource_uids');
+      qp.delete('selected');
+      qp.delete('resource');
+    });
   }, []);
 
   const hadActiveRef = useRef(false);
@@ -507,14 +504,13 @@ export function ProductionLinesPage() {
 
   // Sync model, from, until, capacity, lang to URL
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('model', activeLineId);
-    params.set('from', from);
-    params.set('until', until);
-    if (showCapacity) params.set('capacity', 'true'); else params.delete('capacity');
-    params.set('lang', lang);
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState(null, '', newUrl);
+    syncQueryParams({
+      model: activeLineId,
+      from,
+      until,
+      capacity: showCapacity ? 'true' : null,
+      lang,
+    });
   }, [activeLineId, from, until, showCapacity, lang]);
 
   // React to model query param changes
@@ -597,9 +593,7 @@ export function ProductionLinesPage() {
   const switchLine = useCallback((id: string) => {
     if (id === activeLineId) return;
     setActiveLineId(id);
-    const params = new URLSearchParams(window.location.search);
-    params.set('model', id);
-    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    syncQueryParams({ model: id });
     setResourceUidsInUrl([]);
     const models = modelsDataRef.current;
     const line = models?.find(l => l.code === id);
