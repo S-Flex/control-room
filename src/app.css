@@ -2908,7 +2908,7 @@ label[data-rac] > div:has(> svg) svg {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   width: 100%;
   max-width: 380px;
-  opacity: 0.9;
+  opacity: 0.6;
   pointer-events: none;
 }
 
