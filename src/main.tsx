@@ -25,6 +25,7 @@ import { LayoutPage } from './LayoutPage';
 import { ProductionLinesPage } from './ProductionLinesPage';
 import { InflowPage } from './InflowPage';
 import { DataGroupPage } from './DataGroupPage';
+import { DataGroupEditorPage } from './DataGroupEditorPage';
 import { RoboticsPage } from './RoboticsPage';
 import { configureClient } from '@s-flex/xfw-data';
 import { ThemeProvider, SidebarProvider as UiSidebarProvider } from '@s-flex/xfw-ui';
@@ -53,6 +54,7 @@ function Root() {
       <Route path="/inflow-auto" element={<InflowPage />} />
       <Route path="/layout" element={<LayoutPage />} />
       <Route path="/data" element={<DataGroupPage />} />
+      <Route path="/data-editor" element={<DataGroupEditorPage />} />
       <Route path="/robotics" element={<RoboticsPage />} />
       <Route path="*" element={<HomePage />} />
     </MainRoutes>

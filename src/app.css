@@ -4965,3 +4965,343 @@ label[data-rac] > div:has(> svg) svg {
   height: 16px;
   object-fit: contain;
 }
+
+/* ============================================================
+   DataGroup editor (/data-editor)
+   ============================================================ */
+
+.dge-page {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.dge-editor {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-width: 320px;
+  overflow: hidden;
+  border-right: 1px solid var(--border);
+}
+
+.dge-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+  flex-shrink: 0;
+}
+
+.dge-toolbar-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.dge-toolbar button,
+.dge-json-actions button,
+.dge-add-field button,
+.dge-tabs button {
+  padding: 6px 12px;
+  border-radius: var(--radius-md, 6px);
+  border: 1px solid var(--border);
+  background: var(--bg-subtle, transparent);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.dge-toolbar button:hover,
+.dge-json-actions button:hover,
+.dge-add-field button:hover {
+  background: var(--bar-bg, rgba(255, 255, 255, 0.06));
+}
+
+.dge-tabs {
+  display: flex;
+  gap: 0;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.dge-tab {
+  border: none !important;
+  border-bottom: 2px solid transparent !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  padding: 10px 16px !important;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.dge-tab--active {
+  color: var(--text-primary);
+  border-bottom-color: var(--brand) !important;
+}
+
+.dge-pane {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 20px;
+}
+
+.dge-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dge-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dge-section-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.dge-json-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dge-lang-picker,
+.dge-control {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 11px;
+  color: var(--text-secondary);
+}
+
+.dge-lang-picker {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.dge-control select,
+.dge-control input,
+.dge-lang-picker select,
+.dge-add-field input {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 13px;
+  min-width: 90px;
+}
+
+.dge-field-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dge-field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg-subtle, transparent);
+}
+
+.dge-field-row--dragging {
+  opacity: 0.5;
+  border-color: var(--brand);
+}
+
+.dge-field-row-head {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.dge-drag-handle {
+  cursor: grab;
+  user-select: none;
+  color: var(--text-tertiary, var(--text-secondary));
+  font-weight: 700;
+  letter-spacing: -2px;
+  padding: 0 4px;
+}
+
+.dge-field-key {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px;
+  font-weight: 600;
+  flex: 0 0 200px;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+.dge-field-label {
+  flex: 1;
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 13px;
+}
+
+.dge-field-delete {
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary, var(--text-secondary));
+  font-size: 18px;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-md, 6px);
+  cursor: pointer;
+}
+
+.dge-field-delete:hover {
+  background: var(--bar-bg, rgba(255, 255, 255, 0.06));
+  color: var(--text-primary);
+}
+
+.dge-field-row-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.dge-add-field {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.dge-add-field input {
+  flex: 0 0 220px;
+}
+
+.dge-empty {
+  color: var(--text-tertiary, var(--text-secondary));
+  font-size: 13px;
+  font-style: italic;
+}
+
+.dge-json-textarea {
+  width: 100%;
+  min-height: 60vh;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+  background: var(--bg-subtle, var(--bg));
+  color: var(--text-primary);
+  resize: vertical;
+}
+
+.dge-json-error {
+  color: #ff5c5c;
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  white-space: pre-wrap;
+}
+
+.dge-mock-scroll {
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md, 6px);
+}
+
+.dge-mock-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 12px;
+}
+
+.dge-mock-table th,
+.dge-mock-table td {
+  border: 1px solid var(--border);
+  padding: 0;
+  text-align: left;
+}
+
+.dge-mock-table th {
+  padding: 6px 8px;
+  background: var(--bg-subtle, transparent);
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.dge-mock-table td input {
+  width: 100%;
+  padding: 6px 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+.dge-mock-table td input:focus {
+  outline: 1px solid var(--brand);
+  outline-offset: -1px;
+}
+
+.dge-mock-rownum {
+  width: 32px;
+  text-align: center !important;
+  color: var(--text-tertiary, var(--text-secondary));
+  background: var(--bg-subtle, transparent);
+}
+
+.dge-mock-delete {
+  border: none;
+  background: transparent;
+  color: var(--text-tertiary, var(--text-secondary));
+  cursor: pointer;
+  font-size: 16px;
+  width: 24px;
+  height: 24px;
+}
+
+.dge-mock-delete:hover {
+  color: var(--text-primary);
+}
+
+.dge-preview {
+  height: 100vh;
+}
+
+.dge-preview-body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dge-preview-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--text-secondary);
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+}
