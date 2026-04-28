@@ -83,6 +83,12 @@
       "sections": [{ "data_group": "batch" }]
     }
   },
+    {
+    "code": "time-on-status",
+    "main": {
+      "sections": [{ "data_group": "time_on_status" }]
+    }
+  },
   {
     "code": "orderlines",
     "main": {

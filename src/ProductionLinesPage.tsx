@@ -756,11 +756,6 @@ export function ProductionLinesPage() {
     }
     return result;
   }, [overviewDataTable, dgRecord]);
-  // One-shot debug so we can confirm where the backend exposes the tooltip config
-  useEffect(() => {
-    if (!dgRecord) return;
-    console.log('[CapacityTooltip] dataGroup keys:', Object.keys(dgRecord), 'tooltipConfig found:', !!tooltipConfig, 'merged fieldConfig sample:', tooltipFieldConfig);
-  }, [dgRecord, tooltipConfig, tooltipFieldConfig]);
   const renderLabel = useCallback((data: Record<string, unknown>) => (
     <CapacityTooltip
       objectData={data}

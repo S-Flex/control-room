@@ -14,7 +14,7 @@ export function SidebarPanel({ code, title, onClose }: {
   onClose: () => void;
 }) {
   const { config, content, isLoading } = usePage(code);
-  const [width, setWidth] = useState(20); // percentage
+  const [width, setWidth] = useState(22); // percentage
   const dragging = useRef(false);
   const listenersRef = useRef<DragListeners | null>(null);
   const sidebarRef = useRef<HTMLDivElement>(null);

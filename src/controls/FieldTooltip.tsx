@@ -269,12 +269,18 @@ export function FieldTooltip({
       if (items.length === 0) return null;
       const subEntries = buildEntries(fieldConfig, field_config);
       if (subEntries.length === 0) return null;
+      // When the caller supplies their own grid classes (e.g. Tailwind
+      // `grid grid-cols-6 gap-1`), skip our default `.field-tooltip-group`
+      // styling so it doesn't override their layout. Their classes own the
+      // wrapper; ours only kick in when no override is given.
+      const wrapperClass = groupClass
+        ? groupClass
+        : 'field-tooltip-group';
+      const wrapperStyle = groupClass
+        ? undefined
+        : { ['--field-tooltip-group-cols' as string]: subEntries.length };
       return (
-        <div
-          key={`group-${sectionIdx}`}
-          className={`field-tooltip-group${groupClass ? ` ${groupClass}` : ''}`}
-          style={{ ['--field-tooltip-group-cols' as string]: subEntries.length }}
-        >
+        <div key={`group-${sectionIdx}`} className={wrapperClass} style={wrapperStyle}>
           {subEntries.map(entry => (
             <div
               key={`h-${entry.key}`}

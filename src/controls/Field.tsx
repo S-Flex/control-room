@@ -4,13 +4,21 @@ import type { NavItem, ResolvedField } from '@s-flex/xfw-ui';
 import { Tooltip, useNavItemAction } from '@s-flex/xfw-ui';
 import { Button } from 'react-aria-components';
 import { resolveI18nLabel, formatValue, localizeI18n } from '../widgets/flow/utils';
+import { resolve } from '../widgets/resolve';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
 import { Badge } from './Badge';
 import type { FieldNav } from '../widgets/flow/types';
 
 type FieldProps = {
-  field: ResolvedField & { aggregate?: string; nav?: FieldNav; no_label?: boolean; scale?: number };
+  field: ResolvedField & {
+    aggregate_fn?: string;
+    nav?: FieldNav;
+    no_label?: boolean;
+    scale?: number;
+    /** Name of a sibling column on the row whose value supplies the colour. */
+    color_field?: string;
+  };
   value: JSONValue;
   showLabel?: boolean;
   row?: JSONRecord;
@@ -85,15 +93,32 @@ function FieldValue({ text, nav, navUrl, row, className }: {
 }
 
 export function Field({ field, value, showLabel, row }: FieldProps) {
-  const { control, input_data, aggregate, nav, no_label, scale } = field;
+  const { control, input_data, aggregate_fn, nav, no_label, scale, color_field } = field;
   const label = resolveI18nLabel(field.i18n, field.key);
   const shouldShowLabel = showLabel ?? !no_label;
+  // `color_field` is the *name* of another field in the data group; the actual
+  // colour string is the value of that field on the current row. Use the
+  // dot-path-aware `resolve()` so paths like `state.color` work.
+  const colorRaw = color_field && row ? resolve(row, color_field) : undefined;
+  const color = typeof colorRaw === 'string' && colorRaw ? colorRaw : undefined;
 
+  // Visual controls (icon-map / badge / chip): label hidden by default — the
+  // visual *is* the meaning. Opt back in via `field_config.<key>.ui.no_label = false`
+  // (which flips `shouldShowLabel` to true). Per-row colour comes from
+  // `field_config.<key>.color_field` pointing at a sibling column on the row.
   if (control === 'icon-map' && input_data) {
-    return <IconMap value={value} inputData={input_data} />;
+    return (
+      <div className="field-bottom-aligned">
+        <IconMap value={value} inputData={input_data} label={label} showLabel={shouldShowLabel} color={color} />
+      </div>
+    );
   }
   if (control === 'badge') {
-    return <Badge value={value} inputData={input_data} nav={nav} row={row} />;
+    return (
+      <div className="field-bottom-aligned">
+        <Badge value={value} inputData={input_data} nav={nav} row={row} label={label} showLabel={shouldShowLabel} color={color} />
+      </div>
+    );
   }
   if (control === 'img') {
     if (!value) return null;
@@ -107,8 +132,8 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     }
     return <img src={String(value)} alt={label} className="field-img" />;
   }
-  if (aggregate) {
-    return <Chip label={label} value={value as string | number} />;
+  if (aggregate_fn) {
+    return <div className="field-bottom-aligned"><Chip label={label} value={value as string | number} /></div>;
   }
 
   if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {
