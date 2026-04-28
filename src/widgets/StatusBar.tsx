@@ -1,156 +1,121 @@
-import type { ReactNode } from 'react';
-import { Fragment } from 'react';
-import type { DataGroup, ResolvedField } from '@s-flex/xfw-ui';
-import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import { resolve, isFieldVisible } from './resolve';
-import { Content } from './Content';
-import { Field } from '../controls/Field';
-import { resolveGroupItems, relativeKey, type FieldGroupConfig } from './groupUtils';
-import type { FieldNav } from './flow/types';
+import { useNavItemAction, type DataGroup, type NavItem } from '@s-flex/xfw-ui';
+import type { DataTable, JSONRecord } from '@s-flex/xfw-data';
+import { getLanguage } from 'xfw-get-block';
+import { resolve } from './resolve';
+import { Badge } from '../controls/Badge';
 
-type StatusBarField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav; hidden_when?: unknown; no_label?: boolean; };
-
-type StatusBarGroup = FieldGroupConfig<Record<string, unknown>>;
-
-type StatusBarItem =
-  | { kind: 'field'; field: StatusBarField }
-  | { kind: 'group'; field: StatusBarField; subFields: StatusBarField[]; dataField: string };
-
-function buildField(key: string, config: Record<string, unknown>, groupNoLabel: boolean): StatusBarField {
-  const ui = config.ui as Record<string, unknown> | undefined;
-  const fieldNoLabel = ui?.no_label as boolean | undefined;
-  return {
-    key,
-    i18n: ui?.i18n as ResolvedField['i18n'],
-    control: ui?.control as string | undefined,
-    input_data: config.input_data as ResolvedField['input_data'],
-    order: ui?.order as number | undefined,
-    class_name: (config.class_name as string)
-      ?? (ui?.class_name as string)
-      ?? (ui?.group as Record<string, unknown> | undefined)?.class_name as string | undefined,
-    nav: config.nav as FieldNav | undefined,
-    hidden_when: ui?.hidden_when,
-    no_label: fieldNoLabel ?? groupNoLabel,
-  } as StatusBarField;
-}
-
-function mergeFieldConfig(base: Record<string, unknown>, override: Record<string, unknown>): Record<string, unknown> {
-  const baseUi = (base.ui ?? {}) as Record<string, unknown>;
-  const overrideUi = (override.ui ?? {}) as Record<string, unknown>;
-  return {
-    ...base,
-    ...override,
-    ui: { ...baseUi, ...overrideUi },
+/** `status_bar_config` shape — every key is optional, defaults match the
+ *  documented `status_json` shape (groups → items). Overrideable so the
+ *  component never hardcodes column names. */
+type StatusBarConfig = {
+  /** Column on the row that holds the array of groups. Default `status_json`. */
+  data_field?: string;
+  /** Key on each group that holds the i18n title object. Default `i18n`. */
+  group_label?: string;
+  /** Key on each group that holds the NavItem opened by clicking the label.
+   *  Default `nav`. */
+  group_nav?: string;
+  items?: {
+    /** Key on each group that holds the array of items. Default `data`. */
+    data_field?: string;
+    /** Key on each item that holds the i18n title object. Default `i18n`. */
+    label_field?: string;
+    /** Key on each item that holds the displayed value. Default `value`. */
+    value_field?: string;
+    /** Key on each item that, when present, supplies the badge background
+     *  color. Default `color`. */
+    color_field?: string;
   };
-}
+};
 
-function resolveItems(
-  widgetConfig: Record<string, unknown>,
-  dataGroup: DataGroup,
-): { items: StatusBarItem[]; class_name?: string; } {
-  const fc = (widgetConfig.field_config ?? dataGroup.field_config) as Record<string, Record<string, unknown>> | undefined;
-  if (!fc) return { items: [] };
-  const fcAny = fc as Record<string, unknown>;
-  const class_name = fcAny.class_name as string | undefined;
-  const configNoLabel = (widgetConfig.no_label as boolean | undefined) ?? (fcAny.no_label as boolean | undefined);
-  const groupNoLabel = configNoLabel ?? true;
-
-  const sbc = (widgetConfig.status_bar_config
-    ?? (dataGroup as unknown as Record<string, unknown>).status_bar_config) as { group?: StatusBarGroup } | undefined;
-  const group = sbc?.group;
-
-  const items = Object.entries(fc)
-    .filter(([key, config]) => {
-      if (key === 'class_name' || key === 'no_label') return false;
-      const ui = (config as Record<string, unknown>).ui as Record<string, unknown> | undefined;
-      return !ui?.hidden;
-    })
-    .map(([key, config]): StatusBarItem => {
-      const entry = config as Record<string, unknown>;
-      if (group && group.data_field === key) {
-        const subFieldOverrides = group.field_config ?? {};
-        const subFields = Object.entries(subFieldOverrides).map(([subKey, override]) => {
-          const baseSub = (entry[subKey] ?? {}) as Record<string, unknown>;
-          const merged = mergeFieldConfig(baseSub, (override ?? {}) as Record<string, unknown>);
-          return buildField(subKey, merged, true);
-        }).sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-        return {
-          kind: 'group',
-          field: buildField(key, entry, true),
-          subFields,
-          dataField: key,
-        };
-      }
-      return { kind: 'field', field: buildField(key, entry, groupNoLabel) };
-    })
-    .sort((a, b) => (a.field.order ?? 999) - (b.field.order ?? 999));
-
-  return { items, class_name };
-}
-
-function renderField(f: StatusBarField, row: JSONRecord, key: string): ReactNode {
-  if (!isFieldVisible({ hidden_when: f.hidden_when }, row)) return null;
-  const val = resolve(row, f.key) as JSONValue;
-  if (f.control === 'content') {
-    return (
-      <div key={key} className={f.class_name || undefined}>
-        <Content data={val} />
-      </div>
-    );
-  }
-  return (
-    <div key={key} className={f.class_name || undefined}>
-      <Field field={f} value={val} row={row} />
-    </div>
-  );
-}
-
-function renderGroupItem(
-  item: JSONRecord,
-  subFields: StatusBarField[],
-  parentPath: string,
-  groupClass: string | undefined,
-  key: string,
-): ReactNode {
-  return (
-    <div key={key} className={groupClass || undefined}>
-      {subFields.map((sf, i) => {
-        if (!isFieldVisible({ hidden_when: sf.hidden_when }, item)) return null;
-        const val = resolve(item, relativeKey(parentPath, sf.key)) as JSONValue;
-        if (sf.control === 'content') {
-          return <Content key={`${sf.key}-${i}`} data={val} />;
-        }
-        return <Field key={`${sf.key}-${i}`} field={sf} value={val} row={item} />;
-      })}
-    </div>
-  );
+/** Resolve `{ nl: { title }, en: { title }, … }` to a single string for the
+ *  active language, falling back to the first locale present. */
+function localize(i18n: unknown, lang: string): string {
+  if (!i18n || typeof i18n !== 'object') return '';
+  const map = i18n as Record<string, Record<string, string> | undefined>;
+  const entry = map[lang] ?? map[Object.keys(map)[0]];
+  return entry?.title ?? entry?.text ?? '';
 }
 
 export function StatusBar({ widgetConfig, dataGroup, data }: {
   widgetConfig: Record<string, unknown>;
   dataGroup: DataGroup;
   data: JSONRecord[];
+  /** Reserved for caller compatibility — not used (data is parsed from the row). */
   dataTable?: DataTable;
 }) {
+  const navAction = useNavItemAction();
   if (!data || data.length === 0) return null;
 
-  const { items, class_name } = resolveItems(widgetConfig, dataGroup);
+  const cfg = (
+    widgetConfig.status_bar_config ??
+    (dataGroup as unknown as Record<string, unknown>).status_bar_config ??
+    widgetConfig
+  ) as StatusBarConfig;
+
+  const dataField     = cfg.data_field          ?? 'status_json';
+  const groupLabelKey = cfg.group_label         ?? 'i18n';
+  const groupNavKey   = cfg.group_nav           ?? 'nav';
+  const itemsField    = cfg.items?.data_field   ?? 'data';
+  const itemLabelKey  = cfg.items?.label_field  ?? 'i18n';
+  const itemValueKey  = cfg.items?.value_field  ?? 'value';
+  const itemColorKey  = cfg.items?.color_field  ?? 'color';
+
   const row = data[0];
+  const groups = resolve(row, dataField);
+  if (!Array.isArray(groups) || groups.length === 0) return null;
+
+  const lang = getLanguage();
+
+  // Per-item label visibility comes from the data group's root `field_config`,
+  // keyed by `item.code`: `field_config[code].ui.no_label = true` hides the
+  // label for that item. Default is to show the label.
+  const fieldConfig = (dataGroup as unknown as { field_config?: Record<string, { ui?: { no_label?: boolean } }> }).field_config;
+  const showLabelFor = (code: string | undefined): boolean => {
+    if (!code) return true;
+    const noLabel = fieldConfig?.[code]?.ui?.no_label;
+    return !noLabel;
+  };
 
   return (
-    <div className={`statusbar ${class_name ?? ''}`}>
-      {items.map((item, i) => {
-        if (item.kind === 'field') {
-          return <Fragment key={`${item.field.key}-${i}`}>{renderField(item.field, row, `${item.field.key}-${i}`)}</Fragment>;
-        }
-        const groupItems = resolveGroupItems(row, item.dataField);
-        if (groupItems.length === 0) return null;
+    <div className="statusbar">
+      {groups.map((group, gi) => {
+        const g = (group ?? {}) as JSONRecord;
+        const label = localize(g[groupLabelKey], lang);
+        const nav = g[groupNavKey] as NavItem | undefined;
+        const itemsRaw = g[itemsField];
+        const items = (Array.isArray(itemsRaw) ? itemsRaw : []) as JSONRecord[];
+        const groupKey = (g.code as string | undefined) ?? `g-${gi}`;
+
+        const labelEl = label
+          ? nav
+            ? <button type="button" className="statusbar-label" onClick={() => navAction(row, nav, true)}>{label}</button>
+            : <span className="statusbar-label">{label}</span>
+          : null;
+
         return (
-          <Fragment key={`${item.field.key}-${i}`}>
-            {groupItems.map((gi, j) =>
-              renderGroupItem(gi, item.subFields, item.dataField, item.field.class_name, `${item.field.key}-${i}-${j}`)
-            )}
-          </Fragment>
+          <div key={groupKey} className="statusbar-group">
+            {labelEl}
+            <div className="statusbar-items">
+              {items.map((item, ii) => {
+                const it = (item ?? {}) as JSONRecord;
+                const itLabel = localize(it[itemLabelKey], lang);
+                const value = it[itemValueKey];
+                const color = it[itemColorKey] as string | undefined;
+                const code = it.code as string | undefined;
+                const itemKey = code ?? `i-${ii}`;
+                return (
+                  <Badge
+                    key={itemKey}
+                    value={value ?? ''}
+                    label={itLabel || undefined}
+                    showLabel={showLabelFor(code)}
+                    color={color}
+                  />
+                );
+              })}
+            </div>
+          </div>
         );
       })}
     </div>

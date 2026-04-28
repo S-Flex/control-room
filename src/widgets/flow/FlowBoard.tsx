@@ -101,7 +101,12 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     setSelectedKey(newKey);
     setSelectedGroupKey(newGroupKey);
 
-    if (onSelect && newKey) {
+    // Fire on_select whenever the user *enters* a selection (sameGroup=false).
+    // We can't gate on `newKey` because some inner levels (e.g. flow-table over a
+    // view without primary_keys) produce an empty key — but the click is still a
+    // valid selection and the nav must run. Toggling-off a selection (sameGroup
+    // = true → newKey null) skips the nav, as before.
+    if (onSelect && !sameGroup) {
       navAction(row as JSONRecord, onSelect as NavItem, true);
     } else {
       const keyValues = primaryKeys.map(k => ({ key: k, val: (newKey ? row[k] : null) as JSONValue }));
@@ -134,6 +139,9 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     navs?: FlowGroupData['navs'],
     i18n?: FlowGroupData['i18n'],
   ): FlowGroupData {
+    const colorField = levelConfig.row_options?.color_field;
+    const colorRaw = colorField ? groupRows[0]?.[colorField] : undefined;
+    const color = typeof colorRaw === 'string' && colorRaw ? colorRaw : undefined;
     return {
       key,
       class_name: grpClassName,
@@ -141,6 +149,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       checkable: levelConfig.row_options?.checkable,
       selectable: levelConfig.row_options?.selectable,
       on_select: levelConfig.row_options?.nav?.on_select,
+      color,
       i18n,
       data,
       rows: groupRows,

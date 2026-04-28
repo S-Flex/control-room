@@ -82,12 +82,19 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
         : { key, i18n: config.ui?.i18n, control: config.ui?.control, input_data: config.input_data };
       const uiInputData = (config.ui as Record<string, unknown> | undefined)?.input_data as typeof resolved.input_data | undefined;
       const input_data = resolved.input_data ?? config.input_data ?? uiInputData ?? pgField?.ref;
+      const cfgRaw = config as Record<string, unknown>;
+      const cfgUi = config.ui as Record<string, unknown> | undefined;
+      const scale = (cfgRaw.scale as number | undefined)
+        ?? (cfgUi?.scale as number | undefined)
+        ?? (pgField as { scale?: number } | undefined)?.scale;
       return [key, {
         ...resolved,
         input_data,
-        aggregate: (config as Record<string, unknown>).aggregate as AggregateFn | undefined,
+        aggregate_fn: cfgRaw.aggregate_fn as AggregateFn | undefined,
         order: config.ui?.order,
-        nav: (config as Record<string, unknown>).nav as FlowResolvedField['nav'],
+        nav: cfgRaw.nav as FlowResolvedField['nav'],
+        scale,
+        color_field: cfgUi?.color_field as string | undefined,
       }];
     })
   );
@@ -185,7 +192,7 @@ export function getGroupByKeys(levelConfig: FlowBoardLevelConfig): string[] {
 export function getAggregateKeys(levelFieldConfig: FlowLevelFieldConfig | undefined): string[] {
   if (!levelFieldConfig) return [];
   return Object.entries(levelFieldConfig)
-    .filter(([key, fc]) => key !== 'class_name' && fc.aggregate)
+    .filter(([key, fc]) => key !== 'class_name' && fc.aggregate_fn)
     .map(([key]) => key);
 }
 
@@ -213,14 +220,20 @@ export function mergeFieldMap(
         label_key: input_data.label_key,
       };
     }
+    const fcRaw = fc as Record<string, unknown>;
+    const fcUi = fc.ui as Record<string, unknown> | undefined;
     merged[key] = {
       ...base,
-      aggregate: fc.aggregate ?? base.aggregate,
+      aggregate_fn: fc.aggregate_fn ?? base.aggregate_fn,
       control: fc.ui?.control ?? base.control,
       i18n: fc.ui?.i18n ?? base.i18n,
       input_data,
       order: fc.ui?.order ?? base.order,
-      nav: (fc as Record<string, unknown>).nav as FlowResolvedField['nav'] ?? base.nav,
+      nav: fcRaw.nav as FlowResolvedField['nav'] ?? base.nav,
+      scale: (fcRaw.scale as number | undefined)
+        ?? (fcUi?.scale as number | undefined)
+        ?? base.scale,
+      color_field: (fcUi?.color_field as string | undefined) ?? base.color_field,
     };
   }
   return merged;
@@ -300,12 +313,12 @@ export function buildGroupFields(
       if (key === 'class_name' || key === 'no_label' || seen.has(key)) continue;
       const resolved = fieldMap[key];
       if (!resolved || isHidden(key)) continue;
-      const agg = fc.aggregate;
+      const agg = fc.aggregate_fn;
       if (agg) {
         entries.push({
           label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
           value: computeAggregate(aggregateRows ?? rows, key, agg),
-          field: { ...resolved, aggregate: agg },
+          field: { ...resolved, aggregate_fn: agg },
           class_name: fieldClassName(levelFieldConfig[key]),
         });
       } else if (firstRow) {

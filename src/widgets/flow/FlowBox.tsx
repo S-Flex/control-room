@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { JSONValue } from '@s-flex/xfw-data';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
 import { Checkbox } from '@s-flex/xfw-ui';
@@ -7,12 +8,25 @@ import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
 import { ColumnGridPagerControls, useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
 
-function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; pager?: ColumnGridPager; }) {
+function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
+  g: FlowGroupData;
+  isGrid: boolean;
+  pager?: ColumnGridPager;
+  /** All flow-table rows across every group. Set only when layout is `flow-table`.
+   *  Used by the first row's "select all" checkbox; presence also signals
+   *  table-mode to the rest of the component. */
+  tableAllRows?: Record<string, JSONValue>[];
+  isFirstInTable?: boolean;
+}) {
+  const isTable = !!tableAllRows;
   const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
   const { allChecked, someChecked } = useGroupCheck(g.rows);
+  const tableCheck = useGroupCheck(tableAllRows ?? []);
   const { selectedGroupKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
 
-  const showCheckbox = g.checkable !== false;
+  // In flow-table the checkbox is strictly opt-in (must be `true`); other
+  // layouts keep the legacy default-on behaviour.
+  const showCheckbox = isTable ? g.checkable === true : g.checkable !== false;
   const showColexp = g.colexp === true;
   const isSelected = !!g.selectable && g.key === selectedGroupKey;
 
@@ -38,12 +52,20 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
 
   return (
     <div
-      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
+      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}${g.color ? ' flow-row-colored' : ''}`}
+      style={g.color ? { color: g.color } : undefined}
       onClick={handleSelect}
     >
       <div className={`${isGrid ? 'column-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>
         {(showCheckbox || showColexp) && (
           <div className="flow-card-controls">
+            {isFirstInTable && showCheckbox && tableAllRows && (
+              <Checkbox
+                isSelected={tableCheck.allChecked}
+                isIndeterminate={tableCheck.someChecked && !tableCheck.allChecked}
+                onChange={() => toggleCheckedAll(tableAllRows)}
+              />
+            )}
             {showCheckbox && (
               <Checkbox
                 isSelected={allChecked}
@@ -65,7 +87,7 @@ function FlowBoxItem({ g, isGrid, pager }: { g: FlowGroupData; isGrid: boolean; 
             ? <span className="flow-box-title">{resolveI18nLabel(g.i18n, g.key)}</span>
             : g.data.map((d, i) => (
               <div key={d.field?.key ? `${d.field.key}-${i}` : i} className={d.class_name || undefined}>
-                <Field field={d.field} value={d.value} showLabel row={g.rows.length === 1 ? g.rows[0] : undefined} />
+                <Field field={d.field} value={d.value} showLabel row={g.rows[0]} />
               </div>
             ))
           }
@@ -102,9 +124,23 @@ export function FlowBox({ layout, groups }: FlowLayoutProps) {
   const { gridRef, pager, handleScroll, isNarrow } = useColumnGridPager(groups.length);
 
   if (!isGrid) {
+    // `flow-table` is `flow-cards`/`flow-container` with table-style CSS.
+    // Same FlowBoxItem rendering — only the wrapper class differs. The first
+    // row also gets a "select all" checkbox keyed off every table row.
+    const isTable = layout === 'flow-table';
+    const wrapperClass = isTable ? 'flow-table' : 'flow-card-list';
+    const tableAllRows = isTable ? groups.flatMap(g => g.rows) : undefined;
     return (
-      <div className="flow-card-list">
-        {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid={false} />)}
+      <div className={wrapperClass}>
+        {groups.map((g, i) => (
+          <FlowBoxItem
+            key={g.key}
+            g={g}
+            isGrid={false}
+            tableAllRows={tableAllRows}
+            isFirstInTable={isTable && i === 0}
+          />
+        ))}
       </div>
     );
   }

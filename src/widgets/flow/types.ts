@@ -31,7 +31,7 @@ export type FlowFilterGroup = {
 
 export type FlowGroupBy = FlowFilterGroup[] | string[];
 
-export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn; }>;
+export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate_fn?: AggregateFn; }>;
 
 export type FlowRowOptions = {
   colexp?: boolean;
@@ -40,6 +40,9 @@ export type FlowRowOptions = {
   nav?: {
     on_select?: Record<string, unknown>;
   };
+  /** Key on each row whose value is applied as the row text colour (any valid
+   *  CSS color string). Empty/missing values fall back to the inherited colour. */
+  color_field?: string;
 };
 
 export type FlowBoardLevelConfig = {
@@ -57,9 +60,13 @@ export type FieldNav = {
 };
 
 export type FlowResolvedField = LibResolvedField & {
-  aggregate?: AggregateFn;
+  aggregate_fn?: AggregateFn;
   order?: number;
   nav?: FieldNav;
+  /** Number of digits after the decimal point for numeric values. */
+  scale?: number;
+  /** Name of a sibling column on the row whose value supplies the colour. */
+  color_field?: string;
 };
 
 export type FieldMap = Record<string, FlowResolvedField>;
@@ -78,6 +85,9 @@ export type FlowGroupData = {
   checkable?: boolean;
   selectable?: boolean;
   on_select?: Record<string, unknown>;
+  /** Resolved CSS color for the row's text — derived from
+   *  `row_options.color_field` and the row data. */
+  color?: string;
   i18n?: Record<string, Record<string, string>>;
   data: FlowFieldEntry[];
   rows: Record<string, JSONValue>[];

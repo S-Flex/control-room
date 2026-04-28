@@ -132,6 +132,90 @@ Do not patch `node_modules/@s-flex/xfw-url/**` — the dist is already correct.
 Do not search the app source for `/` vs `//` — the compose/parse logic lives
 in xfw-url, not in app code.
 
+**Never write the URL via `window.history.replaceState(null, '', `${window.location.pathname}?…`)`.**
+This is the second way `//` collapses into `/`: `window.location.pathname`
+returns whatever the browser/router last normalised, which can already be the
+single-slash form. Writing it back permanently overwrites the correct `//`
+that `composeFullPath` originally emitted, and from then on the URL bar (and
+every subsequent read of `pathname`) shows the broken single-slash form even
+though the parser still accepts it.
+
+**Always go through `src/lib/urlSync.ts`** for query-param updates:
+
+```typescript
+import { syncQueryParams, rewriteUrl } from './lib/urlSync';
+
+// Update / remove specific query params (null = remove).
+syncQueryParams({ model: 'sheet', resource_uids: null });
+
+// Mutate the full query-param Map yourself.
+rewriteUrl(qp => { qp.delete('selected'); qp.set('from', iso); });
+```
+
+Both helpers round-trip through xfw-url's `parseFullPath` (forgiving, accepts
+either slash form) and `composeFullPath` (always re-emits `//`), so the URL
+bar stays correct no matter how many times you sync. Use them for every
+URL-write — page-state effects, click handlers, switch-line callbacks, etc.
+
+Direct calls to `window.history.replaceState` / `pushState` outside
+`src/lib/urlSync.ts` are forbidden in app code. If you spot one in a PR,
+treat it as a bug — it will silently collapse aux-route `//` separators.
+
+**Belt-and-braces: the runtime guard.** App-level discipline isn't enough
+because **React Router's internal `resolveTo` collapses `//`** as well
+(it runs `joinPaths(...).replace(/\/\/+/g, "/")` on every `to` argument
+before pushing to history). A correctly-composed `(a:1//b:2)` becomes
+`(a:1/b:2)` *inside* the router, before the browser ever sees it.
+
+`src/lib/auxRouteGuard.ts` defends against this:
+- **Boot-time self-test** — verifies `composeFullPath` actually emits `//`.
+  Throws a loud error at startup if a stale Vite dep cache (or any other
+  regression) shipped the old single-slash version, with the exact fix
+  command in the message (`rm -rf node_modules/.vite && npm run dev`).
+- **Continuous integrity guard** — patches `pushState`/`replaceState` to
+  fire DOM events, listens to those + `popstate`, and after every navigation
+  re-canonicalises the URL via `parseFullPath` → `composeFullPath`. If the
+  current URL doesn't match the canonical form, it calls `replaceState` to
+  restore `//` and logs `[aux-route-guard] URL collapsed; restoring //`
+  with before/after for diagnostics.
+
+The guard is installed once in `src/main.tsx` via `installAuxRouteGuard()`.
+Do **not** remove that call. The check is idempotent (canonical-vs-canonical
+comparison) so it cannot infinite-loop, and it's free when the URL is already
+correct (`window.location.pathname.includes('(')` short-circuits non-aux URLs).
+
+If you see `[aux-route-guard] URL collapsed; restoring //` in the console:
+- That means React Router (or some other code path) drifted the URL and the
+  guard auto-corrected. The app is working — but if you want to silence the
+  warning, find the upstream `replaceState`/`pushState`/`navigate` call that
+  produced the broken form and route it through `urlSync.ts` instead.
+
+**Pre-commit lint.** `scripts/check-aux-routes.mjs` enforces the rules at
+commit time so they can never silently regress. It scans `src/` and `data/`
+for three patterns and fails the commit on any hit:
+
+  1. `history.{push,replace}State` outside `src/lib/{auxRouteGuard,urlSync}.ts`.
+  2. URL composition that reads `${window.location.pathname}` (the back-channel
+     for the collapsed-pathname bug).
+  3. Aux-outlet expressions `(...)` whose `key:val` pairs are joined by `/`
+     instead of `//`. Both `.ts/.tsx/.js` source and `.json` data are scanned.
+
+Wired in two places:
+- `package.json`:
+  - `scripts.check:aux-routes` — run manually with `npm run check:aux-routes`.
+  - `scripts.build` runs the lint before `vite build`, so CI/prod builds fail
+    fast.
+  - `scripts.prepare` sets `git config core.hooksPath .githooks` on every
+    `npm install`, activating the hook for new clones.
+- `.githooks/pre-commit` — runs the lint on staged `src/` and `data/` files.
+  Checked into the repo so cloning + `npm install` is enough; no Husky / extra
+  deps required.
+
+If a deliberate exception is genuinely necessary (very rare), use the per-line
+escape `// aux-routes-allow` on the same line. Always justify with a comment
+above. The helpers themselves (`auxRouteGuard.ts`, `urlSync.ts`) and the
+linter script live in the file allowlist.
+
 ### Widget system
 
 Widgets in `src/widgets/` receive `widgetConfig` (field mappings) and `data` (rows):

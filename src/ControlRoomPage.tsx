@@ -5,6 +5,7 @@ import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import { EquipCard } from './viewer/EquipCard';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
+import { syncQueryParams } from './lib/urlSync';
 import { WidgetPanel } from './widgets/WidgetPanel';
 import { Ticker } from './widgets/Ticker';
 import { DashboardHeader } from './widgets/DashboardHeader';
@@ -70,16 +71,14 @@ export function ControlRoomPage() {
 
   // Sync model, from, and until to URL so useDataGeneric can read them
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('model', activeLineId);
-    if (!params.has('until')) {
-      params.set('until', new Date().toISOString());
-    }
-    if (!params.has('from')) {
+    const cur = new URLSearchParams(window.location.search);
+    const updates: Record<string, string | null> = { model: activeLineId };
+    if (!cur.has('until')) updates.until = new Date().toISOString();
+    if (!cur.has('from')) {
       const today = new Date().toISOString().slice(0, 10);
-      params.set('from', new Date(`${today}T06:00:00`).toISOString());
+      updates.from = new Date(`${today}T06:00:00`).toISOString();
     }
-    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    syncQueryParams(updates);
   }, [activeLineId]);
 
   // React to model query param changes
@@ -175,9 +174,7 @@ export function ControlRoomPage() {
   const switchLine = useCallback((id: string) => {
     if (id === activeLineId) return;
     setActiveLineId(id);
-    const params = new URLSearchParams(window.location.search);
-    params.set('model', id);
-    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    syncQueryParams({ model: id });
     setActiveMatchKey(null);
     setCyclePaused(false);
     currentIdx.current = -1;

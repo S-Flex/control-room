@@ -45,11 +45,22 @@ const svgIcons: Record<string, React.ReactNode> = {
   ),
 };
 
-export function IconMap({ value, inputData }: { value: JSONValue; inputData: InputData }) {
+export function IconMap({ value, inputData, label, showLabel = false, color }: {
+  value: JSONValue;
+  inputData: InputData;
+  /** Optional label rendered before the icon(s) when `showLabel` is true. */
+  label?: string;
+  /** Whether to render the label. Default `false`. */
+  showLabel?: boolean;
+  /** Optional CSS color string applied to the icon foreground (currentColor). */
+  color?: string;
+}) {
   const entries = resolve(value, inputData);
   if (entries.length === 0) return null;
+  const style = color ? { color } : undefined;
   return (
-    <span className="icon-map">
+    <span className="icon-map" style={style}>
+      {label && showLabel && <span className="icon-map-label">{label}: </span>}
       {entries.map((e, i) => {
         const tooltip = e.title ?? e.text ?? e.class_name ?? '';
         if (e.img_url) return <img key={i} src={e.img_url} className="icon-map-img" alt={tooltip} title={tooltip} />;

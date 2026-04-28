@@ -28,11 +28,18 @@ function resolveBadge(value: JSONValue, inputData?: InputData): BadgeResolved {
   return { text: String(content ?? value ?? '—') };
 }
 
-export function Badge({ value, inputData, nav, row }: {
+export function Badge({ value, inputData, nav, row, label, showLabel = true, color }: {
   value: JSONValue;
   inputData?: InputData;
   nav?: FieldNav;
   row?: JSONRecord;
+  /** Optional pre-resolved label (e.g. localized title from i18n). When set,
+   *  the badge text becomes `<label>: <value>` — unless `showLabel` is false. */
+  label?: string;
+  /** Whether to prefix the value with the label. Defaults to `true`. */
+  showLabel?: boolean;
+  /** Optional CSS color string applied as the badge background (text becomes white). */
+  color?: string;
 }) {
   const navAction = useNavItemAction();
   const navigate = useNavigate();
@@ -54,14 +61,22 @@ export function Badge({ value, inputData, nav, row }: {
   const cls = (extra?: string) =>
     ['badge', extra, interactive ? 'badge-nav' : null].filter(Boolean).join(' ');
 
+  const inlineStyle: React.CSSProperties | undefined = color
+    ? { background: color, borderColor: color, color: '#fff' }
+    : undefined;
+
+  const decorate = (text: string): string =>
+    label && showLabel ? `${label}: ${text}` : text;
+
   if (Array.isArray(value)) {
     return (
       <span className="badge-list">
         {value.map((v, i) => {
           const { text, class_name } = resolveBadge(v, inputData);
+          const display = decorate(text);
           return (
-            <span key={i} className={cls(class_name)} title={text} onClick={handleClick}>
-              {text}
+            <span key={i} className={cls(class_name)} title={display} style={inlineStyle} onClick={handleClick}>
+              {display}
             </span>
           );
         })}
@@ -69,9 +84,10 @@ export function Badge({ value, inputData, nav, row }: {
     );
   }
   const { text, class_name } = resolveBadge(value, inputData);
+  const display = decorate(text);
   return (
-    <span className={cls(class_name)} title={text} onClick={handleClick}>
-      {text}
+    <span className={cls(class_name)} title={display} style={inlineStyle} onClick={handleClick}>
+      {display}
     </span>
   );
 }

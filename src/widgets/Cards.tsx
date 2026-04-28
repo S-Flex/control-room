@@ -8,7 +8,7 @@ import { Field } from '../controls/Field';
 
 import type { FieldNav } from './flow/types';
 
-type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav; hidden_when?: unknown; no_label?: boolean; };
+type CardField = ResolvedField & { order?: number; class_name?: string; nav?: FieldNav; hidden_when?: unknown; no_label?: boolean; color_field?: string; scale?: number; };
 
 function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?: string; no_label?: boolean; } {
   const fc = dataGroup.field_config;
@@ -25,6 +25,7 @@ function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?
     })
     .map(([key, config]) => {
       const ui = config.ui as Record<string, unknown> | undefined;
+      const cfgRaw = config as Record<string, unknown>;
       const fieldNoLabel = ui?.no_label as boolean | undefined;
       return {
         key,
@@ -32,12 +33,14 @@ function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?
         control: config.ui?.control,
         input_data: config.input_data,
         order: config.ui?.order,
-        class_name: (config as Record<string, unknown>).class_name as string | undefined
+        class_name: cfgRaw.class_name as string | undefined
           ?? ui?.class_name as string | undefined
           ?? config.ui?.group?.class_name,
-        nav: (config as Record<string, unknown>).nav as FieldNav | undefined,
+        nav: cfgRaw.nav as FieldNav | undefined,
         hidden_when: config.ui?.hidden_when,
         no_label: fieldNoLabel ?? groupNoLabel,
+        color_field: ui?.color_field as string | undefined,
+        scale: (cfgRaw.scale as number | undefined) ?? (ui?.scale as number | undefined),
       } as CardField;
     })
     .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
