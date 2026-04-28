@@ -1,10 +1,12 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import { useNavItemAction, type DataGroup, type NavItem, type ResolvedField } from '@s-flex/xfw-ui';
 import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { useNavigate } from '@s-flex/xfw-url';
 import { resolve, isFieldVisible } from './resolve';
 import { Content } from './Content';
 import { Field } from '../controls/Field';
+import { SearchBox, useSearchState } from '../controls/SearchBox';
+import { readSearchFields, rowMatches } from './searchUtils';
 
 import type { FieldNav } from './flow/types';
 
@@ -66,19 +68,24 @@ function cardBackground(hex: string): string {
   return hexToRgba(hex, 0.20);
 }
 
-function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
+function Card({ row, fields, class_name, selectable, isSelected, onSelect, searchClass, searchTrack }: {
   row: JSONRecord;
   fields: CardField[];
   class_name?: string;
   selectable?: boolean;
   isSelected?: boolean;
   onSelect?: () => void;
+  /** Extra className appended for search highlight / focus state. */
+  searchClass?: string;
+  /** `data-search-track` attribute used by prev/next to scroll to this card. */
+  searchTrack?: string;
 }) {
   const stateColor = resolve(row, 'state.color') as string | null;
 
   return (
     <div
-      className={`flow-card-section${selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}`}
+      className={`flow-card-section${selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}${searchClass ? ' ' + searchClass : ''}`}
+      data-search-track={searchTrack}
       style={stateColor ? { backgroundColor: cardBackground(stateColor) } : undefined}
       onClick={selectable ? onSelect : undefined}
     >
@@ -107,8 +114,6 @@ function Card({ row, fields, class_name, selectable, isSelected, onSelect }: {
 }
 
 export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; data: JSONRecord[]; dataTable?: DataTable; }) {
-  if (!data || data.length === 0) return null;
-
   const { fields, class_name } = resolveFields(dataGroup);
   const rowOptions = (dataGroup as Record<string, unknown>).row_options as Record<string, unknown> | undefined;
   const selectable = rowOptions?.selectable as boolean | undefined;
@@ -117,6 +122,10 @@ export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; da
   const navigate = useNavigate();
   const navAction = useNavItemAction(undefined, undefined, { extraParamKeys: primaryKeys });
 
+  const searchFields = readSearchFields(dataGroup);
+  const search = useSearchState();
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const [selectedKey, setSelectedKey] = useState<string | null>(() => {
     if (primaryKeys.length === 0) return null;
     const params = new URLSearchParams(window.location.search);
@@ -124,6 +133,60 @@ export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; da
     if (values.some(v => v === null)) return null;
     return values.join('||');
   });
+
+  // Match by `row.track_by` — the numeric id stamped on every row by
+  // DataGroupContent. Survives the row-clone passes that toggleChecked /
+  // mergeData do to flip flags, and doesn't depend on primary_keys. Uses
+  // `appliedQuery` (committed via Enter), not the live input, so the match
+  // set / counter only update on commit.
+  const matchedTracks = useMemo(() => {
+    if (!searchFields || !search.appliedQuery) return new Set<number>();
+    const set = new Set<number>();
+    for (const row of data) {
+      const track = row.track_by;
+      if (typeof track !== 'number') continue;
+      if (rowMatches(row, search.appliedQuery, searchFields)) set.add(track);
+    }
+    return set;
+  }, [data, searchFields, search.appliedQuery]);
+
+  const visibleData = useMemo(() => {
+    if (!searchFields || search.mode !== 'filter' || !search.appliedQuery) return data;
+    return data.filter(row => typeof row.track_by === 'number' && matchedTracks.has(row.track_by));
+  }, [data, searchFields, search.mode, search.appliedQuery, matchedTracks]);
+
+  const matchOrderedTracks = useMemo(() => {
+    const out: number[] = [];
+    visibleData.forEach(row => {
+      const t = row.track_by;
+      if (typeof t === 'number' && matchedTracks.has(t)) out.push(t);
+    });
+    return out;
+  }, [visibleData, matchedTracks]);
+
+  // Scroll the focused match into view after layout settles. Highlight mode
+  // only — in filter mode every match is on screen and prev/next is hidden.
+  useEffect(() => {
+    if (search.mode !== 'highlight') return;
+    if (matchOrderedTracks.length === 0) return;
+    const idx = Math.min(search.currentIndex, matchOrderedTracks.length - 1);
+    const track = matchOrderedTracks[idx];
+    const el = containerRef.current?.querySelector(`[data-search-track="${track}"]`);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [matchOrderedTracks, search.currentIndex, search.mode]);
+
+  const handlePrev = useCallback(() => {
+    if (matchOrderedTracks.length === 0) return;
+    search.setCurrentIndex((search.currentIndex - 1 + matchOrderedTracks.length) % matchOrderedTracks.length);
+  }, [matchOrderedTracks.length, search]);
+  const handleNext = useCallback(() => {
+    if (matchOrderedTracks.length === 0) return;
+    search.setCurrentIndex((search.currentIndex + 1) % matchOrderedTracks.length);
+  }, [matchOrderedTracks.length, search]);
+  const handleSubmit = useCallback((direction: 'next' | 'prev') => {
+    if (search.commit()) return;
+    if (direction === 'next') handleNext(); else handlePrev();
+  }, [search, handleNext, handlePrev]);
 
   const handleSelect = useCallback((row: JSONRecord) => {
     const key = buildRowKey(row, primaryKeys);
@@ -138,23 +201,52 @@ export function Cards({ dataGroup, data, dataTable }: { dataGroup: DataGroup; da
     }
   }, [primaryKeys, selectedKey, onSelectNavItem, navAction, navigate]);
 
+  if (!data || data.length === 0) return null;
+
+  const focusedTrack = matchOrderedTracks.length > 0
+    ? matchOrderedTracks[Math.min(search.currentIndex, matchOrderedTracks.length - 1)]
+    : null;
+
   return (
-    <div className="flow-card-list">
-      {data.map((row, i) => {
-        const key = (row.id as string | number) ?? i;
-        const rowKey = primaryKeys.length > 0 ? buildRowKey(row, primaryKeys) : null;
-        return (
-          <Card
-            key={key}
-            row={row}
-            fields={fields}
-            class_name={class_name}
-            selectable={selectable}
-            isSelected={selectable && selectedKey != null && rowKey === selectedKey}
-            onSelect={() => handleSelect(row)}
-          />
-        );
-      })}
+    <div className="cards-widget">
+      {searchFields && (
+        <SearchBox
+          query={search.query}
+          onQueryChange={search.setQuery}
+          mode={search.mode}
+          onModeChange={search.setMode}
+          matchCount={matchOrderedTracks.length}
+          currentIndex={search.currentIndex}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          onSubmit={handleSubmit}
+        />
+      )}
+      <div ref={containerRef} className="flow-card-list">
+        {visibleData.map((row, i) => {
+          const key = (row.id as string | number) ?? i;
+          const rowKey = primaryKeys.length > 0 ? buildRowKey(row, primaryKeys) : null;
+          const track = typeof row.track_by === 'number' ? row.track_by : null;
+          const isMatch = track !== null && matchedTracks.has(track);
+          const isFocus = isMatch && track === focusedTrack;
+          const searchClass = isMatch && search.mode === 'highlight'
+            ? `included-in-search${isFocus ? ' search-focus' : ''}`
+            : undefined;
+          return (
+            <Card
+              key={key}
+              row={row}
+              fields={fields}
+              class_name={class_name}
+              selectable={selectable}
+              isSelected={selectable && selectedKey != null && rowKey === selectedKey}
+              onSelect={() => handleSelect(row)}
+              searchClass={searchClass}
+              searchTrack={isMatch && track !== null ? String(track) : undefined}
+            />
+          );
+        })}
+      </div>
     </div>
   );
 }

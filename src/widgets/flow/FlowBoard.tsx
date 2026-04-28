@@ -16,6 +16,8 @@ import {
 import { FlowProvider } from './FlowContext';
 import { useFieldOptions } from './useFieldOptions';
 import { FlowBox } from './FlowBox';
+import { SearchableLevel } from './SearchableLevel';
+import { readSearchFields } from '../searchUtils';
 
 function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
   return primaryKeys.map(k => String(row[k] ?? '')).join('||');
@@ -155,10 +157,29 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       rows: groupRows,
       navs,
       children,
+      isLeaf: !levelConfig.children,
     };
   }
 
-  function renderLevel(levelConfig: FlowBoardLevelConfig, levelRows: JSONRecord[]): ReactNode {
+  function renderLevel(levelConfig: FlowBoardLevelConfig, levelRows: JSONRecord[], pruneEmpty = false): ReactNode {
+    // If this level declares `search: [...]`, wrap its render in a
+    // SearchableLevel that owns the search state. The wrapper hands back the
+    // rows it wants displayed (filtered in filter mode, untouched in
+    // highlight mode) so we can recurse normally over the visible subset.
+    const searchFields = readSearchFields(levelConfig);
+    if (searchFields) {
+      return (
+        <SearchableLevel
+          rows={levelRows}
+          fields={searchFields}
+          render={(visibleRows, prune) => renderLevelInner(levelConfig, visibleRows, prune)}
+        />
+      );
+    }
+    return renderLevelInner(levelConfig, levelRows, pruneEmpty);
+  }
+
+  function renderLevelInner(levelConfig: FlowBoardLevelConfig, levelRows: JSONRecord[], pruneEmpty: boolean): ReactNode {
     const groupBy = levelConfig.group_by;
     const levelFieldMap = mergeFieldMap(fieldMap, levelConfig.field_config, optionsMap);
     const levelFc = levelConfig.field_config;
@@ -175,7 +196,7 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       // No group_by: one card per row, fields from level field_config
       groups = levelRows.map((row, i) => {
         const data = buildGroupFields([row], [], levelFieldMap, levelFc);
-        const children = levelConfig.children ? renderLevel(levelConfig.children, [row]) : null;
+        const children = levelConfig.children ? renderLevel(levelConfig.children, [row], pruneEmpty) : null;
         const rowKey = primaryKeys.length > 0
           ? primaryKeys.map(k => String(row[k] ?? '')).join('||')
           : String(i);
@@ -183,17 +204,22 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       });
     } else if (isFilterGroupBy(groupBy)) {
       const gbKeys = getGroupByKeys(levelConfig);
-      groups = groupBy.map((filterGroup, i) => {
-        const groupRows = applyFilterGroup(levelRows, filterGroup.filter);
-        const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
-        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows) : null;
-        return buildGroup(levelConfig, `filter-${i}`, groupRows, data, grpClassName, children, filterGroup.navs, filterGroup.i18n);
-      });
+      groups = groupBy
+        .map((filterGroup, i) => {
+          const groupRows = applyFilterGroup(levelRows, filterGroup.filter);
+          // In filter mode, drop columns that came back empty so parents of
+          // zero matches disappear instead of rendering as bare placeholders.
+          if (pruneEmpty && groupRows.length === 0) return null;
+          const data = buildGroupFields(groupRows, gbKeys, levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
+          const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows, pruneEmpty) : null;
+          return buildGroup(levelConfig, `filter-${i}`, groupRows, data, grpClassName, children, filterGroup.navs, filterGroup.i18n);
+        })
+        .filter((g): g is FlowGroupData => g !== null);
     } else {
       const grouped = groupRowsByFields(levelRows, groupBy);
       groups = [...grouped.entries()].map(([key, groupRows]) => {
         const data = buildGroupFields(groupRows, groupBy as string[], levelFieldMap, levelFc, undefined, getCheckedRows(groupRows));
-        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows) : null;
+        const children = levelConfig.children ? renderLevel(levelConfig.children, groupRows, pruneEmpty) : null;
         return buildGroup(levelConfig, key, groupRows, data, grpClassName, children);
       });
     }

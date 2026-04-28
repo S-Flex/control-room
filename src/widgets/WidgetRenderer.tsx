@@ -194,7 +194,7 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
     case 'table':
       return <TableWidget widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'content':
-      return <Content data={data} />;
+      return <Content data={data} search={(dataGroup as unknown as { search?: string[] }).search} />;
     case 'status-bar':
       return <StatusBar widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     default:

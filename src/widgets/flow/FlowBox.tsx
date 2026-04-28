@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import type { JSONValue } from '@s-flex/xfw-data';
+import { useEffect, useRef, useState } from 'react';
+import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
 import { Checkbox } from '@s-flex/xfw-ui';
 import { useGroupCheck } from '../../controls/Checkbox';
 import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
+import { useFlowSearch } from './FlowSearchContext';
 import { ColumnGridPagerControls, useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
 
 function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
@@ -23,6 +24,39 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
   const { allChecked, someChecked } = useGroupCheck(g.rows);
   const tableCheck = useGroupCheck(tableAllRows ?? []);
   const { selectedGroupKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
+  const flowSearch = useFlowSearch();
+  // A leaf card (no descendant levels) is a search "item": it represents one
+  // or more rows aggregated into a single visual card and matches the active
+  // query when any of its rows' `track_by` is in the matched set. Non-leaf
+  // groups never highlight — only the leaf is the unit of focus.
+  const isSearchActive = flowSearch.matchedTracks.size > 0;
+  const matchedTrack = (g.isLeaf && isSearchActive)
+    ? rowTrackMatch(g.rows, flowSearch.matchedTracks)
+    : null;
+  const isSearchMatch = matchedTrack !== null;
+  const isSearchFocused = isSearchMatch && matchedTrack === flowSearch.focusedTrack;
+  const searchHighlightClass = isSearchMatch && flowSearch.highlight
+    ? ` included-in-search${isSearchFocused ? ' search-focus' : ''}`
+    : '';
+  // `data-search-track` lives only on matched leaves so SearchableLevel's
+  // prev/next walks exactly the matched-card list in DOM order. The value is
+  // the first matching row's `track_by` — multi-row leaves still resolve to
+  // a single anchor.
+  const searchAnchor = matchedTrack !== null ? String(matchedTrack) : undefined;
+
+  // Auto-expand any collapsible group whose subtree contains the currently
+  // focused match — only on focus *change* so the user can still manually
+  // collapse a group that happens to hold the focus without it snapping back
+  // open. Initial ref = null so a focused-on-mount card still expands.
+  const containsFocusedRow = flowSearch.focusedTrack !== null
+    && g.rows.some(r => r.track_by === flowSearch.focusedTrack);
+  const lastFocusedRef = useRef<number | null>(null);
+  useEffect(() => {
+    const f = flowSearch.focusedTrack;
+    if (f === lastFocusedRef.current) return;
+    lastFocusedRef.current = f;
+    if (containsFocusedRow && isCollapsed) setCollapsed(false);
+  }, [flowSearch.focusedTrack, containsFocusedRow, isCollapsed]);
 
   // In flow-table the checkbox is strictly opt-in (must be `true`); other
   // layouts keep the legacy default-on behaviour.
@@ -52,7 +86,8 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
 
   return (
     <div
-      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}${g.color ? ' flow-row-colored' : ''}`}
+      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}${g.color ? ' flow-row-colored' : ''}${searchHighlightClass}`}
+      data-search-track={searchAnchor}
       style={g.color ? { color: g.color } : undefined}
       onClick={handleSelect}
     >
@@ -87,7 +122,7 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
             ? <span className="flow-box-title">{resolveI18nLabel(g.i18n, g.key)}</span>
             : g.data.map((d, i) => (
               <div key={d.field?.key ? `${d.field.key}-${i}` : i} className={d.class_name || undefined}>
-                <Field field={d.field} value={d.value} showLabel row={g.rows[0]} />
+                <Field field={d.field} value={d.value} row={g.rows[0]} />
               </div>
             ))
           }
@@ -132,6 +167,9 @@ export function FlowBox({ layout, groups }: FlowLayoutProps) {
     const tableAllRows = isTable ? groups.flatMap(g => g.rows) : undefined;
     return (
       <div className={wrapperClass}>
+        {isTable && groups[0] && (
+          <FlowTableHeader data={groups[0].data} className={groups[0].class_name} />
+        )}
         {groups.map((g, i) => (
           <FlowBoxItem
             key={g.key}
@@ -152,6 +190,36 @@ export function FlowBox({ layout, groups }: FlowLayoutProps) {
       onScroll={handleScroll}
     >
       {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid pager={pager} />)}
+    </div>
+  );
+}
+
+/** Return the first matching `track_by` in the group's rows, or null. */
+function rowTrackMatch(rows: ReadonlyArray<Record<string, JSONValue>>, matched: Set<number>): number | null {
+  for (const r of rows) {
+    const t = r.track_by;
+    if (typeof t === 'number' && matched.has(t)) return t;
+  }
+  return null;
+}
+
+/** Header row for `flow-table` layouts: renders the field labels in a
+ *  dedicated div above the cards so the labels are not part of any data row
+ *  (and therefore not part of the search surface). The labels reuse the same
+ *  grid `className` as a card's data row so the columns line up. */
+function FlowTableHeader({ data, className }: {
+  data: import('./types').FlowFieldEntry[];
+  className?: string;
+}) {
+  return (
+    <div className="flow-table-header">
+      <div className={`flow-table-header-grid${className ? ` ${className}` : ''}`}>
+        {data.map((d, i) => (
+          <div key={d.field?.key ? `${d.field.key}-${i}` : i} className={d.class_name || undefined}>
+            <span className="field-label">{d.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

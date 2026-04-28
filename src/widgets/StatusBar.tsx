@@ -67,15 +67,23 @@ export function StatusBar({ widgetConfig, dataGroup, data }: {
 
   const lang = getLanguage();
 
-  // Per-item label visibility comes from the data group's root `field_config`,
-  // keyed by `item.code`: `field_config[code].ui.no_label = true` hides the
-  // label for that item. Default is to show the label.
-  const fieldConfig = (dataGroup as unknown as { field_config?: Record<string, { ui?: { no_label?: boolean } }> }).field_config;
+  // Per-item label visibility and ordering come from the data group's root
+  // `field_config`, keyed by `item.code`. Same shape as Cards/Item:
+  //   field_config.no_label                — group-level default
+  //   field_config[code].ui.no_label       — per-item override
+  //   field_config[code].ui.order          — per-item sort order
+  const fieldConfig = (dataGroup as unknown as {
+    field_config?: Record<string, { ui?: { no_label?: boolean; order?: number } } | boolean | undefined>;
+  }).field_config;
+  const groupNoLabel = (fieldConfig as Record<string, unknown> | undefined)?.no_label as boolean | undefined;
+  const fieldEntry = (code: string | undefined) =>
+    code ? (fieldConfig?.[code] as { ui?: { no_label?: boolean; order?: number } } | undefined) : undefined;
   const showLabelFor = (code: string | undefined): boolean => {
-    if (!code) return true;
-    const noLabel = fieldConfig?.[code]?.ui?.no_label;
-    return !noLabel;
+    const fieldNoLabel = fieldEntry(code)?.ui?.no_label;
+    return !(fieldNoLabel ?? groupNoLabel);
   };
+  const orderFor = (code: string | undefined): number =>
+    fieldEntry(code)?.ui?.order ?? 999;
 
   return (
     <div className="statusbar">
@@ -84,7 +92,15 @@ export function StatusBar({ widgetConfig, dataGroup, data }: {
         const label = localize(g[groupLabelKey], lang);
         const nav = g[groupNavKey] as NavItem | undefined;
         const itemsRaw = g[itemsField];
-        const items = (Array.isArray(itemsRaw) ? itemsRaw : []) as JSONRecord[];
+        const itemsAll = (Array.isArray(itemsRaw) ? itemsRaw : []) as JSONRecord[];
+        const items = itemsAll
+          .map((item, idx) => ({ item, idx }))
+          .sort((a, b) => {
+            const ao = orderFor(a.item?.code as string | undefined);
+            const bo = orderFor(b.item?.code as string | undefined);
+            return ao !== bo ? ao - bo : a.idx - b.idx;
+          })
+          .map(e => e.item);
         const groupKey = (g.code as string | undefined) ?? `g-${gi}`;
 
         const labelEl = label

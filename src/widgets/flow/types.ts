@@ -52,6 +52,10 @@ export type FlowBoardLevelConfig = {
   class_name?: string;
   row_options?: FlowRowOptions;
   children?: FlowBoardLevelConfig;
+  /** Field paths a SearchBox at this level matches against. When present, the
+   *  level renders its own search input + prev/next; child levels receive the
+   *  filtered (filter mode) or untouched (highlight mode) row set. */
+  search?: string[];
 };
 
 export type FieldNav = {
@@ -63,6 +67,9 @@ export type FlowResolvedField = LibResolvedField & {
   aggregate_fn?: AggregateFn;
   order?: number;
   nav?: FieldNav;
+  /** Hide the label on visual controls. Inherited from
+   *  `field_config[key].ui.no_label`; level field_config overrides root. */
+  no_label?: boolean;
   /** Number of digits after the decimal point for numeric values. */
   scale?: number;
   /** Name of a sibling column on the row whose value supplies the colour. */
@@ -93,6 +100,9 @@ export type FlowGroupData = {
   rows: Record<string, JSONValue>[];
   navs?: FlowNavItem[];
   children: React.ReactNode;
+  /** True when this group is at the bottom of the flow tree (no descendant
+   *  level). Leaf groups carry the search highlight + prev/next anchor. */
+  isLeaf?: boolean;
 };
 
 export type FlowLayoutProps = {

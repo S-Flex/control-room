@@ -28,9 +28,19 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   // label/i18n/order/control/scale without duplicating merge logic.
   const normalizedDataGroup = useMemo(() => normalizeDataGroup(dataGroup), [dataGroup]);
 
+  // Stamp every row with a stable `track_by` index as soon as the rows arrive
+  // from the API. Widgets (search, prev/next focus, list keys) treat
+  // `track_by` as the canonical row id so they don't depend on
+  // `primary_keys` being declared or `row.id` being present. The clone keeps
+  // the cached payload in xfw-data untouched.
+  const trackedRows = useMemo(() => {
+    if (!dataRows) return dataRows;
+    return dataRows.map((row, i) => ({ ...row, track_by: i }));
+  }, [dataRows]);
+
   if (isLoading) return <p className="datagroup-loading">Loading...</p>;
   if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
-  if (!dataRows || dataRows.length === 0) return <p className="datagroup-empty">No data</p>;
+  if (!trackedRows || trackedRows.length === 0) return <p className="datagroup-empty">No data</p>;
 
   const layout = normalizedDataGroup.layout ?? '';
   const dg = normalizedDataGroup as Record<string, unknown>;
@@ -59,9 +69,9 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
       )}
       {!collapsed && (
         widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
-          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={dataRows} dataTable={dataTable} />
+          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={trackedRows} dataTable={dataTable} />
         ) : (
-          <FallbackDataRows data={dataRows} />
+          <FallbackDataRows data={trackedRows} />
         )
       )}
     </div>

@@ -4403,13 +4403,24 @@ button.statusbar-label:hover {
   background: transparent;
   /* min-width: max-content; */
 }
-.flow-table > .flow-card-section:not(:first-child) .field-label {
+/* Field labels live in the dedicated `.flow-table-header` row above the
+   cards in flow-table layout; cards themselves always hide their labels so
+   the header isn't part of the first row's selectable surface. */
+.flow-table > .flow-card-section .field-label {
   display: none;
 }
-.flow-table > .flow-card-section:first-child .field-label {
+.flow-table-header {
+  display: flex;
+  align-items: stretch;
   border-bottom: 1px solid var(--border);
   padding-bottom: 4px;
   margin-bottom: 4px;
+}
+.flow-table-header > .flow-table-header-grid {
+  flex: 1 1 auto;
+}
+.flow-table-header .field-label {
+  display: block;
 }
 .flow-table::-webkit-scrollbar {
   height: 6px;
@@ -4511,10 +4522,10 @@ button.statusbar-label:hover {
 /* Wrapper for label-less visual controls (badge / chip / icon-map): aligns the
  * control to the bottom of its grid cell so it lines up with the value
  * baseline of neighbouring text fields. */
-.field-bottom-aligned {
+.field-center-aligned {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: flex-start;
   height: 100%;
   min-width: 0;
@@ -4808,7 +4819,7 @@ button.statusbar-label:hover {
 .badge {
   display: inline-block;
   max-width: 100%;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 500;
   padding: 2px 10px;
   border-radius: 10px;
@@ -5082,3 +5093,130 @@ button.statusbar-label:hover {
   height: 16px;
   object-fit: contain;
 }
+
+.searchbox {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text-primary);
+  font-size: 12px;
+  margin-bottom: 8px;
+  /* Span the parent (cards/list/level) full-width. The input flexes; a wide
+     match counter shrinks the input rather than bulging the box outward. */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* While there's a query in the input, pin the box to the top so the search
+   controls stay reachable as the user scrolls a long list. Empty input falls
+   back to normal flow — the box doesn't permanently steal a row of space.
+   Sticky needs a scrollable ancestor; in this app the cards/level container
+   itself scrolls, so the box pins relative to that. */
+.searchbox.is-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.searchbox-input {
+  flex: 1 1 0;
+  min-width: 40px;
+  padding: 4px 6px;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+
+/* Suppress the browser's default clear button on `<input type="search">` —
+   we render our own `.searchbox-clear` to match the toolbar style. Chromium
+   draws `::-webkit-search-cancel-button`; Firefox already shows nothing. */
+.searchbox-input::-webkit-search-cancel-button,
+.searchbox-input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.searchbox-counter,
+.searchbox-toggle,
+.searchbox-nav,
+.searchbox-clear {
+  flex: 0 0 auto;
+}
+
+.searchbox-clear {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.searchbox-clear:hover {
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+
+.searchbox-toggle,
+.searchbox-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--text-tertiary);
+  cursor: pointer;
+}
+
+.searchbox-toggle:hover,
+.searchbox-nav:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+
+.searchbox-toggle.is-active {
+  color: var(--brand);
+  background: var(--brand-pale);
+  border-color: var(--brand);
+}
+
+.searchbox-nav:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.searchbox-counter {
+  min-width: 36px;
+  text-align: center;
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.included-in-search {
+  /* !important so the highlight wins over inline `style={{ backgroundColor }}`
+     set by Cards / flow-row tinting. CSS author-important beats inline-normal. */
+  background-color: #1a3a3b !important;
+}
+
+.included-in-search.search-focus {
+  /* Focused match: a brighter teal so prev/next position is visible at a
+     glance against the regular `included-in-search` band. !important is
+     required because `.included-in-search` itself sets `background-color`
+     with !important — same-importance specificity alone wouldn't override. */
+  background-color: var(--brand) !important;
+}
+

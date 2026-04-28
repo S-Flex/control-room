@@ -108,14 +108,14 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
   // `field_config.<key>.color_field` pointing at a sibling column on the row.
   if (control === 'icon-map' && input_data) {
     return (
-      <div className="field-bottom-aligned">
+      <div className="field-center-aligned">
         <IconMap value={value} inputData={input_data} label={label} showLabel={shouldShowLabel} color={color} />
       </div>
     );
   }
   if (control === 'badge') {
     return (
-      <div className="field-bottom-aligned">
+      <div className="field-center-aligned">
         <Badge value={value} inputData={input_data} nav={nav} row={row} label={label} showLabel={shouldShowLabel} color={color} />
       </div>
     );
@@ -133,7 +133,7 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
     return <img src={String(value)} alt={label} className="field-img" />;
   }
   if (aggregate_fn) {
-    return <div className="field-bottom-aligned"><Chip label={label} value={value as string | number} /></div>;
+    return <div className="field-center-aligned"><Chip label={label} value={value as string | number} /></div>;
   }
 
   if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {

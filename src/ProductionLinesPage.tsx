@@ -333,9 +333,9 @@ export function ProductionLinesPage() {
   }, []);
 
   const handleRefresh = useCallback(() => {
-    const slot = sliderMax;
-    setPendingSlot(slot);
-    const untilIso = buildUntilFromSlot(pendingDate, slot);
+    // Re-fetch with the currently-pending time — do not snap the slot to
+    // sliderMax (24:00). Refresh = "commit & re-query", not "reset to EOD".
+    const untilIso = buildUntilFromSlot(pendingDate, pendingSlot);
     let fromDate = pendingFromDate;
     if (fromDate > pendingDate) {
       fromDate = pendingDate;
@@ -343,7 +343,7 @@ export function ProductionLinesPage() {
     }
     setFrom(buildFromIso(fromDate));
     setUntil(untilIso);
-  }, [pendingFromDate, pendingDate, buildFromIso, buildUntilFromSlot]);
+  }, [pendingFromDate, pendingDate, pendingSlot, buildFromIso, buildUntilFromSlot]);
 
   const handleNow = useCallback(() => {
     const now = new Date();
