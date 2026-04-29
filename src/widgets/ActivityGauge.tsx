@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 import {
   PolarAngleAxis,
   RadialBar,
@@ -13,6 +13,7 @@ import { resolve } from './resolve';
 import { formatValue, localizeI18n, resolveI18nLabel } from './flow/utils';
 import { Field } from '../controls/Field';
 import { FieldTooltip, type TooltipConfig, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
+import { DataGroupHeaderNavs } from '../controls/DataGroupHeaderNavs';
 import {
   ColumnGridPagerControls,
   useColumnGridPager,
@@ -97,7 +98,13 @@ function resolveColor(
   return series.colors[String(indexRaw)] ?? fallback;
 }
 
-function Gauge({
+// Wrapped in React.memo because recharts' internal `SetAngleAxisSettings`
+// component has a useMemo whose deps include the entire `props` object —
+// React passes a new props ref every render, so SetAngleAxisSettings
+// re-dispatches `addAngleAxis` to its redux store on every render, which
+// re-renders us, which re-dispatches… infinite loop. Memoising Gauge breaks
+// the cycle: when our props are stable, recharts isn't called at all.
+const Gauge = memo(function GaugeImpl({
   rings,
   centerTitle,
   row,
@@ -116,10 +123,15 @@ function Gauge({
     () => [...rings].reverse().map(r => ({ name: r.label, value: r.value, fill: r.color })),
     [rings],
   );
-  const domainMax = useMemo(
-    () => Math.max(100, ...rings.map(r => r.domainMax)),
+  const domain = useMemo<[number, number]>(
+    () => [0, Math.max(100, ...rings.map(r => r.domainMax))],
     [rings],
   );
+  // Recharts dispatches axis/chart settings into its internal redux store on
+  // every prop reference change. Inline `{}` / `[]` literals create new refs
+  // each render and feed an infinite settings-update loop in PolarAngleAxis
+  // and RadialBar's background. Memoise these.
+  const radialBackground = useMemo(() => ({ fill: 'var(--border)' }), []);
 
   return (
     <div
@@ -134,14 +146,14 @@ function Gauge({
           outerRadius={62}
           startAngle={90}
           endAngle={450}
-          margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+          margin={CHART_MARGIN}
         >
-          <PolarAngleAxis tick={false} domain={[0, domainMax]} type="number" />
+          <PolarAngleAxis tick={false} domain={domain} type="number" />
           <RadialBar
             isAnimationActive={false}
             dataKey="value"
             cornerRadius={99}
-            background={{ fill: 'var(--border)' }}
+            background={radialBackground}
           />
           {centerTitle && (
             <text
@@ -158,7 +170,9 @@ function Gauge({
       </ResponsiveContainer>
     </div>
   );
-}
+});
+
+const CHART_MARGIN = { top: 0, right: 0, bottom: 0, left: 0 } as const;
 
 function GaugeLegend({
   rings,
@@ -206,6 +220,11 @@ function GaugeCell({
   const labelValue = labelField ? resolve(row, labelField) as JSONValue : null;
   const labelFc = labelField ? fieldConfig?.[labelField] : undefined;
   const labelUi = readUi(labelFc);
+  // `field_config[labelField].ui.nav_field` makes the per-cell label
+  // (e.g. sitrep's "Vertraagd / Vandaag / Morgen / Overmorgen") clickable —
+  // Field resolves `row[nav_field]` to a NavItem and wraps the value in a
+  // button.
+  const labelNavField = (labelUi as Record<string, unknown> | undefined)?.nav_field as string | undefined;
 
   return (
     <div className="activity-gauge-cell">
@@ -217,6 +236,7 @@ function GaugeCell({
               control: readControl(labelFc),
               i18n: labelUi?.i18n as Record<string, Record<string, string>> | undefined,
               no_label: true,
+              nav_field: labelNavField,
             } as FieldInput}
             value={labelValue}
             row={row}
@@ -241,6 +261,10 @@ type ColumnProps = {
   onLeave: () => void;
   pager?: ColumnGridPager;
   fallbackTitle?: string;
+  /** When provided, renders `data_group.header.navs` (tabstrip) inside the
+   *  column-title. Only the first column receives this so the tabstrip
+   *  appears once per gauge, not per group. */
+  headerNavs?: Parameters<typeof DataGroupHeaderNavs>[0]['navs'];
 };
 
 function Column({
@@ -255,6 +279,7 @@ function Column({
   onLeave,
   pager,
   fallbackTitle,
+  headerNavs,
 }: ColumnProps) {
   const headerRow = rows[0];
   const headerField = titleField ? fieldConfig?.[titleField] : undefined;
@@ -262,6 +287,10 @@ function Column({
   const headerValue = titleField && headerRow ? resolve(headerRow, titleField) as JSONValue : null;
   const gaugeTitleField = mode.gauge_title_field;
   const centerField = gaugeTitleField ? fieldConfig?.[gaugeTitleField] : undefined;
+  // `field_config[titleField].ui.nav_field` makes the column title clickable.
+  // The string is the name of a sibling row column whose value is a NavItem;
+  // Field renders the title as a button when both are present.
+  const titleNavField = (headerUi as Record<string, unknown> | undefined)?.nav_field as string | undefined;
 
   // Series labels are stable per field-config / mode and don't depend on rows,
   // so resolving them once per render cycle (outside the row loop) avoids
@@ -306,20 +335,24 @@ function Column({
       <div className="column-grid-column-body">
         <div className="activity-gauge-cells">
           <div className="activity-gauge-column-title">
-            {titleField && headerValue != null ? (
-              <Field
-                field={{
-                  key: titleField,
-                  control: readControl(headerField),
-                  i18n: headerUi?.i18n as Record<string, Record<string, string>> | undefined,
-                  no_label: true,
-                } as FieldInput}
-                value={headerValue}
-                row={headerRow}
-              />
-            ) : (
-              <span>{fallbackTitle}</span>
-            )}
+            <div className="activity-gauge-title-group">
+              {titleField && headerValue != null ? (
+                <Field
+                  field={{
+                    key: titleField,
+                    control: readControl(headerField),
+                    i18n: headerUi?.i18n as Record<string, Record<string, string>> | undefined,
+                    no_label: true,
+                    nav_field: titleNavField,
+                  } as FieldInput}
+                  value={headerValue}
+                  row={headerRow}
+                />
+              ) : (
+                <span>{fallbackTitle}</span>
+              )}
+              {headerNavs && <DataGroupHeaderNavs navs={headerNavs} />}
+            </div>
             {pager && <ColumnGridPagerControls pager={pager} />}
           </div>
           <div className="activity-gauge-cells-row">
@@ -364,6 +397,8 @@ export function ActivityGauge({
 
   const fieldConfig = dataGroup?.field_config as Record<string, FieldConfig> | undefined;
   const lang = getLanguage();
+  const headerNavs = ((dataGroup as Record<string, unknown> | undefined)?.header as
+    { navs?: Parameters<typeof DataGroupHeaderNavs>[0]['navs'] } | undefined)?.navs;
 
   const resolvedLabelField = useMemo(() => {
     if (gauge_label_field) return gauge_label_field;
@@ -442,7 +477,7 @@ export function ActivityGauge({
         style={gridStyle}
         onScroll={handleScroll}
       >
-        {groups.map(g => (
+        {groups.map((g, i) => (
           <Column
             key={g.key}
             titleField={title_field}
@@ -456,6 +491,7 @@ export function ActivityGauge({
             onLeave={onLeave}
             pager={pager}
             fallbackTitle={g.key}
+            headerNavs={i === 0 ? headerNavs : undefined}
           />
         ))}
       </div>

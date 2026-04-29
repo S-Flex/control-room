@@ -1,4 +1,4 @@
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState, useCallback, useEffect } from 'react';
 import {
   BarChart,
   Bar,
@@ -10,6 +10,14 @@ import {
 import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { FieldConfig } from '@s-flex/xfw-ui';
 import { getLanguage } from 'xfw-get-block';
+
+// Recharts dispatches axis/chart settings into its internal redux store on
+// every prop reference change. Inline `{}` / `[]` literals create new refs
+// each render and feed an infinite settings-update loop. Keep these at module
+// scope so every BarChart instance shares the same reference.
+const BAR_CHART_MARGIN = { top: 8, right: 8, bottom: 8, left: 8 } as const;
+const X_AXIS_TICK = { fill: '#ffffff', fontSize: 12 } as const;
+const X_AXIS_LINE = { stroke: 'rgba(255,255,255,0.2)' } as const;
 
 type I18n = Record<string, Record<string, string>>;
 type FieldUI = {
@@ -329,6 +337,55 @@ function StackedBarChart({
   const { chartData, stacks } = useMemo(() => buildPivot(rows, cfg, palette), [rows, cfg, palette]);
   const [hover, setHover] = useState<{ x: number; y: number; payload: any[]; label: string } | null>(null);
 
+  // The recharts BarChart auto-scales the Y axis to the max bar height plus a
+  // bit of headroom — so bars that sum to the expected total still don't quite
+  // reach the top. We compute the per-bar totals, detect the data scale (1.0
+  // vs 100), and pin the Y axis explicitly below.
+  const { yMax, breakdownLog } = useMemo(() => {
+    let maxTotal = 0;
+    const totals: number[] = [];
+    const rowsBreakdown: Record<string, unknown>[] = [];
+    for (const row of chartData) {
+      let total = 0;
+      const parts: Record<string, number> = {};
+      for (const s of stacks) {
+        const v = Number(row[s.key] ?? 0);
+        parts[s.label] = v;
+        total += v;
+      }
+      totals.push(total);
+      if (total > maxTotal) maxTotal = total;
+      rowsBreakdown.push({ [cfg.x_key]: row[cfg.x_key], total: Number(total.toFixed(4)), ...parts });
+    }
+    // Snap the expected total to whichever common "100%" scale the data is
+    // closest to (1 for fractions, 100 for percent-points). Anything else
+    // falls back to the observed maximum so the chart still renders sensibly.
+    const expected = Math.abs(maxTotal - 1) < 0.05 ? 1
+      : Math.abs(maxTotal - 100) < 1 ? 100
+      : maxTotal;
+    return { yMax: expected, breakdownLog: { rowsBreakdown, totals, expected } };
+  }, [chartData, stacks, cfg.x_key]);
+
+  useEffect(() => {
+    if (breakdownLog.rowsBreakdown.length === 0) return;
+    const tol = breakdownLog.expected * 0.005; // 0.5% relative tolerance
+    const offBy = breakdownLog.rowsBreakdown.filter(b =>
+      Math.abs((b.total as number) - breakdownLog.expected) > tol,
+    );
+    /* eslint-disable no-console */
+    console.groupCollapsed(
+      `[StackedBar] ${title ?? '(untitled)'} — ${breakdownLog.rowsBreakdown.length} bars, ${stacks.length} stacks (expected total ${breakdownLog.expected})`,
+    );
+    console.table(breakdownLog.rowsBreakdown);
+    if (offBy.length > 0) {
+      console.warn(`[StackedBar] ${offBy.length}/${breakdownLog.rowsBreakdown.length} bars off the expected ${breakdownLog.expected} total:`, offBy);
+    }
+    console.groupEnd();
+    /* eslint-enable no-console */
+  }, [breakdownLog, stacks.length, title]);
+
+  const yDomain = useMemo<[number, number]>(() => [0, yMax], [yMax]);
+
   const stackId = cfg.stacked === false ? undefined : 'stack';
   const xLabel = useCallback((val: string) => {
     // Date strings → "D-M" (e.g. 2026-04-14 → "14-4"); leave non-dates alone.
@@ -344,10 +401,14 @@ function StackedBarChart({
     <div className="stacked-bar-chart">
       {title && <div className="stacked-bar-chart-title">{title}</div>}
       <div className="stacked-bar-chart-canvas" style={{ height: chartHeight }}>
-        <ResponsiveContainer width="100%" height="100%">
+        {/* `minWidth/minHeight={0}` silences the recharts "-1 width/-1 height"
+            warning that fires when ResponsiveContainer measures before the
+            parent has been laid out (common in flex / sidebar layouts on
+            first paint). */}
+        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
         <BarChart
           data={chartData}
-          margin={{ top: 8, right: 8, bottom: 8, left: 8 }}
+          margin={BAR_CHART_MARGIN}
           onMouseMove={(state: any) => {
             if (state?.activePayload && state.activeLabel != null && state.chartX != null) {
               setHover({
@@ -364,11 +425,18 @@ function StackedBarChart({
           <XAxis
             dataKey={cfg.x_key}
             tickFormatter={xLabel}
-            tick={{ fill: '#ffffff', fontSize: 12 }}
-            axisLine={{ stroke: 'rgba(255,255,255,0.2)' }}
+            tick={X_AXIS_TICK}
+            axisLine={X_AXIS_LINE}
             tickLine={false}
           />
-          <YAxis hide />
+          {/* Pinning the domain to the detected expected total (1 or 100)
+              guarantees every bar reaches the top of the chart instead of
+              recharts auto-extending the axis past the data max for headroom.
+              `domain` MUST be a memoised reference — recharts dispatches axis
+              settings into its internal redux store on every prop reference
+              change, and inline `[0, yMax]` literals trigger an infinite
+              dispatch loop. */}
+          <YAxis hide domain={yDomain} allowDataOverflow={false} />
           {stacks.map(s => (
             <Bar
               key={s.key}

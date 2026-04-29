@@ -5,6 +5,7 @@ import { Tooltip, useNavItemAction } from '@s-flex/xfw-ui';
 import { Button } from 'react-aria-components';
 import { resolveI18nLabel, formatValue, localizeI18n } from '../widgets/flow/utils';
 import { resolve } from '../widgets/resolve';
+import { useDataGroupContext } from '../widgets/DataGroupContext';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
 import { Badge } from './Badge';
@@ -18,6 +19,10 @@ type FieldProps = {
     scale?: number;
     /** Name of a sibling column on the row whose value supplies the colour. */
     color_field?: string;
+    /** Name of a sibling column on the row whose value is a NavItem. When
+     *  set, the rendered value becomes a clickable button that fires the
+     *  nav action — same pattern as StatusBar's group label. */
+    nav_field?: string;
   };
   value: JSONValue;
   showLabel?: boolean;
@@ -93,7 +98,7 @@ function FieldValue({ text, nav, navUrl, row, className }: {
 }
 
 export function Field({ field, value, showLabel, row }: FieldProps) {
-  const { control, input_data, aggregate_fn, nav, no_label, scale, color_field } = field;
+  const { control, input_data, aggregate_fn, nav, no_label, scale, color_field, nav_field } = field;
   const label = resolveI18nLabel(field.i18n, field.key);
   const shouldShowLabel = showLabel ?? !no_label;
   // `color_field` is the *name* of another field in the data group; the actual
@@ -101,6 +106,34 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
   // dot-path-aware `resolve()` so paths like `state.color` work.
   const colorRaw = color_field && row ? resolve(row, color_field) : undefined;
   const color = typeof colorRaw === 'string' && colorRaw ? colorRaw : undefined;
+  // `nav_field` points at a sibling row column whose value is a NavItem.
+  // When present, the rendered value is wrapped in a button that fires the
+  // nav (mirrors `StatusBar`'s clickable group-label). The data group's
+  // primary keys are pulled from context and forwarded as `extraParamKeys`
+  // so the row's identity flows into the URL on navigate — matching the
+  // generic Cards / FlowBoard / Item nav behavior.
+  const navItemRaw = nav_field && row ? resolve(row, nav_field) : undefined;
+  const navItem = navItemRaw && typeof navItemRaw === 'object' && !Array.isArray(navItemRaw)
+    ? (navItemRaw as unknown as NavItem)
+    : null;
+  const { primaryKeys } = useDataGroupContext();
+  const fieldNavAction = useNavItemAction(undefined, undefined, { extraParamKeys: primaryKeys });
+
+  // useNavItemAction's navigate branch only writes `data[key]` to the URL —
+  // unlike its `func` branch, it doesn't fall back to `param.default_value`
+  // or `param.val`. Pre-fill those keys on a synthetic row so the library's
+  // generic param-merge picks them up via its existing data[key] read.
+  const fireNav = (item: NavItem) => {
+    const params = ((item as unknown as { params?: Array<{ key: string; val?: unknown; default_value?: unknown }> }).params) ?? [];
+    let data: JSONRecord | undefined = row;
+    for (const p of params) {
+      const fallback = (p.val ?? p.default_value) as JSONValue | undefined;
+      if (fallback !== undefined && (data?.[p.key] === undefined || data?.[p.key] === null)) {
+        data = { ...(data ?? {}), [p.key]: fallback };
+      }
+    }
+    fieldNavAction(data, item, true);
+  };
 
   // Visual controls (icon-map / badge / chip): label hidden by default — the
   // visual *is* the meaning. Opt back in via `field_config.<key>.ui.no_label = false`
@@ -139,15 +172,36 @@ export function Field({ field, value, showLabel, row }: FieldProps) {
   if ((control === 'i18n-text' || control === 'content') && value && typeof value === 'object' && !Array.isArray(value)) {
     const text = localizeI18n(value);
     if (text) {
+      const valueEl = navItem
+        ? (
+          <button
+            type="button"
+            className="field-value field-nav-button"
+            onClick={(e) => { e.stopPropagation(); fireNav(navItem); }}
+          >
+            {text}
+          </button>
+        )
+        : <span className="field-value">{text}</span>;
       if (shouldShowLabel) {
         return (
           <div className="field-with-label">
             <span className="field-label">{label}</span>
-            <span className="field-value">{text}</span>
+            {valueEl}
           </div>
         );
       }
-      return <span>{text}</span>;
+      return navItem
+        ? (
+          <button
+            type="button"
+            className="field-nav-button"
+            onClick={(e) => { e.stopPropagation(); fireNav(navItem); }}
+          >
+            {text}
+          </button>
+        )
+        : <span>{text}</span>;
     }
   }
 

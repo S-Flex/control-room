@@ -42,6 +42,9 @@ type FieldEntry = {
   i18n?: Record<string, Record<string, string>>;
   hidden_when?: unknown;
   class_name?: string;
+  /** Sibling row column whose value is a NavItem; makes the rendered value
+   *  clickable. Sourced from `field_config[key].ui.nav_field`. */
+  nav_field?: string;
 };
 
 function resolveControl(fc: TooltipFieldConfigEntry | undefined): string | undefined {
@@ -90,6 +93,7 @@ function buildEntries(
       hidden_when: ui.hidden_when,
       class_name: (mergedRaw.class_name as string | undefined)
         ?? (ui.class_name as string | undefined),
+      nav_field: ui.nav_field as string | undefined,
     });
   }
   entries.sort((a, b) => a.order - b.order);
@@ -225,13 +229,14 @@ export function FieldTooltip({
 
   const header = resolveHeaderText(title, row, titleField, fieldConfig, lang);
 
-  const buildField = (entry: FieldEntry): ResolvedField & { no_label?: boolean; scale?: number } => ({
+  const buildField = (entry: FieldEntry): ResolvedField & { no_label?: boolean; scale?: number; nav_field?: string } => ({
     key: entry.key,
     control: entry.control,
     i18n: entry.i18n,
     no_label: true,
     scale: entry.scale,
-  } as ResolvedField & { no_label?: boolean; scale?: number });
+    nav_field: entry.nav_field,
+  } as ResolvedField & { no_label?: boolean; scale?: number; nav_field?: string });
 
   const renderValue = (entry: FieldEntry, value: JSONValue, source: JSONRecord) => {
     // Inline tooltips can be rendered inside contexts that don't have the

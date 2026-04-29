@@ -3385,11 +3385,16 @@ button.statusbar-label:hover {
 .stacked-bar-chart {
   position: relative;
   width: 100%;
+  /* min-width: 0 lets the chart shrink inside flex parents instead of pushing
+     the layout wider — without it ResponsiveContainer can measure -1px on
+     first render. */
+  min-width: 0;
 }
 
 .stacked-bar-chart-canvas {
   position: relative;
   width: 100%;
+  min-width: 0;
   flex: none;
 }
 
@@ -3870,6 +3875,91 @@ button.statusbar-label:hover {
 
 .donut-chart-legend-total .donut-chart-legend-label {
   color: var(--text-primary);
+}
+
+/* ---- DataGroup Header Navs (tabstrip in dataGroup.header.navs) ----
+   Rendered inline with whichever element hosts the navs (e.g. the first
+   activity-gauge column-title). Sized to content with small buttons. */
+.datagroup-header-navs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex: 0 0 auto;
+}
+
+.datagroup-tabstrip {
+  display: inline-flex;
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.datagroup-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  height: 18px;
+  padding: 0 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.datagroup-tab + .datagroup-tab {
+  border-left: 1px solid var(--border);
+}
+
+.datagroup-tab:hover {
+  background: var(--bar-bg);
+  color: var(--text-secondary);
+}
+
+.datagroup-tab.is-selected {
+  background: var(--brand-pale);
+  color: var(--brand);
+}
+
+/* Title + tabstrip share the left side of the activity-gauge column-title;
+   the pager (when present) stays on the right via the parent's
+   justify-content: space-between. */
+.activity-gauge-title-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  justify-content: space-between;
+}
+
+/* When a Field has `ui.nav_field` set, its value renders as a button that
+   fires the row's NavItem on click. Stripped chrome + opacity hover mirrors
+   StatusBar's clickable group label. */
+.field-nav-button {
+  display: inline-flex;
+  align-items: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: opacity 0.12s;
+  min-width: 0;
+}
+.field-nav-button:hover {
+  opacity: 0.7;
 }
 
 /* ---- Donut Filter Tabstrip ---- */
