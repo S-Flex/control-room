@@ -29,6 +29,11 @@ import { DataGroupEditorPage } from './DataGroupEditorPage';
 import { RoboticsPage } from './RoboticsPage';
 import { configureClient } from '@s-flex/xfw-data';
 import { ThemeProvider, SidebarProvider as UiSidebarProvider } from '@s-flex/xfw-ui';
+import { installAuxRouteGuard } from './lib/auxRouteGuard';
+
+// Self-test + runtime guard for the aux-route `//` separator. Must run before
+// any navigation. See src/lib/auxRouteGuard.ts and CLAUDE.md.
+installAuxRouteGuard();
 
 const queryClient = new QueryClient({
   defaultOptions: {

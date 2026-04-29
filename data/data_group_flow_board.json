@@ -345,7 +345,7 @@
                 "order": 4,
                 "class_name": "col-span-2"
               },
-              "aggregate": "sum"
+              "aggregate_fn": "sum"
             },
             "number": {
               "ui": {
@@ -386,7 +386,7 @@
                   "value_key": "sequence"
                 }
               },
-              "aggregate": "min"
+              "aggregate_fn": "min"
             },
             "class_name": "grid grid-cols-6 gap-1",
             "order_line_count": {
@@ -405,7 +405,7 @@
                 "order": 3,
                 "class_name": "col-span-2"
               },
-              "aggregate": "sum"
+              "aggregate_fn": "sum"
             },
             "production_hours": {
               "ui": {
@@ -441,7 +441,7 @@
                 "order": 5,
                 "class_name": "col-span-2"
               },
-              "aggregate": "sum"
+              "aggregate_fn": "sum"
             }
           }
         },
@@ -472,7 +472,7 @@
               "control": "chip",
               "class_name": "col-span-2"
             },
-            "aggregate": "sum"
+            "aggregate_fn": "sum"
           },
           "order_id": {
             "ui": {
@@ -491,7 +491,7 @@
               "control": "chip",
               "class_name": "col-span-2"
             },
-            "aggregate": "count"
+            "aggregate_fn": "count"
           },
           "sequence": {
             "ui": {
@@ -515,7 +515,7 @@
                 "value_key": "sequence"
               }
             },
-            "aggregate": "min"
+            "aggregate_fn": "min"
           },
           "direction": {
             "ui": {
@@ -599,7 +599,7 @@
               "control": "chip",
               "class_name": "col-span-2"
             },
-            "aggregate": "sum"
+            "aggregate_fn": "sum"
           }
         }
       },

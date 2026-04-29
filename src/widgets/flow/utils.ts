@@ -74,20 +74,36 @@ export function groupRowsByFields(rows: JSONRecord[], fields: string[]): Map<str
 
 export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): FieldMap {
   const fc = dataGroup.field_config ?? {};
+  // Group-level `no_label` (a top-level boolean key on field_config) hides
+  // labels on every field by default; per-field `ui.no_label` overrides it.
+  const fcAny = fc as Record<string, unknown>;
+  const groupNoLabel = fcAny.no_label as boolean | undefined;
   const result = Object.fromEntries(
-    Object.entries(fc).map(([key, config]) => {
+    Object.entries(fc)
+      // Skip the group-level scalar keys so they aren't treated as fields.
+      .filter(([key]) => key !== 'class_name' && key !== 'no_label')
+      .map(([key, config]) => {
       const pgField = dataTable.schema[key];
       const resolved = pgField
         ? resolveField(key, pgField, config, fc)
         : { key, i18n: config.ui?.i18n, control: config.ui?.control, input_data: config.input_data };
       const uiInputData = (config.ui as Record<string, unknown> | undefined)?.input_data as typeof resolved.input_data | undefined;
       const input_data = resolved.input_data ?? config.input_data ?? uiInputData ?? pgField?.ref;
+      const cfgRaw = config as Record<string, unknown>;
+      const cfgUi = config.ui as Record<string, unknown> | undefined;
+      const scale = (cfgRaw.scale as number | undefined)
+        ?? (cfgUi?.scale as number | undefined)
+        ?? (pgField as { scale?: number } | undefined)?.scale;
+      const fieldNoLabel = cfgUi?.no_label as boolean | undefined;
       return [key, {
         ...resolved,
         input_data,
-        aggregate: (config as Record<string, unknown>).aggregate as AggregateFn | undefined,
+        aggregate_fn: cfgRaw.aggregate_fn as AggregateFn | undefined,
         order: config.ui?.order,
-        nav: (config as Record<string, unknown>).nav as FlowResolvedField['nav'],
+        nav: cfgRaw.nav as FlowResolvedField['nav'],
+        no_label: fieldNoLabel ?? groupNoLabel,
+        scale,
+        color_field: cfgUi?.color_field as string | undefined,
       }];
     })
   );
@@ -185,7 +201,7 @@ export function getGroupByKeys(levelConfig: FlowBoardLevelConfig): string[] {
 export function getAggregateKeys(levelFieldConfig: FlowLevelFieldConfig | undefined): string[] {
   if (!levelFieldConfig) return [];
   return Object.entries(levelFieldConfig)
-    .filter(([key, fc]) => key !== 'class_name' && fc.aggregate)
+    .filter(([key, fc]) => key !== 'class_name' && fc.aggregate_fn)
     .map(([key]) => key);
 }
 
@@ -199,6 +215,11 @@ export function mergeFieldMap(
 ): FieldMap {
   if (!levelFieldConfig) return fieldMap;
   const merged: FieldMap = {};
+  // Level-wide `no_label` (top-level boolean key) defaults all fields at this
+  // level; per-field `ui.no_label` still wins. The root-level no_label is
+  // already baked into `base.no_label` via resolveFieldMap.
+  const levelAny = levelFieldConfig as Record<string, unknown>;
+  const levelNoLabel = levelAny.no_label as boolean | undefined;
   for (const [key, fc] of Object.entries(levelFieldConfig)) {
     if (key === 'class_name' || key === 'no_label') continue;
     if (fc.ui?.hidden) continue;
@@ -213,14 +234,22 @@ export function mergeFieldMap(
         label_key: input_data.label_key,
       };
     }
+    const fcRaw = fc as Record<string, unknown>;
+    const fcUi = fc.ui as Record<string, unknown> | undefined;
+    const fieldNoLabel = fcUi?.no_label as boolean | undefined;
     merged[key] = {
       ...base,
-      aggregate: fc.aggregate ?? base.aggregate,
+      aggregate_fn: fc.aggregate_fn ?? base.aggregate_fn,
       control: fc.ui?.control ?? base.control,
       i18n: fc.ui?.i18n ?? base.i18n,
       input_data,
       order: fc.ui?.order ?? base.order,
-      nav: (fc as Record<string, unknown>).nav as FlowResolvedField['nav'] ?? base.nav,
+      nav: fcRaw.nav as FlowResolvedField['nav'] ?? base.nav,
+      no_label: fieldNoLabel ?? levelNoLabel ?? base.no_label,
+      scale: (fcRaw.scale as number | undefined)
+        ?? (fcUi?.scale as number | undefined)
+        ?? base.scale,
+      color_field: (fcUi?.color_field as string | undefined) ?? base.color_field,
     };
   }
   return merged;
@@ -300,12 +329,12 @@ export function buildGroupFields(
       if (key === 'class_name' || key === 'no_label' || seen.has(key)) continue;
       const resolved = fieldMap[key];
       if (!resolved || isHidden(key)) continue;
-      const agg = fc.aggregate;
+      const agg = fc.aggregate_fn;
       if (agg) {
         entries.push({
           label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
           value: computeAggregate(aggregateRows ?? rows, key, agg),
-          field: { ...resolved, aggregate: agg },
+          field: { ...resolved, aggregate_fn: agg },
           class_name: fieldClassName(levelFieldConfig[key]),
         });
       } else if (firstRow) {

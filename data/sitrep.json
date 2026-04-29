@@ -39,19 +39,19 @@
             {
               "i18n": {
                 "de": {
-                  "text": "Aufträge"
+                  "text": "aufträge"
                 },
                 "en": {
-                  "text": "Orders"
+                  "text": "orders"
                 },
                 "es": {
-                  "text": "Pedidos"
+                  "text": "pedidos"
                 },
                 "fr": {
-                  "text": "Commandes"
+                  "text": "commandes"
                 },
                 "nl": {
-                  "text": "Orders"
+                  "text": "orders"
                 },
                 "uk": {
                   "text": "Замовлення"
@@ -89,10 +89,26 @@
         "key": "sitrep_mode",
         "is_optional": true,
         "is_query_param": true
+      },
+      {
+        "key": "day_offset",
+        "is_optional": true,
+        "is_query_param": true
+      },
+      {
+        "key": "until",
+        "is_optional": true,
+        "is_query_param": true
       }
     ],
     "widget_id": "sitrep",
     "field_config": {
+      "nav": {
+        "ui": {
+          "order": 2,
+          "hidden": true
+        }
+      },
       "content": {
         "ui": {
           "i18n": {
@@ -116,7 +132,8 @@
             }
           },
           "order": 0,
-          "control": "i18n-text"
+          "control": "i18n-text",
+          "nav_field": "nav"
         }
       },
       "sqm_cut": {
@@ -484,7 +501,7 @@
               "title": "Coupe"
             },
             "nl": {
-              "title": "Snijden"
+              "title": "Gesneden"
             },
             "uk": {
               "title": "Прогрес різання замовлень"
@@ -697,30 +714,33 @@
               "title": "м²"
             }
           },
-          "color_index_field": "sqm_color_index ",
           "series": [
             {
               "colors": [
                 "#12b76a",
-                "#f04438"
+                "#f04438",
+                "var(--color-utility-brand-700)"
               ],
               "value_field": "sqm_pct_printed"
             },
             {
               "colors": [
                 "#039855",
-                "#d92d20"
+                "#d92d20",
+                "var(--color-utility-brand-600)"
               ],
               "value_field": "sqm_pct_cut"
             },
             {
               "colors": [
                 "#027a48",
-                "#b42318"
+                "#b42318",
+                "var(--color-utility-brand-400)"
               ],
               "value_field": "sqm_pct_done"
             }
           ],
+          "color_index_field": "sqm_color_index ",
           "gauge_title_field": "sqm_total"
         },
         {
@@ -744,31 +764,34 @@
               "title": "Замовлення"
             }
           },
-          "color_index_field": "order_color_index",
           "series": [
             {
               "colors": [
                 "#12b76a",
-                "#f04438"
+                "#f04438",
+                "var(--color-utility-brand-700)"
               ],
               "value_field": "order_pct_printed"
             },
             {
               "colors": [
                 "#039855",
-                "#d92d20"
+                "#d92d20",
+                "var(--color-utility-brand-600)"
               ],
               "value_field": "order_pct_cut"
             },
             {
               "colors": [
                 "#027a48",
-                "#b42318"
+                "#b42318",
+                "var(--color-utility-brand-400)"
               ],
               "value_field": "order_pct_done"
             }
           ],
-          "gauge_title_field": "opder_count"
+          "color_index_field": "order_color_index",
+          "gauge_title_field": "order_count"
         }
       ],
       "tooltip": {

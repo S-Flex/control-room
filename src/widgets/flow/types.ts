@@ -31,7 +31,7 @@ export type FlowFilterGroup = {
 
 export type FlowGroupBy = FlowFilterGroup[] | string[];
 
-export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate?: AggregateFn; }>;
+export type FlowLevelFieldConfig = Record<string, FieldConfig & { aggregate_fn?: AggregateFn; }>;
 
 export type FlowRowOptions = {
   colexp?: boolean;
@@ -40,6 +40,9 @@ export type FlowRowOptions = {
   nav?: {
     on_select?: Record<string, unknown>;
   };
+  /** Key on each row whose value is applied as the row text colour (any valid
+   *  CSS color string). Empty/missing values fall back to the inherited colour. */
+  color_field?: string;
 };
 
 export type FlowBoardLevelConfig = {
@@ -49,6 +52,10 @@ export type FlowBoardLevelConfig = {
   class_name?: string;
   row_options?: FlowRowOptions;
   children?: FlowBoardLevelConfig;
+  /** Field paths a SearchBox at this level matches against. When present, the
+   *  level renders its own search input + prev/next; child levels receive the
+   *  filtered (filter mode) or untouched (highlight mode) row set. */
+  search?: string[];
 };
 
 export type FieldNav = {
@@ -57,9 +64,16 @@ export type FieldNav = {
 };
 
 export type FlowResolvedField = LibResolvedField & {
-  aggregate?: AggregateFn;
+  aggregate_fn?: AggregateFn;
   order?: number;
   nav?: FieldNav;
+  /** Hide the label on visual controls. Inherited from
+   *  `field_config[key].ui.no_label`; level field_config overrides root. */
+  no_label?: boolean;
+  /** Number of digits after the decimal point for numeric values. */
+  scale?: number;
+  /** Name of a sibling column on the row whose value supplies the colour. */
+  color_field?: string;
 };
 
 export type FieldMap = Record<string, FlowResolvedField>;
@@ -78,11 +92,17 @@ export type FlowGroupData = {
   checkable?: boolean;
   selectable?: boolean;
   on_select?: Record<string, unknown>;
+  /** Resolved CSS color for the row's text — derived from
+   *  `row_options.color_field` and the row data. */
+  color?: string;
   i18n?: Record<string, Record<string, string>>;
   data: FlowFieldEntry[];
   rows: Record<string, JSONValue>[];
   navs?: FlowNavItem[];
   children: React.ReactNode;
+  /** True when this group is at the bottom of the flow tree (no descendant
+   *  level). Leaf groups carry the search highlight + prev/next anchor. */
+  isLeaf?: boolean;
 };
 
 export type FlowLayoutProps = {

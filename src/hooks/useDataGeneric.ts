@@ -25,14 +25,19 @@ export function useDataGeneric<T = JSONRecord>(dataGroup?: DataGroup) {
   }, [dataTable?.params]);
 
   const params = useMemo<ParamValue[]>(() => {
+    // Spread copies refs from the upstream arrays — the objects inside still
+    // belong to xfw-url's `useQueryParams` cache (and TanStack's overrides).
+    // Mutating their `.val` corrupts xfw-url's `prevValues.current`, which
+    // makes its next `areParamsEqual(prev, urlNewValues)` return false on
+    // every render → infinite `setValues` loop. Replace the slot instead.
     const merged: ParamValue[] = [...dataGroupQueryParams, ...overrideParams];
     for (const def of dataGroup?.params ?? []) {
       if (def.default_value === undefined) continue;
-      const existing = merged.find(p => p.key === def.key);
-      if (!existing) {
+      const idx = merged.findIndex(p => p.key === def.key);
+      if (idx === -1) {
         merged.push({ key: def.key, val: def.default_value });
-      } else if (existing.val === null || existing.val === undefined) {
-        existing.val = def.default_value;
+      } else if (merged[idx].val === null || merged[idx].val === undefined) {
+        merged[idx] = { key: def.key, val: def.default_value };
       }
     }
     return merged.filter(p => !(optionalKeys.has(p.key) && (p.val === null || p.val === undefined)));

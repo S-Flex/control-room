@@ -1,5 +1,31 @@
 [
   {
+    "code": "time-on-status",
+    "block": {
+      "title": "Time on status",
+      "i18n": {
+        "de": {
+          "title": "Zeit im Status"
+        },
+        "en": {
+          "title": "Time on status"
+        },
+        "es": {
+          "title": "Tiempo en estado"
+        },
+        "fr": {
+          "title": "Temps sur statut"
+        },
+        "nl": {
+          "title": "Tijd op status"
+        },
+        "uk": {
+          "title": "Час у статусі"
+        }
+      }
+    }
+  },
+  {
     "code": "batch",
     "block": {
       "title": "Batch",

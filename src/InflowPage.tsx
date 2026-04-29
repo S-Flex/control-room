@@ -4,6 +4,7 @@ import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
+import { syncQueryParams } from './lib/urlSync';
 import { Checkbox } from '@s-flex/xfw-ui';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import { Carousel } from './widgets/Carousel';
@@ -120,10 +121,7 @@ export function InflowPage() {
 
   // from query param
   const handleTimeChange = useCallback((currentTime: string) => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('from', currentTime);
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState(null, '', newUrl);
+    syncQueryParams({ from: currentTime });
   }, []);
 
   const otherMode = isAuto ? 'manual' : 'auto';
@@ -233,11 +231,7 @@ export function InflowPage() {
     setActiveLineId(id);
     setSelectedMaterial(null);
     setCheckedDates(new Set());
-    const params = new URLSearchParams(window.location.search);
-    params.set('model', id);
-    params.delete('material_id');
-    params.delete('production_dates');
-    window.history.replaceState(null, '', `${window.location.pathname}?${params.toString()}`);
+    syncQueryParams({ model: id, material_id: null, production_dates: null });
   }, [activeLineId]);
 
   const handleSelectMaterial = useCallback((code: string) => {
@@ -260,23 +254,13 @@ export function InflowPage() {
 
   // Sync URL whenever state changes
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    params.set('model', activeLineId);
     const selectedMatObj = selectedMaterial ? materials.find(m => m.code === selectedMaterial) : undefined;
-    if (selectedMatObj) params.set('material_id', String(selectedMatObj.material_id));
-    else params.delete('material_id');
-    if (checkedDates.size > 0) {
-      params.set('production_dates', JSON.stringify([...checkedDates]));
-    } else {
-      params.delete('production_dates');
-    }
-    if (selectedLocations.size > 0) {
-      params.set('location', JSON.stringify([...selectedLocations]));
-    } else {
-      params.delete('location');
-    }
-    const newUrl = `${window.location.pathname}?${params.toString()}${window.location.hash}`;
-    window.history.replaceState(null, '', newUrl);
+    syncQueryParams({
+      model: activeLineId,
+      material_id: selectedMatObj ? String(selectedMatObj.material_id) : null,
+      production_dates: checkedDates.size > 0 ? JSON.stringify([...checkedDates]) : null,
+      location: selectedLocations.size > 0 ? JSON.stringify([...selectedLocations]) : null,
+    });
   }, [activeLineId, selectedMaterial, checkedDates, selectedLocations, materials]);
 
 

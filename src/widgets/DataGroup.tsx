@@ -1,9 +1,13 @@
-import { useMemo, useState } from 'react';
-import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
+import { useEffect, useMemo, useState } from 'react';
+import { useDataGroups, type DataGroup } from '@s-flex/xfw-ui';
 import { type JSONRecord } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
+import { useDataGeneric } from '../hooks/useDataGeneric';
 import { WidgetRenderer, FallbackDataRows } from './WidgetRenderer';
 import { normalizeDataGroup } from './normalizeDataGroup';
+import { DataGroupProvider } from './DataGroupContext';
+
+const EMPTY_KEYS: string[] = [];
 
 export function DataGroupWidget({ code, title }: { code: string; title?: string; }) {
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(code);
@@ -19,7 +23,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   const {
     dataTable,
     dataRows,
-    isLoading,
+    isInitialLoading,
     error,
   } = useDataGeneric(dataGroup);
 
@@ -28,9 +32,42 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   // label/i18n/order/control/scale without duplicating merge logic.
   const normalizedDataGroup = useMemo(() => normalizeDataGroup(dataGroup), [dataGroup]);
 
-  if (isLoading) return <p className="datagroup-loading">Loading...</p>;
+  // Stamp every row with a stable `track_by` index as soon as the rows arrive
+  // from the API. Widgets (search, prev/next focus, list keys) treat
+  // `track_by` as the canonical row id so they don't depend on
+  // `primary_keys` being declared or `row.id` being present. The clone keeps
+  // the cached payload in xfw-data untouched.
+  const trackedRows = useMemo(() => {
+    if (!dataRows) return dataRows;
+    return dataRows.map((row, i) => ({ ...row, track_by: i }));
+  }, [dataRows]);
+
+  // Hold the most recent non-empty rows so a background re-fetch (e.g. a
+  // `sitrep_mode` query-param flip that changes the TanStack Query key) keeps
+  // the widget mounted with stale data instead of unmounting to the
+  // "Loading..." placeholder. The first fetch still shows Loading because
+  // `stickyRows` is undefined until at least one batch arrives.
+  const [stickyRows, setStickyRows] = useState<JSONRecord[] | undefined>(undefined);
+  useEffect(() => {
+    if (trackedRows && trackedRows.length > 0) setStickyRows(trackedRows);
+  }, [trackedRows]);
+  const renderRows = trackedRows ?? stickyRows;
+
+  // Cache the primary-keys array reference so any descendant Field with
+  // `nav_field` can pull them from context as `extraParamKeys` and surface the
+  // active row's identity in the URL on navigation — same behavior as the
+  // row-level on_select navs in Cards / FlowBoard / Item.
+  // Depend on `dataTable?.primary_keys` directly so the fallback `[]` keeps a
+  // stable reference (otherwise every render before dataTable arrives builds a
+  // new array, churns the context, and re-renders every descendant Field).
+  const dgCtx = useMemo(
+    () => ({ primaryKeys: dataTable?.primary_keys ?? EMPTY_KEYS }),
+    [dataTable?.primary_keys],
+  );
+
+  if (isInitialLoading && !renderRows) return <p className="datagroup-loading">Loading...</p>;
   if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
-  if (!dataRows || dataRows.length === 0) return <p className="datagroup-empty">No data</p>;
+  if (!renderRows || renderRows.length === 0) return <p className="datagroup-empty">No data</p>;
 
   const layout = normalizedDataGroup.layout ?? '';
   const dg = normalizedDataGroup as Record<string, unknown>;
@@ -45,25 +82,27 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   const sectionTitle = title ?? headerTitle;
 
   return (
-    <div className="datagroup-container">
-      {sectionTitle && (
-        <button className="datagroup-title" onClick={() => setCollapsed(c => !c)}>
-          <svg className={`datagroup-collapse-icon${collapsed ? ' collapsed' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          {sectionTitle}
-        </button>
-      )}
-      {headerText && !collapsed && (
-        <p className="datagroup-header-text">{headerText}</p>
-      )}
-      {!collapsed && (
-        widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
-          <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={dataRows} dataTable={dataTable} />
-        ) : (
-          <FallbackDataRows data={dataRows} />
-        )
-      )}
-    </div>
+    <DataGroupProvider value={dgCtx}>
+      <div className="datagroup-container">
+        {sectionTitle && (
+          <button className="datagroup-title" onClick={() => setCollapsed(c => !c)}>
+            <svg className={`datagroup-collapse-icon${collapsed ? ' collapsed' : ''}`} width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            {sectionTitle}
+          </button>
+        )}
+        {headerText && !collapsed && (
+          <p className="datagroup-header-text">{headerText}</p>
+        )}
+        {!collapsed && (
+          widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
+            <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={renderRows} dataTable={dataTable} />
+          ) : (
+            <FallbackDataRows data={renderRows} />
+          )
+        )}
+      </div>
+    </DataGroupProvider>
   );
 }

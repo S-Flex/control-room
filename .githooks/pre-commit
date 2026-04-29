@@ -1,0 +1,18 @@
+#!/usr/bin/env sh
+# Aux-route lint pre-commit hook.
+# Runs scripts/check-aux-routes.mjs to keep the (a:1//b:2) separator rule
+# enforced before changes can land. See CLAUDE.md → "Aux-route separator".
+#
+# Activated automatically via the package.json "prepare" script
+# (`git config core.hooksPath .githooks`) on the next `npm install`.
+
+set -e
+
+# Skip if no staged code/data changes — fast path for docs-only commits.
+if ! git diff --cached --name-only --diff-filter=ACMR \
+    | grep -E '^(src|data)/.*\.(ts|tsx|js|jsx|mjs|cjs|json)$' >/dev/null; then
+  exit 0
+fi
+
+echo "▶ aux-route lint…"
+node scripts/check-aux-routes.mjs
