@@ -13,7 +13,7 @@ export function DataGroupWidget({ code, title }: { code: string; title?: string;
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(code);
   const dataGroup = dataGroups?.[0];
 
-  if (isLoadingGroups || !dataGroup) return <p className="datagroup-loading">Loading...</p>;
+  if (isLoadingGroups || !dataGroup) return <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>;
 
   return <DataGroupContent dataGroup={dataGroup} title={title} />;
 }
@@ -23,6 +23,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   const {
     dataTable,
     dataRows,
+    isLoading,
     isInitialLoading,
     error,
   } = useDataGeneric(dataGroup);
@@ -65,7 +66,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     [dataTable?.primary_keys],
   );
 
-  if (isInitialLoading && !renderRows) return <p className="datagroup-loading">Loading...</p>;
+  if (isInitialLoading && !renderRows) return <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>;
   if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
   if (!renderRows || renderRows.length === 0) return <p className="datagroup-empty">No data</p>;
 
@@ -96,11 +97,18 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
           <p className="datagroup-header-text">{headerText}</p>
         )}
         {!collapsed && (
-          widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
-            <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={renderRows} dataTable={dataTable} />
-          ) : (
-            <FallbackDataRows data={renderRows} />
-          )
+          <div className="datagroup-body">
+            {widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
+              <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={renderRows} dataTable={dataTable} />
+            ) : (
+              <FallbackDataRows data={renderRows} />
+            )}
+            {isLoading && (
+              <div className="datagroup-loading-overlay">
+                <div className="datagroup-loading-spinner" />
+              </div>
+            )}
+          </div>
         )}
       </div>
     </DataGroupProvider>

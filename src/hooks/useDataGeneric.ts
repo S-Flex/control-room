@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useDatatable, useDataRows, type JSONRecord, type ParamValue } from '@s-flex/xfw-data';
 import { useQueryParams, useOverrideParams } from '@s-flex/xfw-url';
 import { useLoadingSubscription, type DataGroup } from '@s-flex/xfw-ui';
+import { syncQueryParams } from '../lib/urlSync';
 
 /**
  * Wrapper around the xfw-ui `useDataGeneric` that drops optional params with
@@ -42,6 +43,29 @@ export function useDataGeneric<T = JSONRecord>(dataGroup?: DataGroup) {
     }
     return merged.filter(p => !(optionalKeys.has(p.key) && (p.val === null || p.val === undefined)));
   }, [dataGroupQueryParams, overrideParams, dataGroup?.params, optionalKeys]);
+
+  // Reflect `default_value` into the URL when a param is also `is_query_param`.
+  // The merge above already injects defaults into the params used for fetching;
+  // this effect additionally writes them to the address bar so the URL is the
+  // single source of truth for view state. Guarded against the loop that bit
+  // us before: we only call syncQueryParams when the URL slot is actually
+  // null/undefined and no override is supplying the value. Once xfw-url
+  // re-reads the URL after replaceState, the slot is populated and the next
+  // effect run short-circuits — strictly one-shot per missing default.
+  useEffect(() => {
+    if (!dataGroup?.params) return;
+    const updates: Record<string, string | number | boolean | null | unknown[] | Record<string, unknown>> = {};
+    for (const def of dataGroup.params) {
+      if (!def.is_query_param) continue;
+      if (def.default_value === undefined || def.default_value === null) continue;
+      const fromUrl = dataGroupQueryParams.find(p => p.key === def.key);
+      if (fromUrl && fromUrl.val !== null && fromUrl.val !== undefined) continue;
+      const fromOverride = overrideParams.find(p => p.key === def.key);
+      if (fromOverride && fromOverride.val !== null && fromOverride.val !== undefined) continue;
+      updates[def.key] = def.default_value as string | number | boolean | unknown[] | Record<string, unknown>;
+    }
+    if (Object.keys(updates).length > 0) syncQueryParams(updates);
+  }, [dataGroup?.params, dataGroupQueryParams, overrideParams]);
 
   const allMandatoryParamsAvailable = useMemo(() => {
     const mandatory = dataTable?.params.filter(p => !p.is_ident_only && !p.is_optional) ?? [];

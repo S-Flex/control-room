@@ -73,7 +73,7 @@ export function SidebarPanel({ code, title, onClose }: {
         </button>
       </div>
       <div className="sidebar-body">
-        {isLoading && <p className="datagroup-loading">Loading...</p>}
+        {isLoading && <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>}
         {code === 'ink-heads' ? (
           <Ink />
         ) : (

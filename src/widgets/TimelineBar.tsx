@@ -2,11 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { JSONRecord, JSONValue, ParamDefinition } from '@s-flex/xfw-data';
 import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
-import { useNavigate } from '@s-flex/xfw-url';
+import { useNavigate, useQueryParams } from '@s-flex/xfw-url';
 import { resolve } from './resolve';
 import { localizeI18n } from './flow/utils';
 import type { FieldNav } from './flow/types';
 import { FieldTooltip, type TooltipConfig, type TooltipFieldConfigEntry } from '../controls/FieldTooltip';
+import { syncQueryParams } from '../lib/urlSync';
+
+const POPUP_PARAM_KEY = 'time_line_popup';
+const POPUP_PARAM_DEF = [{ key: POPUP_PARAM_KEY, is_query_param: true, is_optional: true }];
 
 export type TimelineBarConfig = {
   offset_field: string;
@@ -410,6 +414,15 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const badgeTimerRef = useRef<number | null>(null);
 
+  // URL-backed visibility: `?time_line_popup=true` keeps the popup open across
+  // refresh. xfw-url coerces "true"/"false" through its numeric regex check
+  // (no match) so values stay strings; we accept the boolean form too in case
+  // anything upstream coerces.
+  const popupQueryParams = useQueryParams(POPUP_PARAM_DEF);
+  const popupRequested = popupQueryParams.find(p => p.key === POPUP_PARAM_KEY)?.val;
+  const popupRequestedActive = popupRequested === 'true' || popupRequested === true;
+  const restoredRef = useRef(false);
+
   useEffect(() => {
     const onWheel = (e: WheelEvent) => {
       if (!e.shiftKey) return;
@@ -434,6 +447,20 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
       if (badgeTimerRef.current) window.clearTimeout(badgeTimerRef.current);
     };
   }, []);
+
+  // Restore the enlarged-group state from the URL once data is available.
+  // `restoredRef` makes this strictly one-shot so click-driven URL writes
+  // (which flip popupRequestedActive) can't bounce us back and reopen a
+  // group the user just closed.
+  useEffect(() => {
+    if (restoredRef.current) return;
+    if (!popupRequestedActive) { restoredRef.current = true; return; }
+    if (!data || data.length === 0) return; // wait for rows
+    const groups = buildGroups(data, widgetConfig);
+    const firstWithSegments = groups.find(g => g.sets.some(s => s.segments.length > 0));
+    if (firstWithSegments) setEnlargedGroup(firstWithSegments.key);
+    restoredRef.current = true;
+  }, [popupRequestedActive, data, widgetConfig]);
 
   if (!data || data.length === 0) return null;
 
@@ -464,7 +491,11 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
           totalSeconds={totalSeconds}
           startHour={startHour}
           isEnlarged={enlargedGroup === g.key}
-          onClick={() => setEnlargedGroup(prev => prev === g.key ? null : g.key)}
+          onClick={() => {
+            const next = enlargedGroup === g.key ? null : g.key;
+            setEnlargedGroup(next);
+            syncQueryParams({ [POPUP_PARAM_KEY]: next ? 'true' : null });
+          }}
         />
       ))}
       {enlarged && enlarged.sets.some(s => s.segments.length > 0) && (
@@ -477,7 +508,10 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
           fieldConfig={fieldConfig as Record<string, TooltipFieldConfigEntry> | undefined}
           tooltip={widgetConfig.tooltip}
           nav={widgetConfig.nav}
-          onClose={() => setEnlargedGroup(null)}
+          onClose={() => {
+            setEnlargedGroup(null);
+            syncQueryParams({ [POPUP_PARAM_KEY]: null });
+          }}
         />
       )}
     </div>

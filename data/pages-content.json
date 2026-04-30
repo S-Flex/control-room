@@ -26,6 +26,19 @@
     }
   },
   {
+    "code": "sitrep-detail",
+    "block": {
+      "title": "Sitrep detail",
+      "i18n": {
+        "en": { "title": "Sitrep detail" },
+        "nl": { "title": "Sitrep detail" },
+        "de": { "title": "Sitrep detail" },
+        "uk": { "title": "Sitrep detail" },
+        "es": { "title": "Sitrep detail" }
+      }
+    }
+  },
+  {
     "code": "batch",
     "block": {
       "title": "Batch",

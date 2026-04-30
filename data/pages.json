@@ -1,5 +1,11 @@
 [
   {
+    "code": "sitrep-detail",
+    "main": {
+      "sections": [{ "data_group": "sitrep_detail" }]
+    }
+  },
+  {
     "code": "shift",
     "main": {
       "sections": [{ "data_group": "resource_shift_employees" }]
