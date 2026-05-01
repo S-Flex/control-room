@@ -179,6 +179,8 @@ function formatSegmentTime(raw: unknown): string {
   return d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
 }
 
+const SEGMENT_GAP = 2;
+
 function renderTimelineSvg({
   segments, totalSeconds, startHour, barHeight, svgWidth, svgHeight, fontSize,
   zoom,
@@ -198,7 +200,13 @@ function renderTimelineSvg({
       width={isZoomed ? zoomedWidth : '100%'}
       height={svgHeight}
       viewBox={`0 0 ${zoomedWidth} ${svgHeight}`}
-      preserveAspectRatio="xMinYMin meet"
+      // Small (sidebar) bars use `none` so the rect heights stay fixed at
+      // the viewBox height regardless of width — `meet` would scale the
+      // content uniformly, shrinking the bar height at narrow sidebars and
+      // stretching it again as the sidebar grows. The enlarged overlay
+      // uses the explicit zoomed width and keeps `meet` so its content
+      // doesn't stretch vertically when zoomed.
+      preserveAspectRatio={isZoomed ? 'xMinYMin meet' : 'none'}
       className="timeline-bar-svg"
       style={isZoomed ? { width: zoomedWidth, height: svgHeight } : undefined}
     >
@@ -217,7 +225,12 @@ function renderTimelineSvg({
       })}
       {segments.map((seg, i) => {
         const x = (seg.offset / totalSeconds) * svgWidth;
-        const w = Math.max(1, (seg.duration / totalSeconds) * svgWidth);
+        const rawW = (seg.duration / totalSeconds) * svgWidth;
+        // Subtract a small constant from each segment so adjacent colored
+        // bars don't merge into one solid block as the parent (e.g. a wider
+        // sidebar) stretches the SVG. Floor at 1 unit so very short
+        // segments stay visible.
+        const w = Math.max(1, rawW - SEGMENT_GAP);
         const batchName = showPlanLabel ? String(resolve(seg.row, 'batch_name') ?? '') : '';
         const startTime = showPlanLabel ? formatSegmentTime(seg.row.start_at) : '';
         return (

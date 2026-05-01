@@ -3752,7 +3752,10 @@ button.statusbar-label:hover {
 }
 
 .timeline-set-row.compact + .timeline-set-row.compact {
-  margin-top: -4px;
+  /* Constant 2px gap. A negative margin would visually shrink to zero as
+     the SVG content scales up with sidebar width — at wider sidebars the
+     bars would appear to touch. */
+  margin-top: 2px;
 }
 
 .timeline-set-label {
