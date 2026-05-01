@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Ink } from './widgets/Ink';
 import { SectionRenderer } from './widgets/SectionRenderer';
+import { DataGroupLoading } from './widgets/DataGroup';
 import { usePage } from './hooks/usePages';
 
 type DragListeners = {
@@ -73,7 +74,7 @@ export function SidebarPanel({ code, title, onClose }: {
         </button>
       </div>
       <div className="sidebar-body">
-        {isLoading && <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>}
+        {isLoading && <DataGroupLoading />}
         {code === 'ink-heads' ? (
           <Ink />
         ) : (

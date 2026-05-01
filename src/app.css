@@ -3125,7 +3125,6 @@ button.statusbar-label:hover {
   align-items: center;
   justify-content: center;
   background: color-mix(in srgb, var(--bg) 55%, transparent);
-  backdrop-filter: blur(1px);
   z-index: 2;
   pointer-events: none;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { useDatatable, useDataRows, type JSONRecord, type ParamValue } from '@s-flex/xfw-data';
+import { useDatatable, useDataRows, type JSONRecord, type JSONValue, type ParamValue } from '@s-flex/xfw-data';
 import { useQueryParams, useOverrideParams } from '@s-flex/xfw-url';
 import { useLoadingSubscription, type DataGroup } from '@s-flex/xfw-ui';
 import { syncQueryParams } from '../lib/urlSync';
@@ -44,17 +44,12 @@ export function useDataGeneric<T = JSONRecord>(dataGroup?: DataGroup) {
     return merged.filter(p => !(optionalKeys.has(p.key) && (p.val === null || p.val === undefined)));
   }, [dataGroupQueryParams, overrideParams, dataGroup?.params, optionalKeys]);
 
-  // Reflect `default_value` into the URL when a param is also `is_query_param`.
-  // The merge above already injects defaults into the params used for fetching;
-  // this effect additionally writes them to the address bar so the URL is the
-  // single source of truth for view state. Guarded against the loop that bit
-  // us before: we only call syncQueryParams when the URL slot is actually
-  // null/undefined and no override is supplying the value. Once xfw-url
-  // re-reads the URL after replaceState, the slot is populated and the next
-  // effect run short-circuits — strictly one-shot per missing default.
+  // Reflect `default_value` into the URL for `is_query_param` params so the
+  // URL is the source of truth. Skip when URL/override already supplies a
+  // value — otherwise the next render's `setValues` from xfw-url would loop.
   useEffect(() => {
     if (!dataGroup?.params) return;
-    const updates: Record<string, string | number | boolean | null | unknown[] | Record<string, unknown>> = {};
+    const updates: Record<string, JSONValue> = {};
     for (const def of dataGroup.params) {
       if (!def.is_query_param) continue;
       if (def.default_value === undefined || def.default_value === null) continue;
@@ -62,7 +57,7 @@ export function useDataGeneric<T = JSONRecord>(dataGroup?: DataGroup) {
       if (fromUrl && fromUrl.val !== null && fromUrl.val !== undefined) continue;
       const fromOverride = overrideParams.find(p => p.key === def.key);
       if (fromOverride && fromOverride.val !== null && fromOverride.val !== undefined) continue;
-      updates[def.key] = def.default_value as string | number | boolean | unknown[] | Record<string, unknown>;
+      updates[def.key] = def.default_value;
     }
     if (Object.keys(updates).length > 0) syncQueryParams(updates);
   }, [dataGroup?.params, dataGroupQueryParams, overrideParams]);

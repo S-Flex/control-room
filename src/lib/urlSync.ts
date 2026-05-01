@@ -1,4 +1,5 @@
-import { parseFullPath, composeFullPath } from '@s-flex/xfw-url';
+import { composeFullPath } from '@s-flex/xfw-url';
+import { parseFullPathForgiving as parseFullPath } from './parseFullPath';
 
 /**
  * Safely write query-param updates to the URL while **preserving aux-route

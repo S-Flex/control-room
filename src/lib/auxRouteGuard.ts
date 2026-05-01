@@ -1,4 +1,5 @@
-import { parseFullPath, composeFullPath } from '@s-flex/xfw-url';
+import { composeFullPath } from '@s-flex/xfw-url';
+import { parseFullPathForgiving } from './parseFullPath';
 
 /**
  * Aux-route integrity guard.
@@ -17,10 +18,12 @@ import { parseFullPath, composeFullPath } from '@s-flex/xfw-url';
  *      composition) write the already-collapsed pathname back to the bar and
  *      permanently lose the `//`.
  *
- * The forgiving regex parser inside xfw-url accepts both forms, so the app
- * keeps *working*, but the URL bar shows `(sidebar:oee/detail:batch)` instead
- * of `(sidebar:oee//detail:batch)` — confusing for users and for anyone
- * copying the URL.
+ * The version of `@s-flex/xfw-url` pinned in this repo (0.2.4) **does not**
+ * have the forgiving parser — its `parseFullPath` splits aux outlets on the
+ * literal string `"//"`, so a collapsed URL parses as a single garbage
+ * outlet. We therefore can't use it for re-canonicalisation; we use the
+ * local `parseFullPathForgiving` (`./parseFullPath.ts`) instead. Compose is
+ * still delegated to xfw-url — its `composeFullPath` correctly emits `//`.
  *
  * What this does
  * --------------
@@ -28,8 +31,8 @@ import { parseFullPath, composeFullPath } from '@s-flex/xfw-url';
  * synthetic events (xfw-url already does this, we install our own copy in case
  * it hasn't run yet), then on every navigation event:
  *
- *   • parses the URL with the forgiving regex
- *   • re-composes via `composeFullPath` (always re-emits `//`)
+ *   • parses the URL with the local forgiving parser
+ *   • re-composes via xfw-url's `composeFullPath` (always re-emits `//`)
  *   • if the canonical URL differs from the current URL, calls
  *     `history.replaceState` to restore it
  *
@@ -48,7 +51,7 @@ let fixCount = 0;
 
 function canonicalUrl(): string {
   const fullPath = window.location.pathname + window.location.search;
-  const parsed = parseFullPath(fullPath);
+  const parsed = parseFullPathForgiving(fullPath);
   return composeFullPath(parsed.path ?? '', parsed.outlets, parsed.queryParams) + window.location.hash;
 }
 

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import type { JSONRecord, JSONValue, ParamDefinition } from '@s-flex/xfw-data';
 import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
@@ -414,13 +414,9 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const badgeTimerRef = useRef<number | null>(null);
 
-  // URL-backed visibility: `?time_line_popup=true` keeps the popup open across
-  // refresh. xfw-url coerces "true"/"false" through its numeric regex check
-  // (no match) so values stay strings; we accept the boolean form too in case
-  // anything upstream coerces.
+  // URL-backed visibility: `?time_line_popup=true` persists across refresh.
   const popupQueryParams = useQueryParams(POPUP_PARAM_DEF);
-  const popupRequested = popupQueryParams.find(p => p.key === POPUP_PARAM_KEY)?.val;
-  const popupRequestedActive = popupRequested === 'true' || popupRequested === true;
+  const popupRequestedActive = popupQueryParams.find(p => p.key === POPUP_PARAM_KEY)?.val === 'true';
   const restoredRef = useRef(false);
 
   useEffect(() => {
@@ -448,19 +444,19 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
     };
   }, []);
 
+  const groups = useMemo(() => buildGroups(data ?? [], widgetConfig), [data, widgetConfig]);
+
   // Restore the enlarged-group state from the URL once data is available.
-  // `restoredRef` makes this strictly one-shot so click-driven URL writes
-  // (which flip popupRequestedActive) can't bounce us back and reopen a
-  // group the user just closed.
+  // `restoredRef` makes this one-shot — without it, click-driven URL writes
+  // would bounce back and reopen a group the user just closed.
   useEffect(() => {
     if (restoredRef.current) return;
     if (!popupRequestedActive) { restoredRef.current = true; return; }
-    if (!data || data.length === 0) return; // wait for rows
-    const groups = buildGroups(data, widgetConfig);
+    if (groups.length === 0) return;
     const firstWithSegments = groups.find(g => g.sets.some(s => s.segments.length > 0));
     if (firstWithSegments) setEnlargedGroup(firstWithSegments.key);
     restoredRef.current = true;
-  }, [popupRequestedActive, data, widgetConfig]);
+  }, [popupRequestedActive, groups]);
 
   if (!data || data.length === 0) return null;
 
@@ -476,7 +472,6 @@ export function TimelineBar({ widgetConfig, dataGroup, data }: {
     }
   }
 
-  const groups = buildGroups(data, widgetConfig);
   const totalSeconds = maxSecondsOfGroups(groups);
   const fieldConfig = dataGroup?.field_config as Record<string, FieldConfig> | undefined;
 

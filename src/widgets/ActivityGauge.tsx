@@ -261,9 +261,9 @@ type ColumnProps = {
   onLeave: () => void;
   pager?: ColumnGridPager;
   fallbackTitle?: string;
-  /** When provided, renders `data_group.header.navs` (tabstrip) inside the
-   *  column-title. Only the first column receives this so the tabstrip
-   *  appears once per gauge, not per group. */
+  /** Renders `data_group.header.navs` (tabstrip) inside the column-title.
+   *  Passed to every column so the tabstrip stays visible on each page when
+   *  the grid is in narrow scroll-snap mode. */
   headerNavs?: Parameters<typeof DataGroupHeaderNavs>[0]['navs'];
 };
 
@@ -318,7 +318,9 @@ function Column({
           label: seriesLabels[i],
         });
       });
-      if (rings.length === 0) continue;
+      // Keep the cell even when every series is zero/null — otherwise an
+      // empty bucket (e.g. "overdue" with no orders) would silently drop
+      // out and the user would see 3 circles instead of the expected 4.
       const centerValue = gaugeTitleField ? resolve(row, gaugeTitleField) as JSONValue : null;
       const centerTitle = centerValue == null
         ? ''
@@ -477,7 +479,7 @@ export function ActivityGauge({
         style={gridStyle}
         onScroll={handleScroll}
       >
-        {groups.map((g, i) => (
+        {groups.map((g) => (
           <Column
             key={g.key}
             titleField={title_field}
@@ -491,7 +493,7 @@ export function ActivityGauge({
             onLeave={onLeave}
             pager={pager}
             fallbackTitle={g.key}
-            headerNavs={i === 0 ? headerNavs : undefined}
+            headerNavs={headerNavs}
           />
         ))}
       </div>

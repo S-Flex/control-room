@@ -9,11 +9,15 @@ import { DataGroupProvider } from './DataGroupContext';
 
 const EMPTY_KEYS: string[] = [];
 
+export function DataGroupLoading() {
+  return <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>;
+}
+
 export function DataGroupWidget({ code, title }: { code: string; title?: string; }) {
   const { data: dataGroups, isLoading: isLoadingGroups } = useDataGroups(code);
   const dataGroup = dataGroups?.[0];
 
-  if (isLoadingGroups || !dataGroup) return <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>;
+  if (isLoadingGroups || !dataGroup) return <DataGroupLoading />;
 
   return <DataGroupContent dataGroup={dataGroup} title={title} />;
 }
@@ -66,7 +70,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     [dataTable?.primary_keys],
   );
 
-  if (isInitialLoading && !renderRows) return <div className="datagroup-loading"><div className="datagroup-loading-spinner" /></div>;
+  if (isInitialLoading && !renderRows) return <DataGroupLoading />;
   if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
   if (!renderRows || renderRows.length === 0) return <p className="datagroup-empty">No data</p>;
 

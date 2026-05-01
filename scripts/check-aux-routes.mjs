@@ -28,6 +28,7 @@ const GREEN = '\x1b[32m'; const RED = '\x1b[31m'; const YELLOW = '\x1b[33m'; con
 const ALLOWLIST = new Set([
   ['src', 'lib', 'auxRouteGuard.ts'].join(sep),
   ['src', 'lib', 'urlSync.ts'].join(sep),
+  ['src', 'lib', 'parseFullPath.ts'].join(sep),
   ['scripts', 'check-aux-routes.mjs'].join(sep),
 ]);
 
