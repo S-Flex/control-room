@@ -1,0 +1,623 @@
+[
+  {
+    "src": "get_production_board_aggregate",
+    "layout": "flow-board",
+    "params": [
+      {
+        "key": "model",
+        "is_query_param": true
+      },
+      {
+        "key": "domain_id",
+        "default_value": 1
+      }
+    ],
+    "children": [],
+    "widget_id": "production_board",
+    "field_config": {
+      "cell_key": {
+        "ui": {
+          "order": 0,
+          "hidden": true
+        }
+      },
+      "sqm_done": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "m² fertig" },
+            "en": { "title": "m² done" },
+            "nl": { "title": "m² klaar" }
+          },
+          "order": 6
+        },
+        "scale": 1
+      },
+      "sqm_total": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "m² gesamt" },
+            "en": { "title": "m² total" },
+            "nl": { "title": "m² totaal" }
+          },
+          "order": 5
+        },
+        "scale": 1
+      },
+      "time_current": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Zeit aktuell" },
+            "en": { "title": "Time current" },
+            "nl": { "title": "Tijd huidig" }
+          },
+          "order": 7
+        }
+      },
+      "time_current_done": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Zeit aktuell fertig" },
+            "en": { "title": "Time current done" },
+            "nl": { "title": "Tijd huidig klaar" }
+          },
+          "order": 8
+        }
+      },
+      "time_remaining": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Zeit verbleibend" },
+            "en": { "title": "Time remaining" },
+            "nl": { "title": "Tijd resterend" }
+          },
+          "order": 9
+        }
+      },
+      "time_elapsed": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Zeit verstrichen" },
+            "en": { "title": "Time elapsed" },
+            "nl": { "title": "Tijd verstreken" }
+          },
+          "order": 10
+        }
+      },
+      "rework_done": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Nacharbeit fertig" },
+            "en": { "title": "Rework done" },
+            "nl": { "title": "Herstel klaar" }
+          },
+          "order": 14
+        }
+      },
+      "status_code": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Status" },
+            "en": { "title": "Status" },
+            "nl": { "title": "Status" }
+          },
+          "order": 1,
+          "control": "badge",
+          "no_label": true
+        }
+      },
+      "regular_done": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Regulär fertig" },
+            "en": { "title": "Regular done" },
+            "nl": { "title": "Regulier klaar" }
+          },
+          "order": 12
+        }
+      },
+      "rework_total": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Nacharbeit gesamt" },
+            "en": { "title": "Rework total" },
+            "nl": { "title": "Herstel totaal" }
+          },
+          "order": 13
+        }
+      },
+      "status_title": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Status" },
+            "en": { "title": "Status" },
+            "nl": { "title": "Status" }
+          },
+          "order": 2
+        }
+      },
+      "regular_total": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Regulär gesamt" },
+            "en": { "title": "Regular total" },
+            "nl": { "title": "Regulier totaal" }
+          },
+          "order": 11
+        }
+      },
+      "logistics_date": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Logistikdatum" },
+            "en": { "title": "Logistics date" },
+            "nl": { "title": "Logistiek datum" }
+          },
+          "order": 4,
+          "control": "date"
+        }
+      },
+      "resource_id": {
+        "ui": {
+          "order": 15,
+          "hidden": true
+        }
+      },
+      "resource_name": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Resource" },
+            "en": { "title": "Resource" },
+            "nl": { "title": "Resource" }
+          },
+          "order": 16
+        }
+      },
+      "production_line_name": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Linie" },
+            "en": { "title": "Line" },
+            "nl": { "title": "Lijn" }
+          },
+          "order": 3
+        }
+      },
+      "options_summary": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Optionen" },
+            "en": { "title": "Options" },
+            "nl": { "title": "Opties" }
+          },
+          "order": 17,
+          "control": "table"
+        }
+      },
+      "options_summary.code": {
+        "ui": {
+          "hidden": true,
+          "i18n": {
+            "de": { "title": "Option" },
+            "en": { "title": "Option" },
+            "nl": { "title": "Optie" }
+          },
+          "order": 18,
+          "control": "table-field",
+          "class_name": "col-span-4"
+        }
+      },
+      "options_summary.value": {
+        "ui": {
+          "hidden": true,
+          "i18n": {
+            "de": { "title": "Anzahl" },
+            "en": { "title": "Count" },
+            "nl": { "title": "Aantal" }
+          },
+          "order": 19,
+          "control": "table-field",
+          "class_name": "col-span-2 justify-self-end"
+        }
+      },
+      "options_summary.category": {
+        "ui": {
+          "i18n": {
+            "de": { "title": "Kategorie" },
+            "en": { "title": "Category" },
+            "nl": { "title": "Categorie" }
+          },
+          "order": 20,
+          "hidden": true
+        }
+      }
+    },
+    "flow_board_config": {
+      "layout": "flow-grid",
+      "children": {
+        "layout": "flow-container",
+        "children": {
+          "layout": "flow-cards",
+          "group_by": [
+            "resource_name"
+          ],
+          "row_options": {
+            "nav": {
+              "on_select": {
+                "path": "(sidebar:orderlines)",
+                "params": [
+                  {
+                    "key": "production_line_id",
+                    "is_query_param": true
+                  },
+                  {
+                    "key": "status_code",
+                    "is_query_param": true
+                  },
+                  {
+                    "key": "logistics_date",
+                    "is_query_param": true
+                  },
+                  {
+                    "key": "resource_id",
+                    "is_query_param": true
+                  }
+                ]
+              }
+            },
+            "colexp": false,
+            "checkable": false,
+            "selectable": true
+          },
+          "field_config": {
+            "resource_name": {
+              "ui": {
+                "order": 0,
+                "class_name": "col-span-6"
+              }
+            },
+            "sqm_total": {
+              "ui": {
+                "i18n": {
+                  "de": { "title": "m²" },
+                  "en": { "title": "m²" },
+                  "nl": { "title": "m²" }
+                },
+                "order": 2,
+                "control": "progress",
+                "progress_config": {
+                  "value_field": "sqm_done"
+                },
+                "class_name": "col-span-6"
+              },
+              "aggregate_fn": "sum"
+            },
+            "time_current": {
+              "ui": {
+                "i18n": {
+                  "de": { "title": "Zeit" },
+                  "en": { "title": "Time" },
+                  "nl": { "title": "Tijd" }
+                },
+                "order": 3,
+                "unit": "seconds",
+                "type": "hh:mm",
+                "control": "progress",
+                "progress_config": {
+                  "value_field": "time_current_done"
+                },
+                "class_name": "col-span-6"
+              },
+              "aggregate_fn": "sum"
+            },
+            "time_total": {
+              "ui": {
+                "i18n": {
+                  "de": { "title": "Total" },
+                  "en": { "title": "Total" },
+                  "nl": { "title": "Totaal" }
+                },
+                "order": 1,
+                "unit": "seconds",
+                "type": "hh:mm",
+                "control": "progress",
+                "progress_config": {
+                  "value_field": "time_current_done"
+                },
+                "class_name": "col-span-6"
+              },
+              "aggregate_fn": "sum"
+            },
+            "time_current_done": {
+              "ui": {
+                "i18n": {
+                  "de": { "title": "Verstrichen" },
+                  "en": { "title": "Elapsed" },
+                  "nl": { "title": "Verstreken" }
+                },
+                "hidden": true,
+                "class_name": "col-span-3"
+              },
+              "aggregate_fn": "sum"
+            },
+            "regular_total": {
+              "ui": {
+                "i18n": {
+                  "de": { "title": "Regulär" },
+                  "en": { "title": "Regular" },
+                  "nl": { "title": "Regulier" }
+                },
+                "order": 4,
+                "control": "progress",
+                "progress_config": {
+                  "value_field": "regular_done"
+                },
+                "class_name": "col-span-6"
+              },
+              "aggregate_fn": "sum"
+            },
+            "rework_total": {
+              "ui": {
+                "i18n": {
+                  "de": { "title": "Nacharbeit" },
+                  "en": { "title": "Rework" },
+                  "nl": { "title": "Herstel" }
+                },
+                "order": 5,
+                "control": "progress",
+                "progress_config": {
+                  "value_field": "rework_done"
+                },
+                "class_name": "col-span-6"
+              },
+              "aggregate_fn": "sum"
+            },
+            "options_summary": {
+              "ui": {
+                "order": 7,
+                "class_name": "col-span-6 grid grid-cols-6 gap-1"
+              }
+            },
+            "options_summary.code": {
+              "ui": {
+                "hidden": false,
+                "order": 8
+              }
+            },
+            "options_summary.value": {
+              "ui": {
+                "hidden": false,
+                "order": 9
+              }
+            },
+            "options_summary.category": {
+              "ui": {
+                "order": 10
+              }
+            },
+            "class_name": "grid grid-cols-6 gap-1"
+          }
+        },
+        "group_by": [
+          "logistics_date"
+        ],
+        "row_options": {
+          "colexp": true,
+          "checkable": false,
+          "selectable": false
+        },
+        "field_config": {
+          "logistics_date": {
+            "ui": {
+              "i18n": {
+                "de": { "title": "Datum" },
+                "en": { "title": "Date" },
+                "nl": { "title": "Datum" }
+              },
+              "order": 0,
+              "class_name": "col-span-2"
+            }
+          },
+          "sqm_total": {
+            "ui": {
+              "i18n": {
+                "de": { "title": "m²" },
+                "en": { "title": "m²" },
+                "nl": { "title": "m²" }
+              },
+              "order": 1,
+              "class_name": "col-span-1"
+            },
+            "aggregate_fn": "sum"
+          },
+          "regular_total": {
+            "ui": {
+              "i18n": {
+                "de": { "title": "Regulär" },
+                "en": { "title": "Regular" },
+                "nl": { "title": "Regulier" }
+              },
+              "order": 2,
+              "class_name": "col-span-1"
+            },
+            "aggregate_fn": "sum"
+          },
+          "rework_total": {
+            "ui": {
+              "i18n": {
+                "de": { "title": "Nacharbeit" },
+                "en": { "title": "Rework" },
+                "nl": { "title": "Herstel" }
+              },
+              "order": 3,
+              "class_name": "col-span-1"
+            },
+            "aggregate_fn": "sum"
+          },
+          "class_name": "grid grid-cols-5 gap-1"
+        }
+      },
+      "group_by": [
+        {
+          "i18n": {
+            "de": { "title": "Nicht vorrätig" },
+            "en": { "title": "Out of stock" },
+            "nl": { "title": "Niet op voorraad" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "out_of_stock" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Kaufbereit" },
+            "en": { "title": "Ready to purchase" },
+            "nl": { "title": "Klaar om te bestellen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "ready_to_purchase" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Bestellt" },
+            "en": { "title": "Purchased" },
+            "nl": { "title": "Besteld" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "purchased" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Lieferung erhalten" },
+            "en": { "title": "Purchase received" },
+            "nl": { "title": "Bestelling ontvangen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "purchase_received" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Technischer Fehler" },
+            "en": { "title": "Technical failure" },
+            "nl": { "title": "Technische storing" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "technical_failure" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Nicht verfügbar" },
+            "en": { "title": "Finishing unavailable" },
+            "nl": { "title": "Afwerking niet beschikbaar" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "finishing_unavailable" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Gedruckt" },
+            "en": { "title": "Printed" },
+            "nl": { "title": "Geprint" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "printed" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Kalandern" },
+            "en": { "title": "Calender" },
+            "nl": { "title": "Kalanderen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "calender" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Trocknen" },
+            "en": { "title": "Drying" },
+            "nl": { "title": "Drogen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "drying" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Beschichtet" },
+            "en": { "title": "Coated" },
+            "nl": { "title": "Gecoat" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "coated" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Laminiert" },
+            "en": { "title": "Laminated" },
+            "nl": { "title": "Gelamineerd" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "laminated" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Aufgetragen" },
+            "en": { "title": "Applied" },
+            "nl": { "title": "Aangebracht" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "applied" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Geschnitten" },
+            "en": { "title": "Cut" },
+            "nl": { "title": "Gesneden" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "cut" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Gefaltet" },
+            "en": { "title": "Folded" },
+            "nl": { "title": "Gevouwen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "folded" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Geschlitzt / gerillt" },
+            "en": { "title": "Slitted / creased" },
+            "nl": { "title": "Gesneden / gerild" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "slitted_creased" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Veredelung" },
+            "en": { "title": "Finishing" },
+            "nl": { "title": "Afwerking" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "finishing" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Schweißen" },
+            "en": { "title": "Welding" },
+            "nl": { "title": "Lassen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "welding" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Genäht" },
+            "en": { "title": "Stitched" },
+            "nl": { "title": "Gestikt" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "stitched" }]]
+        },
+        {
+          "i18n": {
+            "de": { "title": "Ösen" },
+            "en": { "title": "Grommets" },
+            "nl": { "title": "Zeilringen" }
+          },
+          "filter": [[{ "op": "==", "field": "status_code", "value": "grommets" }]]
+        }
+      ],
+      "row_options": {
+        "colexp": false,
+        "checkable": false,
+        "selectable": false
+      },
+      "column_max_width": 300,
+      "column_min_width": 300,
+      "hide_column_when_empty": true
+    }
+  }
+]

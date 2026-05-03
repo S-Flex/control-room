@@ -599,15 +599,12 @@ label[data-rac] > div:has(> svg) svg {
 
 /* ===== STATUS BAR ===== */
 .statusbar {
-  display: inline-flex;
-  align-items: center;
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  box-shadow: 0 1px 2px -1px rgba(10, 13, 18, 0.1);
-  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 6px;
   align-self: flex-start;
-  width: fit-content;
+  max-width: 100%;
   font-size: 12px;
 }
 .statusbar > .statusbar-group {
@@ -617,9 +614,10 @@ label[data-rac] > div:has(> svg) svg {
   gap: 4px;
   padding: 6px 12px;
   white-space: nowrap;
-}
-.statusbar > .statusbar-group + .statusbar-group {
-  border-left: 1px solid var(--border);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: 0 1px 2px -1px rgba(10, 13, 18, 0.1);
 }
 .statusbar-items {
   display: flex;
@@ -2879,6 +2877,7 @@ button.statusbar-label:hover {
 
 /* Home page */
 .home-page {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2887,6 +2886,42 @@ button.statusbar-label:hover {
   background: var(--bg);
   color: var(--text-primary);
   gap: 32px;
+}
+
+.home-corner {
+  position: absolute;
+  top: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.home-corner:hover {
+  opacity: 0.8;
+}
+
+.home-corner-left {
+  left: 24px;
+}
+
+.home-corner-right {
+  right: 24px;
+  width: 40px;
+  height: 40px;
+}
+
+.home-corner-right:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.home-logo {
+  height: 32px;
+  width: auto;
+  display: block;
 }
 
 .home-title {
@@ -4356,16 +4391,31 @@ button.statusbar-label:hover {
 .column-grid {
   /* Single row of columns: each column is at least --column-min-width and
      grows with 1fr to share remaining space. When parent < N × min, each
-     column stays at min-width and the grid scrolls horizontally. */
+     column stays at min-width and the grid scrolls horizontally. If
+     --column-max-width is set, columns are also capped at that width. */
   --column-min-width: 250px;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1fr;
+  grid-auto-columns: minmax(var(--column-min-width), var(--column-max-width, 1fr));
   overflow-x: auto;
   gap: 0 8px;
   flex: 1;
   min-width: 0;
   min-height: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-muted) transparent;
+}
+
+.column-grid::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.column-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.column-grid::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
 }
 
 .column-grid-column {
@@ -4783,6 +4833,49 @@ button.statusbar-label:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+/* `control: 'progress'` — small horizontal bar with a label on the left and
+   "done / total" on the right. Bar width fills the remaining space. */
+.field-progress {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 0;
+}
+
+.field-progress-label {
+  flex: 0 0 auto;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.field-progress-track {
+  flex: 1 1 auto;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+  min-width: 24px;
+}
+
+.field-progress-fill {
+  height: 100%;
+  background: var(--brand);
+  border-radius: 2px;
+  transition: width 0.2s ease-out;
+}
+
+.field-progress-value {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  font-size: 10px;
+}
+
 
 .field-value {
   overflow: hidden;

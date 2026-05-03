@@ -23,6 +23,7 @@ import { HomePage } from './HomePage';
 import { ControlRoomPage } from './ControlRoomPage';
 import { LayoutPage } from './LayoutPage';
 import { ProductionLinesPage } from './ProductionLinesPage';
+import { ProductionBoardPage } from './ProductionBoardPage';
 import { InflowPage } from './InflowPage';
 import { DataGroupPage } from './DataGroupPage';
 import { RoboticsPage } from './RoboticsPage';
@@ -54,6 +55,7 @@ function Root() {
     <MainRoutes>
       <Route path="/control-room" element={<ControlRoomPage />} />
       <Route path="/production-lines" element={<ProductionLinesPage />} />
+      <Route path="/production-board" element={<ProductionBoardPage />} />
       <Route path="/inflow-manual" element={<InflowPage />} />
       <Route path="/inflow-auto" element={<InflowPage />} />
       <Route path="/layout" element={<LayoutPage />} />

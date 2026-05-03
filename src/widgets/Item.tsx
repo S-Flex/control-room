@@ -19,6 +19,9 @@ function resolveFields(dataGroup: DataGroup): { fields: ItemField[]; class_name?
     .filter(([key, config]) => {
       if (key === 'class_name' || key === 'no_label') return false;
       const ui = config.ui;
+      // `control: 'table-field'` is a table-column descriptor, not a
+      // standalone field — consumed by `<Field control="table">` only.
+      if (ui?.control === 'table-field') return false;
       return !ui?.hidden && !ui?.table?.hidden;
     })
     .map(([key, config]) => {

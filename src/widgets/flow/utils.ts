@@ -81,7 +81,12 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
   const result = Object.fromEntries(
     Object.entries(fc)
       // Skip the group-level scalar keys so they aren't treated as fields.
-      .filter(([key]) => key !== 'class_name' && key !== 'no_label')
+      // Skip `control: 'table-field'` entries — they are column descriptors
+      // consumed by `<Field control="table">` via `resolveTableColumns`,
+      // never standalone fields.
+      .filter(([key, cfg]) => key !== 'class_name'
+        && key !== 'no_label'
+        && cfg?.ui?.control !== 'table-field')
       .map(([key, config]) => {
       const pgField = dataTable.schema[key];
       const resolved = pgField
@@ -327,15 +332,27 @@ export function buildGroupFields(
     const firstRow = rows[0];
     for (const [key, fc] of Object.entries(levelFieldConfig)) {
       if (key === 'class_name' || key === 'no_label' || seen.has(key)) continue;
+      // `control: 'table-field'` opts a field out of standalone rendering —
+      // it only appears as a column inside its `control: 'table'` parent.
+      if (fc.ui?.control === 'table-field') continue;
       const resolved = fieldMap[key];
       if (!resolved || isHidden(key)) continue;
       const agg = fc.aggregate_fn;
+      // `control: 'progress'` carries a `progress_config.value_field` whose
+      // value is aggregated alongside the parent so the progress bar shows
+      // the group total ratio, not the first row's.
+      const progressConfig = (fc.ui as Record<string, unknown> | undefined)?.progress_config as
+        { value_field?: string } | undefined;
+      const progressKey = progressConfig?.value_field;
       if (agg) {
         entries.push({
           label: resolveLevelLabel(levelFieldConfig, fieldMap, key),
           value: computeAggregate(aggregateRows ?? rows, key, agg),
           field: { ...resolved, aggregate_fn: agg },
           class_name: fieldClassName(levelFieldConfig[key]),
+          progress_value: progressKey
+            ? computeAggregate(aggregateRows ?? rows, progressKey, agg)
+            : undefined,
         });
       } else if (firstRow) {
         entries.push({
@@ -343,6 +360,7 @@ export function buildGroupFields(
           value: resolve(firstRow, key),
           field: resolved,
           class_name: fieldClassName(levelFieldConfig[key]),
+          progress_value: progressKey ? resolve(firstRow, progressKey) : undefined,
         });
       }
     }

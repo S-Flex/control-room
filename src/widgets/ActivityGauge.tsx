@@ -459,15 +459,23 @@ export function ActivityGauge({
   }, []);
   const onLeave = useCallback(() => setHover(null), []);
 
-  const gridStyle = useMemo(() => ({
-    '--column-min-width': cssSize(column_min_width, '320px'),
-    ...(column_max_width != null ? { '--column-max-width': cssSize(column_max_width, 'none') } : {}),
-  }) as React.CSSProperties, [column_min_width, column_max_width]);
+  // For the activity-gauge widget, `column_min_width` / `column_max_width`
+  // describe the *whole widget*'s min/max width (not the inner production-
+  // line columns). When multiple sitreps are laid out side by side in a
+  // parent flex/grid, this keeps each sitrep at its declared minimum and
+  // capped at its maximum. The inner production-line columns continue to
+  // use the default `--column-min-width` from `.column-grid`.
+  const gridStyle = useMemo<React.CSSProperties>(() => {
+    const style: React.CSSProperties = {};
+    if (column_min_width != null) style.minWidth = cssSize(column_min_width, '320px');
+    if (column_max_width != null) style.maxWidth = cssSize(column_max_width, 'none');
+    return style;
+  }, [column_min_width, column_max_width]);
 
-  const columnStyle = useMemo<React.CSSProperties>(
-    () => (column_max_width != null ? { maxWidth: cssSize(column_max_width, 'none') } : {}),
-    [column_max_width],
-  );
+  // Per-column styling for the inner production-line columns. Stays empty
+  // by default so the grid template (`minmax(--column-min-width, 1fr)`)
+  // governs sizing.
+  const columnStyle = useMemo<React.CSSProperties>(() => ({}), []);
 
   if (!data || data.length === 0 || !activeMode) return null;
 

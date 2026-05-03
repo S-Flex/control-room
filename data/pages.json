@@ -1,5 +1,11 @@
 [
   {
+    "code": "production-board-detail",
+    "main": {
+      "sections": [{ "data_group": "production_board_detail" }]
+    }
+  },
+  {
     "code": "sitrep-detail",
     "main": {
       "sections": [{ "data_group": "sitrep_detail" }]
@@ -146,6 +152,30 @@
       },
       "cols": [
         { "area": "flow-board", "data_group": "components_inflow-auto" }
+      ]
+    },
+    "footer": {
+      "grid": {
+        "columns": "1fr 1fr",
+        "areas": [
+          "sitrep status-bar"
+        ]
+      },
+      "cols": [
+        { "area": "sitrep", "data_group": "sitrep" },
+        { "area": "status-bar", "data_group": "status_bar" }
+      ]
+    }
+  },
+  {
+    "code": "production-board",
+    "main": {
+      "grid": {
+        "columns": "1fr",
+        "areas": ["flow-board"]
+      },
+      "cols": [
+        { "area": "flow-board", "data_group": "production_board" }
       ]
     },
     "footer": {

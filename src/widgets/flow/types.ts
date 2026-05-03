@@ -56,6 +56,15 @@ export type FlowBoardLevelConfig = {
    *  level renders its own search input + prev/next; child levels receive the
    *  filtered (filter mode) or untouched (highlight mode) row set. */
   search?: string[];
+  /** Minimum width per column in `flow-grid` layout. Any CSS length (number
+   *  treated as px). Below this width the grid scrolls horizontally. */
+  column_min_width?: string | number;
+  /** Maximum width per column in `flow-grid` layout. Any CSS length (number
+   *  treated as px). Columns will not stretch beyond this. */
+  column_max_width?: string | number;
+  /** When `true` (and `layout === 'flow-grid'`), drop columns whose row set
+   *  is empty after grouping. Default `false` keeps the empty placeholder. */
+  hide_column_when_empty?: boolean;
 };
 
 export type FieldNav = {
@@ -83,6 +92,10 @@ export type FlowFieldEntry = {
   value: JSONValue;
   field: FlowResolvedField;
   class_name?: string;
+  /** Pre-computed numerator for `control: 'progress'` fields. Aggregated
+   *  with the same `aggregate_fn` as the parent so the progress bar
+   *  reflects the group total, not just the first row. */
+  progress_value?: JSONValue;
 };
 
 export type FlowGroupData = {
@@ -108,6 +121,14 @@ export type FlowGroupData = {
 export type FlowLayoutProps = {
   layout: string;
   groups: FlowGroupData[];
+  columnMinWidth?: string | number;
+  columnMaxWidth?: string | number;
+  /** This level's field_config (already merged with root by
+   *  normalizeDataGroup). Provided to descendant `<Field>`s via
+   *  DataGroupContext so a `control: 'table'` field can resolve its column
+   *  configs from the level (where `hidden`/`order`/`class_name` may be
+   *  overridden) instead of only from root. */
+  fieldConfig?: FlowLevelFieldConfig;
 };
 
 

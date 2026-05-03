@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
+import type { FieldConfig } from '@s-flex/xfw-ui';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
 import { Checkbox } from '@s-flex/xfw-ui';
@@ -7,6 +8,7 @@ import { useGroupCheck } from '../../controls/Checkbox';
 import { resolveI18nLabel } from './utils';
 import { useFlowContext } from './FlowContext';
 import { useFlowSearch } from './FlowSearchContext';
+import { DataGroupProvider, useDataGroupContext } from '../DataGroupContext';
 import { ColumnGridPagerControls, useColumnGridPager, type ColumnGridPager } from '../useColumnGridPager';
 
 function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
@@ -121,8 +123,16 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
           {g.i18n
             ? <span className="flow-box-title">{resolveI18nLabel(g.i18n, g.key)}</span>
             : g.data.map((d, i) => (
-              <div key={d.field?.key ? `${d.field.key}-${i}` : i} className={d.class_name || undefined}>
-                <Field field={d.field} value={d.value} row={g.rows[0]} />
+              <div
+                key={d.field?.key ? `${d.field.key}-${i}` : i}
+                className={d.class_name || undefined}
+              >
+                <Field
+                  field={d.field}
+                  value={d.value}
+                  row={g.rows[0]}
+                  progress_value={d.progress_value}
+                />
               </div>
             ))
           }
@@ -154,9 +164,38 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
   );
 }
 
-export function FlowBox({ layout, groups }: FlowLayoutProps) {
+function cssSize(v: string | number | undefined): string | undefined {
+  if (v == null) return undefined;
+  return typeof v === 'number' ? `${v}px` : v;
+}
+
+export function FlowBox({ layout, groups, columnMinWidth, columnMaxWidth, fieldConfig: levelFieldConfig }: FlowLayoutProps) {
   const isGrid = layout === 'flow-grid';
   const { gridRef, pager, handleScroll, isNarrow } = useColumnGridPager(groups.length);
+
+  // Apply per-data-group column widths as CSS variables. The grid template
+  // (`.column-grid` in app.css) reads `--column-min-width` / `--column-max-width`
+  // via `minmax()` so columns clamp to those bounds and the grid scrolls
+  // horizontally when content overflows.
+  const gridStyle = useMemo<React.CSSProperties | undefined>(() => {
+    const minW = cssSize(columnMinWidth);
+    const maxW = cssSize(columnMaxWidth);
+    if (!minW && !maxW) return undefined;
+    const style: Record<string, string> = {};
+    if (minW) style['--column-min-width'] = minW;
+    if (maxW) style['--column-max-width'] = maxW;
+    return style as React.CSSProperties;
+  }, [columnMinWidth, columnMaxWidth]);
+
+  // Override the DataGroupContext's `fieldConfig` with this level's merged
+  // field_config so descendant `<Field>`s (notably `control: 'table'`)
+  // resolve sub-field configs from the level — where overrides like
+  // `hidden: false` for table columns live — instead of from the bare root.
+  const ctx = useDataGroupContext();
+  const ctxValue = useMemo(() => {
+    if (!levelFieldConfig) return ctx;
+    return { ...ctx, fieldConfig: levelFieldConfig as unknown as Record<string, FieldConfig> };
+  }, [ctx, levelFieldConfig]);
 
   if (!isGrid) {
     // `flow-table` is `flow-cards`/`flow-container` with table-style CSS.
@@ -166,31 +205,36 @@ export function FlowBox({ layout, groups }: FlowLayoutProps) {
     const wrapperClass = isTable ? 'flow-table' : 'flow-card-list';
     const tableAllRows = isTable ? groups.flatMap(g => g.rows) : undefined;
     return (
-      <div className={wrapperClass}>
-        {isTable && groups[0] && (
-          <FlowTableHeader data={groups[0].data} className={groups[0].class_name} />
-        )}
-        {groups.map((g, i) => (
-          <FlowBoxItem
-            key={g.key}
-            g={g}
-            isGrid={false}
-            tableAllRows={tableAllRows}
-            isFirstInTable={isTable && i === 0}
-          />
-        ))}
-      </div>
+      <DataGroupProvider value={ctxValue}>
+        <div className={wrapperClass}>
+          {isTable && groups[0] && (
+            <FlowTableHeader data={groups[0].data} className={groups[0].class_name} />
+          )}
+          {groups.map((g, i) => (
+            <FlowBoxItem
+              key={g.key}
+              g={g}
+              isGrid={false}
+              tableAllRows={tableAllRows}
+              isFirstInTable={isTable && i === 0}
+            />
+          ))}
+        </div>
+      </DataGroupProvider>
     );
   }
 
   return (
-    <div
-      ref={gridRef}
-      className={`column-grid column-grid--aligned${isNarrow ? ' is-narrow' : ''}`}
-      onScroll={handleScroll}
-    >
-      {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid pager={pager} />)}
-    </div>
+    <DataGroupProvider value={ctxValue}>
+      <div
+        ref={gridRef}
+        className={`column-grid column-grid--aligned${isNarrow ? ' is-narrow' : ''}`}
+        style={gridStyle}
+        onScroll={handleScroll}
+      >
+        {groups.map(g => <FlowBoxItem key={g.key} g={g} isGrid pager={pager} />)}
+      </div>
+    </DataGroupProvider>
   );
 }
 

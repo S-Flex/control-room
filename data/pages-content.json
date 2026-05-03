@@ -1,5 +1,31 @@
 [
   {
+    "code": "production-board-detail",
+    "block": {
+      "title": "Production board detail",
+      "i18n": {
+        "de": {
+          "title": "Produktionstafel detail"
+        },
+        "en": {
+          "title": "Production board detail"
+        },
+        "es": {
+          "title": "Detalle del tablero de producción"
+        },
+        "fr": {
+          "title": "Détail du tableau de production"
+        },
+        "nl": {
+          "title": "Productiebord detail"
+        },
+        "uk": {
+          "title": "Деталі виробничої дошки"
+        }
+      }
+    }
+  },
+  {
     "code": "time-on-status",
     "block": {
       "title": "Time on status",
@@ -438,6 +464,29 @@
         },
         "es": {
           "title": "Entrada automática"
+        }
+      }
+    }
+  },
+  {
+    "code": "production-board",
+    "block": {
+      "title": "Production board",
+      "i18n": {
+        "en": {
+          "title": "Production board"
+        },
+        "nl": {
+          "title": "Productiebord"
+        },
+        "de": {
+          "title": "Produktionstafel"
+        },
+        "uk": {
+          "title": "Виробнича дошка"
+        },
+        "es": {
+          "title": "Tablero de producción"
         }
       }
     }

@@ -22,6 +22,9 @@ function resolveFields(dataGroup: DataGroup): { fields: CardField[]; class_name?
     .filter(([key, config]) => {
       if (key === 'class_name' || key === 'no_label') return false;
       const ui = config.ui;
+      // `control: 'table-field'` is a table-column descriptor, not a
+      // standalone field — consumed by `<Field control="table">` only.
+      if (ui?.control === 'table-field') return false;
       // Static hidden — always filtered out. hidden_when is checked per-row at render time.
       return !ui?.hidden && !ui?.table?.hidden;
     })

@@ -224,7 +224,22 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       });
     }
 
-    return <FlowBox layout={levelConfig.layout} groups={groups} />;
+    // `hide_column_when_empty` only applies to flow-grid layouts. Empty
+    // columns in card / table layouts often render group headers that are
+    // still meaningful even with no rows, so we don't drop them there.
+    if (levelConfig.hide_column_when_empty && levelConfig.layout === 'flow-grid') {
+      groups = groups.filter(g => g.rows.length > 0);
+    }
+
+    return (
+      <FlowBox
+        layout={levelConfig.layout}
+        groups={groups}
+        columnMinWidth={levelConfig.column_min_width}
+        columnMaxWidth={levelConfig.column_max_width}
+        fieldConfig={levelConfig.field_config}
+      />
+    );
   }
 
   return (

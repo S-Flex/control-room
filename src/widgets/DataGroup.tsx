@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { useDataGroups, type DataGroup } from '@s-flex/xfw-ui';
+import { useDataGroups, type DataGroup, type FieldConfig } from '@s-flex/xfw-ui';
 import { type JSONRecord } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
 import { useDataGeneric } from '../hooks/useDataGeneric';
@@ -66,8 +66,11 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
   // stable reference (otherwise every render before dataTable arrives builds a
   // new array, churns the context, and re-renders every descendant Field).
   const dgCtx = useMemo(
-    () => ({ primaryKeys: dataTable?.primary_keys ?? EMPTY_KEYS }),
-    [dataTable?.primary_keys],
+    () => ({
+      primaryKeys: dataTable?.primary_keys ?? EMPTY_KEYS,
+      fieldConfig: normalizedDataGroup.field_config as Record<string, FieldConfig> | undefined,
+    }),
+    [dataTable?.primary_keys, normalizedDataGroup.field_config],
   );
 
   if (isInitialLoading && !renderRows) return <DataGroupLoading />;
