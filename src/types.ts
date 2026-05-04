@@ -46,6 +46,10 @@ export type NavItem = {
 export type Section = {
   code?: string;
   data_group?: string;
+  /** Renders a footer pager bound to another data_group's row count. The
+   *  active index lives in the URL (`page_param`, default `?page=N`) so any
+   *  widget reading the same param flips in lockstep. */
+  pager?: { data_group: string; page_param?: string };
   nav?: NavItem[];
   area?: string;
   class_name?: string;

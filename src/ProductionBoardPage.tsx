@@ -6,6 +6,7 @@ import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
 import { syncQueryParams } from './lib/urlSync';
 import { DataGroupWidget } from './widgets/DataGroup';
+import { TimelineControls } from './controls/TimelineControls';
 import { usePage } from './hooks/usePages';
 import type { LineConfig, UiLabel } from './types';
 
@@ -76,7 +77,9 @@ export function ProductionBoardPage() {
           switchLine={switchLine}
           uiLabels={uiLabels}
           onLanguageChange={handleLanguageChange}
-        />
+        >
+          <TimelineControls uiLabels={uiLabels} />
+        </PageHeader>
 
         <div className="planning-content">
           {flowBoardDataGroup && <DataGroupWidget code={flowBoardDataGroup} />}

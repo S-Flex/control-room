@@ -3,13 +3,19 @@ import type { DataTable, JSONRecord } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
 import { resolve } from './resolve';
 import { Badge } from '../controls/Badge';
+import { usePageIndex } from './usePageIndex';
 
 /** `status_bar_config` shape — every key is optional, defaults match the
  *  documented `status_json` shape (groups → items). Overrideable so the
  *  component never hardcodes column names. */
 type StatusBarConfig = {
-  /** Column on the row that holds the array of groups. Default `status_json`. */
+  /** Column on the row that holds the groups. Default `status_json`. May
+   *  resolve to either an array of groups, or to an object that wraps the
+   *  array under `groups_field` (default `items`). */
   data_field?: string;
+  /** Key on the wrapper object (when `data_field` resolves to one) that
+   *  holds the array of groups. Default `items`. */
+  groups_field?: string;
   /** Key on each group that holds the i18n title object. Default `i18n`. */
   group_label?: string;
   /** Key on each group that holds the NavItem opened by clicking the label.
@@ -45,6 +51,8 @@ export function StatusBar({ widgetConfig, dataGroup, data }: {
   dataTable?: DataTable;
 }) {
   const navAction = useNavItemAction();
+  // Always called for stable hook order, even when `data` is empty (returns 0).
+  const pageIndex = usePageIndex(data?.length ?? 0);
   if (!data || data.length === 0) return null;
 
   const cfg = (
@@ -54,6 +62,7 @@ export function StatusBar({ widgetConfig, dataGroup, data }: {
   ) as StatusBarConfig;
 
   const dataField     = cfg.data_field          ?? 'status_json';
+  const groupsField   = cfg.groups_field        ?? 'items';
   const groupLabelKey = cfg.group_label         ?? 'i18n';
   const groupNavKey   = cfg.group_nav           ?? 'nav';
   const itemsField    = cfg.items?.data_field   ?? 'data';
@@ -61,9 +70,22 @@ export function StatusBar({ widgetConfig, dataGroup, data }: {
   const itemValueKey  = cfg.items?.value_field  ?? 'value';
   const itemColorKey  = cfg.items?.color_field  ?? 'color';
 
-  const row = data[0];
-  const groups = resolve(row, dataField);
-  if (!Array.isArray(groups) || groups.length === 0) return null;
+  // Pick the active record. The Pager widget (footer) writes the index to the
+  // shared `?page=N` URL param, so this stays in lockstep with sitrep.
+  const row = data[pageIndex] ?? data[0];
+  // `data_field` may point to either the groups array directly (legacy) or
+  // a wrapper object like `{ items: [...], production_line_id, ... }` from
+  // which we pull `groups_field`. Filter out null entries (empty slots
+  // emitted by the backend).
+  const resolved = resolve(row, dataField);
+  const rawGroups = Array.isArray(resolved)
+    ? resolved
+    : (resolved && typeof resolved === 'object'
+      ? (resolved as Record<string, unknown>)[groupsField]
+      : null);
+  if (!Array.isArray(rawGroups) || rawGroups.length === 0) return null;
+  const groups = rawGroups.filter((g): g is JSONRecord => g != null);
+  if (groups.length === 0) return null;
 
   const lang = getLanguage();
 

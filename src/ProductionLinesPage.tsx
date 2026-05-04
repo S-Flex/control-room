@@ -7,6 +7,7 @@ import {
   AuxRouteProvider,
 } from '@s-flex/xfw-url';
 import { Toggle } from './controls/Toggle';
+import { TimelineControls, parseUntil } from './controls/TimelineControls';
 import { getBlock, setLanguage, getLanguage, languages } from 'xfw-get-block';
 import type { Resource } from './viewer/types';
 import { useProductionLineOverview } from './hooks/useProductionLineOverview';
@@ -79,43 +80,6 @@ function getExpiringInks(res: Resource, days = 5): { color: string; amount: numb
     }
   }
   return result;
-}
-
-function formatTimeSlot(slot: number): string {
-  const totalMinutes = slot * 5;
-  const h = Math.floor(totalMinutes / 60);
-  const m = totalMinutes % 60;
-  return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-}
-
-/** ISO-8601 with the local timezone offset (e.g. "2026-04-16T06:00:00+02:00"),
- *  so the wall-clock hour the user picked is preserved through the URL. */
-function toLocalIso(date: Date): string {
-  const pad = (n: number) => String(n).padStart(2, '0');
-  const offsetMin = -date.getTimezoneOffset();
-  const sign = offsetMin >= 0 ? '+' : '-';
-  const abs = Math.abs(offsetMin);
-  return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
-    + `T${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`
-    + `${sign}${pad(Math.floor(abs / 60))}:${pad(abs % 60)}`;
-}
-
-/** Parse an `until` ISO string back to {date, slot} for the slider UI.
- *  A time of exactly 00:00 is treated as end-of-previous-day (slot 288) so the
- *  slider-max round-trip keeps the user on the day they picked. */
-function parseUntil(iso: string): { date: string; slot: number; } {
-  const d = new Date(iso);
-  const h = d.getHours();
-  const m = d.getMinutes();
-  if (h === 0 && m === 0) {
-    const prev = new Date(d.getTime() - 60_000);
-    const pad = (n: number) => String(n).padStart(2, '0');
-    return {
-      date: `${prev.getFullYear()}-${pad(prev.getMonth() + 1)}-${pad(prev.getDate())}`,
-      slot: 288,
-    };
-  }
-  return { date: iso.slice(0, 10), slot: Math.round((h * 60 + m) / 5) };
 }
 
 /* ---- Shift definitions ---- */
@@ -256,168 +220,22 @@ export function ProductionLinesPage() {
   // Read query params from URL
   const urlParams = useQueryParams([
     { key: 'model', is_query_param: true },
-    { key: 'from', is_query_param: true },
     { key: 'until', is_query_param: true },
     { key: 'resource_uids', is_query_param: true },
     { key: 'capacity', is_query_param: true },
     { key: 'lang', is_query_param: true },
   ]);
   const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
-  const urlFrom = urlParams.find(p => p.key === 'from')?.val as string | undefined;
   const urlUntil = urlParams.find(p => p.key === 'until')?.val as string | undefined;
   const urlResourceUids = urlParams.find(p => p.key === 'resource_uids')?.val as string[] | null;
   const urlCapacity = urlParams.find(p => p.key === 'capacity')?.val as string | undefined;
   const urlLang = urlParams.find(p => p.key === 'lang')?.val as string | undefined;
 
-  // Build a 06:00 ISO string for a given YYYY-MM-DD date, preserving the local tz offset.
-  const buildFromIso = useCallback((date: string) => {
-    return toLocalIso(new Date(`${date}T06:00:00`));
-  }, []);
-
-  // `from` is the committed "from" value sent to the API; `pendingFromDate` is staged in the UI
-  const [from, setFrom] = useState<string>(() => {
-    if (urlFrom) return urlFrom;
-    return buildFromIso(new Date().toISOString().slice(0, 10));
-  });
-  const [pendingFromDate, setPendingFromDate] = useState(() => from.slice(0, 10));
-
-  // `until` is the committed value sent to the API; `pending*` is staged in the UI
-  const [until, setUntil] = useState<string>(() => {
-    if (urlUntil) return urlUntil;
-    return new Date().toISOString();
-  });
-  const initialUntil = parseUntil(until);
-  const [pendingDate, setPendingDate] = useState(initialUntil.date);
-  const [pendingSlot, setPendingSlot] = useState(initialUntil.slot);
-  const [looping, setLooping] = useState(false);
-  const loopRef = useRef(false);
-  const [autoRefresh, setAutoRefresh] = useState(false);
-  const autoRefreshRef = useRef(false);
-
-  // React to from query param changes
-  useEffect(() => {
-    if (urlFrom && urlFrom !== from) {
-      setFrom(urlFrom);
-      setPendingFromDate(urlFrom.slice(0, 10));
-    }
-  }, [urlFrom]);
-
-  // React to until query param changes
-  useEffect(() => {
-    if (urlUntil && urlUntil !== until) {
-      setUntil(urlUntil);
-      const parsed = parseUntil(urlUntil);
-      setPendingDate(parsed.date);
-      setPendingSlot(parsed.slot);
-    }
-  }, [urlUntil]);
-
-  // Derive selectedDates from committed until for timeline components
-  const selectedDates = useMemo(() => [parseUntil(until).date], [until]);
-  const timeSlot = useMemo(() => parseUntil(until).slot, [until]);
-
-  // Slider bounds (6:00 = slot 72, 24:00 = slot 288)
-  const sliderMin = 72;
-  const sliderMax = 288;
-
-  const pendingTimeLabel = formatTimeSlot(pendingSlot);
-
-  // Build ISO string from pending date + slot, preserving the local tz offset.
-  // Slot 288 (1440 min = 24:00) rolls into next-day 00:00 so the aggregation
-  // window actually includes the last minute of the selected day.
-  const buildUntilFromSlot = useCallback((date: string, slot: number) => {
-    const totalMinutes = slot * 5;
-    const base = new Date(`${date}T00:00:00`);
-    base.setMinutes(base.getMinutes() + totalMinutes);
-    return toLocalIso(base);
-  }, []);
-
-  const handleRefresh = useCallback(() => {
-    // Re-fetch with the currently-pending time — do not snap the slot to
-    // sliderMax (24:00). Refresh = "commit & re-query", not "reset to EOD".
-    const untilIso = buildUntilFromSlot(pendingDate, pendingSlot);
-    let fromDate = pendingFromDate;
-    if (fromDate > pendingDate) {
-      fromDate = pendingDate;
-      setPendingFromDate(pendingDate);
-    }
-    setFrom(buildFromIso(fromDate));
-    setUntil(untilIso);
-  }, [pendingFromDate, pendingDate, pendingSlot, buildFromIso, buildUntilFromSlot]);
-
-  const handleNow = useCallback(() => {
-    const now = new Date();
-    const today = now.toISOString().slice(0, 10);
-    const slot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
-    setPendingFromDate(today);
-    setPendingDate(today);
-    setPendingSlot(slot);
-    setFrom(buildFromIso(today));
-    setUntil(buildUntilFromSlot(today, slot));
-    // Start auto-refresh
-    autoRefreshRef.current = true;
-    setAutoRefresh(true);
-  }, [buildFromIso, buildUntilFromSlot]);
-
-  const handleDateChange = useCallback((date: string) => {
-    setPendingDate(date);
-    // Stop auto-refresh when date is changed manually
-    autoRefreshRef.current = false;
-    setAutoRefresh(false);
-  }, []);
-
-  // Stop auto-refresh when time slider is changed manually
-  const handleSlotChange = useCallback((slot: number) => {
-    setPendingSlot(slot);
-    autoRefreshRef.current = false;
-    setAutoRefresh(false);
-  }, []);
-
-  const handleLoop = useCallback(() => {
-    if (looping) {
-      loopRef.current = false;
-      setLooping(false);
-      return;
-    }
-    loopRef.current = true;
-    setLooping(true);
-    let slot = 72; // start at 6:00
-    setPendingSlot(slot);
-    const date = pendingDate;
-    const max = sliderMax;
-
-    const step = () => {
-      if (!loopRef.current) return;
-      slot += 1; // +1 slot = +5 minutes
-      if (slot > max) {
-        loopRef.current = false;
-        setLooping(false);
-        return;
-      }
-      setPendingSlot(slot);
-      const iso = buildUntilFromSlot(date, slot);
-      setUntil(iso);
-      setTimeout(step, 250);
-    };
-    step();
-  }, [looping, pendingSlot, pendingDate, sliderMax, buildUntilFromSlot]);
-
-  // Auto-refresh every 60 seconds: update to current time and sync URL
-  useEffect(() => {
-    if (!autoRefresh) return;
-    const interval = setInterval(() => {
-      if (!autoRefreshRef.current) return;
-      const now = new Date();
-      const today = now.toISOString().slice(0, 10);
-      const slot = Math.round((now.getHours() * 60 + now.getMinutes()) / 5);
-      setPendingFromDate(today);
-      setPendingDate(today);
-      setPendingSlot(slot);
-      setFrom(buildFromIso(today));
-      setUntil(buildUntilFromSlot(today, slot));
-    }, 60000);
-    return () => clearInterval(interval);
-  }, [autoRefresh, buildFromIso, buildUntilFromSlot]);
+  // Derive committed selectedDates / timeSlot from the URL `until`. The
+  // `TimelineControls` component owns the from/until URL state.
+  const committedUntil = urlUntil ?? new Date().toISOString();
+  const selectedDates = useMemo(() => [parseUntil(committedUntil).date], [committedUntil]);
+  const timeSlot = useMemo(() => parseUntil(committedUntil).slot, [committedUntil]);
 
   const [allLines, setAllLines] = useState<LineConfig[]>([]);
   const { rowMap: overviewMap, dataGroup: overviewDataGroup, dataTable: overviewDataTable } = useProductionLineOverview();
@@ -502,16 +320,14 @@ export function ProductionLinesPage() {
     if (v !== showCapacity) setShowCapacity(v);
   }, [urlCapacity]);
 
-  // Sync model, from, until, capacity, lang to URL
+  // Sync model, capacity, lang to URL (from/until owned by TimelineControls).
   useEffect(() => {
     syncQueryParams({
       model: activeLineId,
-      from,
-      until,
       capacity: showCapacity ? 'true' : null,
       lang,
     });
-  }, [activeLineId, from, until, showCapacity, lang]);
+  }, [activeLineId, showCapacity, lang]);
 
   // React to model query param changes
   useEffect(() => {
@@ -799,57 +615,7 @@ export function ProductionLinesPage() {
             />
           }
         >
-          <div className="planning-until">
-            <label className="planning-until-label">{getBlock(uiLabels, 'from', 'title')}</label>
-            <input
-              type="date"
-              className="planning-until-input"
-              value={pendingFromDate}
-              max={pendingDate}
-              onChange={e => { setPendingFromDate(e.target.value); autoRefreshRef.current = false; setAutoRefresh(false); }}
-            />
-          </div>
-          <div className="planning-until">
-            <label className="planning-until-label">{getBlock(uiLabels, 'until', 'title')}</label>
-            <input
-              type="date"
-              className="planning-until-input"
-              value={pendingDate}
-              max={new Date().toISOString().slice(0, 10)}
-              onChange={e => handleDateChange(e.target.value)}
-            />
-          </div>
-          <div className="planning-time-slider">
-            <span className="planning-time-label">{formatTimeSlot(sliderMin)}</span>
-            <input
-              type="range"
-              className="planning-time-range"
-              min={sliderMin}
-              max={sliderMax}
-              value={Math.min(pendingSlot, sliderMax)}
-              onChange={e => handleSlotChange(Number(e.target.value))}
-            />
-            <span className="planning-time-label">{formatTimeSlot(sliderMax)}</span>
-            <span className="planning-time-current">{pendingTimeLabel}</span>
-            <button className="planning-icon-btn planning-slider-btn" title="Refresh" onClick={handleRefresh}>
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M17 10a7 7 0 01-12.9 3.8M3 10a7 7 0 0112.9-3.8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                <path d="M17 4v4h-4M3 16v-4h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-            <button className={`planning-icon-btn planning-slider-btn${looping ? ' active' : ''}`} title={looping ? 'Stop loop' : 'Loop timeline'} onClick={handleLoop}>
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <path d="M14 3l3 3-3 3M6 17l-3-3 3-3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M17 6H8a4 4 0 00-4 4M3 14h9a4 4 0 004-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-              </svg>
-            </button>
-            <button className={`planning-icon-btn planning-slider-btn${autoRefresh ? ' active' : ''}`} title={getBlock(uiLabels, 'now', 'title')} onClick={handleNow}>
-              <svg width="18" height="18" viewBox="0 0 20 20" fill="none">
-                <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="1.5" />
-                <path d="M10 6v4l2.5 2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </button>
-          </div>
+          <TimelineControls uiLabels={uiLabels} />
         </PageHeader>
 
 

@@ -4440,6 +4440,16 @@ button.statusbar-label:hover {
   display: none;
 }
 
+/* Standalone footer pager (Pager widget, layout: "pager"). Always shown,
+   centered under the sitrep + status_bar pair. */
+.column-grid-pager.pager-widget {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  padding: 4px 0;
+}
+
 /* Narrow mode (parent < 2 × --column-min-width) — JS toggles `is-narrow`
    on the grid via useColumnGridPager. One column at a time, snap-scroll,
    pager visible. The grid itself is capped at one column's width so it

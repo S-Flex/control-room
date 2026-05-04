@@ -1,6 +1,7 @@
 import { getBlock } from 'xfw-get-block';
 import { useNavigate } from '@s-flex/xfw-url';
 import { DataGroupWidget } from './DataGroup';
+import { Pager } from './Pager';
 import type { Section, GridConfig } from '../types';
 
 type ContentEntry = {
@@ -105,11 +106,14 @@ export function SectionRenderer({ section, content }: { section: Section; conten
     );
   }
 
-  // Leaf: code + data_group + nav (any combination)
+  // Leaf: code + data_group + pager + nav (any combination)
   return (
     <div className={section.class_name ?? ''} style={style}>
       {section.code && <ContentBlock code={section.code} content={content} />}
       {section.data_group && <DataGroupWidget code={section.data_group} />}
+      {section.pager && (
+        <Pager dataGroupCode={section.pager.data_group} pageParam={section.pager.page_param} />
+      )}
       {section.nav && <NavItems items={section.nav} />}
     </div>
   );

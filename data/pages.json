@@ -134,12 +134,14 @@
       "grid": {
         "columns": "1fr 1fr",
         "areas": [
-          "sitrep status-bar"
+          "sitrep status-bar",
+          "pager pager"
         ]
       },
       "cols": [
         { "area": "sitrep", "data_group": "sitrep" },
-        { "area": "status-bar", "data_group": "status_bar" }
+        { "area": "status-bar", "data_group": "status_bar" },
+        { "area": "pager", "pager": { "data_group": "status_bar" } }
       ]
     }
   },
@@ -158,12 +160,14 @@
       "grid": {
         "columns": "1fr 1fr",
         "areas": [
-          "sitrep status-bar"
+          "sitrep status-bar",
+          "pager pager"
         ]
       },
       "cols": [
         { "area": "sitrep", "data_group": "sitrep" },
-        { "area": "status-bar", "data_group": "status_bar" }
+        { "area": "status-bar", "data_group": "status_bar" },
+        { "area": "pager", "pager": { "data_group": "status_bar" } }
       ]
     }
   },
@@ -182,12 +186,14 @@
       "grid": {
         "columns": "1fr 1fr",
         "areas": [
-          "sitrep status-bar"
+          "sitrep status-bar",
+          "pager pager"
         ]
       },
       "cols": [
         { "area": "sitrep", "data_group": "sitrep" },
-        { "area": "status-bar", "data_group": "status_bar" }
+        { "area": "status-bar", "data_group": "status_bar" },
+        { "area": "pager", "pager": { "data_group": "status_bar" } }
       ]
     }
   },
@@ -197,12 +203,14 @@
       "grid": {
         "columns": "1fr 1fr",
         "areas": [
-          "sitrep status-bar"
+          "sitrep status-bar",
+          "pager pager"
         ]
       },
       "cols": [
         { "area": "sitrep", "data_group": "sitrep" },
-        { "area": "status-bar", "data_group": "status_bar" }
+        { "area": "status-bar", "data_group": "status_bar" },
+        { "area": "pager", "pager": { "data_group": "status_bar" } }
       ]
     }
   }
