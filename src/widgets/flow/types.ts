@@ -43,6 +43,10 @@ export type FlowRowOptions = {
   /** Key on each row whose value is applied as the row text colour (any valid
    *  CSS color string). Empty/missing values fall back to the inherited colour. */
   color_field?: string;
+  /** Key on each row whose value is applied as the card's background colour
+   *  (any valid CSS color string). Empty/missing values fall back to the
+   *  default surface. */
+  background_color_field?: string;
 };
 
 export type FlowBoardLevelConfig = {
@@ -52,6 +56,10 @@ export type FlowBoardLevelConfig = {
   class_name?: string;
   row_options?: FlowRowOptions;
   children?: FlowBoardLevelConfig;
+  /** Stable identifier used as the URL key prefix for this level's
+   *  collapse/expand state (`?<widget_id>.colexp=<row_key>;…`). When
+   *  omitted, FlowBoard auto-generates one as `<root_widget_id>__<depth>`. */
+  widget_id?: string;
   /** Field paths a SearchBox at this level matches against. When present, the
    *  level renders its own search input + prev/next; child levels receive the
    *  filtered (filter mode) or untouched (highlight mode) row set. */
@@ -108,6 +116,9 @@ export type FlowGroupData = {
   /** Resolved CSS color for the row's text — derived from
    *  `row_options.color_field` and the row data. */
   color?: string;
+  /** Resolved CSS background-color — derived from
+   *  `row_options.background_color_field` and the row data. */
+  background_color?: string;
   i18n?: Record<string, Record<string, string>>;
   data: FlowFieldEntry[];
   rows: Record<string, JSONValue>[];
@@ -116,6 +127,13 @@ export type FlowGroupData = {
   /** True when this group is at the bottom of the flow tree (no descendant
    *  level). Leaf groups carry the search highlight + prev/next anchor. */
   isLeaf?: boolean;
+  /** Resolved widget_id for the level this group belongs to. Used as the URL
+   *  key prefix for colexp persistence (`?<widget_id>.colexp=…`). */
+  widget_id: string;
+  /** Primary-key string identifying this group's first row, joined the same
+   *  way as `selectedKey`. Used as the URL value entry for colexp
+   *  persistence. Empty string when no primary keys are defined. */
+  row_key: string;
 };
 
 export type FlowLayoutProps = {
@@ -143,4 +161,9 @@ export type FlowContextValue = {
   clearChecked: () => void;
   mergeData: (rows: Record<string, JSONValue>[], data: FlowNavData[]) => void;
   selectItem: (row: Record<string, JSONValue>, groupKey: string, onSelect?: Record<string, unknown>) => void;
+  /** Per-widget (per-level) set of expanded group `row_key`s, derived from
+   *  `?<widget_id>.colexp=…`. */
+  expandedSets: Map<string, Set<string>>;
+  /** Toggle a group's expanded state and write the new set to the URL. */
+  toggleExpanded: (widgetId: string, rowKey: string) => void;
 };

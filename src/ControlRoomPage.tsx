@@ -11,11 +11,19 @@ import { Ticker } from './widgets/Ticker';
 import { DashboardHeader } from './widgets/DashboardHeader';
 import type { DashboardData } from './widgets/types';
 
+type ProductionLine = {
+  code: string;
+  block: Record<string, unknown>;
+  production_line_id: number;
+  production_line_name: string;
+};
+
 type LineConfig = {
   code: string;
   glb: string;
   block: Record<string, unknown>;
   camera?: CameraState;
+  production_lines?: ProductionLine[];
 };
 
 type ModelsData = LineConfig[];
@@ -72,14 +80,18 @@ export function ControlRoomPage() {
   // Sync model, from, and until to URL so useDataGeneric can read them
   useEffect(() => {
     const cur = new URLSearchParams(window.location.search);
-    const updates: Record<string, string | null> = { model: activeLineId };
+    const line = allLines.find(l => l.code === activeLineId);
+    const updates: Record<string, string | number | null> = {
+      model: activeLineId,
+      production_line_id: line?.production_lines?.[0]?.production_line_id ?? null,
+    };
     if (!cur.has('until')) updates.until = new Date().toISOString();
     if (!cur.has('from')) {
       const today = new Date().toISOString().slice(0, 10);
       updates.from = new Date(`${today}T06:00:00`).toISOString();
     }
     syncQueryParams(updates);
-  }, [activeLineId]);
+  }, [activeLineId, allLines]);
 
   // React to model query param changes
   useEffect(() => {
@@ -174,12 +186,15 @@ export function ControlRoomPage() {
   const switchLine = useCallback((id: string) => {
     if (id === activeLineId) return;
     setActiveLineId(id);
-    syncQueryParams({ model: id });
+    const models = modelsDataRef.current;
+    const line = models?.find(l => l.code === id);
+    syncQueryParams({
+      model: id,
+      production_line_id: line?.production_lines?.[0]?.production_line_id ?? null,
+    });
     setActiveMatchKey(null);
     setCyclePaused(false);
     currentIdx.current = -1;
-    const models = modelsDataRef.current;
-    const line = models?.find(l => l.code === id);
     if (line) {
       setLineConfig(line);
       document.title = `Control Room — ${getBlock(models!, line.code, 'title')}`;

@@ -1,7 +1,7 @@
-import { useState, useCallback, useEffect, useMemo, type ReactNode } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useNavItemAction, type DataGroup, type NavItem } from '@s-flex/xfw-ui';
 import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import { useNavigate } from '@s-flex/xfw-url';
+import { useNavigate, useQueryParams } from '@s-flex/xfw-url';
 import type { FlowBoardLevelConfig, FlowGroupData, FlowNavData, FlowContextValue } from './types';
 import {
   resolveFieldMap,
@@ -12,15 +12,48 @@ import {
   getGroupByKeys,
   buildGroupFields,
   groupClassName,
+  buildRowKey,
 } from './utils';
 import { FlowProvider } from './FlowContext';
 import { useFieldOptions } from './useFieldOptions';
 import { FlowBox } from './FlowBox';
 import { SearchableLevel } from './SearchableLevel';
 import { readSearchFields } from '../searchUtils';
+import { syncQueryParams } from '../../lib/urlSync';
 
-function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
-  return primaryKeys.map(k => String(row[k] ?? '')).join('||');
+/** Walk the flow-board level chain and assign each level a stable
+ *  `widget_id` — the explicit one if present, otherwise
+ *  `<root>__<depth>` (root level uses `<root>` itself). Returns a map keyed
+ *  by the level's reference identity. Returns null when no root id is
+ *  available (persistence is then skipped). */
+function buildWidgetIdMap(
+  root: FlowBoardLevelConfig,
+  rootWidgetId: string | undefined,
+): Map<FlowBoardLevelConfig, string> | null {
+  if (!rootWidgetId) return null;
+  const map = new Map<FlowBoardLevelConfig, string>();
+  let depth = 0;
+  let cur: FlowBoardLevelConfig | undefined = root;
+  while (cur) {
+    const id = cur.widget_id ?? (depth === 0 ? rootWidgetId : `${rootWidgetId}__${depth}`);
+    map.set(cur, id);
+    cur = cur.children;
+    depth++;
+  }
+  return map;
+}
+
+const COLEXP_SUFFIX = '.colexp';
+
+function parseColexp(raw: unknown): Set<string> {
+  if (typeof raw !== 'string' || raw.length === 0) return new Set();
+  return new Set(raw.split(';').filter(Boolean));
+}
+
+function formatColexp(set: Set<string>): string | null {
+  if (set.size === 0) return null;
+  // Sort so the URL is order-stable across toggles.
+  return [...set].sort().join(';');
 }
 
 function readSelectedFromUrl(primaryKeys: string[]): string | null {
@@ -42,6 +75,46 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   const { fieldMap, optionsMap } = useFieldOptions(rawFieldMap, flowBoardConfig);
   const primaryKeys = dataTable.primary_keys ?? [];
   const navigate = useNavigate();
+  const rootWidgetId = (dataGroup as { widget_id?: string }).widget_id;
+
+  // Resolve a widget_id for every level (root + children). Order matters
+  //  because `useQueryParams` depends on the resulting list of keys.
+  const { widgetIdMap, widgetIds } = useMemo(() => {
+    if (!flowBoardConfig) return { widgetIdMap: null, widgetIds: [] as string[] };
+    const map = buildWidgetIdMap(flowBoardConfig, rootWidgetId);
+    return {
+      widgetIdMap: map,
+      widgetIds: map ? [...new Set(map.values())] : [],
+    };
+  }, [flowBoardConfig, rootWidgetId]);
+
+  const colexpQpDefs = useMemo(
+    () => widgetIds.map(id => ({ key: id + COLEXP_SUFFIX, is_query_param: true, is_optional: true })),
+    [widgetIds],
+  );
+  const colexpParams = useQueryParams(colexpQpDefs);
+  const expandedSets = useMemo(() => {
+    const m = new Map<string, Set<string>>();
+    for (const id of widgetIds) {
+      const raw = colexpParams.find(p => p.key === id + COLEXP_SUFFIX)?.val;
+      m.set(id, parseColexp(raw));
+    }
+    return m;
+  }, [widgetIds, colexpParams]);
+
+  // Latest expandedSets reachable from the toggle callback without retriggering
+  //  the FlowProvider memo on every URL flip.
+  const expandedSetsRef = useRef(expandedSets);
+  expandedSetsRef.current = expandedSets;
+
+  const toggleExpanded = useCallback((widgetId: string, rowKey: string) => {
+    if (!widgetId || !rowKey) return;
+    const cur = expandedSetsRef.current.get(widgetId) ?? new Set<string>();
+    const next = new Set(cur);
+    if (next.has(rowKey)) next.delete(rowKey);
+    else next.add(rowKey);
+    syncQueryParams({ [widgetId + COLEXP_SUFFIX]: formatColexp(next) });
+  }, []);
 
   const [rows, setRows] = useState<JSONRecord[]>(() => data.map(r => ({ ...r, checked: false })));
   const [selectedKey, setSelectedKey] = useState<string | null>(() => readSelectedFromUrl(primaryKeys));
@@ -125,7 +198,31 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     clearChecked,
     mergeData,
     selectItem,
-  }), [primaryKeys, selectedKey, selectedGroupKey, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem]);
+    expandedSets,
+    toggleExpanded,
+  }), [primaryKeys, selectedKey, selectedGroupKey, toggleChecked, toggleCheckedAll, clearChecked, mergeData, selectItem, expandedSets, toggleExpanded]);
+
+  // Self-heal: when data lands, drop any persisted expanded `row_key` whose
+  //  row no longer exists. The valid set is built off the same `buildRowKey`
+  //  string the toggle writes, so the comparison is symmetric. Writes happen
+  //  once per widget and only when something is actually pruned.
+  useEffect(() => {
+    if (primaryKeys.length === 0 || widgetIds.length === 0) return;
+    const validKeys = new Set(rows.map(r => buildRowKey(r, primaryKeys)));
+    const updates: Record<string, string | null> = {};
+    for (const id of widgetIds) {
+      const cur = expandedSets.get(id);
+      if (!cur || cur.size === 0) continue;
+      let dropped = false;
+      const cleaned = new Set<string>();
+      for (const k of cur) {
+        if (validKeys.has(k)) cleaned.add(k);
+        else dropped = true;
+      }
+      if (dropped) updates[id + COLEXP_SUFFIX] = formatColexp(cleaned);
+    }
+    if (Object.keys(updates).length > 0) syncQueryParams(updates);
+  }, [rows, primaryKeys, widgetIds, expandedSets]);
 
   if (!flowBoardConfig) {
     return <p className="datagroup-error">Missing flow_board_config</p>;
@@ -144,6 +241,13 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     const colorField = levelConfig.row_options?.color_field;
     const colorRaw = colorField ? groupRows[0]?.[colorField] : undefined;
     const color = typeof colorRaw === 'string' && colorRaw ? colorRaw : undefined;
+    const bgField = levelConfig.row_options?.background_color_field;
+    const bgRaw = bgField ? groupRows[0]?.[bgField] : undefined;
+    const background_color = typeof bgRaw === 'string' && bgRaw ? bgRaw : undefined;
+    const widget_id = widgetIdMap?.get(levelConfig) ?? '';
+    const row_key = (primaryKeys.length > 0 && groupRows[0])
+      ? buildRowKey(groupRows[0], primaryKeys)
+      : '';
     return {
       key,
       class_name: grpClassName,
@@ -152,12 +256,15 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
       selectable: levelConfig.row_options?.selectable,
       on_select: levelConfig.row_options?.nav?.on_select,
       color,
+      background_color,
       i18n,
       data,
       rows: groupRows,
       navs,
       children,
       isLeaf: !levelConfig.children,
+      widget_id,
+      row_key,
     };
   }
 

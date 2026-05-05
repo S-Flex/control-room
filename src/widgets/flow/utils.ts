@@ -61,6 +61,14 @@ export function applyFilterGroup(rows: JSONRecord[], filter: FilterRule[][]): JS
   );
 }
 
+/** Canonical row identity for selection / URL persistence. Joins each
+ *  primary-key column with `||`. The same join is used both when seeding
+ *  selection from the URL and when comparing cards at render time, so the
+ *  string formats match. */
+export function buildRowKey(row: Record<string, unknown>, primaryKeys: string[]): string {
+  return primaryKeys.map(k => String(row[k] ?? '')).join('||');
+}
+
 export function groupRowsByFields(rows: JSONRecord[], fields: string[]): Map<string, JSONRecord[]> {
   const groups = new Map<string, JSONRecord[]>();
   for (const row of rows) {

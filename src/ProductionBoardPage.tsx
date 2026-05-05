@@ -1,10 +1,9 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getBlock, getLanguage, setLanguage } from 'xfw-get-block';
 import { useQueryParams } from '@s-flex/xfw-url';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
-import { syncQueryParams } from './lib/urlSync';
 import { DataGroupWidget } from './widgets/DataGroup';
 import { TimelineControls } from './controls/TimelineControls';
 import { usePage } from './hooks/usePages';
@@ -25,18 +24,9 @@ export function ProductionBoardPage() {
   const urlLang = urlParams.find(p => p.key === 'lang')?.val as string | undefined;
 
   const [activeLineId, setActiveLineId] = useState<string>(() => urlModel ?? 'sheet');
-  const [lang, setLang] = useState(() => getLanguage());
+  const [, setLang] = useState(() => getLanguage());
 
-  const handleLanguageChange = useCallback((newLang?: string) => {
-    setLang(newLang ?? getLanguage());
-  }, []);
-
-  const switchLine = useCallback((id: string) => {
-    if (id === activeLineId) return;
-    setActiveLineId(id);
-  }, [activeLineId]);
-
-  // React to ?model=… changes (browser back/forward, external writes).
+  // React to ?model= changes (Menu writes them).
   useEffect(() => {
     if (urlModel && urlModel !== activeLineId) setActiveLineId(urlModel);
   }, [urlModel]);
@@ -48,11 +38,6 @@ export function ProductionBoardPage() {
       setLang(urlLang);
     }
   }, [urlLang]);
-
-  // Mirror current model + lang into the URL.
-  useEffect(() => {
-    syncQueryParams({ model: activeLineId, lang });
-  }, [activeLineId, lang]);
 
   useEffect(() => {
     Promise.all([
@@ -71,13 +56,7 @@ export function ProductionBoardPage() {
   return (
     <div className="planning-page">
       <div className="planning-main">
-        <PageHeader
-          allLines={allLines}
-          activeLineId={activeLineId}
-          switchLine={switchLine}
-          uiLabels={uiLabels}
-          onLanguageChange={handleLanguageChange}
-        >
+        <PageHeader allLines={allLines} uiLabels={uiLabels}>
           <TimelineControls uiLabels={uiLabels} />
         </PageHeader>
 

@@ -1,11 +1,11 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import type { JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import type { FieldConfig } from '@s-flex/xfw-ui';
 import type { FlowGroupData, FlowLayoutProps, FlowNavItem } from './types';
 import { Field } from '../../controls/Field';
 import { Checkbox } from '@s-flex/xfw-ui';
 import { useGroupCheck } from '../../controls/Checkbox';
-import { resolveI18nLabel } from './utils';
+import { resolveI18nLabel, buildRowKey } from './utils';
 import { useFlowContext } from './FlowContext';
 import { useFlowSearch } from './FlowSearchContext';
 import { DataGroupProvider, useDataGroupContext } from '../DataGroupContext';
@@ -22,10 +22,21 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
   isFirstInTable?: boolean;
 }) {
   const isTable = !!tableAllRows;
-  const [isCollapsed, setCollapsed] = useState(g.colexp !== false);
   const { allChecked, someChecked } = useGroupCheck(g.rows);
   const tableCheck = useGroupCheck(tableAllRows ?? []);
-  const { selectedGroupKey, toggleCheckedAll, selectItem, mergeData } = useFlowContext();
+  const {
+    primaryKeys, selectedKey, toggleCheckedAll, selectItem, mergeData,
+    expandedSets, toggleExpanded,
+  } = useFlowContext();
+  // Collapse state is URL-driven via `?<widget_id>.colexp=<row_key>;…`.
+  //  Default closed for `colexp: true`, default open for `colexp: false`.
+  //  Without a widget_id or row_key (no primary keys) we keep the default —
+  //  the toggle still works locally for the current session via re-render
+  //  but won't survive a refresh.
+  const isInExpandedSet = !!(g.widget_id && g.row_key
+    && expandedSets.get(g.widget_id)?.has(g.row_key));
+  const defaultCollapsed = g.colexp !== false;
+  const isCollapsed = defaultCollapsed ? !isInExpandedSet : isInExpandedSet;
   const flowSearch = useFlowSearch();
   // A leaf card (no descendant levels) is a search "item": it represents one
   // or more rows aggregated into a single visual card and matches the active
@@ -57,14 +68,25 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
     const f = flowSearch.focusedTrack;
     if (f === lastFocusedRef.current) return;
     lastFocusedRef.current = f;
-    if (containsFocusedRow && isCollapsed) setCollapsed(false);
-  }, [flowSearch.focusedTrack, containsFocusedRow, isCollapsed]);
+    if (containsFocusedRow && isCollapsed && g.widget_id && g.row_key) {
+      toggleExpanded(g.widget_id, g.row_key);
+    }
+  }, [flowSearch.focusedTrack, containsFocusedRow, isCollapsed, g.widget_id, g.row_key, toggleExpanded]);
 
   // In flow-table the checkbox is strictly opt-in (must be `true`); other
   // layouts keep the legacy default-on behaviour.
   const showCheckbox = isTable ? g.checkable === true : g.checkable !== false;
   const showColexp = g.colexp === true;
-  const isSelected = !!g.selectable && g.key === selectedGroupKey;
+  // The selection identity is the row's primary-key string. Comparing on
+  //  `g.key` (the level's group_by key, e.g. just `resource_name`) lit up
+  //  every leaf with the same group key in every parent cell — multiple
+  //  cards "selected" at once. Primary-keys are globally unique, so only the
+  //  actually-clicked row matches; selection also persists across reloads
+  //  because `selectedKey` is seeded from the URL on mount.
+  const isSelected = !!g.selectable
+    && primaryKeys.length > 0
+    && g.rows.length > 0
+    && buildRowKey(g.rows[0], primaryKeys) === selectedKey;
 
   const handleNavClick = (nav: FlowNavItem) => {
     if (!nav.data || nav.data.length === 0) return;
@@ -83,14 +105,19 @@ function FlowBoxItem({ g, isGrid, pager, tableAllRows, isFirstInTable }: {
   const handleColexp = (e: React.MouseEvent) => {
     // Toggling collapse must never double as a selection change.
     e.stopPropagation();
-    setCollapsed(c => !c);
+    if (g.widget_id && g.row_key) toggleExpanded(g.widget_id, g.row_key);
   };
 
   return (
     <div
-      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}${g.color ? ' flow-row-colored' : ''}${searchHighlightClass}`}
+      className={`${isGrid ? 'column-grid-column' : 'flow-card-section'}${g.selectable ? ' flow-selectable' : ''}${isSelected ? ' flow-selected' : ''}${g.color ? ' flow-row-colored' : ''}${g.background_color ? ' flow-row-bg-colored' : ''}${searchHighlightClass}`}
       data-search-track={searchAnchor}
-      style={g.color ? { color: g.color } : undefined}
+      style={(g.color || g.background_color)
+        ? {
+            ...(g.color ? { color: g.color } : null),
+            ...(g.background_color ? { backgroundColor: g.background_color } : null),
+          }
+        : undefined}
       onClick={handleSelect}
     >
       <div className={`${isGrid ? 'column-grid-column-header' : 'flow-card-header'}${(showCheckbox || showColexp) ? ' has-controls' : ''}`}>

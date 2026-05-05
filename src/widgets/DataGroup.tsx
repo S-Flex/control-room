@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDataGroups, type DataGroup, type FieldConfig } from '@s-flex/xfw-ui';
 import { type JSONRecord } from '@s-flex/xfw-data';
 import { getLanguage } from 'xfw-get-block';
@@ -30,6 +30,8 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     isLoading,
     isInitialLoading,
     error,
+    params,
+    dataUpdatedAt,
   } = useDataGeneric(dataGroup);
 
   // Pre-merge every nested `field_config` with root.field_config once, so
@@ -47,16 +49,40 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     return dataRows.map((row, i) => ({ ...row, track_by: i }));
   }, [dataRows]);
 
+  // Detect when fetch params change (e.g. switching production_line_id). The
+  //  underlying xfw-data hook returns *stale* rows from `persistentData` while
+  //  the new query is in flight; without this guard, downstream widgets like
+  //  StatusBar render the previous selection's teams until new data lands —
+  //  which looks like "old teams haven't cleared yet". `dataUpdatedAt` ticks
+  //  forward only when a fresh fetch resolves, so we use it to mark when the
+  //  rows we have actually correspond to the current params.
+  const paramsKey = useMemo(() => JSON.stringify(params), [params]);
+  const [resolvedParamsKey, setResolvedParamsKey] = useState<string | null>(null);
+  // Track via ref so we can tell `dataUpdatedAt-actually-changed` from
+  //  `paramsKey-changed` without the latter retriggering the snap.
+  const lastDataUpdatedAtRef = useRef<number | undefined>(undefined);
+  const paramsKeyRef = useRef(paramsKey);
+  paramsKeyRef.current = paramsKey;
+  useEffect(() => {
+    if (dataUpdatedAt && dataUpdatedAt !== lastDataUpdatedAtRef.current) {
+      lastDataUpdatedAtRef.current = dataUpdatedAt;
+      setResolvedParamsKey(paramsKeyRef.current);
+    }
+  }, [dataUpdatedAt]);
+  const isStale = resolvedParamsKey !== null && resolvedParamsKey !== paramsKey;
+
   // Hold the most recent non-empty rows so a background re-fetch (e.g. a
-  // `sitrep_mode` query-param flip that changes the TanStack Query key) keeps
+  // `sitrep_mode` query-param flip that doesn't change the fetch key) keeps
   // the widget mounted with stale data instead of unmounting to the
-  // "Loading..." placeholder. The first fetch still shows Loading because
-  // `stickyRows` is undefined until at least one batch arrives.
+  // "Loading..." placeholder. Skip the sticky write while `isStale` is true
+  // — those rows belong to the previous params.
   const [stickyRows, setStickyRows] = useState<JSONRecord[] | undefined>(undefined);
   useEffect(() => {
-    if (trackedRows && trackedRows.length > 0) setStickyRows(trackedRows);
-  }, [trackedRows]);
-  const renderRows = trackedRows ?? stickyRows;
+    if (!isStale && trackedRows && trackedRows.length > 0) setStickyRows(trackedRows);
+  }, [trackedRows, isStale]);
+  // While stale, drop both fresh and sticky rows so widgets render the empty
+  // /loading state until the new fetch resolves.
+  const renderRows = isStale ? undefined : (trackedRows ?? stickyRows);
 
   // Cache the primary-keys array reference so any descendant Field with
   // `nav_field` can pull them from context as `extraParamKeys` and surface the
@@ -73,7 +99,7 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     [dataTable?.primary_keys, normalizedDataGroup.field_config],
   );
 
-  if (isInitialLoading && !renderRows) return <DataGroupLoading />;
+  if ((isInitialLoading || isStale) && !renderRows) return <DataGroupLoading />;
   if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
   if (!renderRows || renderRows.length === 0) return <p className="datagroup-empty">No data</p>;
 

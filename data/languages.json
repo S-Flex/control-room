@@ -1,0 +1,86 @@
+[
+  {
+    "code": "nl",
+    "block": {
+      "title": "Nederlands",
+      "i18n": {
+        "nl": { "title": "Nederlands" },
+        "en": { "title": "Dutch" },
+        "de": { "title": "Niederländisch" },
+        "fr": { "title": "Néerlandais" },
+        "es": { "title": "Neerlandés" },
+        "uk": { "title": "Нідерландська" }
+      }
+    }
+  },
+  {
+    "code": "en",
+    "block": {
+      "title": "English",
+      "i18n": {
+        "nl": { "title": "Engels" },
+        "en": { "title": "English" },
+        "de": { "title": "Englisch" },
+        "fr": { "title": "Anglais" },
+        "es": { "title": "Inglés" },
+        "uk": { "title": "Англійська" }
+      }
+    }
+  },
+  {
+    "code": "de",
+    "block": {
+      "title": "Deutsch",
+      "i18n": {
+        "nl": { "title": "Duits" },
+        "en": { "title": "German" },
+        "de": { "title": "Deutsch" },
+        "fr": { "title": "Allemand" },
+        "es": { "title": "Alemán" },
+        "uk": { "title": "Німецька" }
+      }
+    }
+  },
+  {
+    "code": "fr",
+    "block": {
+      "title": "Français",
+      "i18n": {
+        "nl": { "title": "Frans" },
+        "en": { "title": "French" },
+        "de": { "title": "Französisch" },
+        "fr": { "title": "Français" },
+        "es": { "title": "Francés" },
+        "uk": { "title": "Французька" }
+      }
+    }
+  },
+  {
+    "code": "es",
+    "block": {
+      "title": "Español",
+      "i18n": {
+        "nl": { "title": "Spaans" },
+        "en": { "title": "Spanish" },
+        "de": { "title": "Spanisch" },
+        "fr": { "title": "Espagnol" },
+        "es": { "title": "Español" },
+        "uk": { "title": "Іспанська" }
+      }
+    }
+  },
+  {
+    "code": "uk",
+    "block": {
+      "title": "Українська",
+      "i18n": {
+        "nl": { "title": "Oekraïens" },
+        "en": { "title": "Ukrainian" },
+        "de": { "title": "Ukrainisch" },
+        "fr": { "title": "Ukrainien" },
+        "es": { "title": "Ucraniano" },
+        "uk": { "title": "Українська" }
+      }
+    }
+  }
+]

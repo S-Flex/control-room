@@ -1,11 +1,37 @@
 import type { CameraState } from 'xfw-three';
 
+export type ProductionLine = {
+  code: string;
+  block: Record<string, unknown>;
+  production_line_id: number;
+  production_line_name: string;
+};
+
 export type LineConfig = {
   code: string;
   glb: string;
   block: Record<string, unknown>;
   camera?: CameraState;
   camera2d?: CameraState;
+  production_lines?: ProductionLine[];
+};
+
+/** Configuration for one level of the generic <Menu>. Levels nest via
+ *  `menu_config`; the items for the next level live on the selected parent
+ *  record at `items_field`. */
+export type MenuConfig = {
+  /** Dot-path on each item to read the value written to the URL. */
+  value_field: string;
+  /** Dot-path on each item to read the display value passed to <Field>. */
+  text_field: string;
+  /** URL query-param key the selected value is written to. */
+  query_param_field: string;
+  /** Field control name passed to <Field> (e.g. "i18n-text", "text"). */
+  control: string;
+  /** Path on each item that holds the next level's items array. */
+  items_field?: string;
+  /** Configuration for the next nested level. */
+  menu_config?: MenuConfig;
 };
 
 export type UiLabel = {

@@ -118,10 +118,17 @@ const Gauge = memo(function GaugeImpl({
   onLeave: () => void;
 }) {
   // Recharts places the first data entry innermost, so reverse to land
-  // series[0] on the outer ring and series[last] innermost.
+  // series[0] on the outer ring and series[last] innermost. With a single
+  // ring, the value is shown in the center title instead — render an empty
+  // background ring (value = 0) rather than a filled arc.
+  const singleRing = rings.length === 1;
   const data = useMemo(
-    () => [...rings].reverse().map(r => ({ name: r.label, value: r.value, fill: r.color })),
-    [rings],
+    () => [...rings].reverse().map(r => ({
+      name: r.label,
+      value: singleRing ? 0 : r.value,
+      fill: r.color,
+    })),
+    [rings, singleRing],
   );
   const domain = useMemo<[number, number]>(
     () => [0, Math.max(100, ...rings.map(r => r.domainMax))],

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate } from '@s-flex/xfw-url';
+import { useNavigate, useQueryParams } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
@@ -89,8 +89,6 @@ function readUrlDates(): string[] {
 
 export function InflowPage() {
   const navigate = useNavigate();
-  const [, forceRender] = useState(0);
-  const handleLanguageChange = useCallback(() => forceRender(n => n + 1), []);
   const isAuto = window.location.pathname === '/inflow-auto';
   const { config: pageConfig, content: pageContent } = usePage(isAuto ? 'inflow-auto' : 'inflow-manual');
   const flowBoardDataGroup = pageConfig?.main?.cols?.[0]?.data_group;
@@ -226,13 +224,6 @@ export function InflowPage() {
 
   const currentIndex = selectedMaterial ? orderedCodes.indexOf(selectedMaterial) : 0;
 
-  const switchLine = useCallback((id: string) => {
-    if (id === activeLineId) return;
-    setActiveLineId(id);
-    setSelectedMaterial(null);
-    setCheckedDates(new Set());
-    syncQueryParams({ model: id, material_id: null, production_dates: null });
-  }, [activeLineId]);
 
   const handleSelectMaterial = useCallback((code: string) => {
     // Save current checked dates for current material before switching
@@ -252,16 +243,27 @@ export function InflowPage() {
     setCheckedDates(newDates);
   }, [selectedMaterial, checkedDates]);
 
-  // Sync URL whenever state changes
+  // React to ?model= changes (Menu writes it). Reset per-line state.
+  const inflowQp = useQueryParams([{ key: 'model', is_query_param: true }]);
+  const urlModel = inflowQp.find(p => p.key === 'model')?.val as string | undefined;
+  useEffect(() => {
+    if (urlModel && urlModel !== activeLineId) {
+      setActiveLineId(urlModel);
+      setSelectedMaterial(null);
+      setCheckedDates(new Set());
+    }
+  }, [urlModel]);
+
+  // Sync material- and location-related URL params (model + production_line_id
+  // owned by <Menu>).
   useEffect(() => {
     const selectedMatObj = selectedMaterial ? materials.find(m => m.code === selectedMaterial) : undefined;
     syncQueryParams({
-      model: activeLineId,
       material_id: selectedMatObj ? String(selectedMatObj.material_id) : null,
       production_dates: checkedDates.size > 0 ? JSON.stringify([...checkedDates]) : null,
       location: selectedLocations.size > 0 ? JSON.stringify([...selectedLocations]) : null,
     });
-  }, [activeLineId, selectedMaterial, checkedDates, selectedLocations, materials]);
+  }, [selectedMaterial, checkedDates, selectedLocations, materials]);
 
 
   const toggleLocation = useCallback((code: string) => {
@@ -306,10 +308,7 @@ export function InflowPage() {
       <div className="planning-main">
         <PageHeader
           allLines={allLines}
-          activeLineId={activeLineId}
-          switchLine={switchLine}
           uiLabels={uiLabels}
-          onLanguageChange={handleLanguageChange}
           actions={<>
             <a href={otherModeUrl} className="planning-mode-link">
               {getBlock(uiLabels, otherMode, 'title')}

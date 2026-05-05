@@ -1917,6 +1917,57 @@ button.statusbar-label:hover {
   opacity: 0.4;
 }
 
+/* ---- Cascading menu (Menu.tsx) ---- */
+
+/* The default `.dropdown-menu-panel` clips horizontally with `overflow-x:
+ *  auto`, which turns the cascade's side panel (at `left: 100%`) into a
+ *  hidden region behind a scrollbar. Cascade panels must overflow freely so
+ *  the submenu can float outside the parent panel. */
+.dropdown-menu-panel:has(.menu-cascade) {
+  overflow: visible;
+}
+
+.menu-cascade-item {
+  position: relative;
+}
+
+.menu-cascade-text {
+  display: inline-flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.menu-cascade-arrow {
+  flex-shrink: 0;
+  opacity: 0.6;
+  margin-left: 8px;
+}
+
+.menu-cascade-panel {
+  position: absolute;
+  top: -9px;
+  left: calc(100% + 8px);
+  z-index: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  width: max-content;
+}
+
+/* Invisible bridge so the cursor can traverse the gap between an item and
+ *  its side panel without exiting the wrapper's hover region. */
+.menu-cascade-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -10px;
+  width: 10px;
+}
+
 
 /* ---- Production Schedule (extends Dropdown Menu) ---- */
 
@@ -3134,6 +3185,11 @@ button.statusbar-label:hover {
   align-items: center;
   justify-content: center;
   min-height: 48px;
+  /* Stretch to the parent's full width so `justify-content: center` actually
+   *  has room to centre the spinner. Without this the flex box shrinks to
+   *  the spinner's 20px and the spinner ends up flush left. */
+  width: 100%;
+  flex: 1 1 auto;
 }
 
 .datagroup-loading-spinner {
@@ -4637,6 +4693,15 @@ button.statusbar-label:hover {
 .flow-row-colored .field-value,
 .flow-row-colored .field-value-text {
   color: inherit;
+}
+
+/* row_options.background_color_field — wrapper paints its own
+ * `backgroundColor` inline; descendant cards inherit by going transparent so
+ * the parent's colour bleeds through. A descendant that sets its own
+ * background_color via inline style still wins (inline > CSS). */
+.flow-row-bg-colored .flow-card-section,
+.flow-row-bg-colored .column-grid-column {
+  background: transparent;
 }
 
 .flow-card-header {

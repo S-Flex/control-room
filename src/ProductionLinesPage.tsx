@@ -211,10 +211,7 @@ function computeResourceShiftStats(resource: Resource, minutesFromMidnight: numb
 /* ---- Main page ---- */
 export function ProductionLinesPage() {
   const navigate = useNavigate();
-  const [lang, setLang] = useState(() => getLanguage());
-  const handleLanguageChange = useCallback((newLang?: string) => {
-    setLang(newLang ?? getLanguage());
-  }, []);
+  const [, setLang] = useState(() => getLanguage());
   const { config: pageConfig, content: pageContent } = usePage('production-lines');
 
   // Read query params from URL
@@ -320,19 +317,19 @@ export function ProductionLinesPage() {
     if (v !== showCapacity) setShowCapacity(v);
   }, [urlCapacity]);
 
-  // Sync model, capacity, lang to URL (from/until owned by TimelineControls).
+  // Sync capacity to URL (model + production_line_id owned by <Menu>;
+  //  from/until owned by TimelineControls).
   useEffect(() => {
     syncQueryParams({
-      model: activeLineId,
       capacity: showCapacity ? 'true' : null,
-      lang,
     });
-  }, [activeLineId, showCapacity, lang]);
+  }, [showCapacity]);
 
-  // React to model query param changes
+  // React to model query param changes (Menu writes ?model=..., we react).
   useEffect(() => {
     if (urlModel && urlModel !== activeLineId) {
       setActiveLineId(urlModel);
+      setResourceUidsInUrl([]);
     }
   }, [urlModel]);
 
@@ -368,7 +365,7 @@ export function ProductionLinesPage() {
         const filtered = resData.resources.filter((r: Resource) => r.line === activeLineId);
         setLineResources(filtered);
         lineResRef.current = filtered;
-        document.title = `Planning — ${getBlock(modelsData, activeLineId, 'title')}`;
+        document.title = line ? `Planning — ${getBlock(modelsData, line.code, 'title')}` : 'Planning';
       });
   }, [activeLineId]);
 
@@ -406,21 +403,6 @@ export function ProductionLinesPage() {
     }).catch(err => console.error('Failed to save camera:', err));
   }, [activeLineId, viewMode]);
 
-  const switchLine = useCallback((id: string) => {
-    if (id === activeLineId) return;
-    setActiveLineId(id);
-    syncQueryParams({ model: id });
-    setResourceUidsInUrl([]);
-    const models = modelsDataRef.current;
-    const line = models?.find(l => l.code === id);
-    if (line) {
-      setLineConfig(line);
-      document.title = `Planning — ${getBlock(models!, line.code, 'title')}`;
-      const filtered = allResources.filter(r => r.line === id);
-      setLineResources(filtered);
-      lineResRef.current = filtered;
-    }
-  }, [activeLineId, allResources]);
 
   // When an object is clicked, update resource_uids in URL directly
   const handleObjectClick = useCallback((data: Record<string, unknown> | null) => {
@@ -603,10 +585,7 @@ export function ProductionLinesPage() {
       <div className="planning-main">
         <PageHeader
           allLines={allLines}
-          activeLineId={activeLineId}
-          switchLine={switchLine}
           uiLabels={uiLabels}
-          onLanguageChange={handleLanguageChange}
           actions={
             <Toggle
               isSelected={showCapacity}
