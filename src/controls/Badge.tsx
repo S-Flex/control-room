@@ -2,6 +2,7 @@ import type { InputData, JSONRecord, JSONValue } from '@s-flex/xfw-data';
 import { useNavItemAction, type NavItem } from '@s-flex/xfw-ui';
 import { useNavigate } from '@s-flex/xfw-url';
 import type { FieldNav } from '../widgets/flow/types';
+import { localizeI18n } from '../widgets/flow/utils';
 
 function resolveNavPath(path: string, row?: JSONRecord): string {
   return path.replace(/\{(\w+)\}/g, (_, key) => String(row?.[key] ?? ''));
@@ -13,6 +14,13 @@ type BadgeResolved = {
 };
 
 function resolveBadge(value: JSONValue, inputData?: InputData): BadgeResolved {
+  // i18n-shaped value (e.g. a field with `control: badge` and `type:
+  //  i18n-text`, or any value that already carries `{ <lang>: { title } }`).
+  //  Localise first so the badge text isn't `[object Object]`.
+  if (value && typeof value === 'object' && !Array.isArray(value)) {
+    const localized = localizeI18n(value);
+    if (localized) return { text: localized };
+  }
   if (!inputData?.options) return { text: String(value ?? '—') };
   const valueKey = inputData.value_key || 'id';
   const labelKey = inputData.label_key || 'content';
