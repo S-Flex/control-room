@@ -46,7 +46,19 @@ function buildWidgetIdMap(
 const COLEXP_SUFFIX = '.colexp';
 
 function parseColexp(raw: unknown): Set<string> {
-  if (typeof raw !== 'string' || raw.length === 0) return new Set();
+  // useQueryParams auto-coerces: a single numeric value becomes a number, and
+  // a `;`-separated list of all-numeric parts becomes a number array. So the
+  // shape we read back is not always the string we wrote — accept any of them
+  // and re-stringify, otherwise URL-persisted colexp state is silently lost
+  // for numeric row_keys (single numeric primary key, or the index fallback).
+  if (raw == null || raw === '') return new Set();
+  if (Array.isArray(raw)) {
+    return new Set(raw.map(v => String(v)).filter(s => s.length > 0));
+  }
+  if (typeof raw === 'number' || typeof raw === 'boolean') {
+    return new Set([String(raw)]);
+  }
+  if (typeof raw !== 'string') return new Set();
   return new Set(raw.split(';').filter(Boolean));
 }
 
@@ -228,6 +240,13 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     return <p className="datagroup-error">Missing flow_board_config</p>;
   }
 
+  // Per-render counter for the index-based `row_key` fallback. When the
+  //  data table has no `primary_keys`, every group still needs a stable id
+  //  for colexp persistence — we hand out sequential indices per widget_id
+  //  in render order. The map is recreated each render so the same data
+  //  shape always yields the same indices.
+  const colexpIndexCounter = new Map<string, number>();
+
   function buildGroup(
     levelConfig: FlowBoardLevelConfig,
     key: string,
@@ -245,9 +264,14 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     const bgRaw = bgField ? groupRows[0]?.[bgField] : undefined;
     const background_color = typeof bgRaw === 'string' && bgRaw ? bgRaw : undefined;
     const widget_id = widgetIdMap?.get(levelConfig) ?? '';
-    const row_key = (primaryKeys.length > 0 && groupRows[0])
-      ? buildRowKey(groupRows[0], primaryKeys)
-      : '';
+    let row_key = '';
+    if (primaryKeys.length > 0 && groupRows[0]) {
+      row_key = buildRowKey(groupRows[0], primaryKeys);
+    } else if (widget_id) {
+      const idx = colexpIndexCounter.get(widget_id) ?? 0;
+      colexpIndexCounter.set(widget_id, idx + 1);
+      row_key = String(idx);
+    }
     return {
       key,
       class_name: grpClassName,
