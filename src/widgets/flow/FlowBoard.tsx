@@ -46,11 +46,9 @@ function buildWidgetIdMap(
 const COLEXP_SUFFIX = '.colexp';
 
 function parseColexp(raw: unknown): Set<string> {
-  // useQueryParams auto-coerces: a single numeric value becomes a number, and
-  // a `;`-separated list of all-numeric parts becomes a number array. So the
-  // shape we read back is not always the string we wrote — accept any of them
-  // and re-stringify, otherwise URL-persisted colexp state is silently lost
-  // for numeric row_keys (single numeric primary key, or the index fallback).
+  // useQueryParams auto-coerces all-numeric values to number / number[]; we
+  // must accept those shapes too or URL-persisted colexp silently disappears
+  // for numeric row_keys.
   if (raw == null || raw === '') return new Set();
   if (Array.isArray(raw)) {
     return new Set(raw.map(v => String(v)).filter(s => s.length > 0));
@@ -240,11 +238,9 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     return <p className="datagroup-error">Missing flow_board_config</p>;
   }
 
-  // Per-render counter for the index-based `row_key` fallback. When the
-  //  data table has no `primary_keys`, every group still needs a stable id
-  //  for colexp persistence — we hand out sequential indices per widget_id
-  //  in render order. The map is recreated each render so the same data
-  //  shape always yields the same indices.
+  // Fallback row_key generator for tables without primary_keys: hand out
+  // sequential indices per widget_id so colexp can still persist a stable id.
+  // Recreated each render — same data shape always yields the same indices.
   const colexpIndexCounter = new Map<string, number>();
 
   function buildGroup(
