@@ -9,6 +9,7 @@ import { useDataGroupContext } from '../widgets/DataGroupContext';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
 import { Badge } from './Badge';
+import { ImgFromData } from './ImgFromData';
 import type { FieldNav } from '../widgets/flow/types';
 
 type TableColumn = {
@@ -322,6 +323,19 @@ export function Field({ field, value, showLabel, row, progress_value }: FieldPro
       );
     }
     return <img src={String(value)} alt={label} className="field-img" />;
+  }
+  if (control === 'img-from-data') {
+    if (!Array.isArray(value)) return null;
+    const bytes = value as number[];
+    if (shouldShowLabel) {
+      return (
+        <div className="field-with-label">
+          <span className="field-label">{label}</span>
+          <ImgFromData data={bytes} alt={label} className="field-img" />
+        </div>
+      );
+    }
+    return <ImgFromData data={bytes} alt={label} className="field-img" />;
   }
   // Chip is opt-in via `control: 'chip'`. Previously any field with
   // `aggregate_fn` rendered as Chip — that surprised consumers because

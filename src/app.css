@@ -2698,6 +2698,21 @@ button.statusbar-label:hover {
   background: var(--bg);
   border-top: 1px solid var(--border);
   padding: 1rem 1rem 0.5rem 1rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-muted) transparent;
+}
+
+.planning-bottom::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.planning-bottom::-webkit-scrollbar-track {
+  background: transparent;
+}
+.planning-bottom::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
 }
 
 .planning-bottom-inner {
