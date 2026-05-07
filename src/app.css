@@ -1328,6 +1328,119 @@ button.statusbar-label:hover {
   gap: 16px;
 }
 
+/* Generic app header: same shell as .planning-header plus a section
+   nav, used by every page except Control Room. */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 56px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  gap: 16px;
+}
+
+.app-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.page-header-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 16px;
+}
+
+.page-header-breadcrumb-page {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.page-header-breadcrumb-sep {
+  color: var(--text-muted);
+  font-size: 14px;
+  user-select: none;
+}
+
+.page-header-breadcrumb-model {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* Section label inside Account dropdown ("Language", "Theme"). */
+.dropdown-menu-section-label {
+  padding: 6px 10px 2px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  user-select: none;
+}
+
+.dropdown-menu-divider {
+  height: 1px;
+  background: var(--border);
+  margin: 6px 4px;
+}
+
+/* Second-row toolbar rendered directly under .app-header. Page-specific
+   controls (date pickers, time slider, page title, action buttons). */
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 56px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  gap: 16px;
+}
+
+.page-header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  min-width: 0;
+}
+
+.page-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.page-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text);
+}
+
+.page-placeholder {
+  padding: 24px;
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
 .planning-header-left {
   display: flex;
   align-items: center;
@@ -1410,7 +1523,8 @@ button.statusbar-label:hover {
   border-color: var(--brand);
 }
 
-.planning-date-picker::-webkit-calendar-picker-indicator {
+.planning-date-picker::-webkit-calendar-picker-indicator,
+.planning-until-input::-webkit-calendar-picker-indicator {
   filter: var(--calendar-icon-filter, none);
   cursor: pointer;
 }
@@ -1775,6 +1889,13 @@ button.statusbar-label:hover {
   margin-right: -5px;
 }
 
+/* Dashboard header has only 4px horizontal padding, so the negative
+   margin above clips the logo past the container's left edge. */
+.dashboard-header .planning-home-btn {
+  margin-left: 0;
+  margin-right: 4px;
+}
+
 .planning-home-logo {
   height: 16px;
   width: auto;
@@ -1825,6 +1946,26 @@ button.statusbar-label:hover {
   gap: 6px;
   cursor: pointer;
   white-space: nowrap;
+}
+
+/* Inline / menu-bar variant — text + chevron, no select-box border. Used
+   in .app-header for breadcrumb-style page / model / language pickers. */
+.dropdown-menu-trigger-inline {
+  border: none;
+  background: transparent;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  outline: none;
+  transition: background 0.15s, color 0.15s;
+}
+
+.dropdown-menu-trigger-inline:hover,
+.dropdown-menu-trigger-inline.open {
+  background: var(--bar-bg);
 }
 
 .dropdown-menu-label {

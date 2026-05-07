@@ -12,6 +12,10 @@ import type { MenuConfig } from '../types';
 type MenuProps = {
   menu: JSONRecord[];
   menu_config: MenuConfig;
+  variant?: 'select' | 'inline';
+  /** When set, the trigger displays this static label instead of the
+   *  derived "deepest selected item" label. */
+  triggerLabel?: string;
 };
 
 function findItem(items: JSONRecord[], valueField: string, value: unknown): JSONRecord | undefined {
@@ -48,7 +52,7 @@ function ChevronRight() {
   );
 }
 
-export function Menu({ menu, menu_config }: MenuProps) {
+export function Menu({ menu, menu_config, variant, triggerLabel: triggerLabelOverride }: MenuProps) {
   const [open, setOpen] = useState(false);
   const subConfig = menu_config.menu_config;
 
@@ -139,11 +143,12 @@ export function Menu({ menu, menu_config }: MenuProps) {
 
   return (
     <DropdownMenu
-      label={triggerLabel}
+      label={triggerLabelOverride ?? triggerLabel}
       open={open}
       onToggle={() => setOpen(o => !o)}
       onClose={() => setOpen(false)}
       fullWidth={false}
+      variant={variant}
     >
       <div className="dropdown-menu-list menu-cascade">
         {menu.map((item, idx) => {

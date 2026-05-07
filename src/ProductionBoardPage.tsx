@@ -1,62 +1,46 @@
 import { useEffect, useState } from 'react';
-import { getBlock, getLanguage, setLanguage } from 'xfw-get-block';
+import { getBlock } from 'xfw-get-block';
 import { useQueryParams } from '@s-flex/xfw-url';
+import { AppHeader } from './AppHeader';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
 import { DataGroupWidget } from './widgets/DataGroup';
 import { TimelineControls } from './controls/TimelineControls';
 import { usePage } from './hooks/usePages';
-import type { LineConfig, UiLabel } from './types';
+import { useAllLines } from './hooks/useAllLines';
+import { useLangSync } from './hooks/useLangSync';
+import type { UiLabel } from './types';
 
 export function ProductionBoardPage() {
   const { config: pageConfig, content: pageContent } = usePage('production-board');
   const flowBoardDataGroup = pageConfig?.main?.cols?.[0]?.data_group;
 
-  const [allLines, setAllLines] = useState<LineConfig[]>([]);
+  useLangSync();
+  const allLines = useAllLines();
   const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
 
-  const urlParams = useQueryParams([
-    { key: 'model', is_query_param: true },
-    { key: 'lang', is_query_param: true },
-  ]);
+  const urlParams = useQueryParams([{ key: 'model', is_query_param: true }]);
   const urlModel = urlParams.find(p => p.key === 'model')?.val as string | undefined;
-  const urlLang = urlParams.find(p => p.key === 'lang')?.val as string | undefined;
+  const activeLineId = urlModel ?? 'sheet';
 
-  const [activeLineId, setActiveLineId] = useState<string>(() => urlModel ?? 'sheet');
-  const [, setLang] = useState(() => getLanguage());
-
-  // React to ?model= changes (Menu writes them).
   useEffect(() => {
-    if (urlModel && urlModel !== activeLineId) setActiveLineId(urlModel);
-  }, [urlModel]);
+    fetch('/data/ui-labels.json').then(r => r.json()).then(setUiLabels);
+  }, []);
 
-  // Apply ?lang=… on mount and on external changes.
   useEffect(() => {
-    if (urlLang && urlLang !== getLanguage()) {
-      setLanguage(urlLang);
-      setLang(urlLang);
+    if (allLines.length === 0) return;
+    const line = allLines.find(l => l.code === activeLineId);
+    if (line) {
+      document.title = `Production Board — ${getBlock(allLines, line.code, 'title')}`;
     }
-  }, [urlLang]);
-
-  useEffect(() => {
-    Promise.all([
-      fetch('/data/models.json').then(r => r.json()),
-      fetch('/data/ui-labels.json').then(r => r.json()),
-    ]).then(([modelsData, labelsData]) => {
-      setAllLines(modelsData);
-      setUiLabels(labelsData);
-      const line = (modelsData as LineConfig[]).find(l => l.code === activeLineId);
-      if (line) {
-        document.title = `Production Board — ${getBlock(modelsData, line.code, 'title')}`;
-      }
-    });
-  }, [activeLineId]);
+  }, [allLines, activeLineId]);
 
   return (
     <div className="planning-page">
       <div className="planning-main">
-        <PageHeader allLines={allLines} uiLabels={uiLabels}>
+        <AppHeader />
+        <PageHeader>
           <TimelineControls uiLabels={uiLabels} />
         </PageHeader>
 

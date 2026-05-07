@@ -25,6 +25,17 @@ export function useDataGeneric<T = JSONRecord>(dataGroup?: DataGroup) {
     return keys;
   }, [dataTable?.params]);
 
+  // Only keys the data-table actually accepts get sent to the API. Anything
+  // else (e.g. UI-only display toggles like `sitrep_mode` that live in the
+  // URL but aren't part of the fetch contract) is dropped here so it stays
+  // out of the request body AND out of TanStack Query's cache key — flipping
+  // those toggles must not trigger a refetch.
+  const dataTableKeys = useMemo(() => {
+    const keys = new Set<string>();
+    for (const p of dataTable?.params ?? []) keys.add(p.key);
+    return keys;
+  }, [dataTable?.params]);
+
   const params = useMemo<ParamValue[]>(() => {
     // Spread copies refs from the upstream arrays — the objects inside still
     // belong to xfw-url's `useQueryParams` cache (and TanStack's overrides).
@@ -41,8 +52,11 @@ export function useDataGeneric<T = JSONRecord>(dataGroup?: DataGroup) {
         merged[idx] = { key: def.key, val: def.default_value };
       }
     }
-    return merged.filter(p => !(optionalKeys.has(p.key) && (p.val === null || p.val === undefined)));
-  }, [dataGroupQueryParams, overrideParams, dataGroup?.params, optionalKeys]);
+    return merged.filter(p =>
+      dataTableKeys.has(p.key) &&
+      !(optionalKeys.has(p.key) && (p.val === null || p.val === undefined))
+    );
+  }, [dataGroupQueryParams, overrideParams, dataGroup?.params, optionalKeys, dataTableKeys]);
 
   // Reflect `default_value` into the URL for `is_query_param` params so the
   // URL is the source of truth. Skip when URL/override already supplies a

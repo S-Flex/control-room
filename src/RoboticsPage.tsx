@@ -1,4 +1,6 @@
 import { useEffect } from 'react';
+import { AppHeader } from './AppHeader';
+import { PageHeader } from './PageHeader';
 
 const VIDEO_ID = 'AE7BTELVAs4';
 
@@ -10,14 +12,10 @@ export function RoboticsPage() {
   return (
     <div className="planning-page">
       <div className="planning-main">
-        <header className="planning-header">
-          <div className="planning-header-left">
-            <a href="/" className="planning-home-btn" title="Home">
-              <img src="/img/probo.svg" alt="Home" className="planning-home-logo" />
-            </a>
-            <h2 className="robotics-title">Robotics</h2>
-          </div>
-        </header>
+        <AppHeader />
+        <PageHeader>
+          <h2 className="robotics-title">Robotics</h2>
+        </PageHeader>
         <div className="robotics-content">
           <div className="robotics-video-wrapper">
             <iframe

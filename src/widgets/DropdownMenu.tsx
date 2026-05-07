@@ -6,10 +6,14 @@ type DropdownMenuProps = {
   onToggle: () => void;
   onClose: () => void;
   fullWidth?: boolean;
+  /** `'select'` (default) renders the bordered select-box trigger.
+   *  `'inline'` renders the trigger as plain text + chevron — used for
+   *  menu-bar / breadcrumb pickers in the app header. */
+  variant?: 'select' | 'inline';
   children: React.ReactNode;
 };
 
-export function DropdownMenu({ label, open, onToggle, onClose, fullWidth = true, children }: DropdownMenuProps) {
+export function DropdownMenu({ label, open, onToggle, onClose, fullWidth = true, variant = 'select', children }: DropdownMenuProps) {
   const triggerRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const anchorName = `--dropdown-${useId().replace(/:/g, '')}`;
@@ -42,11 +46,15 @@ export function DropdownMenu({ label, open, onToggle, onClose, fullWidth = true,
 
   const panelClass = `dropdown-menu-panel${fullWidth ? ' dropdown-menu-panel-full' : ''}`;
 
+  const triggerClass = variant === 'inline'
+    ? `dropdown-menu-trigger dropdown-menu-trigger-inline${open ? ' open' : ''}`
+    : `planning-select dropdown-menu-trigger${open ? ' open' : ''}`;
+
   return (
     <div className="dropdown-menu-wrapper">
       <button
         ref={triggerRef}
-        className={`planning-select dropdown-menu-trigger${open ? ' open' : ''}`}
+        className={triggerClass}
         style={{ anchorName } as React.CSSProperties}
         onClick={onToggle}
       >

@@ -1,4 +1,6 @@
 import { useDataGroups, useDataGeneric, type DataGroup } from '@s-flex/xfw-ui';
+import { AppHeader } from './AppHeader';
+import { PageHeader } from './PageHeader';
 
 const DATA_GROUP_NAME = 'production_line_overview';
 
@@ -62,13 +64,20 @@ export function DataGroupPage() {
   const { data: dataGroups, isLoading, error } = useDataGroups(DATA_GROUP_NAME);
 
   return (
-    <div style={{ padding: 32, color: '#e0e0e0' }}>
-      <h1>DataGroup Debug — {DATA_GROUP_NAME}</h1>
-      {isLoading && <p>Loading data groups…</p>}
-      {error instanceof Error && <p style={{ color: '#ff5c5c' }}>Error: {error.message}</p>}
-      {dataGroups?.map((dg: DataGroup, i: number) => (
-        <DataGroupSection key={dg.widget_id || i} dataGroup={dg} />
-      ))}
+    <div className="planning-page">
+      <div className="planning-main">
+        <AppHeader />
+        <PageHeader>
+          <h1 style={{ fontSize: 16, margin: 0 }}>DataGroup Debug — {DATA_GROUP_NAME}</h1>
+        </PageHeader>
+        <div style={{ padding: 32, color: '#e0e0e0', overflow: 'auto' }}>
+          {isLoading && <p>Loading data groups…</p>}
+          {error instanceof Error && <p style={{ color: '#ff5c5c' }}>Error: {error.message}</p>}
+          {dataGroups?.map((dg: DataGroup, i: number) => (
+            <DataGroupSection key={dg.widget_id || i} dataGroup={dg} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

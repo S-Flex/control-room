@@ -27,6 +27,8 @@ import { ProductionBoardPage } from './ProductionBoardPage';
 import { InflowPage } from './InflowPage';
 import { DataGroupPage } from './DataGroupPage';
 import { RoboticsPage } from './RoboticsPage';
+import { BatchPage } from './BatchPage';
+import { ProjectPage } from './ProjectPage';
 import { configureClient } from '@s-flex/xfw-data';
 import { ThemeProvider, SidebarProvider as UiSidebarProvider } from '@s-flex/xfw-ui';
 import { installAuxRouteGuard } from './lib/auxRouteGuard';
@@ -61,6 +63,8 @@ function Root() {
       <Route path="/layout" element={<LayoutPage />} />
       <Route path="/data" element={<DataGroupPage />} />
       <Route path="/robotics" element={<RoboticsPage />} />
+      <Route path="/batch" element={<BatchPage />} />
+      <Route path="/project" element={<ProjectPage />} />
       <Route path="*" element={<HomePage />} />
     </MainRoutes>
   );

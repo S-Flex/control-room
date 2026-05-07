@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Html, OrbitControls, useGLTF } from '@react-three/drei';
 import { Box3, Vector3 } from 'three';
+import { AppHeader } from './AppHeader';
+import { PageHeader } from './PageHeader';
 import type { Resource } from './viewer/types';
 
 type LineConfig = {
@@ -100,7 +102,8 @@ export function LayoutPage() {
 
   return (
     <div className="layout-page">
-      <div className="layout-header">
+      <AppHeader />
+      <PageHeader>
         <h1 className="layout-title">Layout Overview</h1>
         <div className="layout-tabs">
           {lines.map(line => (
@@ -113,7 +116,7 @@ export function LayoutPage() {
             </button>
           ))}
         </div>
-      </div>
+      </PageHeader>
       <div className="layout-canvas">
         <Canvas
           key={activeLine.id}

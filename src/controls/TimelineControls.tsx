@@ -127,6 +127,9 @@ export function TimelineControls({ uiLabels }: { uiLabels: UiLabel[] }) {
 
   const handleDateChange = useCallback((date: string) => {
     setPendingDate(date);
+    // Keep `from <= until`: if the user pushes the until-date below the
+    // current from-date, snap from down to match so the range stays valid.
+    setPendingFromDate(prev => (prev > date ? date : prev));
     autoRefreshRef.current = false;
     setAutoRefresh(false);
   }, []);

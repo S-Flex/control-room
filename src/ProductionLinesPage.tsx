@@ -14,6 +14,7 @@ import { useProductionLineOverview } from './hooks/useProductionLineOverview';
 import { CapacityTooltip } from './widgets/CapacityTooltip';
 import type { TooltipConfig, TooltipFieldConfigEntry } from './controls/FieldTooltip';
 import { syncQueryParams, rewriteUrl } from './lib/urlSync';
+import { AppHeader } from './AppHeader';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
@@ -583,9 +584,8 @@ export function ProductionLinesPage() {
   return (
     <div className="planning-page">
       <div className="planning-main">
+        <AppHeader />
         <PageHeader
-          allLines={allLines}
-          uiLabels={uiLabels}
           actions={
             <Toggle
               isSelected={showCapacity}

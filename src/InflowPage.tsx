@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate, useQueryParams } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
+import { AppHeader } from './AppHeader';
 import { PageHeader } from './PageHeader';
 import { PageFooter } from './PageFooter';
 import { PageSidebar } from './PageSidebar';
@@ -11,8 +12,10 @@ import { Carousel } from './widgets/Carousel';
 import { TimeSlider } from './widgets/TimeSlider';
 import { DataGroupWidget } from './widgets/DataGroup';
 import { usePage } from './hooks/usePages';
+import { useAllLines } from './hooks/useAllLines';
+import { useLangSync } from './hooks/useLangSync';
 import { ProductionScheduleMenu, type Material, type ContentEntry, type CutoffTime, type Printer, type PrintMode } from './ProductionScheduleMenu';
-import type { LineConfig, MenuContentEntry, MenuItemDef, UiLabel } from './types';
+import type { MenuContentEntry, MenuItemDef, UiLabel } from './types';
 
 const STORAGE_KEY = 'inflow-production-dates';
 
@@ -88,12 +91,13 @@ function readUrlDates(): string[] {
 }
 
 export function InflowPage() {
+  useLangSync();
   const navigate = useNavigate();
   const isAuto = window.location.pathname === '/inflow-auto';
   const { config: pageConfig, content: pageContent } = usePage(isAuto ? 'inflow-auto' : 'inflow-manual');
   const flowBoardDataGroup = pageConfig?.main?.cols?.[0]?.data_group;
 
-  const [allLines, setAllLines] = useState<LineConfig[]>([]);
+  const allLines = useAllLines();
   const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
   const [menuContent, setMenuContent] = useState<Map<string, MenuContentEntry>>(new Map());
   const [materials, setMaterials] = useState<Material[]>([]);
@@ -144,13 +148,11 @@ export function InflowPage() {
 
   useEffect(() => {
     Promise.all([
-      fetch('/data/models.json').then(r => r.json()),
       fetch('/data/ui-labels.json').then(r => r.json()),
       fetch('/data/menu-items.json').then(r => r.json()),
       fetch('/data/materials.json').then(r => r.json()),
       fetch('/data/locations.json').then(r => r.json()),
-    ]).then(([modelsData, labelsData, menuItemsData, materialsData, locationsData]) => {
-      setAllLines(modelsData);
+    ]).then(([labelsData, menuItemsData, materialsData, locationsData]) => {
       setUiLabels(labelsData);
       const mc = new Map<string, MenuContentEntry>();
       for (const item of menuItemsData as MenuItemDef[]) {
@@ -169,19 +171,22 @@ export function InflowPage() {
       setPrintModes(materialsData.print_modes ?? []);
       setLocations(locationsData.locations);
       setLocationsContent(locationsData.content);
-      // Auto-select enabled locations if none selected
       if (selectedLocations.size === 0) {
         const enabled = (locationsData.locations as LocationEntry[])
           .filter(l => l.enabled)
           .map(l => l.code);
         setSelectedLocations(new Set(enabled));
       }
-      const line = (modelsData as LineConfig[]).find(l => l.code === activeLineId);
-      if (line) {
-        document.title = `Inflow — ${getBlock(modelsData, line.code, 'title')}`;
-      }
     });
-  }, [activeLineId]);
+  }, []);
+
+  useEffect(() => {
+    if (allLines.length === 0) return;
+    const line = allLines.find(l => l.code === activeLineId);
+    if (line) {
+      document.title = `Inflow — ${getBlock(allLines, line.code, 'title')}`;
+    }
+  }, [allLines, activeLineId]);
 
   // Ordered material codes for the current model
   const orderedCodes = useMemo(
@@ -306,9 +311,8 @@ export function InflowPage() {
   return (
     <div className="planning-page">
       <div className="planning-main">
+        <AppHeader />
         <PageHeader
-          allLines={allLines}
-          uiLabels={uiLabels}
           actions={<>
             <a href={otherModeUrl} className="planning-mode-link">
               {getBlock(uiLabels, otherMode, 'title')}
