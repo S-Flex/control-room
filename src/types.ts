@@ -79,15 +79,15 @@ export type Section = {
   nav?: NavItem[];
   area?: string;
   class_name?: string;
+  /** When set, `sections` are laid out as grid children. Otherwise they
+   *  stack vertically. */
   grid?: string | GridConfig;
-  cols?: Section[];
   sections?: Section[];
 };
 
 export type PageArea = {
   class_name?: string;
   grid?: string | GridConfig;
-  cols?: Section[];
   sections?: Section[];
 };
 

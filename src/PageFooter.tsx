@@ -13,7 +13,6 @@ export function PageFooter({ footerConfig, content }: PageFooterProps) {
   const rootSection = {
     class_name: footerConfig.class_name,
     grid: footerConfig.grid,
-    cols: footerConfig.cols,
     sections: footerConfig.sections,
   };
 

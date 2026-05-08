@@ -1419,6 +1419,13 @@ button.statusbar-label:hover {
   gap: 16px;
   flex: 1;
   min-width: 0;
+  overflow: hidden;
+}
+
+/* Keep items at natural size and clip overflow instead of shrinking
+   (the user explicitly asked for clip, not squeeze). */
+.page-header-left > * {
+  flex-shrink: 0;
 }
 
 .page-header-actions {
@@ -2264,19 +2271,11 @@ button.statusbar-label:hover {
 
 /* ---- Material Carousel ---- */
 
-.carousel {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  flex: 1;
-}
-
 .carousel-header {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--border);
-  flex-shrink: 0;
-  height: 44px;
+  flex: 1;
+  min-width: 0;
 }
 
 .carousel-body {

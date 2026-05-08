@@ -63,7 +63,7 @@ function Root() {
       <Route path="/layout" element={<LayoutPage />} />
       <Route path="/data" element={<DataGroupPage />} />
       <Route path="/robotics" element={<RoboticsPage />} />
-      <Route path="/batch" element={<BatchPage />} />
+      <Route path="/batch-nests" element={<BatchPage />} />
       <Route path="/project" element={<ProjectPage />} />
       <Route path="*" element={<HomePage />} />
     </MainRoutes>

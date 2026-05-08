@@ -14,7 +14,7 @@ import type { UiLabel } from './types';
 
 export function ProductionBoardPage() {
   const { config: pageConfig, content: pageContent } = usePage('production-board');
-  const flowBoardDataGroup = pageConfig?.main?.cols?.[0]?.data_group;
+  const flowBoardDataGroup = pageConfig?.main?.sections?.[0]?.data_group;
 
   useLangSync();
   const allLines = useAllLines();

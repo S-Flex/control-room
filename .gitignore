@@ -1,6 +1,7 @@
 node_modules/
 .history/
 .claude/
+.playwright-mcp/
 bash.exe.stackdump
 test-db.ts
 test-db.html

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { useNavigate, useQueryParams } from '@s-flex/xfw-url';
+import { useQueryParams } from '@s-flex/xfw-url';
 import { getBlock } from 'xfw-get-block';
 import { AppHeader } from './AppHeader';
 import { PageHeader } from './PageHeader';
@@ -8,7 +8,7 @@ import { PageSidebar } from './PageSidebar';
 import { syncQueryParams } from './lib/urlSync';
 import { Checkbox } from '@s-flex/xfw-ui';
 import { DropdownMenu } from './widgets/DropdownMenu';
-import { Carousel } from './widgets/Carousel';
+import { Carousel, CarouselHeader } from './widgets/Carousel';
 import { TimeSlider } from './widgets/TimeSlider';
 import { DataGroupWidget } from './widgets/DataGroup';
 import { usePage } from './hooks/usePages';
@@ -92,10 +92,9 @@ function readUrlDates(): string[] {
 
 export function InflowPage() {
   useLangSync();
-  const navigate = useNavigate();
   const isAuto = window.location.pathname === '/inflow-auto';
   const { config: pageConfig, content: pageContent } = usePage(isAuto ? 'inflow-auto' : 'inflow-manual');
-  const flowBoardDataGroup = pageConfig?.main?.cols?.[0]?.data_group;
+  const flowBoardDataGroup = pageConfig?.main?.sections?.[0]?.data_group;
 
   const allLines = useAllLines();
   const [uiLabels, setUiLabels] = useState<UiLabel[]>([]);
@@ -125,9 +124,6 @@ export function InflowPage() {
   const handleTimeChange = useCallback((currentTime: string) => {
     syncQueryParams({ from: currentTime });
   }, []);
-
-  const otherMode = isAuto ? 'manual' : 'auto';
-  const otherModeUrl = isAuto ? '/inflow-manual' : '/inflow-auto';
 
   // Locations (multi-select)
   type LocationEntry = { code: string; enabled: boolean; };
@@ -281,9 +277,6 @@ export function InflowPage() {
   }, []);
 
   const scheduleLabel = getBlock(uiLabels, 'production_schedule', 'title');
-  const materialLabel = selectedMaterial
-    ? getBlock(materialsContent, selectedMaterial, 'title')
-    : scheduleLabel;
 
   const getMaterialLabel = useCallback(
     (code: string) => getBlock(materialsContent, code, 'title'),
@@ -308,82 +301,71 @@ export function InflowPage() {
     [materials, cutoffTimes],
   );
 
+  const headerExtras = (
+    <>
+      <DropdownMenu
+        variant="inline"
+        label={scheduleLabel}
+        open={scheduleOpen}
+        onToggle={() => setScheduleOpen(o => !o)}
+        onClose={() => setScheduleOpen(false)}
+        fullWidth={false}
+      >
+        {materials.length > 0 && (
+          <ProductionScheduleMenu
+            materials={materials}
+            content={materialsContent}
+            cutoffTimes={cutoffTimes}
+            modelCode={activeLineId}
+            uiLabels={uiLabels}
+            selectedMaterial={selectedMaterial}
+            onSelect={handleSelectMaterial}
+          />
+        )}
+      </DropdownMenu>
+      <DropdownMenu
+        variant="inline"
+        label={getBlock(uiLabels, 'locations', 'title')}
+        open={locationsOpen}
+        onToggle={() => setLocationsOpen(o => !o)}
+        onClose={() => setLocationsOpen(false)}
+        fullWidth={false}
+      >
+        <div className="dropdown-menu-list">
+          {locations.map(loc => (
+            <div key={loc.code} className={`dropdown-menu-item dropdown-menu-check${!loc.enabled ? ' disabled' : ''}${selectedLocations.has(loc.code) ? ' active' : ''}`}>
+              <Checkbox
+                isSelected={selectedLocations.has(loc.code)}
+                isDisabled={!loc.enabled}
+                onChange={() => toggleLocation(loc.code)}
+                label={getBlock(locationsContent, loc.code, 'title')}
+              />
+            </div>
+          ))}
+        </div>
+      </DropdownMenu>
+    </>
+  );
+
   return (
     <div className="planning-page">
       <div className="planning-main">
-        <AppHeader />
-        <PageHeader
-          actions={<>
-            <a href={otherModeUrl} className="planning-mode-link">
-              {getBlock(uiLabels, otherMode, 'title')}
-            </a>
-            <DropdownMenu
-              label={getBlock(uiLabels, 'locations', 'title')}
-              open={locationsOpen}
-              onToggle={() => setLocationsOpen(o => !o)}
-              onClose={() => setLocationsOpen(false)}
-              fullWidth={false}
-            >
-              <div className="dropdown-menu-list">
-                {locations.map(loc => (
-                  <div key={loc.code} className={`dropdown-menu-item dropdown-menu-check${!loc.enabled ? ' disabled' : ''}${selectedLocations.has(loc.code) ? ' active' : ''}`}>
-                    <Checkbox
-                      isSelected={selectedLocations.has(loc.code)}
-                      isDisabled={!loc.enabled}
-                      onChange={() => toggleLocation(loc.code)}
-                      label={getBlock(locationsContent, loc.code, 'title')}
-                    />
-                  </div>
-                ))}
-              </div>
-            </DropdownMenu>
-            <button
-              className="planning-icon-btn"
-              title={getBlock(uiLabels, 'nester', 'title')}
-              onClick={() => navigate('(sidebar:nester)')}
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                <rect x="2" y="3" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                <rect x="11" y="3" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                <rect x="2" y="12" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                <rect x="11" y="12" width="7" height="5" rx="1" stroke="currentColor" strokeWidth="1.3" />
-                <path d="M6 8v4M14 8v4" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
-              </svg>
-            </button>
-          </>}
-        >
+        <AppHeader extras={headerExtras} />
+        <PageHeader>
           <TimeSlider uiLabels={uiLabels} onChange={handleTimeChange} />
-          <DropdownMenu
-            label={materialLabel}
-            open={scheduleOpen}
-            onToggle={() => setScheduleOpen(o => !o)}
-            onClose={() => setScheduleOpen(false)}
-            fullWidth={false}
-          >
-            {materials.length > 0 && (
-              <ProductionScheduleMenu
-                materials={materials}
-                content={materialsContent}
-                cutoffTimes={cutoffTimes}
-                modelCode={activeLineId}
-                uiLabels={uiLabels}
-                selectedMaterial={selectedMaterial}
-                onSelect={handleSelectMaterial}
-              />
-            )}
-          </DropdownMenu>
+          <CarouselHeader
+            items={orderedCodes}
+            currentIndex={currentIndex >= 0 ? currentIndex : 0}
+            getLabel={getMaterialLabel}
+            getInfo={getMaterialInfo}
+            getSpecs={getMaterialSpecs}
+            onSelect={handleSelectMaterial}
+          />
         </PageHeader>
 
         <div className="planning-content">
           <div className="inflow-content">
-            <Carousel
-              items={orderedCodes}
-              currentIndex={currentIndex >= 0 ? currentIndex : 0}
-              getLabel={getMaterialLabel}
-              getInfo={getMaterialInfo}
-              getSpecs={getMaterialSpecs}
-              onSelect={handleSelectMaterial}
-            >
+            <Carousel>
               {flowBoardDataGroup && <DataGroupWidget code={flowBoardDataGroup} />}
             </Carousel>
           </div>

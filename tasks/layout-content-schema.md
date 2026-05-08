@@ -71,12 +71,12 @@ A `data_group` can also be an array when multiple data tables should always rend
 }
 ```
 
-#### 5. Horizontal container — grid + cols
+#### 5. Horizontal container — grid + sections
 
 ```json
 {
   "grid": "2fr 1fr",
-  "cols": [
+  "sections": [
     { "code": "block-a" },
     { "code": "block-b" }
   ]
@@ -96,7 +96,7 @@ A `data_group` can also be an array when multiple data tables should always rend
       "nav image"
     ]
   },
-  "cols": [
+  "sections": [
     { "area": "content", "code": "block-a" },
     { "area": "image", "code": "block-a.image" },
     { "area": "nav", "code": "block-a.nav" }
@@ -137,12 +137,12 @@ When `grid` is a string, `gap` defaults to `1rem`. When using areas, `columns` a
 
 ### Nesting
 
-Grids are flat — one level deep. A grid col can contain `sections` (vertical stacking) but not another `grid`. This keeps layout predictable: one grid gives you any layout you need without recursive complexity.
+Grids are flat — one level deep. A grid section can contain nested `sections` (vertical stacking) but not another `grid`. This keeps layout predictable: one grid gives you any layout you need without recursive complexity.
 
 ```json
 {
   "grid": "2fr 1fr",
-  "cols": [
+  "sections": [
     {
       "sections": [
         { "code": "title" },
@@ -165,15 +165,12 @@ Grids are flat — one level deep. A grid col can contain `sections` (vertical s
 | `area` | `string` | Grid area name (when parent uses `grid.areas`) |
 | `class_name` | `string` | Optional. CSS class (defined in `app.css`) |
 | `grid` | `string \| GridConfig` | Grid definition (turns children into a horizontal layout) |
-| `cols` | `Section[]` | Horizontal children (requires `grid`). Cannot contain nested `grid`. |
-| `sections` | `Section[]` | Vertical children |
+| `sections` | `Section[]` | Children. Laid out as a grid when `grid` is present, otherwise stacked vertically. |
 | `params` | `ParamValue[]` | Optional. Parameters for `data_group` (uses `ParamValue` from `xfw-data`) |
 
 Rules:
-- `cols` and `sections` are mutually exclusive at the same level
-- `cols` requires `grid`
-- `cols` items cannot themselves have `grid`/`cols` (no recursive grids)
-- A leaf has `code`, `data_group`, `nav`, or any combination — but no `cols`/`sections`
+- `sections` items cannot themselves have a `grid` (no recursive grids)
+- A leaf has `code`, `data_group`, `nav`, or any combination — but no `sections`
 
 ---
 
@@ -318,7 +315,7 @@ Data_groups are self-contained: they fetch their own data, define their own fiel
     },
     {
       "grid": "2fr 1fr",
-      "cols": [
+      "sections": [
         {
           "code": "inhaker-support.freestanding-passive",
           "nav": [
@@ -344,7 +341,7 @@ Data_groups are self-contained: they fetch their own data, define their own fiel
     },
     {
       "grid": "2fr 1fr",
-      "cols": [
+      "sections": [
         {
           "code": "inhaker-support.stand-construction",
           "nav": [
@@ -445,11 +442,10 @@ Data_groups are self-contained: they fetch their own data, define their own fiel
 
 ```
 renderSection(section):
-  if section.grid + section.cols:
-    create grid container with grid-template-columns (and areas/rows/gap if object)
-    for each col: renderSection(col)  // cols cannot have nested grids
   if section.sections:
-    for each child: renderSection(child)
+    if section.grid: create grid container with grid-template-columns (and areas/rows/gap if object)
+    else: stack children vertically
+    for each child: renderSection(child)  // children cannot have nested grids
   if section.code:
     look up content block by code → resolve i18n using language priority list
   if section.data_group:

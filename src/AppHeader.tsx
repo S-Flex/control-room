@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate as useRouterNavigate } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import type { JSONRecord } from '@s-flex/xfw-data';
-import { useQueryParams } from '@s-flex/xfw-url';
+import { useNavigate, useQueryParams, useAuxOutlet } from '@s-flex/xfw-url';
+import { Checkbox } from '@s-flex/xfw-ui';
 import { setLanguage, getLanguage } from 'xfw-get-block';
 import { Menu } from './widgets/Menu';
 import { DropdownMenu } from './widgets/DropdownMenu';
 import { useAllLines } from './hooks/useAllLines';
+import { useViewParams } from './hooks/useViewParams';
 import { syncQueryParams } from './lib/urlSync';
 import { localizeI18n } from './widgets/flow/utils';
-import { VIEW_PAGES } from './lib/pages';
+import { VIEW_PAGES, PAGES_WITH_MODEL, buildViewUrl } from './lib/pages';
 import type { MenuConfig } from './types';
 
 const MODEL_MENU_CONFIG: MenuConfig = {
@@ -25,8 +27,17 @@ const MODEL_MENU_CONFIG: MenuConfig = {
   },
 };
 
-export function AppHeader() {
+type AppHeaderProps = {
+  /** Page-specific menu items (e.g. Material / Locations on Inflow).
+   *  Rendered inline next to View / Model so they read as part of the
+   *  app menu bar. Use `<DropdownMenu variant="inline">` or
+   *  `<Menu variant="inline">` to match the surrounding triggers. */
+  extras?: React.ReactNode;
+};
+
+export function AppHeader({ extras }: AppHeaderProps = {}) {
   const allLines = useAllLines();
+  const viewParams = useViewParams();
   // body.dark is the single source of truth for theme — index.html ships
   // with `<body class="dark">` and ControlRoomPage's dblclick handler also
   // toggles the body class. Aligning here keeps the two in sync.
@@ -38,7 +49,13 @@ export function AppHeader() {
   const [viewOpen, setViewOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
   const location = useLocation();
-  const routerNavigate = useRouterNavigate();
+  const navigate = useNavigate();
+  // The Nester sidebar is currently inflow-only. When more pages adopt it,
+  // promote this from a page check to a per-page registry similar to
+  // PAGES_WITH_MODEL.
+  const isInflow = location.pathname === '/inflow-manual' || location.pathname === '/inflow-auto';
+  const sidebarPath = useAuxOutlet({ outlet: 'sidebar' });
+  const nesterOpen = sidebarPath === '/nester';
 
   useEffect(() => {
     fetch('/data/languages.json').then(r => r.json()).then(setLanguages);
@@ -91,24 +108,47 @@ export function AppHeader() {
           <div className="dropdown-menu-list">
             {VIEW_PAGES.map(p => {
               const isActive = location.pathname === p.path;
+              // `useLocation().search` doesn't track URL writes that come
+              // through xfw-url's syncQueryParams (it bypasses React
+              // Router's history). Read window.location.search at render
+              // (and again on click below) so we always see the live URL.
+              const liveSearch = typeof window !== 'undefined' ? window.location.search : '';
+              const target = buildViewUrl(p, liveSearch, viewParams);
               return (
                 <Link
                   key={p.path}
-                  to={p.path}
+                  to={target}
                   className={`dropdown-menu-item${isActive ? ' active' : ''}`}
                   onClick={(e) => {
                     e.preventDefault();
                     setViewOpen(false);
-                    routerNavigate(p.path);
+                    // Use xfw-url's navigate (not react-router's) so the
+                    // current URL's `//` aux-route separator doesn't get
+                    // collapsed by React Router's resolveTo on the way
+                    // through. Bare main path also clears any aux routes
+                    // — sidebars are page-specific.
+                    navigate(buildViewUrl(p, window.location.search, viewParams));
                   }}
                 >
                   {p.label}
                 </Link>
               );
             })}
+            {isInflow && (
+              <>
+                <div className="dropdown-menu-divider" />
+                <div className={`dropdown-menu-item dropdown-menu-check${nesterOpen ? ' active' : ''}`}>
+                  <Checkbox
+                    isSelected={nesterOpen}
+                    onChange={() => navigate(nesterOpen ? '(sidebar:)' : '(sidebar:nester)')}
+                    label="Nester"
+                  />
+                </div>
+              </>
+            )}
           </div>
         </DropdownMenu>
-        {allLines.length > 0 && (
+        {PAGES_WITH_MODEL.has(location.pathname) && allLines.length > 0 && (
           <Menu
             menu={allLines as unknown as JSONRecord[]}
             menu_config={MODEL_MENU_CONFIG}
@@ -116,6 +156,7 @@ export function AppHeader() {
             triggerLabel="Model"
           />
         )}
+        {extras}
       </div>
       <div className="app-header-actions">
         <DropdownMenu

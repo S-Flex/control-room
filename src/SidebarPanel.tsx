@@ -58,7 +58,6 @@ export function SidebarPanel({ code, title, onClose }: {
   const rootSection = config?.main ? {
     class_name: config.class_name ?? config.main.class_name,
     grid: config.main.grid,
-    cols: config.main.cols,
     sections: config.main.sections,
   } : undefined;
 

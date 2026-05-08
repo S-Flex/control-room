@@ -83,22 +83,14 @@ export function SectionRenderer({ section, content }: { section: Section; conten
   const style: React.CSSProperties = {};
   if (section.area) style.gridArea = section.area;
 
-  // Grid + cols
-  if (section.grid && section.cols) {
-    const gridStyle = { ...buildGridStyle(section.grid), ...style };
-    return (
-      <div className={`section-grid ${section.class_name ?? ''}`} style={gridStyle}>
-        {section.cols.map((col, i) => (
-          <SectionRenderer key={i} section={col} content={content} />
-        ))}
-      </div>
-    );
-  }
-
-  // Vertical sections
+  // Sections — laid out as grid when `grid` is present, otherwise stacked
+  // vertically.
   if (section.sections) {
+    const isGrid = !!section.grid;
+    const wrapStyle = isGrid ? { ...buildGridStyle(section.grid!), ...style } : style;
+    const baseClass = isGrid ? 'section-grid' : 'section-stack';
     return (
-      <div className={`section-stack ${section.class_name ?? ''}`} style={style}>
+      <div className={`${baseClass} ${section.class_name ?? ''}`} style={wrapStyle}>
         {section.sections.map((child, i) => (
           <SectionRenderer key={i} section={child} content={content} />
         ))}
