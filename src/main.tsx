@@ -7,6 +7,7 @@ console.warn = (...args: unknown[]) => {
 
 import './tailwind.css';
 import './app.css';
+import './widget-colors.css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Route } from 'react-router-dom';

@@ -14,6 +14,8 @@ import { FlowBoard } from './flow';
 import { Content } from './Content';
 import { VerticalBar, type VerticalBarConfig } from './VerticalBar';
 import { StackedBar, type StackedBarConfig } from './StackedBar';
+import { ComboChart, type ComboChartConfig } from './ComboChart';
+import { Form } from './Form';
 import { StatusBar } from './StatusBar';
 
 const LANGS = new Set(['nl', 'en', 'de', 'fr', 'uk']);
@@ -191,6 +193,11 @@ export function WidgetRenderer({ layout, widgetConfig, dataGroup, data, dataTabl
       return <VerticalBar widgetConfig={widgetConfig as unknown as VerticalBarConfig} dataGroup={dataGroup} data={data} />;
     case 'stacked-bar':
       return <StackedBar widgetConfig={widgetConfig as unknown as StackedBarConfig} dataGroup={dataGroup} data={data} />;
+    case 'combo-chart':
+      return <ComboChart widgetConfig={widgetConfig as unknown as ComboChartConfig} dataGroup={dataGroup} data={data} />;
+    case 'form':
+    case 'filter':
+      return <Form dataGroup={dataGroup} />;
     case 'table':
       return <TableWidget widgetConfig={widgetConfig} dataGroup={dataGroup} data={data} dataTable={dataTable} />;
     case 'content':

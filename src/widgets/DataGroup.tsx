@@ -99,9 +99,15 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
     [dataTable?.primary_keys, normalizedDataGroup.field_config],
   );
 
-  if ((isInitialLoading || isStale) && !renderRows) return <DataGroupLoading />;
-  if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
-  if (!renderRows || renderRows.length === 0) return <p className="datagroup-empty">No data</p>;
+  // Sourceless data_groups (e.g. `form` / `filter` widgets) don't fetch
+  // rows — they render inputs only. Skip the loading / error / empty
+  // gates for them so we go straight to the widget with empty data.
+  const hasSrc = !!(Array.isArray(dataGroup.src) ? dataGroup.src[0] : dataGroup.src);
+  if (hasSrc) {
+    if ((isInitialLoading || isStale) && !renderRows) return <DataGroupLoading />;
+    if (error instanceof Error) return <p className="datagroup-error">Error: {error.message}</p>;
+    if (!renderRows || renderRows.length === 0) return <p className="datagroup-empty">No data</p>;
+  }
 
   const layout = normalizedDataGroup.layout ?? '';
   const dg = normalizedDataGroup as Record<string, unknown>;
@@ -131,10 +137,10 @@ function DataGroupContent({ dataGroup, title }: { dataGroup: DataGroup; title?: 
         )}
         {!collapsed && (
           <div className="datagroup-body">
-            {widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' ? (
-              <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={renderRows} dataTable={dataTable} />
+            {widgetConfig || layout === 'cards' || layout === 'item' || layout === 'flow-board' || layout === 'content' || layout === 'table' || layout === 'status-bar' || layout === 'form' || layout === 'filter' ? (
+              <WidgetRenderer layout={layout} widgetConfig={widgetConfig ?? {}} dataGroup={normalizedDataGroup} data={renderRows ?? []} dataTable={dataTable} />
             ) : (
-              <FallbackDataRows data={renderRows} />
+              <FallbackDataRows data={renderRows ?? []} />
             )}
             {isLoading && (
               <div className="datagroup-loading-overlay">

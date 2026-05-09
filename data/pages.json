@@ -1,8 +1,16 @@
 [
   {
-    "code": "rework-overview",
+    "code": "rework-trend",
     "main": {
-      "sections": [{ "data_group": "internal_rework_trend" }]
+      "grid": {
+        "rows": "auto auto",
+        "gap": "1rem",
+        "areas": ["filter", "flow-board"]
+      },
+      "sections": [
+        { "data_group": "internal_rework_trend" },
+        { "data_group": "ticket_trend" }
+      ]
     }
   },
   {
@@ -101,7 +109,7 @@
       "sections": [{ "data_group": "batch" }]
     }
   },
-    {
+  {
     "code": "time-on-status",
     "main": {
       "sections": [{ "data_group": "time_on_status" }]
@@ -176,9 +184,7 @@
         "columns": "1fr",
         "areas": ["flow-board"]
       },
-      "sections": [
-        { "area": "flow-board", "data_group": "production_board" }
-      ]
+      "sections": [{ "area": "flow-board", "data_group": "production_board" }]
     },
     "footer": {
       "grid": {
@@ -198,9 +204,7 @@
         "columns": "1fr",
         "areas": ["flow-board"]
       },
-      "sections": [
-        { "area": "flow-board", "data_group": "production_board" }
-      ]
+      "sections": [{ "area": "flow-board", "data_group": "production_board" }]
     },
     "footer": {
       "grid": {

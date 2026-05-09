@@ -1,5 +1,31 @@
 [
   {
+    "code": "rework-trend",
+    "block": {
+      "title": "Intern en extern herstel",
+      "i18n": {
+        "de": {
+          "title": "Interne und externe Nacharbeit"
+        },
+        "en": {
+          "title": "Internal and external rework"
+        },
+        "es": {
+          "title": "Reproceso interno y externo"
+        },
+        "fr": {
+          "title": "Reprises internes et externes"
+        },
+        "nl": {
+          "title": "Intern en extern herstel"
+        },
+        "uk": {
+          "title": "Внутрішнє та зовнішнє доопрацювання"
+        }
+      }
+    }
+  },
+  {
     "code": "production-board-detail",
     "block": {
       "title": "Production board detail",

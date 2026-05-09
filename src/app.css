@@ -1866,6 +1866,22 @@ button.statusbar-label:hover {
   gap: 0;
 }
 
+/* SectionRenderer wrappers — grow to fill the parent flex/grid container.
+   Without flex/min-width: 0 they shrink to their content width, which
+   collapses any inner grid (e.g. a flow-board loader pinned to the left
+   edge instead of centred in the available space). */
+.section-grid,
+.section-stack {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.section-stack {
+  display: flex;
+  flex-direction: column;
+}
+
 .planning-viewer {
   flex: 1;
   min-height: 0;
@@ -3649,6 +3665,140 @@ button.statusbar-label:hover {
   color: var(--text-primary);
   font-weight: 600;
   white-space: nowrap;
+}
+
+/* ---- Form / Filter Widget ---- */
+.form-widget {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 8px 12px;
+  flex-wrap: wrap;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 160px;
+}
+
+.form-field-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-field-select {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.form-field-select:hover,
+.form-field-select:focus {
+  border-color: var(--brand);
+}
+
+/* ---- Combo Chart Widget ---- */
+.combo-chart-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px 12px;
+  position: relative;
+}
+
+.combo-chart-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.combo-chart-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.combo-chart-subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+.combo-chart-metric-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.combo-chart-metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+}
+
+.combo-chart-metric-trend {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.combo-chart-canvas {
+  width: 100%;
+  min-height: 0;
+}
+
+.combo-chart-legend {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: wrap;
+}
+
+.combo-chart-legend-center { justify-content: center; }
+.combo-chart-legend-left   { justify-content: flex-start; }
+.combo-chart-legend-right  { justify-content: flex-end; }
+
+.combo-chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.combo-chart-legend-swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+.combo-chart-legend-line {
+  display: inline-block;
+  width: 22px;
+  height: 0;
+  border-top: 2px dotted currentColor;
 }
 
 /* ---- Stacked Bar Widget ---- */

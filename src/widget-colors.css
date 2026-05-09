@@ -1,0 +1,107 @@
+/* Data-driven widget colours.
+ *
+ * Used by widget configs and row data: the database stores the variable
+ * name (e.g. `--state-success-soft`) and the widget code wraps it in
+ * `var(...)` before applying. Keeps light- and dark-mode palettes in one
+ * place so a designer change doesn't require touching every config row.
+ *
+ * `:root` holds the LIGHT-mode values (the document default), `.dark`
+ * applies the dark-mode overrides — same selector convention as
+ * src/app.css.
+ *
+ * Naming
+ * ------
+ *   --state-<name>(-soft|-strong)?   semantic status colours (success,
+ *                                    error, warning, info, neutral). The
+ *                                    plain name is the mid-intensity; the
+ *                                    `soft` and `strong` variants step
+ *                                    lighter / darker for tiered displays
+ *                                    (e.g. an activity gauge with three
+ *                                    rings of the same hue).
+ *   --chart-accent-<hue>             visually-distinct accent hues for
+ *                                    chart series. Choose by what reads
+ *                                    well alongside the others, not by
+ *                                    semantic meaning.
+ *   --chart-<role>                   surface helpers used by chart
+ *                                    primitives (e.g. the faint bar
+ *                                    behind a foreground bar).
+ */
+
+:root {
+  /* ---- State / status — positive (greens) ---- */
+  --state-success-soft:    #12b76a;
+  --state-success:         #039855;
+  --state-success-strong:  #027a48;
+
+  /* ---- State / status — negative (reds) ---- */
+  --state-error-soft:      #f04438;
+  --state-error:           #d92d20;
+  --state-error-strong:    #b42318;
+
+  /* ---- State / status — warning (ambers) ---- */
+  --state-warning-soft:    #fdb022;
+  --state-warning:         #f79009;
+  --state-warning-strong:  #b54708;
+
+  /* ---- State / status — informational (blues) ---- */
+  --state-info-soft:       #36bffa;
+  --state-info:            #0ba5ec;
+  --state-info-strong:     #026aa2;
+
+  /* ---- State / status — neutral / unknown / offline (greys) ---- */
+  --state-neutral-soft:    #cfd4dc;
+  --state-neutral:         #98a2b3;
+  --state-neutral-strong:  #667085;
+
+  /* ---- Chart series accents (visually distinct hues) ---- */
+  --chart-accent-purple:   #9461d8;
+  --chart-accent-blue:     #5d92cc;  /* soft pastel blue */
+  --chart-accent-teal:     #15a886;
+  --chart-accent-violet:   #5b3df5;
+  --chart-accent-orange:   #ea580c;
+  --chart-accent-sky:      #0284c7;  /* saturated sky */
+  --chart-accent-pink:     #db2777;
+
+  /* ---- Chart surface helpers ---- */
+  /* Faint context bar behind a foreground bar (e.g. orderlines behind tickets). */
+  --chart-bar-context:     rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  /* ---- State / status — positive (greens) ---- */
+  --state-success-soft:    #1ec47a;
+  --state-success:         #12b76a;
+  --state-success-strong:  #039855;
+
+  /* ---- State / status — negative (reds) ---- */
+  --state-error-soft:      #f97066;
+  --state-error:           #f04438;
+  --state-error-strong:    #d92d20;
+
+  /* ---- State / status — warning (ambers) ---- */
+  --state-warning-soft:    #fec84b;
+  --state-warning:         #fdb022;
+  --state-warning-strong:  #f79009;
+
+  /* ---- State / status — informational (blues) ---- */
+  --state-info-soft:       #7cd4fd;
+  --state-info:            #36bffa;
+  --state-info-strong:     #0ba5ec;
+
+  /* ---- State / status — neutral / unknown / offline (greys) ---- */
+  --state-neutral-soft:    #cecfd2;
+  --state-neutral:         #94969c;
+  --state-neutral-strong:  #61646c;
+
+  /* ---- Chart series accents (visually distinct hues) ---- */
+  --chart-accent-purple:   #c28dff;
+  --chart-accent-blue:     #85b7eb;  /* soft pastel blue */
+  --chart-accent-teal:     #22c39a;
+  --chart-accent-violet:   #7c5cff;
+  --chart-accent-orange:   #f97316;
+  --chart-accent-sky:      #0ea5e9;  /* saturated sky */
+  --chart-accent-pink:     #ec4899;
+
+  /* ---- Chart surface helpers ---- */
+  --chart-bar-context:     rgba(255, 255, 255, 0.12);
+}

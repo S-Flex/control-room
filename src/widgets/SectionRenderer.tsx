@@ -15,6 +15,16 @@ function buildGridStyle(grid: string | GridConfig): React.CSSProperties {
   }
   const style: React.CSSProperties = { display: 'grid' };
   if (grid.columns) style.gridTemplateColumns = grid.columns;
+  // When `areas` is declared but `columns` isn't, derive equal-width
+  // columns from the area template. Without this, the implicit columns
+  // default to `auto` and collapse to content width — leaf widgets
+  // placed in those cells (e.g. a flow-board with only a spinner during
+  // load) shrink to ~20px and the spinner ends up hard against the left
+  // edge instead of centred in the available space.
+  else if (grid.areas && grid.areas.length > 0) {
+    const colCount = Math.max(...grid.areas.map(row => row.trim().split(/\s+/).length));
+    style.gridTemplateColumns = colCount === 1 ? '1fr' : `repeat(${colCount}, 1fr)`;
+  }
   if (grid.rows) style.gridTemplateRows = grid.rows;
   if (grid.areas) style.gridTemplateAreas = grid.areas.map(a => `"${a}"`).join(' ');
   if (grid.gap) style.gap = grid.gap;
