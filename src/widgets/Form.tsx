@@ -1,114 +1,85 @@
-import type { ChangeEvent } from 'react';
-import { useDataRows, useDatatable, type JSONRecord } from '@s-flex/xfw-data';
 import { useQueryParams } from '@s-flex/xfw-url';
-import type { DataGroup, FieldConfig } from '@s-flex/xfw-ui';
-import { getLanguage } from 'xfw-get-block';
+import type { JSONValue, ParamDefinition } from '@s-flex/xfw-data';
+import type { DataGroup, FieldConfig, ResolvedField } from '@s-flex/xfw-ui';
+import { Field } from '../controls/Field';
 import { syncQueryParams } from '../lib/urlSync';
 
 /** Form / filter widget. The data_group's `layout` of `form` or `filter`
- *  routes here (they're aliases — same component). Each entry in
- *  `field_config` becomes a labelled input. The widget itself doesn't
- *  consume the data_group's row data; each input fetches its own
- *  options if the field declares `ui.input_data`. */
-
-type InputData = {
-  src: string;
-  label_key: string;
-  value_key: string;
-};
-
-type FormFieldUi = {
-  i18n?: Record<string, { title?: string }>;
-  order?: number;
-  control?: string;
-  no_label?: boolean;
-  hidden?: boolean;
-  input_data?: InputData;
-};
-
-function getLabel(ui: FormFieldUi | undefined, key: string, lang: string): string {
-  const i18n = ui?.i18n;
-  return i18n?.[lang]?.title
-    ?? i18n?.[Object.keys(i18n ?? {})[0] ?? '']?.title
-    ?? key.replace(/_/g, ' ');
-}
-
-function DropdownListField({
-  fieldKey,
-  ui,
-  lang,
-}: {
-  fieldKey: string;
-  ui: FormFieldUi;
-  lang: string;
-}) {
-  const input = ui.input_data!;
-  // Fetch the option list. `useDatatable` gates the row fetch — the
-  // schema must arrive first so xfw-data knows what params (if any) are
-  // mandatory. With no params declared, we fetch immediately.
-  const { data: dataTable } = useDatatable(input.src);
-  const { data: rows } = useDataRows<JSONRecord>(input.src, [], {
-    enabled: !!dataTable,
-  });
-
-  const params = useQueryParams([
-    { key: input.value_key, is_query_param: true, is_optional: true },
-  ]);
-  const currentVal = params.find(p => p.key === input.value_key)?.val;
-  const currentStr = currentVal == null ? '' : String(currentVal);
-
-  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    const v = e.target.value;
-    syncQueryParams({ [input.value_key]: v === '' ? null : v });
-  };
-
-  const label = getLabel(ui, fieldKey, lang);
-
-  return (
-    <div className="form-field">
-      {!ui.no_label && <label className="form-field-label">{label}</label>}
-      <select
-        className="form-field-select"
-        value={currentStr}
-        onChange={handleChange}
-        aria-label={label}
-      >
-        <option value="">—</option>
-        {(rows ?? []).map((row, i) => {
-          const v = row[input.value_key];
-          const t = row[input.label_key];
-          return (
-            <option key={`${String(v)}-${i}`} value={String(v ?? '')}>
-              {String(t ?? '')}
-            </option>
-          );
-        })}
-      </select>
-    </div>
-  );
-}
-
+ *  routes here (they're aliases). The widget is purely a layout
+ *  container: each visible entry in `field_config` becomes a
+ *  `<Field mode="edit">`. Per-control rendering (dropdown-list, text,
+ *  date, …) lives in the matching control file under `src/controls/`. */
 export function Form({ dataGroup }: { dataGroup: DataGroup }) {
-  const lang = getLanguage();
-  const fieldConfig = dataGroup.field_config as Record<string, FieldConfig> | undefined;
-  if (!fieldConfig) return null;
+  const fc = dataGroup.field_config as Record<string, FieldConfig> | undefined;
+  if (!fc) return null;
+  const params = ((dataGroup as { params?: ParamDefinition[] }).params ?? []) as ParamDefinition[];
 
-  const entries = Object.entries(fieldConfig)
-    .map(([key, fc]) => [key, fc.ui as FormFieldUi | undefined] as const)
+  const visible = Object.entries(fc)
+    .map(([key, cfg]) => [key, cfg.ui as Record<string, unknown> | undefined] as const)
     .filter(([, ui]) => !ui?.hidden)
-    .sort(([, a], [, b]) => (a?.order ?? 999) - (b?.order ?? 999));
+    .sort(([, a], [, b]) =>
+      ((a?.order as number | undefined) ?? 999) - ((b?.order as number | undefined) ?? 999),
+    );
 
   return (
     <div className="form-widget">
-      {entries.map(([key, ui]) => {
-        if (!ui) return null;
-        if (ui.control === 'dropdown-list' && ui.input_data) {
-          return <DropdownListField key={key} fieldKey={key} ui={ui} lang={lang} />;
-        }
-        // Other field controls (text, date, checkbox, …) plug in here
-        // as they're added.
-        return null;
-      })}
+      {visible.map(([key, ui]) => (
+        <FormFieldEntry key={key} fieldKey={key} ui={ui ?? {}} dataGroupParams={params} />
+      ))}
     </div>
   );
+}
+
+/** Resolve which URL query-param a form field writes to:
+ *  - explicit `ui.query_param_field` wins;
+ *  - otherwise, if the data_group's `params` list declares a param
+ *    matching `input_data.value_field`, that name is used;
+ *  - otherwise the field has no URL binding (`null`). */
+function resolveQueryKey(
+  ui: Record<string, unknown>,
+  dataGroupParams: ParamDefinition[],
+): string | null {
+  const explicit = ui.query_param_field;
+  if (typeof explicit === 'string' && explicit) return explicit;
+  const valueField = (ui.input_data as { value_field?: string } | undefined)?.value_field;
+  const candidate = (typeof valueField === 'string' && valueField) || null;
+  if (candidate && dataGroupParams.some(p => p.key === candidate)) {
+    return candidate;
+  }
+  return null;
+}
+
+function FormFieldEntry({
+  fieldKey,
+  ui,
+  dataGroupParams,
+}: {
+  fieldKey: string;
+  ui: Record<string, unknown>;
+  dataGroupParams: ParamDefinition[];
+}) {
+  const queryKey = resolveQueryKey(ui, dataGroupParams);
+  const queryParams = useQueryParams(
+    queryKey ? [{ key: queryKey, is_query_param: true, is_optional: true }] : [],
+  );
+  const value = queryKey
+    ? (queryParams.find(p => p.key === queryKey)?.val ?? null) as JSONValue
+    : null;
+
+  const handleChange = queryKey
+    ? (v: JSONValue) => syncQueryParams({ [queryKey]: v == null ? null : String(v) })
+    : undefined;
+
+  // Field expects a ResolvedField — synthesise one from the field-config UI.
+  // `value_field` / `text_field` live inside `input_data` and are read
+  // by the dropdown-list dispatcher in <Field>.
+  const field = {
+    key: fieldKey,
+    control: ui.control as string | undefined,
+    i18n: ui.i18n,
+    input_data: ui.input_data,
+    no_label: ui.no_label,
+  } as ResolvedField & { no_label?: boolean };
+
+  return <Field field={field} value={value} mode="edit" onChange={handleChange} />;
 }

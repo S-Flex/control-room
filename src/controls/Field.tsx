@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import type { JSONValue, JSONRecord } from '@s-flex/xfw-data';
+import type { JSONValue, JSONRecord, ParamDefinition } from '@s-flex/xfw-data';
 import type { FieldConfig, NavItem, ResolvedField } from '@s-flex/xfw-ui';
 import { Tooltip, useNavItemAction } from '@s-flex/xfw-ui';
 import { Button } from 'react-aria-components';
@@ -9,8 +9,10 @@ import { useDataGroupContext } from '../widgets/DataGroupContext';
 import { IconMap } from './IconMap';
 import { Chip } from './Chip';
 import { Badge } from './Badge';
-import { ImgFromData } from './ImgFromData';
+import { DropdownList, type FieldMode } from './DropdownList';
 import type { FieldNav } from '../widgets/flow/types';
+
+export type { FieldMode };
 
 type TableColumn = {
   key: string;
@@ -115,6 +117,12 @@ type FieldProps = {
    *  the aggregated total. When unset, Field resolves the done value from
    *  `row[progress_config.value_field]`. */
   progress_value?: JSONValue;
+  /** `'view'` renders read-only display (default — cards / tables /
+   *  flow-board); `'edit'` renders an editable input (form / filter). */
+  mode?: FieldMode;
+  /** Edit-mode change handler. Called with the new value when the user
+   *  picks a different option / types a new value. */
+  onChange?: (value: JSONValue) => void;
 };
 
 function resolveNavPath(nav: FieldNav, row?: JSONRecord): string {
@@ -185,7 +193,7 @@ function FieldValue({ text, nav, navUrl, row, className }: {
   );
 }
 
-export function Field({ field, value, showLabel, row, progress_value }: FieldProps) {
+export function Field({ field, value, showLabel, row, progress_value, mode = 'readonly', onChange }: FieldProps) {
   const { control, input_data, nav, no_label, scale, color_field, nav_field } = field;
   const label = resolveI18nLabel(field.i18n, field.key);
   const shouldShowLabel = showLabel ?? !no_label;
@@ -294,6 +302,34 @@ export function Field({ field, value, showLabel, row, progress_value }: FieldPro
     );
   }
 
+  // `control: 'dropdown-list'` — single-select bound to a remote option
+  // list. Field is just the dispatcher; the DropdownList control owns
+  // both modes (readonly text / editable Select). Both `value_field`
+  // (URL value column) and `text_field` (display column) live inside
+  // `input_data`, alongside `src` and `params`.
+  if (control === 'dropdown-list' && input_data && 'src' in input_data && input_data.src) {
+    const inputCfg = input_data as {
+      src: string;
+      params?: ParamDefinition[];
+      value_field?: string;
+      text_field?: string;
+    };
+    const subtitle = localizeI18n(field.i18n, undefined, 'subtitle');
+    return (
+      <DropdownList
+        inputData={{ src: inputCfg.src, params: inputCfg.params }}
+        valueField={inputCfg.value_field ?? field.key}
+        textField={inputCfg.text_field ?? field.key}
+        value={value}
+        label={label}
+        subtitle={subtitle}
+        showLabel={shouldShowLabel}
+        mode={mode}
+        onChange={onChange}
+      />
+    );
+  }
+
   // Visual controls (icon-map / badge / chip): label hidden by default — the
   // visual *is* the meaning. Opt back in via `field_config.<key>.ui.no_label = false`
   // (which flips `shouldShowLabel` to true). Per-row colour comes from
@@ -323,19 +359,6 @@ export function Field({ field, value, showLabel, row, progress_value }: FieldPro
       );
     }
     return <img src={String(value)} alt={label} className="field-img" />;
-  }
-  if (control === 'img-from-data') {
-    if (!Array.isArray(value)) return null;
-    const bytes = value as number[];
-    if (shouldShowLabel) {
-      return (
-        <div className="field-with-label">
-          <span className="field-label">{label}</span>
-          <ImgFromData data={bytes} alt={label} className="field-img" />
-        </div>
-      );
-    }
-    return <ImgFromData data={bytes} alt={label} className="field-img" />;
   }
   // Chip is opt-in via `control: 'chip'`. Previously any field with
   // `aggregate_fn` rendered as Chip — that surprised consumers because

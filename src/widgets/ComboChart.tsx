@@ -164,6 +164,10 @@ function pickStrokeDash(style?: string): string | undefined {
   }
 }
 
+function axisYId(s: { axis: 'y_left' | 'y_right' }): 'left' | 'right' {
+  return s.axis === 'y_right' ? 'right' : 'left';
+}
+
 // Floor / cap so a single-row chart doesn't render a full-width bar and a
 // dense chart doesn't render a 1px sliver.
 const MIN_SLOT_WIDTH = 24;
@@ -268,14 +272,22 @@ export function ComboChart({
     };
   }, [data, cfg.header_metric, lang, fieldConfig]);
 
+  // Pre-build a key → row map so the tick formatter and the mouse-move
+  // handler don't do a linear scan of `data` on every fire.
+  const rowByKey = useMemo(() => {
+    const m = new Map<string, JSONRecord>();
+    for (const r of data) m.set(String(r[cfg.key_field]), r);
+    return m;
+  }, [data, cfg.key_field]);
+
   const xTickFormatter = useCallback((value: unknown): string => {
-    const row = data.find(r => String(r[cfg.key_field]) === String(value));
+    const row = rowByKey.get(String(value));
     if (!row) return String(value);
     const labelVal = row[cfg.label_field];
     return cfg.label_format
       ? applyLabelFormat(cfg.label_format, labelVal)
       : String(labelVal ?? '');
-  }, [data, cfg.key_field, cfg.label_field, cfg.label_format]);
+  }, [rowByKey, cfg.label_field, cfg.label_format]);
 
   const yLeftTickFormatter = useCallback(
     (v: unknown) => formatTick(v, cfg.axes.y_left),
@@ -321,7 +333,7 @@ export function ComboChart({
 
   const onMouseMove = useCallback((state: { activeLabel?: unknown; chartX?: number; chartY?: number } | null) => {
     if (!state?.activeLabel) return;
-    const row = data.find(r => String(r[cfg.key_field]) === String(state.activeLabel));
+    const row = rowByKey.get(String(state.activeLabel));
     if (!row) return;
     const rect = wrapperRef.current?.getBoundingClientRect();
     setHover({
@@ -329,7 +341,7 @@ export function ComboChart({
       x: (rect?.left ?? 0) + (state.chartX ?? 0),
       y: (rect?.top ?? 0) + (state.chartY ?? 0),
     });
-  }, [data, cfg.key_field]);
+  }, [rowByKey]);
 
   const onMouseLeave = useCallback(() => setHover(null), []);
 
@@ -447,7 +459,7 @@ export function ComboChart({
             {barSeries.map((s, i) => (
               <Bar
                 key={s.value_field}
-                yAxisId={s.axis === 'y_right' ? 'right' : 'left'}
+                yAxisId={axisYId(s)}
                 dataKey={s.value_field}
                 fill={s.color ?? 'var(--brand)'}
                 barSize={barSizes[i]}
@@ -459,7 +471,7 @@ export function ComboChart({
               return (
                 <Line
                   key={s.value_field}
-                  yAxisId={s.axis === 'y_right' ? 'right' : 'left'}
+                  yAxisId={axisYId(s)}
                   dataKey={s.value_field}
                   stroke={stroke}
                   strokeDasharray={pickStrokeDash(s.style)}

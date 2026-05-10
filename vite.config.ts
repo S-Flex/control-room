@@ -77,6 +77,15 @@ export default defineConfig({
   },
   server: {
     port: 5173,
+    // Proxy backend-served assets (job thumbnails, etc.) to the API origin
+    // in dev. Production builds serve them from the same origin as the API,
+    // so no proxy is needed there.
+    proxy: {
+      '/thumbnails': {
+        target: process.env.VITE_HUB_URL ?? 'http://probo-hub.hub.probo.local',
+        changeOrigin: true,
+      },
+    },
   },
   build: {
     outDir: 'dist',

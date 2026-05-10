@@ -124,16 +124,27 @@ export function resolveFieldMap(dataGroup: DataGroup, dataTable: DataTable): Fie
 }
 
 /** Pick the localized text from an i18n object. Accepts both nested
- *  (`{nl: {title: "Plaat"}}`) and flat (`{nl: "Plaat"}`) shapes. Returns
- *  `undefined` when nothing usable is found, so callers can decide on fallbacks. */
-export function localizeI18n(i18n: unknown, lang?: string): string | undefined {
+ *  (`{nl: {title: "Plaat"}}`) and flat (`{nl: "Plaat"}`) shapes.
+ *
+ *  When `key` is provided, only that named field is read from the
+ *  nested entry (e.g. `localizeI18n(i18n, lang, 'subtitle')`). Without
+ *  it, the function falls back to the `text` / `label` / `title`
+ *  heuristic used historically.
+ *
+ *  Returns `undefined` when nothing usable is found, so callers can
+ *  decide on fallbacks. */
+export function localizeI18n(i18n: unknown, lang?: string, key?: string): string | undefined {
   if (!i18n || typeof i18n !== 'object') return undefined;
   const map = i18n as Record<string, unknown>;
   const l = lang ?? getLanguage();
   const pick = (v: unknown): string | undefined => {
-    if (typeof v === 'string') return v || undefined;
+    if (typeof v === 'string') return key ? undefined : (v || undefined);
     if (v && typeof v === 'object') {
       const inner = v as Record<string, unknown>;
+      if (key) {
+        const val = inner[key];
+        return typeof val === 'string' && val ? val : undefined;
+      }
       if (typeof inner.text === 'string' && inner.text) return inner.text;
       if (typeof inner.label === 'string' && inner.label) return inner.label;
       if (typeof inner.title === 'string' && inner.title) return inner.title;

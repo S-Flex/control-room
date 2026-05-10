@@ -1405,8 +1405,8 @@ button.statusbar-label:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  height: 56px;
+  padding: 4px 24px;
+  min-height: 36px;
   flex-shrink: 0;
   border-bottom: 1px solid var(--border);
   background: var(--bg);
@@ -1880,6 +1880,19 @@ button.statusbar-label:hover {
 .section-stack {
   display: flex;
   flex-direction: column;
+}
+
+/* Leaf wrappers placed in a grid cell. As grid items they default to
+   `min-height: auto`, which sizes them to their content — long widgets
+   (e.g. a flow-board with many cards) push the cell taller than the
+   track and overflow past the page footer. Forcing the wrapper to be a
+   flex column with `min-height: 0` lets the inner widget honour the
+   bounded grid track and scroll internally instead. */
+.section-leaf {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
 }
 
 .planning-viewer {
@@ -3683,30 +3696,115 @@ button.statusbar-label:hover {
   min-width: 160px;
 }
 
-.form-field-label {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+/* Page-header form-field is denser: tighter gap + shorter Select so the
+   second-row toolbar doesn't grow taller than the breadcrumb-only case. */
+.page-header .form-field {
+  gap: 2px;
 }
 
-.form-field-select {
-  padding: 6px 10px;
+.page-header .form-field [aria-haspopup="listbox"] {
+  min-height: 24px;
+  padding: 2px 8px;
+}
+
+/* Form-field label: title matches `.field-label` (10px / 500 /
+   --text-muted) — the field name reads identically across cards,
+   flow-board, tables, and form/filter inputs. Subtitle is deliberately
+   lighter and italic so the two read as distinct roles when both
+   present. */
+.form-field-label {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.form-field-label-title {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.form-field-label-subtitle {
+  font-size: 9px;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text-muted);
+  opacity: 0.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* Override xfw-ui (UntitledUI) Select styling so it matches the rest of
+   the app's typography and surface tokens. Targets the React Aria
+   listbox trigger inside our wrapper. The native control uses Tailwind
+   `ring-*` (a box-shadow) for its visible "border" — replace that with
+   `--border` so it lines up with cards / page chrome. */
+.form-field [aria-haspopup="listbox"] {
+  font-size: 13px;
+  color: var(--text-primary);
+  padding: 4px 8px;
+  min-height: 28px;
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+
+.form-field [aria-haspopup="listbox"][data-hovered],
+.form-field [aria-haspopup="listbox"][data-focused] {
+  box-shadow: inset 0 0 0 1px var(--brand);
+}
+
+/* Select popover. React Aria portals it outside `.form-field` so the
+   selectors are global, scoped by `data-trigger="Select"` (xfw-ui sets
+   that attribute on the popover root). Match the app's surface +
+   border tokens, compact the option rows, and use the same dark
+   scrollbar as the rest of the app. */
+[data-trigger="Select"] {
+  background: var(--bg-card);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
-  background: var(--bg-card);
-  color: var(--text);
-  font-family: inherit;
-  font-size: 13px;
-  cursor: pointer;
-  outline: none;
-  transition: border-color 0.15s;
+  scrollbar-width: thin;
+  scrollbar-color: var(--text-muted) transparent;
 }
 
-.form-field-select:hover,
-.form-field-select:focus {
-  border-color: var(--brand);
+[data-trigger="Select"]::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+[data-trigger="Select"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+[data-trigger="Select"]::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 3px;
+}
+
+[data-trigger="Select"] [role="option"] > div {
+  padding: 4px 8px;
+}
+
+[data-trigger="Select"] [role="option"] [slot="label"] {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text);
+}
+
+/* Selected option highlight. */
+[data-trigger="Select"] [role="option"][aria-selected="true"] > div {
+  background: var(--bar-bg);
+}
+[data-trigger="Select"] [role="option"][aria-selected="true"] [slot="label"] {
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* Hover / keyboard focus highlight. */
+[data-trigger="Select"] [role="option"][data-hovered] > div,
+[data-trigger="Select"] [role="option"][data-focused] > div {
+  background: var(--bar-bg);
 }
 
 /* ---- Combo Chart Widget ---- */
@@ -4783,6 +4881,11 @@ button.statusbar-label:hover {
   display: flex;
   flex-direction: column;
   min-width: 0;
+  /* As a grid item the column would otherwise default to `min-height:
+     auto` and stretch to the height of its tallest content. With this
+     it stays bounded by its track, so the body's `overflow-y: auto`
+     can actually scroll a long card list inside that column. */
+  min-height: 0;
   overflow: hidden;
 }
 

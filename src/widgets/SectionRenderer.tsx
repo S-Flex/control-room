@@ -30,6 +30,8 @@ function buildGridStyle(grid: string | GridConfig): React.CSSProperties {
   if (grid.gap) style.gap = grid.gap;
   if (grid.row_gap) style.rowGap = grid.row_gap;
   if (grid.column_gap) style.columnGap = grid.column_gap;
+  if (grid.align_items) style.alignItems = grid.align_items;
+  if (grid.justify_items) style.justifyItems = grid.justify_items;
   return style;
 }
 
@@ -89,7 +91,17 @@ function NavItems({ items }: { items: NavItem[] }) {
 // Re-import NavItem from types to avoid circular — it's already in scope via Section
 type NavItem = NonNullable<Section['nav']>[number];
 
-export function SectionRenderer({ section, content }: { section: Section; content: ContentEntry[] }) {
+export type SectionSlots = Record<string, React.ReactNode>;
+
+export function SectionRenderer({ section, content, slots }: {
+  section: Section;
+  content: ContentEntry[];
+  /** Inject a React node into a leaf section by `area` name — used for
+   *  layouts where the area is declared in pages.json but its content is
+   *  page-level chrome (e.g. the breadcrumb in a page header), pending a
+   *  data_group implementation. */
+  slots?: SectionSlots;
+}) {
   const style: React.CSSProperties = {};
   if (section.area) style.gridArea = section.area;
 
@@ -102,17 +114,23 @@ export function SectionRenderer({ section, content }: { section: Section; conten
     return (
       <div className={`${baseClass} ${section.class_name ?? ''}`} style={wrapStyle}>
         {section.sections.map((child, i) => (
-          <SectionRenderer key={i} section={child} content={content} />
+          <SectionRenderer key={i} section={child} content={content} slots={slots} />
         ))}
       </div>
     );
   }
 
-  // Leaf: code + data_group + pager + nav (any combination)
+  // Leaf: code + data_group + pager + nav (any combination). Use the
+  // `section-leaf` class so the wrapper is a flex column that bounds its
+  // children — without it, grid items default to `min-height: auto` and
+  // the leaf grows to its content height, pushing tall widgets (e.g. a
+  // long flow-board) past the page footer.
+  const slotContent = section.area ? slots?.[section.area] : undefined;
   return (
-    <div className={section.class_name ?? ''} style={style}>
+    <div className={`section-leaf ${section.class_name ?? ''}`} style={style}>
       {section.code && <ContentBlock code={section.code} content={content} />}
       {section.data_group && <DataGroupWidget code={section.data_group} />}
+      {slotContent}
       {section.pager && (
         <Pager dataGroupCode={section.pager.data_group} pageParam={section.pager.page_param} />
       )}

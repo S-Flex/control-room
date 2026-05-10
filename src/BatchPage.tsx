@@ -19,7 +19,7 @@ export function BatchPage() {
     <div className="planning-page">
       <div className="planning-main">
         <AppHeader />
-        <PageHeader />
+        <PageHeader headerConfig={pageConfig?.header} content={pageContent} />
         <div className="planning-content">
           {pageConfig?.main && (
             <SectionRenderer

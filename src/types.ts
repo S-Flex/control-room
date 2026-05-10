@@ -59,6 +59,12 @@ export type GridConfig = {
   gap?: string;
   row_gap?: string;
   column_gap?: string;
+  /** Cross-axis alignment for grid items within their tracks
+   *  (CSS `align-items`: e.g. `start`, `center`, `end`, `stretch`). */
+  align_items?: string;
+  /** Inline-axis alignment for grid items within their tracks
+   *  (CSS `justify-items`). */
+  justify_items?: string;
 };
 
 export type NavItem = {
@@ -94,6 +100,45 @@ export type PageArea = {
 export type PageConfig = {
   code: string;
   class_name?: string;
+  header?: PageArea;
   main?: PageArea;
   footer?: PageArea;
 };
+
+/** App-header nav config (data/app-nav.json). Drives the three trigger
+ *  groups in the top bar. Trigger labels live in `block.i18n` so they
+ *  swap with the active language. `align` places the item in the
+ *  left/right cluster of the header. */
+type I18nMap = Record<string, { title?: string }>;
+
+type AppNavBase = {
+  code: string;
+  align?: 'left' | 'right';
+  block: { title: string; i18n?: I18nMap };
+};
+
+/** A list of pages — labels resolved from `content_src` (a JSON file
+ *  in `data/`) by `code`. Path is the route to navigate to. */
+export type AppNavPageList = AppNavBase & {
+  type: 'page-list';
+  content_src: string;
+  pages: { path: string; code: string }[];
+};
+
+/** A cascading <Menu> bound to a remote item list (`src` in `data/`).
+ *  `visible_on` restricts the trigger to certain routes. */
+export type AppNavMenu = AppNavBase & {
+  type: 'menu';
+  src: string;
+  visible_on?: string[];
+  menu_config: MenuConfig;
+};
+
+/** The Account dropdown — language picker + theme toggle. The list
+ *  contents are owned by AppHeader; this entry just supplies the
+ *  trigger label and placement. */
+export type AppNavAccount = AppNavBase & {
+  type: 'account';
+};
+
+export type AppNavItem = AppNavPageList | AppNavMenu | AppNavAccount;

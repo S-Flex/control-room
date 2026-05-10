@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { fetchDataRow } from '@s-flex/xfw-data';
 import type { DataGroup } from '@s-flex/xfw-ui';
-import { VIEW_PAGES } from '../lib/pages';
+import { useAppNav } from './useAppNav';
 import { usePages } from './usePages';
 import type { PageArea, Section } from '../types';
 
@@ -36,12 +36,13 @@ async function fetchDataGroupParams(src: string): Promise<DataGroup[]> {
   return res.data[0]?.data_group_json ?? [];
 }
 
-/** For each entry in VIEW_PAGES, returns the union of param keys declared
- *  by every data_group the page references in pages.json (walking
- *  `main.sections` + `footer.sections` recursively, including pager
- *  data_groups). Views with no pages.json entry — or whose data_groups
- *  haven't loaded yet — get `undefined`, which the caller treats as
- *  "keep all params" so we never drop something we don't yet understand.
+/** For each path in the app-nav `page-list` entries, returns the union
+ *  of param keys declared by every data_group the page references in
+ *  pages.json (walking `main.sections` + `footer.sections` recursively,
+ *  including pager data_groups). Views with no pages.json entry — or
+ *  whose data_groups haven't loaded yet — get `undefined`, which the
+ *  caller treats as "keep all params" so we never drop something we
+ *  don't yet understand.
  *
  *  Auto-derived: when a data_group adds/removes a param on the API side,
  *  this hook picks it up on the next refresh — no app code to update.
@@ -50,19 +51,29 @@ async function fetchDataGroupParams(src: string): Promise<DataGroup[]> {
  *  so they ride along here. */
 export function useViewParams(): ViewParamsMap {
   const { pages } = usePages();
+  const navItems = useAppNav();
+
+  const viewPaths = useMemo(() => {
+    const paths: string[] = [];
+    for (const item of navItems) {
+      if (item.type !== 'page-list') continue;
+      for (const p of item.pages) paths.push(p.path);
+    }
+    return paths;
+  }, [navItems]);
 
   const codesByPath = useMemo(() => {
     const out = new Map<string, string[] | null>();
-    for (const v of VIEW_PAGES) {
-      const config = pages.find(p => p.code === pathToCode(v.path));
-      if (!config) { out.set(v.path, null); continue; }
+    for (const path of viewPaths) {
+      const config = pages.find(p => p.code === pathToCode(path));
+      if (!config) { out.set(path, null); continue; }
       const set = new Set<string>();
       collectDataGroupCodes(config.main, set);
       collectDataGroupCodes(config.footer, set);
-      out.set(v.path, [...set]);
+      out.set(path, [...set]);
     }
     return out;
-  }, [pages]);
+  }, [pages, viewPaths]);
 
   const allCodes = useMemo(() => {
     const set = new Set<string>();

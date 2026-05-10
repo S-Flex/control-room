@@ -516,5 +516,47 @@
         }
       }
     }
+  },
+  {
+    "code": "control-room",
+    "block": {
+      "title": "Control Room",
+      "i18n": {
+        "en": { "title": "Control Room" },
+        "nl": { "title": "Control Room" },
+        "de": { "title": "Leitstand" },
+        "fr": { "title": "Salle de contrôle" },
+        "es": { "title": "Sala de control" },
+        "uk": { "title": "Диспетчерська" }
+      }
+    }
+  },
+  {
+    "code": "production-lines",
+    "block": {
+      "title": "Production Lines",
+      "i18n": {
+        "en": { "title": "Production Lines" },
+        "nl": { "title": "Productielijnen" },
+        "de": { "title": "Produktionslinien" },
+        "fr": { "title": "Lignes de production" },
+        "es": { "title": "Líneas de producción" },
+        "uk": { "title": "Виробничі лінії" }
+      }
+    }
+  },
+  {
+    "code": "project",
+    "block": {
+      "title": "Project",
+      "i18n": {
+        "en": { "title": "Project" },
+        "nl": { "title": "Project" },
+        "de": { "title": "Projekt" },
+        "fr": { "title": "Projet" },
+        "es": { "title": "Proyecto" },
+        "uk": { "title": "Проєкт" }
+      }
+    }
   }
 ]
