@@ -6,7 +6,16 @@ import { useAppNav } from './hooks/useAppNav';
 import { usePages } from './hooks/usePages';
 import { SectionRenderer } from './widgets/SectionRenderer';
 import type { ContentEntry } from './hooks/usePages';
-import type { PageArea } from './types';
+import type { AppNavMenu, AppNavPageList, PageArea } from './types';
+
+/** `getBlock` falls back to the requested code when no translation is
+ *  found — turn that sentinel into `null` so callers can branch on
+ *  presence without a string-equality check. */
+function resolveContentTitle(content: ContentEntry[], code: string | undefined): string | null {
+  if (!code) return null;
+  const title = getBlock(content, code, 'title');
+  return title && title !== code ? title : null;
+}
 
 type PageHeaderProps = {
   children?: React.ReactNode;
@@ -27,19 +36,17 @@ function Breadcrumbs() {
   const params = useQueryParams([{ key: 'model', is_query_param: true, is_optional: true }]);
   const modelCode = params.find(p => p.key === 'model')?.val as string | undefined;
 
-  // Find the current path's content code via the View page-list, then
-  // resolve its localized title from `pages-content.json`.
-  const viewItem = navItems.find(i => i.type === 'page-list');
-  const pageEntry = viewItem?.type === 'page-list'
-    ? viewItem.pages.find(p => p.path === location.pathname)
-    : undefined;
-  const pageLabel = pageEntry ? getBlock(content, pageEntry.code, 'title') : null;
-  if (!pageLabel || pageLabel === pageEntry?.code) return null;
+  const viewItem = navItems.find((i): i is AppNavPageList => i.type === 'page-list');
+  const pageEntry = viewItem?.pages.find(p => p.path === location.pathname);
+  const pageLabel = resolveContentTitle(content, pageEntry?.code);
+  if (!pageLabel) return null;
 
   // Production-line crumb is shown on routes where the production-line
   // menu is visible. Same `visible_on` list drives both.
-  const lineMenu = navItems.find(i => i.type === 'menu' && i.code === 'production-line');
-  const showModel = lineMenu?.type === 'menu'
+  const lineMenu = navItems.find(
+    (i): i is AppNavMenu => i.type === 'menu' && i.code === 'production-line',
+  );
+  const showModel = lineMenu
     && (lineMenu.visible_on?.includes(location.pathname) ?? true)
     && modelCode
     && allLines.length > 0;
