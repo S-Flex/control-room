@@ -77,6 +77,25 @@ Import locally, e.g. `import { Toggle } from './controls/Toggle'`. Keep these co
 - All components must be generic and reusable — semantics in data, not in code.
 - Business logic belongs in JSON / `field_config` / `DataGroup`, not in component code.
 
+### Selection state is one shared visual
+
+**Selected / checked / active state must look the same across every list-style control** — dropdown-list (Select), DropdownMenu items, cascading Menu, language picker, sidebar items, etc. The user reads "this is the picked one" once, and that signal must mean the same thing everywhere.
+
+**The visual is a tinted div with a brand border** — never a checkmark glyph. Specifically:
+- background `var(--brand-pale)`
+- `box-shadow: inset 0 0 0 1px var(--brand)` for the border (use box-shadow, not `border`, so row height stays stable regardless of selection)
+- `font-weight: 500` on the label
+- `color: var(--text-primary)` so it stays readable on light + dark themes
+
+This visual lives on `.dropdown-menu-item.active` in `app.css` and is mirrored onto `[role="option"][aria-selected="true"]` for the React Aria Select, with the trailing check-icon hidden via `display: none`.
+
+Rules:
+- One CSS class / pattern drives the look. Every list-style control that has a "this row is picked" state reuses it. Do not invent a new highlight per component.
+- If the xfw-ui / React Aria component ships its own selection glyph (a checkmark, dot, etc.), **hide it** and rely on the shared border+tint. Two signals competing is worse than one consistent one.
+- Same one-style-fits-all applies to hover, focus, and disabled — one shared treatment, not per-component variations.
+- Before adding a new selection style, check whether `.dropdown-menu-item.active` already covers it. If the existing style is wrong for the new context, change the shared style — don't fork it.
+- This is part of the "generic over local" rule: when you find yourself styling selection state inside a specific component's CSS scope, stop and lift the style to the shared class instead.
+
 ---
 
 ## Where data comes from

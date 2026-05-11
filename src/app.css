@@ -2061,9 +2061,16 @@ button.statusbar-label:hover {
   background: var(--bar-bg);
 }
 
+/* Shared selection visual: a tinted div with a brand border. Used by
+   every list-style picker — dropdown-list (Select), DropdownMenu items,
+   cascading Menu, language picker — so the user always reads "this is
+   the picked one" the same way. Border via inset box-shadow keeps row
+   height stable regardless of selection. */
 .dropdown-menu-item.active {
-  background: var(--brand);
-  color: #fff;
+  background: var(--brand-pale);
+  box-shadow: inset 0 0 0 1px var(--brand);
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .dropdown-menu-check {
@@ -2072,9 +2079,13 @@ button.statusbar-label:hover {
   gap: 8px;
 }
 
+/* The Nester row is a checkbox — its own checkbox glyph signals state,
+   so don't double-up with the shared selection ring. */
 .dropdown-menu-check.active {
   background: transparent;
+  box-shadow: none;
   color: var(--text);
+  font-weight: 400;
 }
 
 .dropdown-menu-check.active:hover {
@@ -2223,10 +2234,6 @@ button.statusbar-label:hover {
   color: var(--text-muted);
 }
 
-.dropdown-menu-item.active .schedule-cutoff {
-  color: rgba(255, 255, 255, 0.6);
-}
-
 .schedule-rush-badge {
   flex-shrink: 0;
   font-size: 11px;
@@ -2238,11 +2245,6 @@ button.statusbar-label:hover {
   color: #fff;
   line-height: 1.4;
   text-align: center;
-}
-
-.dropdown-menu-item.active .schedule-rush-badge {
-  background: rgba(255, 255, 255, 0.25);
-  color: #fff;
 }
 
 /* ---- Inflow Layout ---- */
@@ -3792,13 +3794,22 @@ button.statusbar-label:hover {
   color: var(--text);
 }
 
-/* Selected option highlight. */
+/* Selected option highlight — matches `.dropdown-menu-item.active` so
+   the picked-one signal is identical across every list-style control. */
 [data-trigger="Select"] [role="option"][aria-selected="true"] > div {
-  background: var(--bar-bg);
+  background: var(--brand-pale);
+  box-shadow: inset 0 0 0 1px var(--brand);
 }
 [data-trigger="Select"] [role="option"][aria-selected="true"] [slot="label"] {
-  color: var(--text);
+  color: var(--text-primary);
   font-weight: 500;
+}
+
+/* The xfw-ui Select renders a trailing check glyph next to the
+   selected option. The shared border+tint already signals selection,
+   so hide the glyph to keep the visual identical to DropdownMenu/Menu. */
+[data-trigger="Select"] [role="option"][aria-selected="true"] > div > svg:last-child {
+  display: none;
 }
 
 /* Hover / keyboard focus highlight. */
