@@ -13,6 +13,12 @@
       ]
     }
   },
+    {
+    "code": "nest-detail",
+    "main": {
+      "sections": [{ "data_group": "nest_detail" }]
+    }
+  },
   {
     "code": "production-board-detail",
     "main": {
@@ -128,9 +134,9 @@
     }
   },
   {
-    "code": "queued-jobs",
+    "code": "intermediate-stock",
     "main": {
-      "sections": [{ "data_group": "resource_queue" }]
+      "sections": [{ "data_group": "intermediate_stock" }]
     }
   },
   {

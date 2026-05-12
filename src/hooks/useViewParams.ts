@@ -93,6 +93,12 @@ export function useViewParams(): ViewParamsMap {
     })),
   });
 
+  // Stable signature — spreading `queries` into the deps array changes
+  // its length as codes load, which trips React's "deps array must stay
+  // constant size" guard. `dataUpdatedAt` flips only when TanStack
+  // commits new data, so this signature changes if and only if any
+  // query's data changed.
+  const paramsSignature = queries.map(q => q.dataUpdatedAt ?? 0).join('|');
   const paramsByCode = useMemo(() => {
     const out = new Map<string, Set<string> | undefined>();
     for (let i = 0; i < allCodes.length; i++) {
@@ -104,7 +110,7 @@ export function useViewParams(): ViewParamsMap {
     }
     return out;
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allCodes, ...queries.map(q => q.data)]);
+  }, [allCodes, paramsSignature]);
 
   return useMemo(() => {
     const out: ViewParamsMap = new Map();

@@ -26,6 +26,32 @@
     }
   },
   {
+    "code": "nest-detail",
+    "block": {
+      "title": "Nest detail",
+      "i18n": {
+        "de": {
+          "title": "Nest detail"
+        },
+        "en": {
+          "title": "Nest detail"
+        },
+        "es": {
+          "title": "Detalle del nido"
+        },
+        "fr": {
+          "title": "Détail du nid"
+        },
+        "nl": {
+          "title": "Nest detail"
+        },
+        "uk": {
+          "title": "Деталі гнізда"
+        }
+      }
+    }
+  },
+  {
     "code": "production-board-detail",
     "block": {
       "title": "Production board detail",
@@ -311,24 +337,24 @@
     }
   },
   {
-    "code": "queued-jobs",
+    "code": "intermediate-stock",
     "block": {
-      "title": "Overview",
+      "title": "Intermediate stock",
       "i18n": {
         "en": {
-          "title": "Overview"
+          "title": "Intermediate stock"
         },
         "nl": {
-          "title": "Overzicht"
+          "title": "Tussenvoorraad"
         },
         "de": {
-          "title": "Übersicht"
+          "title": "Zwischenlager"
         },
         "uk": {
-          "title": "Огляд"
+          "title": "Проміжний запас"
         },
         "es": {
-          "title": "Resumen"
+          "title": "Stock intermedio"
         }
       }
     }

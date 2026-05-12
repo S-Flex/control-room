@@ -273,25 +273,25 @@
     }
   },
   {
-    "code": "resource.queued-jobs",
-    "path": "(sidebar:queued-jobs)",
+    "code": "resource.intermediate-stock",
+    "path": "(sidebar:intermediate-stock)",
     "block": {
-      "title": "Queued jobs",
+      "title": "Intermediate stock",
       "i18n": {
         "en": {
-          "title": "Queued jobs"
+          "title": "Intermediate stock"
         },
         "nl": {
-          "title": "Wachtrij"
+          "title": "Tussenvoorraad"
         },
         "de": {
-          "title": "Warteschlange"
+          "title": "Zwischenlager"
         },
         "uk": {
-          "title": "Черга"
+          "title": "Проміжний запас"
         },
         "es": {
-          "title": "Trabajos en cola"
+          "title": "Stock intermedio"
         }
       }
     },
