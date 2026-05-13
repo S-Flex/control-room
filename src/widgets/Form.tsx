@@ -33,18 +33,21 @@ export function Form({ dataGroup }: { dataGroup: DataGroup }) {
 /** Resolve which URL query-param a form field writes to:
  *  - explicit `ui.query_param_field` wins;
  *  - otherwise, if the data_group's `params` list declares a param
- *    matching `input_data.value_field`, that name is used;
+ *    matching `input_data.value_field` (dropdown-list) or the field-
+ *    config key itself (date / text / number / …), that name is used;
  *  - otherwise the field has no URL binding (`null`). */
 function resolveQueryKey(
+  fieldKey: string,
   ui: Record<string, unknown>,
   dataGroupParams: ParamDefinition[],
 ): string | null {
   const explicit = ui.query_param_field;
   if (typeof explicit === 'string' && explicit) return explicit;
   const valueField = (ui.input_data as { value_field?: string } | undefined)?.value_field;
-  const candidate = (typeof valueField === 'string' && valueField) || null;
-  if (candidate && dataGroupParams.some(p => p.key === candidate)) {
-    return candidate;
+  for (const candidate of [valueField, fieldKey]) {
+    if (typeof candidate === 'string' && candidate && dataGroupParams.some(p => p.key === candidate)) {
+      return candidate;
+    }
   }
   return null;
 }
@@ -58,7 +61,7 @@ function FormFieldEntry({
   ui: Record<string, unknown>;
   dataGroupParams: ParamDefinition[];
 }) {
-  const queryKey = resolveQueryKey(ui, dataGroupParams);
+  const queryKey = resolveQueryKey(fieldKey, ui, dataGroupParams);
   const queryParams = useQueryParams(
     queryKey ? [{ key: queryKey, is_query_param: true, is_optional: true }] : [],
   );

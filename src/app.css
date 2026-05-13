@@ -598,13 +598,15 @@ label[data-rac] > div:has(> svg) svg {
 }
 
 /* ===== STATUS BAR ===== */
+/* Groups wrap to a second row when they don't fit horizontally — the
+   `.planning-bottom` wrapper's horizontal scrollbar is reserved for the
+   case where even a single group's irreducible content can't fit. */
 .statusbar {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 6px;
   align-self: flex-start;
-  max-width: 100%;
   font-size: 12px;
 }
 .statusbar > .statusbar-group {
@@ -2874,6 +2876,18 @@ button.statusbar-label:hover {
   scrollbar-color: var(--text-muted) transparent;
 }
 
+/* Try to fit the footer content first — children may shrink below their
+   ideal width down to their irreducible `min-content` (e.g. the widest
+   unbreakable badge / label). Only when even that minimum exceeds the
+   available width does `.planning-bottom`'s `overflow-x: auto` produce
+   a horizontal scrollbar. This counters the `min-width: 0` baseline on
+   SectionRenderer wrappers, which would otherwise let widgets shrink
+   past min-content and clip or wrap. */
+.planning-bottom > .section-grid,
+.planning-bottom > .section-stack {
+  min-width: min-content;
+}
+
 .planning-bottom::-webkit-scrollbar {
   height: 6px;
   width: 6px;
@@ -3705,6 +3719,30 @@ button.statusbar-label:hover {
 }
 
 .page-header .form-field [aria-haspopup="listbox"] {
+  min-height: 24px;
+  padding: 2px 8px;
+}
+
+/* Native date / datetime-local input — matches the Select trigger so
+   form/filter rows read as one set of controls. */
+.form-field-input {
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--text-primary);
+  background: var(--bg);
+  padding: 4px 8px;
+  min-height: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  outline: none;
+}
+
+.form-field-input:hover,
+.form-field-input:focus {
+  border-color: var(--brand);
+}
+
+.page-header .form-field .form-field-input {
   min-height: 24px;
   padding: 2px 8px;
 }

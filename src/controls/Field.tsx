@@ -302,6 +302,38 @@ export function Field({ field, value, showLabel, row, progress_value, mode = 're
     );
   }
 
+  // `control: 'date' | 'datetime'` in edit mode — render a native date
+  // input. Read mode falls through to `formatValue` at the bottom for
+  // the locale-formatted display string. URL values are ISO strings;
+  // the input wants `YYYY-MM-DD` (date) or `YYYY-MM-DDTHH:mm`
+  // (datetime-local), so slice the ISO accordingly and emit the same
+  // shape back on change.
+  if (mode === 'edit' && (control === 'date' || control === 'datetime')) {
+    const isDateTime = control === 'datetime';
+    const inputType = isDateTime ? 'datetime-local' : 'date';
+    const sliceLen = isDateTime ? 16 : 10;
+    const raw = value == null ? '' : String(value);
+    const inputValue = raw.length >= sliceLen ? raw.slice(0, sliceLen) : raw;
+    const subtitle = localizeI18n(field.i18n, undefined, 'subtitle');
+    return (
+      <div className="form-field">
+        {shouldShowLabel && (label || subtitle) && (
+          <div className="form-field-label">
+            {label && <span className="form-field-label-title">{label}</span>}
+            {subtitle && <span className="form-field-label-subtitle">{subtitle}</span>}
+          </div>
+        )}
+        <input
+          type={inputType}
+          className="form-field-input"
+          value={inputValue}
+          onChange={(e) => onChange?.(e.target.value || null)}
+          aria-label={label}
+        />
+      </div>
+    );
+  }
+
   // `control: 'dropdown-list'` — single-select bound to a remote option
   // list. Field is just the dispatcher; the DropdownList control owns
   // both modes (readonly text / editable Select). Both `value_field`

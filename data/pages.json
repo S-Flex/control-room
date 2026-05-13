@@ -152,7 +152,7 @@
     },
     "footer": {
       "grid": {
-        "columns": "1fr 1fr",
+        "columns": "auto 1fr",
         "areas": ["sitrep status-bar"]
       },
       "sections": [
@@ -174,7 +174,7 @@
     },
     "footer": {
       "grid": {
-        "columns": "1fr 1fr",
+        "columns": "auto 1fr",
         "areas": ["sitrep status-bar"]
       },
       "sections": [
@@ -194,7 +194,7 @@
     },
     "footer": {
       "grid": {
-        "columns": "1fr 1fr",
+        "columns": "auto 1fr",
         "areas": ["sitrep status-bar"]
       },
       "sections": [
@@ -214,7 +214,7 @@
     },
     "footer": {
       "grid": {
-        "columns": "1fr 1fr",
+        "columns": "auto 1fr",
         "areas": ["sitrep status-bar"]
       },
       "sections": [
