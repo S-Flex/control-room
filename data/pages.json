@@ -3,9 +3,8 @@
     "code": "rework-trend",
     "main": {
       "grid": {
-        "rows": "auto auto",
-        "gap": "1rem",
-        "areas": ["filter", "flow-board"]
+        "rows": "auto 1fr",
+        "gap": "1rem"
       },
       "sections": [
         { "data_group": "internal_rework_trend" },

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect, useMemo, useRef, type ReactNode } from 'react';
 import { useNavItemAction, type DataGroup, type NavItem } from '@s-flex/xfw-ui';
 import type { DataTable, JSONRecord, JSONValue } from '@s-flex/xfw-data';
-import { useNavigate, useQueryParams } from '@s-flex/xfw-url';
+import { useNavigate, useQueryParams, parseFullPath } from '@s-flex/xfw-url';
 import type { FlowBoardLevelConfig, FlowGroupData, FlowNavData, FlowContextValue } from './types';
 import {
   resolveFieldMap,
@@ -87,6 +87,18 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
   const navigate = useNavigate();
   const rootWidgetId = (dataGroup as { widget_id?: string }).widget_id;
 
+  // Query params declared at the data_group root (externally-controlled
+  // state — parent filters, etc.). Selection may write these on enter but
+  // must NEVER null them on deselect, or the data_group loses its scoping.
+  const rootQueryParamKeys = useMemo(
+    () => new Set((dataGroup.params ?? []).filter(p => p.is_query_param).map(p => p.key)),
+    [dataGroup.params],
+  );
+  const clearablePrimaryKeys = useMemo(
+    () => primaryKeys.filter(k => !rootQueryParamKeys.has(k)),
+    [primaryKeys, rootQueryParamKeys],
+  );
+
   // Resolve a widget_id for every level (root + children). Order matters
   //  because `useQueryParams` depends on the resulting list of keys.
   const { widgetIdMap, widgetIds } = useMemo(() => {
@@ -141,9 +153,9 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     if (!exists) {
       setSelectedKey(null);
       setSelectedGroupKey(null);
-      navigate({ queryParams: primaryKeys.map(k => ({ key: k, val: null })) });
+      navigate({ queryParams: clearablePrimaryKeys.map(k => ({ key: k, val: null })) });
     }
-  }, [rows, selectedKey, primaryKeys, navigate]);
+  }, [rows, selectedKey, primaryKeys, clearablePrimaryKeys, navigate]);
 
   const toggleChecked = useCallback((row: Record<string, unknown>) => {
     setRows(prev => prev.map(r => r === row ? { ...r, checked: !r.checked } : r));
@@ -193,11 +205,36 @@ export function FlowBoard({ dataGroup, dataTable, data }: {
     // = true → newKey null) skips the nav, as before.
     if (onSelect && !sameGroup) {
       navAction(row as JSONRecord, onSelect as NavItem, true);
+    } else if (newKey) {
+      navigate({ queryParams: primaryKeys.map(k => ({ key: k, val: row[k] as JSONValue })) });
     } else {
-      const keyValues = primaryKeys.map(k => ({ key: k, val: (newKey ? row[k] : null) as JSONValue }));
-      navigate({ queryParams: keyValues });
+      // Deselect: null clearable primary_keys. If selection was entered via
+      // on_select, also undo that — close any aux outlets it opened and null
+      // the on_select query_params (excluding ones declared at the root).
+      const queryParams: { key: string; val: JSONValue }[] = clearablePrimaryKeys
+        .map(k => ({ key: k, val: null as JSONValue }));
+      let outlets: { key: string; val: string }[] | undefined;
+      if (onSelect) {
+        const onSelectPath = (onSelect as { path?: string }).path;
+        if (onSelectPath) {
+          const parsed = parseFullPath(onSelectPath);
+          if (parsed.outlets.length > 0) {
+            outlets = parsed.outlets.map(o => ({ key: o.key, val: '' }));
+          }
+        }
+        const onSelectParams =
+          (onSelect as { params?: { key: string; is_query_param?: boolean }[] }).params ?? [];
+        const seen = new Set(queryParams.map(q => q.key));
+        for (const p of onSelectParams) {
+          if (p.is_query_param && !rootQueryParamKeys.has(p.key) && !seen.has(p.key)) {
+            queryParams.push({ key: p.key, val: null });
+            seen.add(p.key);
+          }
+        }
+      }
+      navigate({ outlets, queryParams });
     }
-  }, [primaryKeys, selectedKey, selectedGroupKey, navAction, navigate]);
+  }, [primaryKeys, clearablePrimaryKeys, rootQueryParamKeys, selectedKey, selectedGroupKey, navAction, navigate]);
 
   const ctx: FlowContextValue = useMemo(() => ({
     primaryKeys,
